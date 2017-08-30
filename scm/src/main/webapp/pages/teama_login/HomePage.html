@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!---hii-->
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+	
+	<link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<title>Supply Chain Finance</title>
+	<script src="../../js/commonResources.js"></script>
+	<style>
+		body{
+			background-color:#333;
+			color:white;
+			padding-bottom: 5%;
+		}
+		body:before{
+			content:"HEY";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			color: white;
+			opacity:1;
+			
+		}
+		input:focus{
+			outline-color:transparent;
+		}
+
+		#MainContainer1 {
+			overflow:auto;
+			opacity:0.95;
+			background-color:white;
+			box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+		}
+
+		#TopBlueBar {
+			height:10px;
+			background-color:#337ab7;
+		}
+
+		#MainHeading {
+			color:#555;
+			text-align:center;
+		}
+
+		#HorizontalDash {
+			opacity: 0.5;
+			height:0px;
+			border:1px dashed #555;
+		}
+
+		#bizAnch {
+			color:#337ab7;
+			font-size:150%;
+			text-decoration:none;
+			text-align:center;
+		}
+
+		#bizfintrue {
+			vertical-align:center;
+			text-align:center;
+			padding-top:2%;
+			padding-bottom: 0px;
+		}
+
+		#finAnch {
+			color:#337ab7;
+			font-size:150%;
+			text-decoration:none;
+		}
+
+		#finbiztrue {
+			vertical-align:center;
+			text-align:center;
+			padding-top:2%;
+			padding-bottom: 0px;
+		}
+		
+		#bizfintrue:hover{
+			color:white;
+			background-color:#555;
+			border-radius:10px;
+			box-shadow: 
+		}
+
+		#bizbiztrue{
+			vertical-align:center;
+			text-align:center;
+			padding-top:2%;
+			padding-bottom: 0px;
+			color:white;
+			background-color:#555;
+			border-radius:10px;
+			box-shadow: 
+		}
+
+		#finfintrue{
+			vertical-align:center;
+			text-align:center;
+			padding-top:2%;
+			padding-bottom: 0px;
+			color:white;
+			background-color:#555;
+			border-radius:10px;		
+		}
+
+		#loginFormDiv {
+			
+			background-color: white; opacity:0.95;
+		}
+
+		#UserNameUnit {
+			background-color:white;
+			color:#0e0e0e; 
+			border:0px;
+			border-radius:20px;
+			overflow:auto;
+			box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);	
+			background-color: white;
+		}
+
+		#UserNameUnitLabel {
+			padding:2px;
+			padding-left:10px;
+			padding-right:20px;
+			float:left;
+			border-right:1px solid #cccccc;			
+			background-color: white; 
+		}
+
+		#UserNameUnitInput {
+			border:0px;
+			float:left;
+			width: 50%;
+			margin-left:1%;
+			background-color: white; 
+		}		
+
+		#PasswordUnit {
+			background-color:white;
+			color:#0e0e0e; border:0px;
+			border-radius:20px;
+			overflow:auto;
+			box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+			background-color: white; opacity:0.95;
+		}
+
+		#PasswordUnitLabel {
+			padding:2px;
+			padding-left:10px;
+			padding-right:10px;
+			float:left;border-right:1px solid #cccccc;
+			background-color: white; opacity:0.95;
+		}
+
+		#PasswordUnitInput {
+			border:0px;
+			float:left;
+			width: 50%;
+			margin-left: 1%;	
+			background-color: white; opacity:0.95;
+		}
+
+		#LoginSubmitDiv {
+			position:relative;
+			height:30px;
+			
+		}
+
+		#submitLogin {
+
+			width:60%;
+			border-radius:20px;
+			display: block;
+			margin:auto; padding:5px;
+			padding-left:20px;
+			padding-right:20px;
+			background-color:#337ab7;
+			box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.2);
+			color:rgba(255,255,255,0.9);
+			border:0px;
+			font-size:125%;
+		}
+
+		#SignupPart {
+			padding: 10px;
+			margin-left:20%;
+			margin-right:20%;
+		}
+
+		#SignupSubmitHomescreen {
+			position:relative;
+			height:30px;
+		}
+
+		#submitSignup {
+			border-radius:20px;
+			display: block;
+			margin:auto;
+			padding:5px;
+			padding-left:20px;
+			padding-right:20px;
+			background-color:#337ab7;
+			box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.2);
+			color:rgba(255,255,255,0.9);
+			border:0px;
+			font-size:125%;
+			width:60%;
+		}
+
+		#LastBlueRow {
+			background-color: #337ab7;
+			height:10px; 
+			margin:0px;	
+		}
+	</style>
+	
+	
+</head>
+<body ng-app='SignupSwitch' ng-controller="mySignupSwitch" class = "container" style="margin-top: 5%;">
+		
+		<!-- ============================Body Start ================================ -->
+		<div class = "row">	
+			
+			<!-- ============================Main White Window ================================ -->
+			<div class = "col-sm-offset-2 col-sm-8" id = "MainContainer1">
+
+			
+				<div class = "row">	
+					<div class="col-sm-offset-1 col-sm-10" id = "TopBlueBar"></div>
+				</div>
+				
+				<!-- ============================Heading ================================ -->
+				<div class = "row">
+					<div class= "col-sm-offset-2 col-sm-8" id = "MainHeading">
+						<h1 style = "font-size:500%">Supply Chain<br>Finance</h1>
+					</div>
+				</div>
+				
+				<div class = "row">
+					<div class = "col-sm-offset-1 col-sm-10" id = "HorizontalDash"></div>
+				</div>
+
+				<br><br>
+				
+				<!-- ============================LINKS TO SELECT TYPE OF USER================================ -->
+				<div  class = "row">
+				    <a href="" ng-click="bizClick()" id = "bizAnch">
+						<div class = "col-sm-offset-2 col-sm-2"  id="{{curstylebiz}}" data-toggle= "{{collapse}}" data-target="#CollapsibleLoginPAge">
+							<i class="fa fa-briefcase fa-fw fa-3x businessDiv"></i>
+							<div class = "row">	
+								<div class = "col-sm-12">					
+									<p style="text-align:center;">Business</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					<a href="" ng-click="finClick()" id = "finAnch">
+						<div class = "col-sm-offset-4 col-sm-2" id="{{curstylefin}}" data-toggle= "{{collapse}}" data-target="#CollapsibleLoginPAge">
+							<i class="fa fa-money fa-fw fa-3x financeDiv"></i>
+							<div class = "row">	
+								<div class = "col-sm-12">					
+									<p style="text-align:center;">Finance</p>
+								</div>
+							</div>
+						</div>
+					</a>					
+				</div>
+				<br><br><br><br><br>
+				<div class = "row">	
+					<div class="col-sm-12" id = "TopBlueBar" ></div>
+				</div>
+				
+			
+			</div>
+			<!-- ============================WHITE WINDOW ENDS ================================ -->
+		</div>
+
+		<!-- ============================LOGIN SIGNUP PAGE STARTS ================================ -->
+		<div class="Row collapse" id="CollapsibleLoginPAge">
+			<div class="col-sm-offset-2 col-sm-8 " id="loginFormDiv" style="background-color: white; opacity:0.95;">
+			<br><br>
+				<div class = "Row">
+					<div class = "col-sm-6">
+						
+						<p style="text-align:center; font-size:200%;color: #555"> <b> Already a user ?<br>Login Here</b></p>
+							<div class = "row" ng-controller="LoginController">
+								<div class = "col-sm-offset-1 col-sm-10">
+								
+					<!-- ==========================form start =========================== -->
+									<form name = "myForm" id = "LoginForm" method="post">
+										<div class = "row">
+											<div id = "UserNameUnit" class="col-sm-offset-1 col-sm-10">
+												<div id = "UserNameUnitLabel">
+													<p style="opacity:0.6; margin:0px"><b>Login ID</b></p>
+												</div>
+												<div>
+													<input ng-model="UserNameMod" id = "UserNameUnitInput" type="text" name="LoginId" required>
+												</div>
+											</div>
+										</div>
+										<br>
+										<div class = "row">
+											<div id = "PasswordUnit" class="col-sm-offset-1 col-sm-10">
+													<div id = "PasswordUnitLabel">
+														<p style="margin:0px; opacity:0.6;">
+															<b>Password</b>
+														</p>
+													</div>
+													<input ng-model="PasswordMod" id="PasswordUnitInput" type="password" name="password" required />
+											</div>
+										</div>
+										
+										<br>
+
+										<div id ="LoginSubmitDiv">
+											<input ng-click="LoginClick()" id="submitLogin" type="submit" value="Login" />
+										</div>
+
+									</form>
+									<br>
+<!-- ==========================form end =========================== -->	
+
+									<a href="./ForgotPassword.htm" style="color:#555; text-decoration:none; float:left;"><p><i>Forgot Password</i></p></a>
+									<a target="_blank" href="./NeedHelp.html" style="color:#555; text-decoration:none; float:right;"><p><u><i>Need Help?</i></u></p></a>
+								</div>
+							</div>
+						
+						
+					</div>
+					
+					<div class = "col-sm-6">
+						<div id = "SignupPart">
+							<p style="text-align:center; font-size:200%; color: #555"> <b> Are you <br>new here? </b> </p>
+							<br>
+							
+							<a href="{{myurl}}" style="color: white; text-decoration: none;">
+								<div id = "SignupSubmitHomescreen" style="">
+									<button id="submitSignup" value="Sign Up">Sign Up</button>
+								</div>
+							</a>
+							
+							
+							<br><br>
+							<div>
+								<a target="_blank" href="./NeedHelp.html" style="text-align:center; color:#555; text-decoration:none;"><p><u><i>Need Help?</i></u></p></a>
+							</div>
+						</div>
+					</div>
+				
+				</div>
+
+				<div class="Row">
+					<div id = "LastBlueRow" class="col-sm-12">
+					</div>
+				</div>
+				<br><br><br><br><br>
+			</div>
+		</div>
+	</div>
+	<script>
+		var app = angular.module("SignupSwitch", []);
+		app.controller("mySignupSwitch", ["$scope", function($scope) {
+		    $scope.bizvar = false;
+		    $scope.finvar = false;
+		    $scope.nopage = true;
+	
+		    $scope.hid = "hidden"
+		    $scope.nhid = ""
+		    $scope.curstylebiz = "bizfintrue";
+		    $scope.curstylefin = "finbiztrue";
+		    $scope.myurl = "";
+		    $scope.collapse = "";
+		    $scope.bizClick = function() {
+		        $scope.myurl ="./SignupCustomer.html"
+		        if ($scope.bizvar == false) {
+		            if ($scope.finvar == true) {
+		                $scope.collapse = "";
+		            } else {
+		                $scope.collapse = "collapse";
+		            }
+		            
+		            $scope.bizvar = true;
+		            $scope.finvar = false;
+		            $scope.nopage = false;
+		            $scope.curstylebiz = "bizbiztrue";
+		            $scope.curstylefin = "finbiztrue";
+		        } else if ($scope.bizvar == true){
+		            $scope.collapse = "collapse";
+		            $scope.bizvar = false;
+		            $scope.curstylebiz = "bizfintrue";
+		            $scope.curstylefin = "finbiztrue";
+		            if ($scope.finvar == false) {
+		                $scope.nopage = true;
+		            }
+		        }
+		        console.log($scope.bizvar);
+		        console.log($scope.finvar);
+		        console.log($scope.nopage);
+		    }
+	
+		    $scope.finClick= function() {
+		        if ($scope.finvar == false) {
+		            if ($scope.bizvar == true) {
+		                $scope.collapse = "";
+		            } else {
+		                $scope.collapse = "collapse";
+		            }
+		            $scope.myurl ="./SignupUser.htm"
+		            $scope.curstylefin = "finfintrue";
+		            $scope.curstylebiz = "bizfintrue";
+		            $scope.bizvar = false;
+		            $scope.finvar = true;
+		            $scope.nopage = false;
+		        } else if ($scope.finvar == true){
+		            $scope.collapse = "collapse";
+		            $scope.curstylefin = "finbiztrue";
+		            $scope.finvar = false;
+		            if ($scope.bizvar == false) {
+		                $scope.nopage = true;
+		            }
+		        }
+		        console.log($scope.bizvar);
+		        console.log($scope.finvar);
+		        console.log($scope.nopage);
+		      
+	
+		    }
+		}]);
+	
+	
+		 
+		app.controller("LoginController", ["$scope", "$http", "$httpParamSerializer", "$window", function($scope, $http, $httpParamSerializer, $window) {
+			console.log("controller loaded");
+		    $scope.UserNameMod = "";
+		    $scope.PasswordMod = "";
+		    
+		    $scope.LoginClick = function () {
+		        console.log("Clicked")
+		        if (($scope.UserNameMod != "undefined") && ($scope.PasswordMod != "undefined")) {
+		            var data = {
+		                username: $scope.UserNameMod,
+		                password: $scope.PasswordMod
+		            }
+		           
+		            var promise = $http({
+		                url: BASE_PATH + "/service/login/checkCredentials",
+		                method: 'POST',
+		                headers: { 'Content-Type': 'text/plain' },
+		                data: {
+		    	            username: $scope.UserNameMod,
+		    	            password: $scope.PasswordMod
+		                }
+		            })
+		            promise.then(function(){
+		                //$location.url('./Dashboard.html')
+		            	$window.location.href = './Dashboard.html'
+		            }, function(response){
+		            	console.log("could not login!")
+		            	
+		            })
+		            console.log("click return")
+		        }
+	
+		    }
+	
+		}]);
+
+	</script>
+	<!-- jQuery -->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../../dist/js/sb-admin-2.js"></script>
+</body>
+
+</html>
