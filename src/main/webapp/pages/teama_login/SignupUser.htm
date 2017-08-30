@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+	
+	<link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="../../js/commonResources.js"></script>
+	<title>Signup Page For Customer</title>
+	
+	<style type="text/css">
+    	body {
+    		background-color: #333;
+			color:white;
+			padding-bottom: 0%;
+    	}
+    	#MainContainer1 {
+    		opacity: 0.95;
+    		background-color:white;
+    		color:#555;
+    		margin-top: 0%;
+    		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+    	}
+    	#TopBlueBar {
+			height:10px;
+			background-color:#337ab7;
+		}
+		input:focus{
+			outline-color:transparent;
+		}
+		#LoginSubmitDiv {
+			position:relative;
+			height:30px;
+		}
+
+		#submitLogin {
+			width:40%;
+			border-radius:20px;
+			display: block;
+			margin:auto; 
+			padding:5px;
+			padding-left:20px;
+			padding-right:20px;
+			background-color:#555;
+			box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.2);
+			color:rgba(255,255,255,0.9);
+			border:0px;
+			font-size:125%;
+		}
+		#FormContainer {
+			color: white; padding-top: 3%;
+		}
+
+		.FormInputs {
+			overflow:hidden; padding:5px; background-color:white; border: 0px; border-radius: 20px; box-shadow: 0 2px 16px 1px rgba(0,0,0, 0.3);
+		}
+
+		.FormInputLabels {
+			background-color: white; color: #555; float: left; width:48% ;border-right: 1px solid gray; text-align: center;  opacity: 0.6;
+		}
+
+		.FormTextInputs {
+			border: 0px; margin-left: 1%;
+			width: 50%; float:left; color: #555
+		}
+
+		#Heading1 {
+			font-size: 300%; color:#555 ; margin-bottom: 0px; padding-bottom: 0px;
+		}
+
+		#ContentHeading {
+			background-color: #555; color: white; height: 60px; text-align: left;
+		}
+
+		#SecondMainContainer {
+			background-color:#f0ad4e; color:white; padding-top: 5%;
+		}
+
+		#SubheadingContainer {
+			float:left; color: white;
+		}
+		
+		.inputfile {
+
+			opacity: 0;
+			overflow: hidden;
+			position: absolute;
+			z-index: -1;
+		}
+
+		.inputfile + label{
+			padding: 2px;
+			padding-right:10px;
+			padding-left: 10px; 
+			background-color: #555;
+		    font-size: 1.25em;
+		    font-weight: 700;
+		    color:white;
+		    display: inline-block;
+			cursor: pointer;
+			border-radius: 20px;
+			text-align: center;
+			display: block;
+			margin:auto; 
+		}
+
+		.inputfile:focus + label,
+		.inputfile + label:hover {
+			background-color: #337ab7;
+		    color:white;
+		}
+    </style>
+
+
+</head>
+<body class = "container" ng-app="SignupUserApp" ng-controller="SignupUserController"> 
+	<div class = "row">
+		<!--Main Container (White)-->
+		<div class = "col-sm-offset-2 col-sm-8" id = "MainContainer1">
+			<div class="row">
+				<div class = "col-sm-offset-1 col-sm-10" id = "TopBlueBar"> 
+				</div>
+			</div><br>
+			<a href="./HomePage.html" style="text-decoration: none; ">
+				<p id="Heading1"><b>Supply Chain Finance</b></p>
+			</a>
+			<div class = "row">
+				<div class = "col-sm-12" id="ContentHeading">
+					<h1 style="font-size: 200%;"><b>SignUp !</b></h1>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-12" id = "SecondMainContainer" style="">
+					<div class = "row">
+						<div class = "col-sm-6" id="FormContiner" style=" ">
+							<form method= "post">
+								<div class = "row" >
+									<div class = "col-sm-offset-2 col-sm-8 FormInputs">
+										<div class = "FormInputLabels">
+											<p style="margin-bottom: 0px"><b>Corp ID</b> </p>
+										</div>
+										<input type="Email" name="UserEmail"  ng-model="CorpIDMod"  class = "FormTextInputs" required/>
+									</div>
+								</div>
+								<br>
+								<div class = "row">
+									<div class = "col-sm-offset-2 col-sm-8 FormInputs">
+										<div class="FormInputLabels">
+											<p style="margin-bottom: 0px"><b>Full Name</b></p>
+										</div>
+										<input type="input" name="name" ng-model="FullnameMod" class="FormTextInputs" required/>
+									</div>
+								</div>
+								<br>
+								<div class = "row">
+									<div class = "col-sm-offset-2 col-sm-8 FormInputs">
+										<div class = "FormInputLabels">
+											<p style="margin-bottom: 0px"><b>Password</b> </p>
+										</div>
+										<input type="Password" name="Password"  ng-model="PasswordMod" class="FormTextInputs" required />
+									</div>
+								</div>
+								<br>
+								<div class = "row">
+									<div class = "col-sm-offset-2 col-sm-8 FormInputs">
+										<div class= "FormInputLabels">
+											<p style="margin-bottom: 0px"><b>Retype Password</b></p>
+										</div>
+										<input type="input" name="RePassword"  ng-model="RePassword" class="FormTextInputs" required />
+									</div>
+								</div>
+								<br>
+								<div class = "row">
+									<div class = "col-sm-offset-2 col-sm-8 FormInputs">
+										<div class="FormInputLabels">
+											<p style="margin-bottom: 0px"><b>Address</b></p>
+										</div>
+										<input type="input" name="add"  ng-model="addressMod" class="FormTextInputs" required/>
+									</div>
+								</div>
+								<br>
+								<div class = "row">
+									<div class = "col-sm-offset-2 col-sm-8 FormInputs">
+										<div class="FormInputLabels">
+											<p style="margin-bottom: 0px"><b>Privilage Group</b></p>
+										</div>
+										<input type="input" name="privgrp"  ng-model="privgrpModel" class="FormTextInputs" required/>
+									</div>
+								</div>
+								<br>
+								<div class = "row">
+									<div class = "col-sm-offset-2 col-sm-8">
+										<input type="file" name="pic" accept="image/*" id="sign" class ="inputfile" /><label for="sign">Upload Your Signature</label>
+									</div>
+								</div>
+								<br>
+								<div class = "row">
+									<div class = "col-sm-offset-2 col-sm-8">
+										<input type="file" name="pic" accept="image/*" id="pic" class ="inputfile" /><label for="pic" style="text-align: center;"><i class="fa fa-picture-o"></i>  Upload Your Photo</label>
+									</div>
+								</div>
+								<br>
+								<div class = "row">
+									<div class = "col-sm-offset-2 col-sm-8">
+										<input type="file" name="pic" accept=".pdf,.xlsx" id="docs" class ="inputfile" /><label for="docs">Upload Your Documents</label>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class = "col-sm-offset-1 col-sm-5">
+										<input type="checkbox" name="terms" value="terms" required style="float:left;" />
+										<p style="text-align:center; float: left; color:white; text-decoration:none;">I accept the terms</p>
+									</div>
+									<div class = "col-sm-offset-1 col-sm-4">
+										<a href="./NeedHelp.html" target="_blank" style="text-align:center; color:white; text-decoration:none;"><p><u><i>Need Help?</i></u></p></a>
+									</div>
+								</div>
+								<div id ="LoginSubmitDiv">
+									<input id="submitLogin" type="submit"  ng-click="SubmitSignup()" value="Signup" name="submitLogin"/>
+								</div>
+								<br>
+							</form>
+						</div>
+						<div class = "col-sm-6" id="FormContainer" style="">
+							<h1 style="font-size: 300%;"><b>Dear User, Are you new here?</b></h1>
+							<h1 style="font-size: 250%; color: #555;"><b>Welcome,<br>To this new platform!</b></h1>
+							<h1 style="font-size: 150%; color: #fff;"><b>Submit the form to send a Signup request to your account Admin.</b></h1>
+							<br><br>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-12" id="ContentHeading" style="height: 120px;">
+					<h1 style="font-size: 200%;"></b></h1>
+				</div>
+			</div>
+			<!--
+			<br><br>
+			<div class="row">
+				<div class = "col-sm-offset-1 col-sm-10" id = "TopBlueBar"> 
+				</div>
+			</div>
+			-->
+		</div>
+	</div>
+	<script>
+		var Signupuserapp = angular.module("SignupUserApp", []);
+	
+		Signupuserapp.controller("SignupUserController", ["$scope", "$http", "$httpParamSerializer", "$window", function($scope, $http, $httpParamSerializer, $window){
+				
+			$scope.CorpIDMod = "";
+		    $scope.FullnameMod = "";
+		    $scope.PasswordMod = "";
+		    $scope.RePassword = "";
+		    $scope.addressMod = "";
+		    $scope.privgrpModel = "";
+		    
+		    $scope.SubmitSignup = function () {
+			    if ($scope.PasswordMod == $scope.RePassword){
+			    	var data = {
+			            CorpID: $scope.CorpIDMod,
+			            Fullname: $scope.FullnameMod,
+			            Password: $scope.PasswordMod,
+			            address: $scope.addressMod,
+			            privgrp: $scope.privgrpModel 
+			        }
+			    	console.log(data);
+			    	var promise = $http({
+			            url: BASE_PATH + '/service/login/signupUser/',
+			            method: 'POST',
+			            headers: { 'Content-Type': 'text/plain' },
+			            data: {
+			            	CorpID: $scope.CorpIDMod,
+			 	            Fullname:$scope.FullnameMod,
+			 	            Password: $scope.PasswordMod,
+			 	            address:$scope.addressMod,
+			 	            privgrp:$scope.privgrpModel 
+			            }
+			        });
+			        promise.then(function(response){	        	
+			        	$window.location.href = './HomePage.html'
+			        	console.log(response.data);
+			        });
+			    } else {
+			    	 console.log("credentials not matching"); 
+			    }
+		    }
+			
+		}]);
+	</script>
+	<!-- jQuery -->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../../dist/js/sb-admin-2.js"></script>
+
+</body>
+</html>
