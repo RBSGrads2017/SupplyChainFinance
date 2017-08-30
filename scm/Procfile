@@ -1,1 +1,0 @@
-web: java -cp target/classes:target/dependency/* com.rbs.scm.heroku.Main
