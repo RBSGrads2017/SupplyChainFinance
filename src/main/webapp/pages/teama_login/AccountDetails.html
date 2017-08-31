@@ -18,7 +18,7 @@
 
     <!-- Custom CSS -->
     <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
-
+	<script src="../../js/commonResources.js"></script>
     <!-- Morris Charts CSS -->
     <link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
 
@@ -559,7 +559,7 @@
             	console.log($scope.arrayCateg);
             	console.log($scope.arraySub);
             	var whatever = $http({
-            		url: 'http://localhost:8089/MyRestDemo/rest/login/updateProducts',
+            		url: BASE_PATH + '/service/login/updateProducts',
             		method: 'POST',
             		headers: { 'Content-Type': 'text/plain' },
             		data:{
@@ -583,7 +583,7 @@
 		    
 		    console.log("controller loaded");
 		    var promise = $http({
-		        url: 'http://localhost:8089/MyRestDemo/rest/login/getUserInfo',
+		        url: BASE_PATH + '/service/login/getUserInfo',
 		        method: 'POST',
 		        headers: { 'Content-Type': 'text/plain' }
 		    });
@@ -606,7 +606,7 @@
 		    $scope.TestClick = function () {
 
 		        var promise = $http({
-		            url: 'http://localhost:8089/MyRestDemo/rest/login/getUserInfo',
+		            url: BASE_PATH + '/service/login/getUserInfo',
 		            method: 'POST',
 		            headers: { 'Content-Type': 'text/plain' }
 		        });
@@ -640,7 +640,7 @@
             	}
             	console.log(data);
             	var whatever = $http({
-            		url: 'http://localhost:8089/MyRestDemo/rest/login/updateDetails',
+            		url: BASE_PATH + '/service/login/updateDetails',
             		method: 'POST',
             		headers: { 'Content-Type': 'text/plain' },
             		data:{

@@ -121,6 +121,16 @@ public class LoginServices {
 		return c.convertObjectToJSON();
 	}
 	
+	@GET
+	@Path("fetchAdditionalDetails")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String fetchAdditionalDetails(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		AdditionalDetails c = AdditionalDetailsDao.search(Uname);
+		if(c == null)	{ return null; }
+		System.out.println(c.getContNumber());
+		return c.convertObjectToJSON();
+	}
+	
 	
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
@@ -230,7 +240,7 @@ public class LoginServices {
 			
 		//String basePath = request.getScheme()+request.getRemoteHost()+request.getpo;
 		System.out.println("the random string generated is"+randomString);
-		String messageToSend = "Hi!! To reset the password kindly click the link. \n" + "\n<a href='http://localhost:8089/scm/pages/ChangePassword.htm?"+randomString+"'>Reset password</a>";
+		String messageToSend = "Hi!! To reset the password kindly click the link. \n" + "\n<a href='http://localhost:8089/scm/pages/teama_login/ChangePassword.htm?"+randomString+"'>Reset password</a>";
 		
 		System.out.print(customerEmail + " this is the email where i have to send the message");
 		MyMailClass.sendMail(customerEmail ,messageToSend,subjectToSend);		

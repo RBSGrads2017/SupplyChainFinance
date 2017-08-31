@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	
-	
+	<script src="../../js/commonResources.js"></script>
 	<link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -235,7 +235,7 @@
 	          	        }*/
 	          	       console.log(" in submit signup:  customername"+ $scope.UserNameMod + " email "+  $scope.EmailMod);
 	          	        var promise = $http({
-	          	            url: 'http://localhost:8089/MyRestDemo/rest/login/signupCustomer/',
+	          	            url: BASE_PATH + '/service/login/signupCustomer/',
 	          	            method: 'POST',
 	          	            headers: { 'Content-Type': 'text/plain' },
 	          	            data: {

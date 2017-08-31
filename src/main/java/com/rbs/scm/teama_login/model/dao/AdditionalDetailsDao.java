@@ -4,30 +4,34 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import com.rbs.scm.teama_login.model.beans.*;
 public class AdditionalDetailsDao {
 
-//	private static ResultSet res = null;
-//	private static AdditionalDetails convertResToObject() throws SQLException{
-//		AdditionalDetails ad = null;
-//		if(res != null) {
-//			while(res.next()) {
-//				String username = res.getString(1);
-//				int contNumber = res.getInt(2);
-//				String postalLocation  = res.getString(3);
-//				String postalCity= res.getString(4);
-//				String postalState = res.getString(5);
-//				String factoryLocation = res.getString(6);
-//				String factoryCity = res.getString(7);
-//				String factoryState = res.getString(8);
-//				String department = res.getString(9);
-//				ad = new AdditionalDetails(username, contNumber, postalLocation, postalCity, postalState, factoryLocation, factoryCity, factoryState, department);
-//			}
-//		}
-//		return ad;
-//	}
+	private static ResultSet res = null;
+	private static AdditionalDetails convertResToObject() throws SQLException{
+		AdditionalDetails ad = null;
+		if(res != null) {
+			while(res.next()) {
+				String username = res.getString(1);
+				int contNumber = res.getInt(2);
+				String postalLocation  = res.getString(3);
+				String postalCity= res.getString(4);
+				String postalState = res.getString(5);
+				String factoryLocation = res.getString(6);
+				String factoryCity = res.getString(7);
+				String factoryState = res.getString(8);
+				String department = res.getString(9);
+				String swift=res.getString(10);
+				int accNumber=res.getInt(11);
+				ad = new AdditionalDetails(username,swift, accNumber,contNumber, postalLocation, postalCity, postalState, factoryLocation, factoryCity, factoryState, department);
+			}
+		}
+		return ad;
+	}
 	
-public static boolean insertIntoAdditionalDetails(AdditionalDetails add) throws SQLException {
+	public static boolean insertIntoAdditionalDetails(AdditionalDetails add) throws SQLException {
 		
 		Connection conn = SQLConnection.getConnection();
 		PreparedStatement st = conn.prepareStatement("INSERT INTO \"Customer_Additional_Details\" values(?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -46,5 +50,19 @@ public static boolean insertIntoAdditionalDetails(AdditionalDetails add) throws 
 		st.executeUpdate();
 		return true;
 	}
+
+	public static AdditionalDetails search(String username) throws SQLException{  //username is email here
+		res = null;
+		Connection conn = SQLConnection.getConnection();
+		if(conn != null) {
+			Statement st = conn.createStatement();
+			String queryString = "select * from \"Customer_Additional_Details\" where \"Username\" ='" + username + "'";
+			res = st.executeQuery(queryString);
+			AdditionalDetails c = convertResToObject();
+			return c;
+		}
+		return null;
+	}
+
 		
 }
