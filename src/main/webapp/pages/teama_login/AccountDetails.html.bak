@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,19 +12,19 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -77,6 +78,7 @@
             position:relative;
             height:30px;
         }
+
         #submitLogin {
             width:40%;
             border-radius:20px;
@@ -96,9 +98,9 @@
     </style>
 </head>
 
-<body ng-app="app"  >
+<body ng-App="app">
 
-    <div id="wrapper" ng-controller="TestController">
+    <div id="wrapper">
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -109,7 +111,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="Dashboard.html" >
+                <a class="navbar-brand" href="index.html" >
                     
                         <img src="2358536-rbs-tm-2013.png" style=" display: block; margin: auto; width: 110px;"> 
                         
@@ -187,7 +189,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="Dashboard.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
+                            <a href="index.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
                         </li>
                         <li>
                             <a href="#" class="inactive"> Contract Management <i class="fa fa-briefcase fa-fw"></i>   <span class="fa arrow"></span></a>
@@ -254,7 +256,7 @@
                         <div class="col-sm-offset-3 col-sm-6">
 
                         <div class="media" >
-                                <div class = "row" >
+                                <div class = "row">
                                     <div class = "col-sm-offset-0 col-sm-3">
                                         <div style="background-color:#555; border-radius:20px; overflow: hidden;">
                                             <img src="BG.png" style="width:100px;">
@@ -263,30 +265,34 @@
                                         <button data-toggle="collapse" data-target="#CollapsibleUserAccountEdit" style="width:100px;background-color: #469c2a; border-radius:10px; box-shadow: 0px 2px 40px 0px rgba(0,0,0,0.1); border:0px;color: white;"><b>Edit Profile</b>
                                         </button>
                                     </div>
-                                    <div class = "col-sm-offset-1 col-sm-7" style="color:#333; background-color: #f7f7f7; border-radius: 20px;">
-                                      <b><h4>
-                                        Name: {{sessionUsername}}<br>
-         								Type: {{sessionUsertype}}                               
-         							  </h4></b>
+                                    <div class = "col-sm-offset-1 col-sm-7" style="background-color: #f7f7f7; border-radius: 20px;">
+                                        name: yash
+                                        <br>
+                                        <br>
+                                        add: coho
+                                        <br>
+                                        <br>
+                                        works at:owner
+                                        <br>
+                                        <br>
                                     </div>
                                 </div>
                             
 
                                 <hr>
-                                <div class="collapse" id="CollapsibleUserAccountEdit" ng-controller = "myController" >
+                                <div class="collapse" id="CollapsibleUserAccountEdit">
                                 <div class="media-body">
                                     <form>
-                                    	
-                                         <div class="input-group MyInputDiv">
-                                            <span class="input-group-addon MyInputSpan"><b>Account Number</b></span><input type="text" ng-model = "AccNumber" placeholder = "Account Number" class="form-control MyInputField" id="username" name="username"/>
+                                        <!-- <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>Name</b></span><input type="text" class="form-control MyInputField" id="username" name="username"/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
-                                            <span class="input-group-addon MyInputSpan"><b>Swift Id</b></span> <input type="text" ng-model = "Swift" placeholder = "Swift Id" class="form-control MyInputField" id="emailid" name="emailid"/>
+                                            <span class="input-group-addon MyInputSpan"><b>userid</b></span> <input type="email" class="form-control MyInputField" id="emailid" name="emailid"/>
                                         </div>
-                                        <br> 
+                                        <br> -->
                                         <div class="input-group MyInputDiv">
-                                            <span class="input-group-addon MyInputSpan"><b>phone no.</b></span> <input type="number" ng-model = "ContNumber" placeholder="Contact Number" class="form-control MyInputField" id="phone" name="phone"/>
+                                            <span class="input-group-addon MyInputSpan"><b>phone no.</b></span> <input type="number" class="form-control MyInputField" id="phone" name="phone"/>
                                         </div>
                                         <br>
                                         <div class="row">
@@ -294,21 +300,21 @@
 	                                        	<p style=""><b><h4>Postal Address:</h4></b></p>
 
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" ng-model = "PostalState" placeholder="State" class="form-control MyInputField" list="add1Statelist" id="add1State" name="add1State" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" class="form-control MyInputField" list="add1Statelist" id="add1State" name="add1State" style="border-radius: 0px 20px 20px 0px;"/>
 		                                            <datalist id="add1Statelist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" ng-model = "PostalCity" placeholder="City" class="form-control MyInputField" list="add1Citylist" id="add1City" name="add1City" style="border-radius: 0px 20px 20px 0px;" />
+		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" class="form-control MyInputField" list="add1Citylist" id="add1City" name="add1City" style="border-radius: 0px 20px 20px 0px;" />
 		                                            <datalist id="add1Citylist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" ng-model = "PostalLocality" placeholder="Locality" class="form-control MyInputField" list="add1Locallist" id="add1Local" name="add1Local" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" class="form-control MyInputField" list="add1Locallist" id="add1Local" name="add1Local" style="border-radius: 0px 20px 20px 0px;"/>
 		                                            <datalist id="add1Locallist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
@@ -322,21 +328,21 @@
 	                                        <div class="col-sm-offset-1 col-sm-10" style="background-color: #777; border-radius: 20px 20px; color: #f7f7f7; text-align: left;">
 	                                        	<p style=""><b><h4>Factory Address:</h4></b></p>
 	                                            <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" ng-model = "FactoryState" placeholder="State" class="form-control MyInputField" list="add2Statelist" id="add2State" name="add2State" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" class="form-control MyInputField" list="add2Statelist" id="add2State" name="add2State" style="border-radius: 0px 20px 20px 0px;"/>
 		                                            <datalist id="add2Statelist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" ng-model = "FactoryCity" placeholder="City" class="form-control MyInputField" list="add2Citylist" id="add2City" name="add2City" style="border-radius: 0px 20px 20px 0px;" />
+		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" class="form-control MyInputField" list="add2Citylist" id="add2City" name="add2City" style="border-radius: 0px 20px 20px 0px;" />
 		                                            <datalist id="add2Citylist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" ng-model = "FactoryLocality" placeholder="Locality" class="form-control MyInputField" list="add2Locallist" id="add2Local" name="add2Local" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" class="form-control MyInputField" list="add2Locallist" id="add2Local" name="add2Local" style="border-radius: 0px 20px 20px 0px;"/>
 		                                            <datalist id="add2Locallist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
@@ -346,12 +352,12 @@
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
-                                            <span class="input-group-addon MyInputSpan"><b>Company/Department</b></span> <input type="text" ng-model = "Department" placeholder="Company Name" class="form-control MyInputField" id="deptt" name="priv" />
+                                            <span class="input-group-addon MyInputSpan"><b>Company/Department</b></span> <input type="text" class="form-control MyInputField" id="deptt" name="priv" />
                                         </div>
                                         <br>
                                         <div class="row">
                                             <div class= "col-sm-offset-1 col-sm-10" id="LoginSubmitDiv">
-                                                <input id="submitLogin" type ="submit" ng-click= "UpdateDet()" name="SubmitButton" value="Update!" />
+                                                <input id="submitLogin" type ="submit" name="SubmitButton" value="Update!" />
                                             </div>
                                         </div>
                                         <br>
@@ -362,16 +368,16 @@
                         </div>
                     </div>
                     </div>
-                    <form >
+                    <form>
                     <div class="row" data-toggle="collapse" data-target="#SellerOptions">
                     	<div class="col-sm-12" style="background-color: #337ab7; color: #f7f7f7;" id = "SellerOptionsHeader">
                     		<p><b><h3>Are you a seller ?</h3></b></p>
                     		<p><b><h2>Help us understand you better</h2></b></p>
                     	</div>
                     </div>
-                    <div class="row collapse" id="SellerOptions"  ng-controller = "CtrlChecklist" >
+                    <div class="row collapse" id="SellerOptions" ng-controller="CtrlChecklist">
                     	<div class="col-sm-12" style="background-color: #337ab7; color: #f7f7f7;">
-                    		<div class="row" style="background-color: #f7f7f7;padding-top:2%; padding-bottom: 2%" >
+                    		<div class="row" style="background-color: #f7f7f7;padding-top:2%; padding-bottom: 2%">
                     			<div class="col-sm-offset-1 col-sm-4" style="background-color: #f7f7f7;color:#555; text-align: left;">
                     				<p><h4><b>All avialable selling items</b></h4></p>
                     				
@@ -398,34 +404,34 @@
                     				
                     				</ul>
                     			</div>
-                    			<div class="col-sm-2" style="background-color: #f7f7f7;color:#337ab7;" >
-                    				<div class="btn-group-vertical" >
+                    			<div class="col-sm-2" style="background-color: #f7f7f7;color:#337ab7;">
+                    				<div class="btn-group-vertical">
                                     <br>
 									  <button type="button" ng-click = "addAllButton()" class="btn btn-primary">Add All</button>
-									  <button type="button" ng-click = "addButton()" class="btn btn-primary">Submit</button>
+									  <button type="button" ng-click = "addButton()" class="btn btn-primary">Add</button>
 									  <button type="button" ng-click = "removeAllButton()" class="btn btn-primary">Remove All</button>
 									</div>
                     			</div>
 
-                    			<div class="col-sm-4" style="background-color: #f7f7f7;color:#337ab7;text-align: left;" >
+                    			<div class="col-sm-4" style="background-color: #f7f7f7;color:#337ab7;text-align: left;">
                     				<p><h4><b>All items sold by you</b></h4></p>
 
                     				<ul class = "MyFirstUl" style="list-style-type: none; padding: 0px; text-align: left;">
-                    					<li ng-repeat="categ in arrayCateg" >
+                    					<li ng-repeat="categ in arrayCateg">
 
-                    						<div class = "row" >
+                    						<div class = "row">
                     							<div class="col-sm-1">
                     								
                     							</div> 
                                                 
-                    							<div class="col-sm-10"  data-toggle="collapse" data-target= "{{'#' +  categ + 'ListConf'}}">
-                    								● {{categ}} 
+                    							<div class="col-sm-10" data-toggle="collapse" data-target= "{{'#' +  categ + 'ListConf'}}">
+                    								● {{categ}}
                     							</div>
 
                     						</div>
                     						
                     						<ul  style="list-style-type: none;" class="collapse" id = "{{categ + 'ListConf'}}">
-                    							<li ng-repeat="prod in arrayCateg[categ]" >
+                    							<li ng-repeat="prod in arrayCateg[categ]">
                     								 ● {{prod}}
                     							</li>
                     						</ul>
@@ -438,8 +444,8 @@
                     		</div>
                             <br>
                             <div class="row">
-                                <div class= "col-sm-offset-3 col-sm-6" id="LoginSubmitDiv" >
-                                    <input id="submitLogin" ng-click="UpdateProducts()" type ="submit" name="SubmitButton" value="Update!"/>
+                                <div class= "col-sm-offset-3 col-sm-6" id="LoginSubmitDiv">
+                                    <input id="submitLogin" type ="submit" name="SubmitButton" value="Update!" />
                                 </div>
                             </div>
                             <br>
@@ -457,10 +463,8 @@
     <!-- /#wrapper -->
 
     <script type="text/javascript">
-    
     	var app = angular.module("app", [  ]);
-		app.controller('CtrlChecklist', ["$scope", "$http", function($scope, $http) {
-			console.log("inside the checklist controller");
+		app.controller('CtrlChecklist', function($scope) {
               $scope.categories = {
                 "Electronics":false,
                 "Appliances":false,
@@ -491,6 +495,7 @@
 				}
 			}
 			$scope.subcategoryToggle = function(category, product) {
+
 				var flag = true;
 				if ($scope.categories[category] == true) {
 					
@@ -502,17 +507,19 @@
 							break;
 						}
 					}
+
 					if (flag == true) {
-						console.log("Inside if statement");
+						console.log("hey")
 						$scope.categories[category] = false;
 					}
+
 				} else if (($scope.products[category][product] == true) && ($scope.categories[category] == false)) {
 					$scope.categories[category] = true;
 				}
 			}
+
 			$scope.addButton = function() {
 				$scope.arrayCateg=[];
-				$scope.arraySub = [];
 				for (categ in $scope.categories) {				
 					if ($scope.categories[categ] == true) {
 						$scope.arrayCateg.push(categ);
@@ -520,17 +527,15 @@
 						for (item in $scope.products[categ]) {
 							if ($scope.products[categ][item] == true) {
 								$scope.arrayCateg[categ].push(item);
-								$scope.arraySub.push(item);
 							}
 						}
 					}
 				}
 				
 			}
+
 			$scope.addAllButton = function() {
-				console.log("Add all button running");
 				$scope.arrayCateg=[];
-				$scope.arraySub = [];
 				for (categ in $scope.categories) {
                     $scope.categories[categ] = true;				
 					$scope.arrayCateg.push(categ);
@@ -538,14 +543,12 @@
 					for (item in $scope.products[categ]) {
                         $scope.products[categ][item] = true;
 						$scope.arrayCateg[categ].push(item);
-						$scope.arraySub.push(item);
 					}
 				}
 				console.log($scope.arrayCateg);
 			}
             $scope.removeAllButton = function(){
                 $scope.arrayCateg=[];
-                $scope.arraySub=[];
                 for (categ in $scope.categories){
                     $scope.categories[categ] = false;
                     for (item in $scope.products[categ]){
@@ -553,133 +556,25 @@
                     }
                 }
             }
-            $scope.userProd=[];
-            $scope.UpdateProducts = function(){
-            	console.log("we are in products");
-            	console.log($scope.arrayCateg);
-            	console.log($scope.arraySub);
-            	var whatever = $http({
-            		url: 'http://localhost:8089/MyRestDemo/rest/login/updateProducts',
-            		method: 'POST',
-            		headers: { 'Content-Type': 'text/plain' },
-            		data:{
-            			Username: $scope.Username,
-            			UserProductsCategories: $scope.arrayCateg,
-						UserProducts:$scope.arraySub
-            		}
-            	})
-            	whatever.then(function(){
-            		console.log("ok");
-            	})
-            	
-            }
-		}]);
-		app.controller("TestController", ["$scope", "$http", "$window", function($scope, $http, $window) {
-			
-		    $scope.UserNameMod = "";
-		    $scope.PasswordMod = "";
-		    $scope.sessionUsername = "";
-		    $scope.sessionUsertype = "";
-		    
-		    console.log("controller loaded");
-		    var promise = $http({
-		        url: 'http://localhost:8089/MyRestDemo/rest/login/getUserInfo',
-		        method: 'POST',
-		        headers: { 'Content-Type': 'text/plain' }
-		    });
-		    promise.then(function (response) {
-		    	console.log(response);
-		    	
-		    	if (response.data == "no session") {
-		    		$window.location.href = './HomePage.html'
-		    	} else {
-		    		$scope.sessionUsertype = response.data.userType;
-		    		$scope.sessionUsername = response.data.username;
-		    		console.log(response.data.username);
-		        	console.log(response.data.userType);
-		    	//var data = JSON.parse(response.data)
-		    	}
-		    }, function(response) {
-		    	console.log("couldnot load data");
-		    });
-		    
-		    $scope.TestClick = function () {
 
-		        var promise = $http({
-		            url: 'http://localhost:8089/MyRestDemo/rest/login/getUserInfo',
-		            method: 'POST',
-		            headers: { 'Content-Type': 'text/plain' }
-		        });
-		        promise.then(function (response) {
-		        	console.log(response);
-		        	//var data = JSON.parse(response.data)
-		        	console.log(response.data.username);
-		        	console.log(response.data.userType);
-		        }, function(response) {
-		        	console.log("couldnot load data");
-		        });
-		        
-		    }
-
-		}]);
-		app.controller('myController',[ '$scope', '$http', function($scope, $http) {
-            $scope.UpdateDet = function(){
-            	console.log("we are here");
-            	var data  = {
-            			Swift: $scope.Swift,
-            			AccNumber: $scope.AccNumber,
-            			ContNumber: $scope.ContNumber,
-            			PostalLocality: $scope.PostalLocality,
-            			PostalCity: $scope.PostalCity,
-            			PostalState: $scope.PostalState,
-            			FactoryLocality: $scope.FactoryLocality,
-            			FactoryCity: $scope.FactoryCity,
-            			FactoryState: $scope.FactoryState,
-            			Department: $scope.Department
-            	
-            	}
-            	console.log(data);
-            	var whatever = $http({
-            		url: 'http://localhost:8089/MyRestDemo/rest/login/updateDetails',
-            		method: 'POST',
-            		headers: { 'Content-Type': 'text/plain' },
-            		data:{
-            			Swift: $scope.Swift,
-            			AccNumber: $scope.AccNumber,
-            			ContNumber: $scope.ContNumber,
-            			PostalLocation: $scope.PostalLocality,
-            			PostalCity: $scope.PostalCity,
-            			PostalState: $scope.PostalState,
-            			FactoryLocation: $scope.FactoryLocality,
-            			FactoryCity: $scope.FactoryCity,
-            			FactoryState: $scope.FactoryState,
-            			Department: $scope.Department
-            		}
-            	})
-            	whatever.then(function(){
-            		console.log("ok");
-            	})
-            	
-            }
-           
-		}]);
+		});
     </script>>
     <!-- jQuery -->
-    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="../../vendor/raphael/raphael.min.js"></script>
-    <script src="../../vendor/morrisjs/morris.min.js"></script>
-    <script src="../../data/morris-data.js"></script>
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <script src="../vendor/morrisjs/morris.min.js"></script>
+    <script src="../data/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../../dist/js/sb-admin-2.js"></script>
+    <script src="../dist/js/sb-admin-2.js"></script>
 
 </body>
 

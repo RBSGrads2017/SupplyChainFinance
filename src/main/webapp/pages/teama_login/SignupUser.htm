@@ -14,7 +14,7 @@
     <!-- Custom Fonts -->
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="../../js/commonResources.js"></script>
+    
 	<title>Signup Page For Customer</title>
 	
 	<style type="text/css">
@@ -157,7 +157,7 @@
 										<div class="FormInputLabels">
 											<p style="margin-bottom: 0px"><b>Full Name</b></p>
 										</div>
-										<input type="input" name="name" ng-model="FullnameMod" class="FormTextInputs" required/>
+										<input type="text" name="name" ng-model="FullnameMod" class="FormTextInputs" required/>
 									</div>
 								</div>
 								<br>
@@ -175,7 +175,7 @@
 										<div class= "FormInputLabels">
 											<p style="margin-bottom: 0px"><b>Retype Password</b></p>
 										</div>
-										<input type="input" name="RePassword"  ng-model="RePassword" class="FormTextInputs" required />
+										<input type="Password" name="RePassword"  ng-model="RePassword" class="FormTextInputs" required />
 									</div>
 								</div>
 								<br>
@@ -191,7 +191,7 @@
 								<div class = "row">
 									<div class = "col-sm-offset-2 col-sm-8 FormInputs">
 										<div class="FormInputLabels">
-											<p style="margin-bottom: 0px"><b>Privilage Group</b></p>
+											<p style="margin-bottom: 0px"><b>Privilege Group</b></p>
 										</div>
 										<input type="input" name="privgrp"  ng-model="privgrpModel" class="FormTextInputs" required/>
 									</div>
@@ -217,7 +217,7 @@
 								<br>
 								<div class="row">
 									<div class = "col-sm-offset-1 col-sm-5">
-										<input type="checkbox" name="terms" value="terms" required style="float:left;" />
+										<input type="checkbox" ng-model="termChecked" name="terms" value="terms" required style="float:left;" />
 										<p style="text-align:center; float: left; color:white; text-decoration:none;">I accept the terms</p>
 									</div>
 									<div class = "col-sm-offset-1 col-sm-4">
@@ -264,39 +264,57 @@
 		    $scope.RePassword = "";
 		    $scope.addressMod = "";
 		    $scope.privgrpModel = "";
+		    $scope.termChecked=false;
+		    
 		    
 		    $scope.SubmitSignup = function () {
-			    if ($scope.PasswordMod == $scope.RePassword){
-			    	var data = {
-			            CorpID: $scope.CorpIDMod,
-			            Fullname: $scope.FullnameMod,
-			            Password: $scope.PasswordMod,
-			            address: $scope.addressMod,
-			            privgrp: $scope.privgrpModel 
-			        }
-			    	console.log(data);
-			    	var promise = $http({
-			            url: BASE_PATH + '/service/login/signupUser/',
-			            method: 'POST',
-			            headers: { 'Content-Type': 'text/plain' },
-			            data: {
-			            	CorpID: $scope.CorpIDMod,
-			 	            Fullname:$scope.FullnameMod,
-			 	            Password: $scope.PasswordMod,
-			 	            address:$scope.addressMod,
-			 	            privgrp:$scope.privgrpModel 
-			            }
-			        });
-			        promise.then(function(response){	        	
-			        	$window.location.href = './HomePage.html'
-			        	console.log(response.data);
-			        });
-			    } else {
-			    	 console.log("credentials not matching"); 
+		    	console.log($scope.CorpIDMod,$scope.FullnameMod,$scope.PasswordMod,$scope.RePassword,$scope.addressMod,$scope.privgrpModel)
+			    if(!($scope.CorpIDMod && $scope.FullnameMod && $scope.PasswordMod &&  $scope.RePassword &&  $scope.addressMod && $scope.privgrpModel)){
+			    	window.alert("You have not entered all the information!")
+			    }else{
+			    	if($scope.termChecked==false){
+		  			  console.log("it has nottt been checked ");
+		      		  window.alert("Please agree to the terms and conditions!")
+		      	    }else{
+		      	    	if ($scope.PasswordMod == $scope.RePassword){
+		    		    	var data = {
+		    		            CorpID: $scope.CorpIDMod,
+		    		            Fullname: $scope.FullnameMod,
+		    		            Password: $scope.PasswordMod,
+		    		            address: $scope.addressMod,
+		    		            privgrp: $scope.privgrpModel 
+		    		        }
+		    		    	console.log(data);
+		    		    	var promise = $http({
+		    		            url: 'http://localhost:8089/MyRestDemo/rest/login/signupUser/',
+		    		            method: 'POST',
+		    		            headers: { 'Content-Type': 'text/plain' },
+		    		            data: {
+		    		            	CorpID: $scope.CorpIDMod,
+		    		 	            Fullname:$scope.FullnameMod,
+		    		 	            Password: $scope.PasswordMod,
+		    		 	            address:$scope.addressMod,
+		    		 	            privgrp:$scope.privgrpModel 
+		    		            }
+		    		        });
+		    		        promise.then(function(response){	        	
+		    		        	$window.location.href = './HomePage.html'
+		    		        	console.log(response.data);
+		    		        });
+		    		    } else {
+		    		    	$scope.PasswordMod="";    	  	
+		    	   	  	    $scope.RePassword="";
+		    				window.alert("Entered passwords dont match, please enter password again!")
+		    					
+		    		    }
+		      	    }
+			    	
 			    }
+		    	
 		    }
 			
 		}]);
+
 	</script>
 	<!-- jQuery -->
     <script src="../../vendor/jquery/jquery.min.js"></script>

@@ -16,7 +16,7 @@
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<title>Supply Chain Finance</title>
-	<script src="../../js/commonResources.js"></script>
+	
 	<style>
 		body{
 			background-color:#333;
@@ -193,7 +193,7 @@
 			border:0px;
 			font-size:125%;
 		}
-		#submitLogin:hover {
+		#submitLogin:hover{
 
 			width:60%;
 			border-radius:20px;
@@ -201,12 +201,13 @@
 			margin:auto; padding:5px;
 			padding-left:20px;
 			padding-right:20px;
-			background-color: #255a88;
+			background-color:#20486b;
 			box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.2);
 			color:rgba(255,255,255,0.9);
 			border:0px;
 			font-size:125%;
 		}
+		
 		#SignupPart {
 			padding: 10px;
 			margin-left:20%;
@@ -232,7 +233,6 @@
 			font-size:125%;
 			width:60%;
 		}
-		
 		#submitSignup:hover {
 			border-radius:20px;
 			display: block;
@@ -240,14 +240,14 @@
 			padding:5px;
 			padding-left:20px;
 			padding-right:20px;
-			background-color:#255a88;
+			background-color:#20486b;
 			box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.2);
 			color:rgba(255,255,255,0.9);
 			border:0px;
 			font-size:125%;
 			width:60%;
 		}
-		
+
 		#LastBlueRow {
 			background-color: #337ab7;
 			height:10px; 
@@ -476,15 +476,17 @@
 		    $scope.PasswordMod = "";
 		    
 		    $scope.LoginClick = function () {
-		        console.log("Clicked")
-		        if (($scope.UserNameMod != "undefined") && ($scope.PasswordMod != "undefined")) {
+		        console.log("Clicked");
+		        
+		        if(!($scope.UserNameMod && $scope.PasswordMod)){
+		    		window.alert("please enter all the details!")
+		    	}else {
 		            var data = {
 		                username: $scope.UserNameMod,
 		                password: $scope.PasswordMod
-		            }
-		           
+		            }           
 		            var promise = $http({
-		                url: BASE_PATH + "/service/login/checkCredentials",
+		                url: 'http://localhost:8089/MyRestDemo/rest/login/checkCredentials',
 		                method: 'POST',
 		                headers: { 'Content-Type': 'text/plain' },
 		                data: {
@@ -505,7 +507,6 @@
 		    }
 	
 		}]);
-
 	</script>
 	<!-- jQuery -->
     <script src="../../vendor/jquery/jquery.min.js"></script>

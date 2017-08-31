@@ -15,7 +15,7 @@
     <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
     <!-- MetisMenu CSS -->
     <link href="../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
@@ -27,7 +27,7 @@
 
     <!-- Custom Fonts -->
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<script src="../../js/commonResources.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,7 +36,7 @@
     <![endif]-->
     <style type="text/css">
         #hey:hover {
-opacity: 0.9;
+			opacity: 0.9;
         }
         a.UserName
         {
@@ -258,11 +258,11 @@ opacity: 0.9;
                         <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
                             <li>
                                 <div style="overflow: auto;" >
-                                    <a href="#" style="float: left" class="UserName"><h3>Welcome<br>{{SessionUsername}}</h3></a>
+                                    <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
 
                                     <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
                                    
-                                    <a class="UserName" style="float: left; padding-bottom:2px">You are a {{SessionUsertype}}</a>
+                                    <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
                                 </div>
                             </li>
                             <li>
@@ -315,51 +315,21 @@ opacity: 0.9;
                     <!-- /.sidebar-collapse -->
                 </div></div>
         </nav>
-        <div class="row" ng-app = "myApp">
+        <div class="row" ng-app = "SignupSwitch">
 	        <div class="col-sm-offset-1 col-sm-8">
-		         <!-- 
-		         <div style="margin-top: 10px">
-		      		<div class="row">
+		        <div style="margin-top: 10px">
+		            <div class="row">
 		                <div class="col-sm-12" style="height:800px; border-radius: 20px; text-align: center; background-color:#fff">
-		                    <button ng-click="TestClick()">Click Me!</button>
+		                    
 		                </div>
-		            </div>   
-		        </div>
-		        -->
-		        <button ng-click="routeCtrl">submit</button>
-		        <div ng-view>
-		            
+		            </div>
 		        </div>
 	        </div>
-            </div>
+        </div>
 	        
     </div>
     
     </div>
-    <script>
-	    var app = angular.module("myApp", ["ngRoute"]);
-	    app.config(function($routeProvider, $locationProvider) {
-	    	//$locationProvider.hashPrefix('');
-	        $routeProvider
-	        .when("/AccountDetails", {
-	            templateUrl : "AccountDetails.html"
-	        })
-	        .when("/red", {
-	            templateUrl : "red.htm"
-	        })
-	        .when("/green", {
-	            templateUrl : "green.htm"
-	        })
-	        .when("/blue", {
-	            templateUrl : "blue.htm"
-	        });
-	    });
-	    app.controller("routeCtrl", ["$scope","$location", function($scope, $location){
-	    	$scope.clickRoute = function () {
-	    		$location.path("/AccountDetails");
-	    	}
-	    }]);
-    </script>
     <!-- /#wrapper -->
 
     <!-- jQuery -->

@@ -14,7 +14,7 @@
     <!-- Custom Fonts -->
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="../../js/commonResources.js"></script>
+    
 	<title>Signup Page For Customer</title>
 	
 	<style type="text/css">
@@ -159,13 +159,14 @@
 										<div class= "FormInputLabels">
 											<p style="margin-bottom: 0px"><b>Retype Password</b></p>
 										</div>
-										<input type="input"  ng-model="RePassword" name="RePassword" class="FormTextInputs" ng-change="chkValidation()" required />
+										<input type="Password"  ng-model="RePassword" name="RePassword" class="FormTextInputs" ng-change="chkValidation()" required />
 									</div>
 								</div>
 								<br>
 								<div class="row">
 									<div class = "col-sm-offset-1 col-sm-5">
-										<input type="checkbox" name="terms" value="terms" required style="float:left;" />
+									
+										<input type="checkbox" ng-model="termChecked" name="terms" value="terms" required style="float:left;" />
 										<p style="text-align:center; float: left; color:white; text-decoration:none;">I accept the terms</p>
 									</div>
 									<div class = "col-sm-offset-1 col-sm-4">
@@ -195,57 +196,72 @@
 			-->
 		</div>
 	</div>
+	
 	<script>
-		var Signupapp = angular.module("SignupApp", []);
-	
-		Signupapp.controller("SignupCustController", ["$scope", "$http", "$httpParamSerializer", "$window", function($scope, $http, $httpParamSerializer, $window){
-			console.log("hii");
-			$scope.UserNameMod = "";
-		    $scope.EmailMod = "";
-		    $scope.Password = "";
-		    $scope.RePassword = "";
-		    $scope.validclass="";
-		    
-		    $scope.chkValidation = function() {
-		        if ($scope.Password == $scope.RePassword) {
-		            $scope.validclass="changedcorrect";
-		        } else {
-		            $scope.validclass="changedincorrect";
-		        }
-		    }
-		    
-		    $scope.SubmitSignup = function () {
-	
-			    if (($scope.Password == $scope.RePassword)){
-			       var data = {
-			            name: $scope.UserNameMod,
-			            email:$scope.EmailMod,
-			            password: $scope.Password
-			        }
-			       console.log(data);
-			        var promise = $http({
-			            url: BASE_PATH + '/service/login/signupCustomer/',
-			            method: 'POST',
-			            headers: { 'Content-Type': 'text/plain' },
-			            data: {
-			            	name: $scope.UserNameMod,
-			                email:$scope.EmailMod,
-			                password: $scope.Password
-			            }
-			        });
-			        promise.then(function(response){
-			            //$location.url('./Dashboard.html')
-			        	
-			        	$window.location.href = './HomePage.html'
-			        	console.log(response.data);
-			        });
-			    } else {
-			    	 console.log("credentials not matching"); 
-			    }
-		    }
-			
-		}]);
+	var Signupapp = angular.module("SignupApp", []);
 
+	Signupapp.controller("SignupCustController", ["$scope", "$http", "$httpParamSerializer", "$window", function($scope, $http, $httpParamSerializer, $window){
+		console.log("hii");
+		$scope.UserNameMod = "";
+	    $scope.EmailMod = "";
+	    $scope.Password = "";
+	    $scope.RePassword = "";
+	    $scope.termChecked=false;
+	   /* $scope.validclass="";    
+	    $scope.chkValidation = function() {
+	        if ($scope.Password == $scope.RePassword) {
+	            $scope.validclass="changedcorrect";
+	        } else {
+	            $scope.validclass="changedincorrect";
+	        }
+	    }*/
+	    console.log($scope.termChecked);
+	    $scope.SubmitSignup = function () {
+
+	    	if(!($scope.UserNameMod && $scope.EmailMod && $scope.Password && $scope.RePassword)){
+	    		window.alert("Please enter all the details!")
+	    		
+	    	}else{
+	    		
+	    		if($scope.termChecked==false){    			 
+	        		  window.alert("Please agree to the terms and conditions!")
+	        	}else{
+	        		
+	        		if ($scope.Password == $scope.RePassword ){
+	          	      /* var data = {
+	          	            name: $scope.UserNameMod,
+	          	            email:$scope.EmailMod,
+	          	            password: $scope.Password
+	          	        }*/
+	          	       console.log(" in submit signup:  customername"+ $scope.UserNameMod + " email "+  $scope.EmailMod);
+	          	        var promise = $http({
+	          	            url: 'http://localhost:8089/MyRestDemo/rest/login/signupCustomer/',
+	          	            method: 'POST',
+	          	            headers: { 'Content-Type': 'text/plain' },
+	          	            data: {
+	          	            	name: $scope.UserNameMod,
+	          	                email:$scope.EmailMod,
+	          	                password: $scope.Password
+	          	            }
+	          	        });
+	          	        promise.then(function(response){
+	          	            //$location.url('./Dashboard.html')    	        	
+	          	        	$window.location.href = './HomePage.html'
+	          	        	console.log(response.data);
+	          	        });
+	          	    } else{
+	            			$scope.Password="";    	  	
+	               	  	    $scope.RePassword="";
+	            			window.alert("Entered passwords dont match, please enter password again!")
+	          				
+	            		}
+	        	}    		
+	         }
+	    	}   	
+		
+	}]);
+
+	
 	</script>
 		<!-- jQuery -->
     <script src="../../vendor/jquery/jquery.min.js"></script>
