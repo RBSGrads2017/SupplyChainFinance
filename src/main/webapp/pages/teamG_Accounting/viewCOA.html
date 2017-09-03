@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+  <title>COA Single</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../../js/commonResources.js"></script>
+</head>
+
+<body ng-app="acmApp" ng-controller="coaListCtrl">
+<div id='chartList'>
+
+<div class="container">
+  <div class="table-responsive">          
+  <table class="table">
+  <thead>
+     <tr>
+     <th>Head</th>
+     <th>Legal Entity</th>
+     <th>Country</th>
+     <th>Branch</th>
+     <th>Product</th>
+     <th>Currency</th>
+     <th>Book</th>
+     <th>SWIFT ID</th>
+     </tr>
+</thead>
+		<tbody>
+			<tr>
+					<td>{{coaSingle.head}}</td>
+					<td>{{coaSingle.legalEntity}}</td>
+					<td>{{coaSingle.country}}</td>
+					<td>{{coaSingle.branch}}</td>
+					<td>{{coaSingle.product}}</td>
+					<td>{{coaSingle.currency}}</td>
+					<td>{{coaSingle.book}}</td>
+					<td>{{coaSingle.productSwiftID}}</td>
+				</tr>
+				</tbody>
+			</table>
+			</div>
+			</div>
+</body>
+</html>
