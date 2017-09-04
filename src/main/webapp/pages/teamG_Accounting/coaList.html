@@ -10,8 +10,8 @@
 </head>
 
 <body ng-app="acmApp" ng-controller="coaListCtrl">
-<div id='chartList'>
-<form action="http://localhost:8089/scm/ACM/delCOA" method="post">
+<div id='chartList'><!-- 
+<form action="http://localhost:8089/scm/ACM/delCOA" method="post"> -->
 
 <div class="container">
   <div class="table-responsive">          
@@ -31,7 +31,7 @@
 </thead>
 <tbody>
 <tr ng-repeat="coa in coaList">                   
-					<td><input class='myCheckBox' type='checkbox' name='chartGroup' value='{{coa.productSwiftID}}'/></td>
+					<!-- <td><input class='myCheckBox' type='checkbox' name='chartGroup' value='{{coa.productSwiftID}}'/></td> -->
 					<td>{{coa.head}}</td>
 					<td>{{coa.legalEntity}}</td>
 					<td>{{coa.country}}</td>
@@ -40,13 +40,15 @@
 					<td>{{coa.currency}}</td>
 					<td>{{coa.book}}</td>
 					<td>{{coa.productSwiftID}}</td>
+					<td><a href="" ng-click="coaDelSingle(coa.productSwiftID)">Delete</a></td>
 				</tr>
 				</tbody>
 			</table>
 			<h2 ng-hide="coaList.length">Chart of Accounts not found</h2><center>
 			<input type='submit' id='deleteButton' value='Delete Selected Accounts'>
 			<a href='#addCOA'><input type="button" value="Add Chart of Accounts" /></a><br>
-			</center></form>
+			</center>
+			<!-- </form> -->
 			</div>
 </body>
 </html>

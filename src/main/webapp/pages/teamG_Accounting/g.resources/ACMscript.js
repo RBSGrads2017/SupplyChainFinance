@@ -54,6 +54,22 @@ $scope.checkCompliance1=function(){
 					
         });
 	}
+	$scope.coaDelSingle= function(swiftID){
+		$http({url:BASE_PATH +'/ACM/coaDelSingle',method:"POST",params:{'swiftID':swiftID}}).success(function () {
+           /* $scope.swift = data;*/
+          /*  console.log(data);*/
+            window.location = "#/coaDelPriorMsg";
+					
+	    });
+	}
+	$scope.coaDelSingleConfirm= function(swiftID){
+		$http({url:BASE_PATH +'/ACM/coaDelSingle',method:"POST",params:{'swiftID':swiftID}}).success(function () {
+           /* $scope.swift = data;*/
+          /*  console.log(data);*/
+            window.location = "#/coaDelMsg";
+					
+	    });
+	}
 	
 	$scope.callGl = function () {
         $http.post(BASE_PATH +'/ACM/viewGL').success(function (data) {

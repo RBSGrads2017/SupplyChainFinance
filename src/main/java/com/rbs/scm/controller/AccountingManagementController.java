@@ -65,7 +65,21 @@ public class AccountingManagementController {
 			return new ResponseEntity<ChartOfAccount>(coa, HttpStatus.OK);
 	 }
 	 
-	 @RequestMapping(value = "/delCOA",method = RequestMethod.POST)
+	 @RequestMapping(value = "/coaDelSingle",method = RequestMethod.POST)
+	 @ResponseBody
+	 public void delCOA(HttpServletRequest request,HttpServletResponse response)
+	 {
+		 /*System.out.println("CONTROLLER----->SWIFTID:  "+request.getParameter("swiftID"));
+		 	ChartOfAccount coa=accountingManagementServiceObj.getCOA(request.getParameter("swiftID"));
+		
+			System.out.println(coa.getBranch());
+			return new ResponseEntity<ChartOfAccount>(coa, HttpStatus.OK);*/
+		 System.out.println("Inside delCOA");
+		 accountingManagementServiceObj.deleteCOASingle(request.getParameter("swiftID"));
+		 
+	 }
+	 
+	 /*@RequestMapping(value = "/delCOA",method = RequestMethod.POST)
 	 @ResponseBody
 	 public void delCOA(HttpServletRequest request,HttpServletResponse response)
 	 {
@@ -107,7 +121,7 @@ public class AccountingManagementController {
 			    }
 		    }
 		 }
-	 }
+	 }*/
 	 
 	 @RequestMapping(value = "/addCOAContoller",method = RequestMethod.POST)
 	 @ResponseBody

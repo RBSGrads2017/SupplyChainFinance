@@ -232,6 +232,25 @@ public class AccountingManagementService {
 			return entries;
 		}
 	
+	public void deleteCOASingle(String sID)
+	{
+		DataBaseConnection dbobj = new DataBaseConnection();
+		try
+	    {
+			Connection con = dbobj.getConnection();
+        	Statement stmt=con.createStatement(); 
+        	//String[] chartNamesToDelete=request.getParameterValues("chartGroup");
+        		stmt.executeUpdate("delete from ChartOfAccounts where productSwiftID='"+sID+"'");  
+      		con.commit();
+      		con.close();
+	    }
+
+	    catch(Exception e)
+	    {
+	    	System.out.println("Exception " + e.getMessage());
+	    }
+	}
+	
 	public void deleteCOA(List<String> swiftIDList)
 	{
 		DataBaseConnection dbobj = new DataBaseConnection();
