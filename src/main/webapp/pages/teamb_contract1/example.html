@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery Add / Remove Table Rows Dynamically</title>
+<style type="text/css">
+    form{
+        margin: 20px 0;
+    }
+    form input, button{
+        padding: 5px;
+    }
+    table{
+        width: 40%;
+        margin-bottom: 20px;
+		border-collapse: collapse;
+    }
+    table, th, td{
+        border: 1px solid #cdcdcd;
+    }
+    table th, table td{
+        padding: 4px;
+        text-align: left;
+    }
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".add-row").click(function(){
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var mobile = $("#mobile").val();
+            var land = $("#land").val();
+            var empid = $("#empid").val();
+            
+            
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + name + "</td><td>" + email + "</td><td>" + mobile + "</td><td>" + land + "</td><td>" + empid + "</td></tr>";
+            $("table tbody").append(markup);
+        });
+        
+        // Find and remove selected table rows
+        $(".delete-row").click(function(){
+            $("table tbody").find('input[name="record"]').each(function(){
+            	if($(this).is(":checked")){
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+    });    
+</script>
+</head>
+<body>
+    <form name="myForm" action="/Internalportal/addSrtServlet?action=add_ao_script" method="post">
+        <input type="text" name="Application_name" id="name" placeholder="Name">
+        <input type="text" name="script_name" id="email" placeholder="Email Address">
+        <input type="text" name="frequency" id="mobile" placeholder="Mobile">
+        <input type="text" name="solution_area" id="land" placeholder="Land line">
+        <input type="text" name="sub_solution_area" id="empid" placeholder="emp id">
+        
+        
+    	<input type="button" class="add-row" value="Add Row">
+    	<input type="submit" class="btn btn-primary" value="Submit"/>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Land</th>
+                  <th>EMp</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox" name="record"></td>
+      
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="delete-row">Delete Row</button>
+</body> 
+</html>         
