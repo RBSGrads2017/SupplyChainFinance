@@ -75,6 +75,7 @@ public class AccountingManagementController {
 			System.out.println(coa.getBranch());
 			return new ResponseEntity<ChartOfAccount>(coa, HttpStatus.OK);*/
 		 System.out.println("Inside delCOA");
+		
 		 accountingManagementServiceObj.deleteCOASingle(request.getParameter("swiftID"));
 		 
 	 }

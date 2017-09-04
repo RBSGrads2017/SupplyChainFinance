@@ -9,6 +9,7 @@ acmApp.config(function ($routeProvider){
 	.when('/addCoaResult', {templateUrl : 'addCoaResult.html'})
 	.when('/coaSingle', {templateUrl : 'viewCOA.html'})
 	.when('/coaDelError', {templateUrl : 'coaDeleteError.html'})
+	.when('/coaDelPriorMsg', {templateUrl : 'coaDeletePriorMsg.html'})
 	.when('/coaDelMsg', {templateUrl : 'coaDeletedMsg.html'})
 	.when('/checkCompliance',{templateUrl:'complianceCheck.html'})
 });
@@ -55,17 +56,18 @@ $scope.checkCompliance1=function(){
         });
 	}
 	$scope.coaDelSingle= function(swiftID){
-		$http({url:BASE_PATH +'/ACM/coaDelSingle',method:"POST",params:{'swiftID':swiftID}}).success(function () {
-           /* $scope.swift = data;*/
-          /*  console.log(data);*/
+		$http({url:BASE_PATH +'/ACM/viewCOASINGLE',method:"POST",params:{'swiftID':swiftID}}).success(function (data) {
+			$scope.coaSingle = data;
+            console.log(data);
             window.location = "#/coaDelPriorMsg";
 					
 	    });
 	}
 	$scope.coaDelSingleConfirm= function(swiftID){
+		console.log(swiftID);
 		$http({url:BASE_PATH +'/ACM/coaDelSingle',method:"POST",params:{'swiftID':swiftID}}).success(function () {
            /* $scope.swift = data;*/
-          /*  console.log(data);*/
+           console.log("coa Deleted");
             window.location = "#/coaDelMsg";
 					
 	    });
