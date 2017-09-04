@@ -80,50 +80,7 @@ public class AccountingManagementController {
 		 
 	 }
 	 
-	 /*@RequestMapping(value = "/delCOA",method = RequestMethod.POST)
-	 @ResponseBody
-	 public void delCOA(HttpServletRequest request,HttpServletResponse response)
-	 {
-		 System.out.println("Inside delCOA");
-		 if(request.getParameterValues("chartGroup")==null)
-		 {
-			 try{
-			    	response.sendRedirect("http://localhost:8089/scm/pages/teamG_Accounting/ACMindex.html#/coaDelError");
-			    	}catch(Exception e)
-				    {
-				    	System.out.println("Exception " + e.getMessage());
-				    }
-		 }
-		 else
-		 {
-		 String[] chartNamesToDelete=request.getParameterValues("chartGroup");
-		 
-		 List<String> res=new LinkedList<String>();
-		 for(String chName:chartNamesToDelete){
-			 System.out.println("For loop chartGroup: "+chName);
-			 res.add(chName);
-		 }
-		 try
-		    {
-			 	accountingManagementServiceObj.deleteCOA(res);
-		    }
-
-		    catch(Exception e)
-		    {
-		    	System.out.println("Exception " + e.getMessage());
-		    }
-		    finally
-		    {
-		    	try{
-		    	response.sendRedirect("http://localhost:8089/scm/pages/teamG_Accounting/ACMindex.html#/coaDelMsg");
-		    	}catch(Exception e)
-			    {
-			    	System.out.println("Exception " + e.getMessage());
-			    }
-		    }
-		 }
-	 }*/
-	 
+	 	 
 	 @RequestMapping(value = "/addCOAContoller",method = RequestMethod.POST)
 	 @ResponseBody
 	 public void addCOAController(HttpServletRequest request,HttpServletResponse response)

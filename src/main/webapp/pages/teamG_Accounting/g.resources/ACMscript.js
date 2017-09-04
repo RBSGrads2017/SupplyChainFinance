@@ -68,7 +68,9 @@ $scope.checkCompliance1=function(){
 		$http({url:BASE_PATH +'/ACM/coaDelSingle',method:"POST",params:{'swiftID':swiftID}}).success(function () {
            /* $scope.swift = data;*/
            console.log("coa Deleted");
-            window.location = "#/coaDelMsg";
+           alert("Deleted");
+           $scope.callCoaList();
+            //window.location = "#/coaDelMsg";
 					
 	    });
 	}
@@ -77,8 +79,7 @@ $scope.checkCompliance1=function(){
         $http.post(BASE_PATH +'/ACM/viewGL').success(function (data) {
             $scope.glList = data;
             console.log(data);
-            window.location = "#/viewGL";
-					
+            window.location = "#/viewGL";		
 	    });
 	}
 	
@@ -168,7 +169,7 @@ $scope.checkCompliance1=function(){
 			$http({url:url,method:"POST",params:{'head':$scope.head,'legalEntity':$scope.legalEntity,'country':$scope.country,'branch':$scope.branch,'product':$scope.product,'currency':$scope.currency,'book':$scope.book,'productSwiftID':$scope.productSwiftID}}).success(function (data) {
 	           // $scope.glList = data;
 	            console.log(data);  
-	            alert("Chart Of Accounts Added");
+	            //alert("Chart Of Accounts Added");
 	            window.location = "#/addCoaResult";					
 			});
 			//$scope.callCoaList();
@@ -184,15 +185,3 @@ function getFormattedDate(input) {
     });
     return result;
 }
-
-/*var boxes = $('.myCheckBox');
-
-boxes.on('change', function() {
-    $('#deleteButton').prop('disabled', !boxes.filter(':checked').length);
-}).trigger('change');*/
-
-/*var checkBoxes = $('.myCheckBox');
-checkBoxes.change(function () {
-    $('#deleteButton').prop('disabled', checkBoxes.filter(':checked').length < 1);
-});
-checkBoxes.change();*/
