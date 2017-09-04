@@ -82,13 +82,14 @@ public class LoginServices {
 		return "no session";
 	}
 	
-//	@POST
-//	@Path("/logout/")
-//	public boolean logoutUser(@Context HttpServletRequest request) throws SQLException{
-//		
-//		return true;
-//	}
-//	
+	@POST
+	@Path("logout")
+	public boolean logoutUser(@Context HttpServletRequest request) throws SQLException{
+		HttpSession hs = request.getSession(false);
+		hs.invalidate();
+		return true;
+	}
+	
 
 	
 	@POST

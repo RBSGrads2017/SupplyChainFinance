@@ -46,7 +46,7 @@
     </style>
 </head>
 
-<body ng-app="sessionApp" ng-controller="TestController">
+<body ng-app="MyDashboardApp" ng-controller="Controller">
 
     <div id="wrapper">
 
@@ -306,7 +306,7 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                            <li>
+                            <li ng-click=LogoutClk()>
                                 <a href="HomePage.html"> Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
                                 <!-- /.nav-second-level -->
                             </li>
@@ -331,7 +331,21 @@
     
     </div>
     <!-- /#wrapper -->
-
+	<script>
+		var MyDashboardApp = angular.module("MyDashboardApp", []);
+		MyDashboardApp.controller("Controller", ["$scope", "$http", function($scope, $http){
+			var LogoutClk = function() {
+				var promise = $http({
+	                url: BASE_PATH + '/service/login/logout',
+	                method: 'POST',
+	                headers: { 'Content-Type': 'text/plain' },
+	            })
+	            promise.then(function(){
+	            	$window.location.href = './HomePage.html'
+	            });
+			}
+		}]);
+	</script>
     <!-- jQuery -->
     <script src="../../js/commonResources.js"></script>
     <script src="../../vendor/jquery/jquery.min.js"></script>
