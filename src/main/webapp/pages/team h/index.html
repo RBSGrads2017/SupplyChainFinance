@@ -1,0 +1,264 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+	<script src="../../js/commonResources.js"></script>
+	<title>Supply Chain Finance - Contract Management</title>
+ 
+	<script type="text/javascript" src="h.resources/script.js">      
+    </script>
+     <link href="h.resources/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="h.resources/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="h.resources/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="h.resources/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="h.resources/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <script src="https://use.fontawesome.com/caba7b4681.js"></script>
+    
+    <style type="text/css">
+        a.UserName
+        {
+            text-decoration: none;
+        }
+        #module_section_tr {
+            border: 1px solid #cccccc; 
+            border-radius: 10px;
+        }
+        #module_section_td1 {
+            padding:15px; 
+            margin:15px;
+        }
+        #module_section_td2 {
+            text-align: justify;
+            display: inline;
+        }
+        #module_section_div1 {
+            border: 1px solid #cccccd; 
+            height: 42px; 
+            padding: 10px 48px; 
+            border-radius: 3px; 
+            background-color: #cccccc; 
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #module_section_div2 {
+            height: 80px;
+            overflow-y: scroll;
+            margin: 5px 5px 5px 35px;
+            border-right:1px solid #cccccd;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myController">   
+	<div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+		
+		<div class="col-xs-1" style="margin-top: 5px; margin-left: 1060px">
+			<input class="form-control" type="text" ng-model="seller_id" id="seller_id" name="seller_id" />
+		</div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" >
+                        <!-- <img src="2358536-rbs-tm-2013.png" style=" display: block; margin: 10px 5px; width: 180px;">  -->
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-pencil-square-o"></i> Contracts Pending Approval
+                                    <span class="badge">3</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-list-alt"></i> Invoices received
+                                    <span class="badge">2</span>
+                                </div>
+                            </a>
+                        </li>
+                       
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+
+            <!-- /.navbar-top-links -->
+            <div dir="rtl">
+                <div class="navbar-default sidebar" role="navigation" >
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
+                            <!--<li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                /input-group 
+                                </li> -->
+                            <li>
+                                <div style="overflow: auto;" >
+                                    <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
+                                    <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
+                                    <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="index.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
+                            </li>
+                            <li>
+                                <a href="#"> Contract Management <i class="fa fa-briefcase fa-fw"></i>   
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="flot.html">Create Proposal</a></li>									
+                                    <li><a href ng-click="myfunc()">View New Proposals</a></li>
+									<li><a href ng-click="myfuncstats()">View Status of Sent Proposals</a></li>
+                                    <li><a href="morris.html">Edit Proposal</a></li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"> Purchase Order <i class="fa fa-file-text-o"></i>  
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="panels-wells.html">Review</a></li> 
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"> Invoice Management <i class="fa fa-list-alt"></i>   <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="#">Create Invoice</a></li>
+                                    <li><a href="#">View Invoice</a></li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="login.html"> Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </div>
+        </nav>
+ 	<div style="margin-top: 10px">
+		<div style="margin-left: 10px; margin-right: 260px;">
+           <div class="jumbotron" style=" height:800px; border-radius: 10px; text-align: left;">
+              <div class="panel panel-default">
+                        <div class="panel-heading" id="module_section_div1" style="margin-top: 0px; text-align: center; font-size: 24px;">
+                            View Contract
+                        </div>
+                    </div>
+     	<div>    	
+		<div ng-view></div>
+			<script type="text/ng-template" id="view_table.htm" >
+				<div class="row" style="margin: 0 auto; width: 100%">
+					<div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="font-size: 20px; font-weight: bold">
+									PROPOSALS RECEIVED
+							</div>
+								<!-- /.panel-heading -->
+							<div class="panel-body" ng-controller="myController">
+								<div class="table-responsive" id="proposals">
+									<table class="table table-striped table-bordered table-hover">
+										<thead>
+											<tr>    
+											<th>Seller ID</th>
+											<th>Proposal ID</th>
+											<th>Cost</th>
+											
+											</tr>
+										</thead>
+											<tr ng-repeat="i in proposals">
+												<td>{{i.seller_id}}</td>
+												<td><a class="propos"  ng-click="getFeatures(i)">{{i.proposal_id}}</a></td>
+												<td>{{i.cost_avail}}</td>
+												
+											</tr>				
+									</table>
+									<!--Enter the proposal ID you wish to view: <input type="text" ng-model="proposal_id" />
+										<div ng-controller="proposalTableCtrl">-->
+									
+									<!--</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</script> 
+    </div>
+    </div>
+    </div> 
+<script src="h.resources/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="h.resources/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="h.resources/metisMenu.min.js"></script>	
+		<script src="h.resources/raphael.min.js"></script>
+        <script src="h.resources/morris.min.js"></script>
+        <script src="h.resources/morris-data.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="h.resources/sb-admin-2.js"></script>
+</div>
+</div>
+</body>
+</html>
