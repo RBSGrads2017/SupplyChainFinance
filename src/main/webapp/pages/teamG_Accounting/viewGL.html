@@ -1,0 +1,120 @@
+<head>
+  <title>General Ledger</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../../js/commonResources.js"></script>
+</head>
+
+<body ng-app="acmApp" ng-controller="coaListCtrl">
+	<form class="form-horizontal" ng-submit="callGlSearch()">
+		<div class="container">
+				<div class="row">
+		
+		<div class="form-group col-sm-4">
+			<label for="acEntryNo">Account Entry Number</label>
+			
+	    	<input type='text'  class="form-control" id='acEntryNo' name='acEntryNo' ng-model='acEntryNo'></input>
+	   	</div>
+	   	
+	   	<div class="form-group col-sm-4">
+			<label for="transNo">Transaction Number</label>
+	    	<input type='text'  class="form-control"  id='transNo' name='transNo' ng-model='transNo'></input>
+	   	</div>
+	   	
+	   	
+	  	<div class="form-group col-sm-4">
+	  		<label for="custAcNo">Customer Account Number</label>
+		    <input type='text'  class="form-control"  id='custAcNo' name='custAcNo' ng-model='custAcNo'></input>
+	  	</div>
+	  	
+	  	</div><!-- 1 row -->
+	  	
+	  	<div class="row">
+	  	
+	  	
+	  	<div class="form-group col-sm-4">
+	  		<label for="swiftID">Swift ID</label>
+	  		<input type='text'  class="form-control" id='swiftID' name='swiftID' ng-model='swiftID'></input>
+	    </div>
+	  	
+	  	<div class="form-group col-sm-4">
+	  		<label for="paymentDate">Payment Date</label>
+	  		<input type='date' class="form-control" id='paymentDate' name='paymentDate' ng-model='paymentDate'></input>
+	   </div>
+	  	
+	  	<div class="form-group col-sm-4">
+	  		<label for="invoiceNo">Invoice Number</label>
+       	    <input type='text'  class="form-control" id='invoiceNo' name='invoiceNo' ng-model='invoiceNo'></input> 
+       	</div>
+       	
+       	</div><!-- 2nd row  -->
+	  	
+	  	<div class="row">
+	  	
+	  	<div class="form-group col-sm-6">
+	  		<label for="drCr">Event Type</label>
+         	<select type='text' class="form-control" id='drCr' name='drCr' ng-model='drCr'>
+	    				<option value="allEvents" selected>--all events--</option>
+					 	<option value="Cr">Credit (Cr)</option>
+					  	<option value="Dr">Debit (Dr)</option>
+					</select>
+	    </div>
+	    
+	    <div class="form-group col-sm-6">
+	    	<label for="dueDate">Due Date</label>	
+	    	<input type='date'  class="form-control" id='dueDate' name='dueDate' ng-model='dueDate'></input>
+	    </div>
+	    
+	    </div><!-- 3rd row -->
+		
+		<div class="form-group">  
+		<br>      
+      <div class="col-sm-offset-6 col-sm-6">
+        <button type="submit" class="btn btn-default">Search</button><br>
+      </div>
+    </div>
+			    
+  </form>
+  
+  
+  <div class="table-responsive">          
+  <table class="table">
+    <thead>
+      <tr ng-if="glList.length != 0">
+        <th>Account Entry Number</th>
+        <th>Current Date</th>
+        <th>Payment Date</th>
+        <th>Transaction Number</th>
+        <th>Customer Account Number</th>
+        <th>Swift ID</th>
+      	<th>Invoice Number</th>
+      	<th>Type of Event</th>
+      	<th>Amount</th>
+      	<th>Due Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="glEntry in glList">
+        <td>{{glEntry.accountEntryNo}}</td>
+        <td>{{glEntry.currentDate}}</td>
+        		<td>{{glEntry.paymentDate}}</td>
+				<td>{{glEntry.transactionNo}}</td>
+				<td>{{glEntry.customerAccountNo}}</td>
+				<td><a href=""  ng-click="callCoa(glEntry.swiftID)">{{glEntry.swiftID}}</a></td>
+				<!-- <td><a href="http://localhost:8181/ACMindex.html">{{glEntry.swiftID}}</a></td> -->
+				<td>{{glEntry.invoiceNo}}</td>
+				<td>{{glEntry.drOrCr}}</td>
+				<td>{{glEntry.amount}}</td>
+				<td>{{glEntry.dueDate}}</td>
+		</tr>
+    </tbody>
+  </table>
+    <h1 ng-hide="glList.length">No records</h1>
+  </div>
+  </div>
+  
+</body>
+</html>

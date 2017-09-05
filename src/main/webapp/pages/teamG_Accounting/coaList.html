@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+  <title>COA List</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../../js/commonResources.js"></script>
+</head>
+
+<body ng-app="acmApp" ng-controller="coaListCtrl">
+<div id='chartList'><!-- 
+<form action="http://localhost:8089/scm/ACM/delCOA" method="post"> -->
+
+<div class="container">
+  <div class="table-responsive">          
+  <table class="table">
+  <thead>
+     <tr ng-if="coaList.length != 0">
+		 <th>Head</th>
+	     <th>Legal Entity</th>
+	     <th>Country</th>
+	     <th>Branch</th>
+	     <th>Product</th>
+	     <th>Currency</th>
+	     <th>Book</th>
+	     <th>SWIFT ID</th>
+	     <th></th>
+     </tr>
+</thead>
+<tbody>
+<tr ng-repeat="coa in coaList">                   
+					<!-- <td><input class='myCheckBox' type='checkbox' name='chartGroup' value='{{coa.productSwiftID}}'/></td> -->
+					<td>{{coa.head}}</td>
+					<td>{{coa.legalEntity}}</td>
+					<td>{{coa.country}}</td>
+					<td>{{coa.branch}}</td>
+					<td>{{coa.product}}</td>
+					<td>{{coa.currency}}</td>
+					<td>{{coa.book}}</td>
+					<td>{{coa.productSwiftID}}</td>
+					<td><a href="" ng-click="coaDelSingle(coa.productSwiftID)">Delete</a></td>
+				</tr>
+				</tbody>
+			</table>
+			<h2 ng-hide="coaList.length">Chart of Accounts not found</h2><center>
+			<!-- <input type='submit' id='deleteButton' value='Delete Selected Accounts'> -->
+			<button ng-click="addCoaPage()">Add Chart of Accounts</button>
+			<a href='#addCOA'><input type="button" value="Add Chart of Accounts" /></a><br>
+			</center>
+			<!-- </form> -->
+			</div>
+</body>
+</html>
