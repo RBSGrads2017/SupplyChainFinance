@@ -14,13 +14,15 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.stereotype.Service;
 
 import com.rbs.scm.DAO.DataBaseConnection;
+import com.rbs.scm.DAO.DatabaseConnectionPostgreSQL;
 import com.rbs.scm.controller.AccountingManagementController;
 import com.rbs.scm.model.ChartOfAccount;
 import com.rbs.scm.model.GeneralLedger;
 
 @Service("accountingManagementServiceObj")
 public class AccountingManagementService {
-	
+	static DatabaseConnectionPostgreSQL dbobj1;
+	 static Connection con;
 	/*public List<String> getCOAswiftList()
 	{
 		DataBaseConnection dbobj = new DataBaseConnection();
@@ -41,7 +43,7 @@ public class AccountingManagementService {
 		}
 		return swiftList;
 	}*/
-	public List<ChartOfAccount> getCOAList()
+	/*public List<ChartOfAccount> getCOAList()
 	{
 		DataBaseConnection dbobj = new DataBaseConnection();
 		List<ChartOfAccount> coaList=new LinkedList<ChartOfAccount>();
@@ -69,7 +71,45 @@ public class AccountingManagementService {
 			System.out.println("Exception " + e.getMessage());
 		}
 		return coaList;
-	}
+	}*/
+	 public List<ChartOfAccount> getCOAList()
+		{
+			dbobj1 = new DatabaseConnectionPostgreSQL();
+			//DataBaseConnection dbobj = new DataBaseConnection();
+			List<ChartOfAccount> coaList=new LinkedList<ChartOfAccount>();
+			try {
+				Connection con = dbobj1.getConnection();
+				Statement statement = con.createStatement();  
+				System.out.println("In getCOAswiftList - After create statement");
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='yes') ");		
+				while(resultSet.next())
+				{
+					ChartOfAccount coa=new ChartOfAccount();
+					coa.setHead(resultSet.getString("bank_name"));
+					//coa.setLegalEntity(resultSet.getString("legalEntity"));
+					coa.setCountry(resultSet.getString("country"));
+					coa.setBranch(resultSet.getString("city"));
+					//coa.setProduct(resultSet.getString("product"));
+					coa.setCurrency(resultSet.getString("currency"));
+					//coa.setBook(resultSet.getInt("book"));
+					coa.setProductSwiftID(resultSet.getString("swift_id"));
+					coaList.add(coa);
+				}
+				con.close();
+			}
+			catch(Exception e) {
+				System.out.println("Exception " + e.getMessage());
+			}
+			finally{
+				
+				try {
+					dbobj1.closeConnection();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			}
+			return coaList;
+		}
 	/*public List<ChartOfAccount> getCOAList()
 	{
 		DataBaseConnection dbobj = new DataBaseConnection();
@@ -99,8 +139,44 @@ public class AccountingManagementService {
 		}
 		return coaList;
 	}*/
-	
-	public ChartOfAccount getCOA(String swiftID)
+	 public ChartOfAccount getCOA(String swiftID)
+		{
+		 dbobj1 = new DatabaseConnectionPostgreSQL();
+			//DataBaseConnection dbobj = new DataBaseConnection();
+			ChartOfAccount coa=new ChartOfAccount();
+			try {
+				Connection con = dbobj1.getConnection();
+				Statement statement = con.createStatement();  
+				System.out.println("In getCOAswiftList - After create statement");
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM bank where swift_id='"+swiftID+"'");		
+				while(resultSet.next())
+				{
+					coa.setHead(resultSet.getString("bank_name"));
+					//coa.setLegalEntity(resultSet.getString("legalEntity"));
+					coa.setCountry(resultSet.getString("country"));
+					coa.setBranch(resultSet.getString("city"));
+					//coa.setProduct(resultSet.getString("product"));
+					coa.setCurrency(resultSet.getString("currency"));
+					//coa.setBook(resultSet.getInt("book"));
+					coa.setProductSwiftID(resultSet.getString("swift_id"));
+					return coa;
+				}
+				con.close();
+			}
+			catch(Exception e) {
+				System.out.println("Exception " + e.getMessage());
+			}
+			finally{
+				
+				try {
+					dbobj1.closeConnection();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			}
+			return coa;
+		}
+	/*public ChartOfAccount getCOA(String swiftID)
 	{
 		DataBaseConnection dbobj = new DataBaseConnection();
 		ChartOfAccount coa=new ChartOfAccount();
@@ -127,7 +203,7 @@ public class AccountingManagementService {
 			System.out.println("Exception " + e.getMessage());
 		}
 		return coa;
-	}
+	}*/
 	
 	public List<GeneralLedger> getEachGLEntry() {
 		DataBaseConnection dbobj = new DataBaseConnection();
@@ -264,10 +340,11 @@ public class AccountingManagementService {
 	
 	public void deleteCOASingle(String sID)
 	{
-		DataBaseConnection dbobj = new DataBaseConnection();
+		dbobj1 = new DatabaseConnectionPostgreSQL();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		try
 	    {
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
         	Statement stmt=con.createStatement(); 
         	//String[] chartNamesToDelete=request.getParameterValues("chartGroup");
         		stmt.executeUpdate("update chart_of_accounts set addedornot='no' where swift_id='"+sID+"'");  
@@ -279,14 +356,23 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+		finally{
+			
+			try {
+				dbobj1.closeConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
 	}
 	
 	public void deleteCOA(List<String> swiftIDList)
 	{
-		DataBaseConnection dbobj = new DataBaseConnection();
+		dbobj1 = new DatabaseConnectionPostgreSQL();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		try
 	    {
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
         	Statement stmt=con.createStatement(); 
         	//String[] chartNamesToDelete=request.getParameterValues("chartGroup");
         	for(String sID:swiftIDList)
@@ -299,13 +385,22 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+finally{
+			
+			try {
+				dbobj1.closeConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
 	}
 	public void addCOAService(String swift)
 	{
-		DataBaseConnection dbobj = new DataBaseConnection();
+		dbobj1 = new DatabaseConnectionPostgreSQL();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		try
 	    {
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
         	Statement stmt=con.createStatement(); 
         	stmt.executeUpdate("update chart_of_accounts set addedornot='yes' where swift_id='"+swift+"'");
       		con.commit();
@@ -316,6 +411,14 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+finally{
+			
+			try {
+				dbobj1.closeConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
 	}
 	/*public void addCOAService(ChartOfAccount coa)
 	{
@@ -337,10 +440,11 @@ public class AccountingManagementService {
 	
 	public void updateCOAtableService()
 	{
-		DataBaseConnection dbobj = new DataBaseConnection();
+		dbobj1 = new DatabaseConnectionPostgreSQL();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		try
 	    {
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
         	Statement stmt=con.createStatement(); 
         	ResultSet resultSet = stmt.executeQuery("SELECT swift_id FROM chart_of_accounts");		
         	Set<String> swiftFromCOA=new HashSet<String>();
@@ -368,15 +472,24 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+finally{
+			
+			try {
+				dbobj1.closeConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
 	}
 	
 	public List<String> getNoSwift_headService()
 	{
+		dbobj1 = new DatabaseConnectionPostgreSQL();
 		List<String> headList=new LinkedList<String>();
-		DataBaseConnection dbobj = new DataBaseConnection();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		try
 	    {
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
         	Statement stmt=con.createStatement(); 
         	ResultSet resultSet = stmt.executeQuery("select bank_name from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no')");	
         	System.out.println("get head list");
@@ -392,16 +505,25 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+finally{
+			
+			try {
+				dbobj1.closeConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
 		return headList;
 	}
 	
 	public List<String> getNoSwift_countryService(String head)
 	{
+		dbobj1 = new DatabaseConnectionPostgreSQL();
 		List<String> countryList=new LinkedList<String>();
-		DataBaseConnection dbobj = new DataBaseConnection();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		try
 	    {
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
         	Statement stmt=con.createStatement(); 
         	ResultSet resultSet = stmt.executeQuery("select country from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no') and bank_name = '"+head+"'");	
         	
@@ -416,17 +538,26 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+finally{
+			
+			try {
+				dbobj1.closeConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
 		System.out.println("Service Countries: "+countryList);
 		return countryList;
 	}
 	
 	public List<String> getNoSwift_branchService(String head, String country)
 	{
+		dbobj1 = new DatabaseConnectionPostgreSQL();
 		List<String> branchList=new LinkedList<String>();
-		DataBaseConnection dbobj = new DataBaseConnection();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		try
 	    {
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
         	Statement stmt=con.createStatement(); 
         	ResultSet resultSet = stmt.executeQuery("select city from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no')"
         											+" and bank_name = '"+head
@@ -443,17 +574,26 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+finally{
+			
+			try {
+				dbobj1.closeConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
 		System.out.println("Service Countries: "+branchList);
 		return branchList;
 	}
 	
 	public List<String> getNoSwift_currencyService(String head, String country, String branch)
 	{
+		dbobj1 = new DatabaseConnectionPostgreSQL();
 		List<String> currencyList=new LinkedList<String>();
-		DataBaseConnection dbobj = new DataBaseConnection();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		try
 	    {
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
         	Statement stmt=con.createStatement(); 
         	ResultSet resultSet = stmt.executeQuery("select currency from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no')"
 													+" and bank_name = '"+head
@@ -471,17 +611,26 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+finally{
+			
+			try {
+				dbobj1.closeConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
 		System.out.println("Service Countries: "+currencyList);
 		return currencyList;
 	}
 	
 	public List<String> getNoSwift_swiftService(String head, String country, String branch, String currency)
 	{
+		dbobj1 = new DatabaseConnectionPostgreSQL();
 		List<String> swiftList=new LinkedList<String>();
-		DataBaseConnection dbobj = new DataBaseConnection();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		try
 	    {
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
         	Statement stmt=con.createStatement(); 
         	ResultSet resultSet = stmt.executeQuery("select swift_id from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no')"
 													+" and bank_name = '"+head
@@ -500,6 +649,14 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+finally{
+			
+			try {
+				dbobj1.closeConnection();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
 		return swiftList;
 	}
 	public   List<String> sanctionedCountries(){  
