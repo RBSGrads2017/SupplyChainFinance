@@ -14,8 +14,8 @@ public class CustomerDaoImpl {
 		Customer c = null;
 		if(res != null) {
 			while(res.next()) {
-				String name = res.getString(1);
-				String email = res.getString(2);
+				String name = res.getString(2);
+				String email = res.getString(1);
 				c = new Customer(name, email);
 			}
 		}

@@ -33,7 +33,6 @@ Initially, cursor points to before the first row.*/
 	
 	public static boolean insertIntoBankUser(GenericUser u,BankUser c) throws SQLException {
 		
-		
 		if(GenericUserDaoImpl.insertIntoUser(u)) {
 			Connection conn = SQLConnection.getConnection();
 			/*PreparedStatement for parameterized query like insert();*/
@@ -48,6 +47,18 @@ Initially, cursor points to before the first row.*/
 		return false;
 	}
 	
+	public static BankUser searchBankUser(String username) throws SQLException{  //username is email here
+		res = null;
+		Connection conn = SQLConnection.getConnection();
+		if(conn != null) {
+			Statement st = conn.createStatement();
+			String queryString = "select * from \"Bank_user\" where \"Username\" ='" + username + "'";
+			res = st.executeQuery(queryString);
+			BankUser b = convertResToObject();
+			return b;
+		}
+		return null;
+	}
 	
 
 	

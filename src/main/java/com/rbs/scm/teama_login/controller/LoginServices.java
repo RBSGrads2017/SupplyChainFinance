@@ -70,7 +70,7 @@ public class LoginServices {
 			String TypeOfUser = null;
 			
 			if (gu.get_is_Bank_User()) {
-				TypeOfUser = "Bank";
+				TypeOfUser = "Bank User";
 			} else {
 				TypeOfUser = "Customer";
 			}
@@ -78,7 +78,7 @@ public class LoginServices {
 			Session s = new Session(gu.getUsername(), TypeOfUser);
 			HttpSession hs = request.getSession();//CREATE A SESSION FOR THE USER.
 			hs.setAttribute("session", s);
-			
+			  
 			return Response.ok("LoggedInSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
 		} else {
 			return Response.ok("WrongCredentials").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
@@ -142,9 +142,21 @@ public class LoginServices {
 	@Path("fetchCustomerDetails")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String fetchCustomerDetails(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		System.out.println(Uname);
 		Customer c = CustomerDaoImpl.searchCustomer(Uname);
+		System.out.println(c);
 		if(c == null)	{ return null; }
 		return c.convertObjectToJSON();
+	}
+
+	
+	@GET
+	@Path("fetchBankUserDetails")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String fetchUserDetails(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		BankUser b = BankUserDaoImpl.searchBankUser(Uname);
+		if(b == null)	{ return null; }
+		return b.convertObjectToJSON();
 	}
 	
 	@GET
