@@ -33,7 +33,7 @@ Initially, cursor points to before the first row.*/
 	
 	public static boolean insertIntoBankUser(GenericUser u,BankUser c) throws SQLException {
 		
-		//if(checkUsernameExistence(c.email)) { return false; }
+		
 		if(GenericUserDaoImpl.insertIntoUser(u)) {
 			Connection conn = SQLConnection.getConnection();
 			/*PreparedStatement for parameterized query like insert();*/

@@ -46,7 +46,7 @@ public class GenericUserDaoImpl{
 	
 	public static boolean insertIntoUser(GenericUser gu) throws SQLException {
 		
-		//if(checkUsernameExistence(c.email)) { return false; }
+		if(searchUser(gu.getUsername()) != null) { return false; }
 		
 		Connection conn = SQLConnection.getConnection();
 		PreparedStatement st = conn.prepareStatement("INSERT INTO \"User\" values" + "(?,?,?,?,?)");

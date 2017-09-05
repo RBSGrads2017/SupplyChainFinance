@@ -23,17 +23,7 @@
 			color:white;
 			padding-bottom: 5%;
 		}
-		body:before{
-			content:"HEY";
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			color: white;
-			opacity:1;
-			
-		}
+		
 		input:focus{
 			outline-color:transparent;
 		}
@@ -86,6 +76,12 @@
 			text-align:center;
 			padding-top:2%;
 			padding-bottom: 0px;
+		}
+		#finbiztrue:hover{
+			color:white;
+			background-color:#555;
+			border-radius:10px;
+			box-shadow:
 		}
 		
 		#bizfintrue:hover{
@@ -253,12 +249,27 @@
 			height:10px; 
 			margin:0px;	
 		}
+		
+		.overlay{
+			content:"Loading";
+			text-align:"center";
+		    position: fixed;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    background-color:#000;
+		    opacity: .75;
+		    z-index: 9999999;
+		}
 	</style>
 	
 	
 </head>
-<body ng-app='SignupSwitch' ng-controller="mySignupSwitch" class = "container" style="margin-top: 5%;">
+
+<body ng-app='SignupSwitch' ng-controller="mySignupSwitch" class="{{overlay}}">
 		
+		<div class = "container" style="margin-top: 5%;" >
 		<!-- ============================Body Start ================================ -->
 		<div class = "row">	
 			
@@ -324,7 +335,7 @@
 					<div class = "col-sm-6">
 						
 						<p style="text-align:center; font-size:200%;color: #555"> <b> Already a user ?<br>Login Here</b></p>
-							<div class = "row" ng-controller="LoginController">
+							<div class = "row" >
 								<div class = "col-sm-offset-1 col-sm-10">
 								
 					<!-- ==========================form start =========================== -->
@@ -400,19 +411,22 @@
 	</div>
 	<script>
 		var app = angular.module("SignupSwitch", []);
-		app.controller("mySignupSwitch", ["$scope", function($scope) {
+		app.controller("mySignupSwitch", ["$scope", "$http", "$httpParamSerializer", "$window", function($scope, $http, $httpParamSerializer, $window) {
 		    $scope.bizvar = false;
 		    $scope.finvar = false;
 		    $scope.nopage = true;
-	
-		    $scope.hid = "hidden"
-		    $scope.nhid = ""
+
 		    $scope.curstylebiz = "bizfintrue";
 		    $scope.curstylefin = "finbiztrue";
+
 		    $scope.myurl = "";
 		    $scope.collapse = "";
+
+		    //Function call on business icon click
 		    $scope.bizClick = function() {
 		        $scope.myurl ="./SignupCustomer.html"
+
+		        //if biz icon already not clicked
 		        if ($scope.bizvar == false) {
 		            if ($scope.finvar == true) {
 		                $scope.collapse = "";
@@ -466,18 +480,14 @@
 		      
 	
 		    }
-		}]);
-	
-	
-		 
-		app.controller("LoginController", ["$scope", "$http", "$httpParamSerializer", "$window", function($scope, $http, $httpParamSerializer, $window) {
-			console.log("controller loaded");
+		    
+		    $scope.overlay = "";
 		    $scope.UserNameMod = "";
 		    $scope.PasswordMod = "";
 		    console.log(BASE_PATH);
 		    $scope.LoginClick = function () {
 		        console.log("Clicked");
-		        
+		        $scope.overlay = "overlay";
 		        if(!($scope.UserNameMod && $scope.PasswordMod)){
 		    		window.alert("please enter all the details!")
 		    	}else {
@@ -507,6 +517,7 @@
 		    }
 	
 		}]);
+	
 	</script>
 	<!-- jQuery -->
     <script src="../../vendor/jquery/jquery.min.js"></script>
@@ -516,6 +527,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../../dist/js/sb-admin-2.js"></script>
+    </div>
 </body>
 
 </html>

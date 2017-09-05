@@ -73,7 +73,7 @@ public class LoginServices {
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("getUserInfo")
-	public String checkToken(@Context HttpServletRequest request) throws SQLException, JSONException{
+	public String checkToken(@Context HttpServletRequest request) throws JSONException{
 		Session s = SessionUtility.sessionValidation(request);
 		if(s != null) {
 			String obj = "{\"username\": \"" + s.getUserId() + "\", \"userType\": \"" + s.getUserType() + "\"}";
@@ -84,7 +84,7 @@ public class LoginServices {
 	
 	@POST
 	@Path("logout")
-	public boolean logoutUser(@Context HttpServletRequest request) throws SQLException{
+	public boolean logoutUser(@Context HttpServletRequest request) {
 		HttpSession hs = request.getSession(false);
 		hs.invalidate();
 		return true;
@@ -96,7 +96,7 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("signupCustomer")
-	public Response signUpCustomer(String data, @Context HttpServletRequest request) throws SQLException, JSONException{
+	public Response signUpCustomer(String data, @Context HttpServletRequest request) throws JSONException{
 		JSONObject inputJsonObj = new JSONObject(data);
 		String name = inputJsonObj.getString("name");
 		String email = inputJsonObj.getString("email");
@@ -106,10 +106,19 @@ public class LoginServices {
 		GenericUser gu = new GenericUser(email,password,false, false, false);
 		System.out.println(c);
 		
-		if(CustomerDaoImpl.insertIntoCustomers(gu,c)) {
-			return Response.ok("SignupSuccess").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		boolean flag_notfound = false;
+		try {
+			flag_notfound = CustomerDaoImpl.insertIntoCustomers(gu,c);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
 		}
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		if (flag_notfound) {
+			return Response.ok("SignupSuccess").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		} else {
+			return Response.ok("UserExists").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		}
 	}
 	
 	
@@ -137,7 +146,7 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("signupUser")
-	public Response signupUser(String data, @Context HttpServletRequest request) throws SQLException, JSONException{
+	public Response signupUser(String data, @Context HttpServletRequest request) throws JSONException{
 		JSONObject inputJsonObj = new JSONObject(data);
 		String username= inputJsonObj.getString("CorpID");
 		String password = inputJsonObj.getString("Password");
@@ -148,10 +157,22 @@ public class LoginServices {
 		GenericUser gu = new GenericUser(username,password,false, false, true);
 		System.out.println(b);
 		
-		if(BankUserDaoImpl.insertIntoBankUser(gu,b)) {
-			return Response.ok("SignupSuccess").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		
+		boolean flag_notfound = false;
+		try {
+			flag_notfound = BankUserDaoImpl.insertIntoBankUser(gu,b);
+				
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
 		}
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		if (flag_notfound) {
+			return Response.ok("SignupSuccess").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		} else {
+			return Response.ok("UserExists").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		}
 	}
 	
 	
@@ -162,7 +183,7 @@ public class LoginServices {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("updateDetails")
 
-	public Response addDetails(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response addDetails(String data, @Context HttpServletRequest request) throws JSONException {
 		JSONObject JsonObj = new JSONObject(data);
 		System.out.println("hi");
 		Session s = SessionUtility.sessionValidation(request);
@@ -181,11 +202,14 @@ public class LoginServices {
 		//return Response.ok("Details updated Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 		
 		AdditionalDetails ad = new AdditionalDetails(username,swift, accnumber, contnumber, postallocation, factorylocation, postalcity, factorycity, postalstate, factorystate, department);
-		if (AdditionalDetailsDao.insertIntoAdditionalDetails(ad))
-		{
-			return Response.ok("Details updated Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		try {
+			AdditionalDetailsDao.insertIntoAdditionalDetails(ad);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
 		}
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		return Response.ok("DetailsUpdatedSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 	}
 
 
@@ -194,7 +218,7 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("updateProducts")
-	public Response addproducts(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response addproducts(String data, @Context HttpServletRequest request) throws JSONException {
 		JSONObject JsonObj = new JSONObject(data);
 		JSONArray productCategories = JsonObj.getJSONArray("UserProductsCategories");
 		JSONArray products = JsonObj.getJSONArray("UserProducts");
@@ -208,18 +232,22 @@ public class LoginServices {
 			prod[j]=(products.get(j).toString());	
 		}
 		UserProducts up = new UserProducts(username, prod);
-		if ( UserProductsDao.insertIntoProducts(up)) {
-			return Response.ok("Products updated Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
-		}
 		
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		try {
+			 UserProductsDao.insertIntoProducts(up);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		}
+		return Response.ok("ProductsUpdatedSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();	
 	}
 	
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("forgotPassword")
-	public Response forgotPassword(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response forgotPassword(String data, @Context HttpServletRequest request) throws JSONException {
 		
 		System.out.println("entered into forgotPassword service");
 				
@@ -227,9 +255,19 @@ public class LoginServices {
 		String customerEmail = inputJsonObj.getString("email");	
 		// check db 
 		
-		GenericUser gu = GenericUserDaoImpl.searchUser(customerEmail);
-		if (gu == null) {
+		
+		
+		GenericUser gu = null;
+		try {
+			gu = GenericUserDaoImpl.searchUser(customerEmail);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		}
+		
+		if (gu == null) {
+			return Response.ok("UserDoesNotExist").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 		}
 		
 		String subjectToSend="Password change request";
@@ -237,13 +275,21 @@ public class LoginServices {
 		String randomString   = Integer.toString(rand.nextInt(5000));
 		// db store token
 		
-		GenericUserDaoImpl.addToPwdTable(gu, randomString);
+		try {
+			GenericUserDaoImpl.addToPwdTable(gu, randomString);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		}
 			
 		//String basePath = request.getScheme()+request.getRemoteHost()+request.getpo;
 		System.out.println("the random string generated is"+randomString);
+		
 		String messageToSend = "Hi!! To reset the password kindly click the link. \n" + "\n<a href='http://localhost:8089/scm/pages/teama_login/ChangePassword.htm?"+randomString+"'>Reset password</a>";
 		
 		System.out.print(customerEmail + " this is the email where i have to send the message");
+
 		MyMailClass.sendMail(customerEmail ,messageToSend,subjectToSend);		
 			
 	    return Response.ok("Mailed Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
@@ -253,7 +299,7 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("saveNewPassword")
-	public Response changePassword(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response changePassword(String data, @Context HttpServletRequest request) throws JSONException {
 		
 		System.out.println("entered into change Password service");
 		
@@ -264,11 +310,26 @@ public class LoginServices {
 		System.out.print(newPassword + " this is the password that i have to now chnage in db");
 		System.out.print(token + " this is the token for the user id");
 		
-		String Username = GenericUserDaoImpl.GetUserFromToken(token);
-		if (Username != null) {
-			 GenericUserDaoImpl.ChangePwdUser(Username, newPassword);
-			 return Response.ok("Logged in Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		String Username = null;
+		try {
+			Username = GenericUserDaoImpl.GetUserFromToken(token);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();		
 		}
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		
+		if (Username != null) {
+			 try {
+				GenericUserDaoImpl.ChangePwdUser(Username, newPassword);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return Response.serverError().status(Status.EXPECTATION_FAILED).build();		
+			}
+		} else {
+			 return Response.ok("LinkGotExpired").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		}
+		return Response.ok("Logged in Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 	}
 }
