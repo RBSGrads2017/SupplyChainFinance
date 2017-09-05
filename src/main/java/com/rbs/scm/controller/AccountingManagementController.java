@@ -80,8 +80,27 @@ public class AccountingManagementController {
 		 
 	 }
 	 
-	 	 
 	 @RequestMapping(value = "/addCOAContoller",method = RequestMethod.POST)
+	 @ResponseBody
+	 public void addCOAController(HttpServletRequest request,HttpServletResponse response)
+	 {
+		 System.out.println("inside addCOAController");
+		 accountingManagementServiceObj.addCOAService(request.getParameter("productSwiftID"));
+		 /*ChartOfAccount coa=new ChartOfAccount();
+		 coa.setHead(request.getParameter("head"));
+		 coa.setLegalEntity(request.getParameter("legalEntity"));
+		 coa.setCountry(request.getParameter("country"));
+		 coa.setBranch(request.getParameter("branch"));
+		 coa.setProduct(request.getParameter("product"));
+		 coa.setCurrency(request.getParameter("currency"));
+		 coa.setBook(Integer.parseInt(request.getParameter("book")));
+		 coa.setProductSwiftID(request.getParameter("productSwiftID"));
+		 System.out.println(coa.toString());
+		 System.out.println("Before calling add");
+		 accountingManagementServiceObj.addCOAService(coa);
+		 System.out.println("After calling add");*/
+	 }	 
+	 /*@RequestMapping(value = "/addCOAContoller",method = RequestMethod.POST)
 	 @ResponseBody
 	 public void addCOAController(HttpServletRequest request,HttpServletResponse response)
 	 {
@@ -99,6 +118,51 @@ public class AccountingManagementController {
 		 System.out.println("Before calling add");
 		 accountingManagementServiceObj.addCOAService(coa);
 		 System.out.println("After calling add");
+	 }*/
+	 
+	 @RequestMapping(value = "/updateCOAtable",method = RequestMethod.POST)
+	 @ResponseBody
+	 public void updateCOAtableController()
+	 {
+		 accountingManagementServiceObj.updateCOAtableService();
+	 }
+	 
+	 @RequestMapping(value = "/getNoSwift_head",method = RequestMethod.POST)
+	 @ResponseBody
+	 public ResponseEntity<List<String>> getNoSwift_headController()
+	 {
+		 return new ResponseEntity<List<String>>(accountingManagementServiceObj.getNoSwift_headService(), HttpStatus.OK);
+	 }
+	 
+	 @RequestMapping(value = "/getNoSwift_country",method = RequestMethod.POST)
+	 @ResponseBody
+	 public ResponseEntity<List<String>> getNoSwift_countryController(HttpServletRequest request)
+	 {
+		 System.out.println("Ctlr head: "+request.getParameter("head"));
+		 return new ResponseEntity<List<String>>(accountingManagementServiceObj.getNoSwift_countryService(request.getParameter("head")), HttpStatus.OK);
+	 }
+	 
+	 @RequestMapping(value = "/getNoSwift_branch",method = RequestMethod.POST)
+	 @ResponseBody
+	 public ResponseEntity<List<String>> getNoSwift_branchController(HttpServletRequest request)
+	 {
+		 System.out.println("Ctlr head: "+request.getParameter("head"));
+		 return new ResponseEntity<List<String>>(accountingManagementServiceObj.getNoSwift_branchService(request.getParameter("head"),request.getParameter("country")), HttpStatus.OK);
+	 }
+	 
+	 @RequestMapping(value = "/getNoSwift_currency",method = RequestMethod.POST)
+	 @ResponseBody
+	 public ResponseEntity<List<String>> getNoSwift_currencyController(HttpServletRequest request)
+	 {
+		 System.out.println("Ctlr head: "+request.getParameter("head"));
+		 return new ResponseEntity<List<String>>(accountingManagementServiceObj.getNoSwift_currencyService(request.getParameter("head"),request.getParameter("country"),request.getParameter("branch")), HttpStatus.OK);
+	 }
+	 
+	 @RequestMapping(value = "/getNoSwift_swift",method = RequestMethod.POST)
+	 @ResponseBody
+	 public ResponseEntity<List<String>> getNoSwift_swiftController(HttpServletRequest request)
+	 {
+		 return new ResponseEntity<List<String>>(accountingManagementServiceObj.getNoSwift_swiftService(request.getParameter("head"),request.getParameter("country"),request.getParameter("branch"),request.getParameter("currency")), HttpStatus.OK);
 	 }
 	 
 	 @RequestMapping(value = "/CheckCompliance",method = RequestMethod.POST)

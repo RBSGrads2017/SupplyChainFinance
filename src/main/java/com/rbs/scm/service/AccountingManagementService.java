@@ -5,8 +5,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ import com.rbs.scm.model.GeneralLedger;
 @Service("accountingManagementServiceObj")
 public class AccountingManagementService {
 	
-	public List<String> getCOAswiftList()
+	/*public List<String> getCOAswiftList()
 	{
 		DataBaseConnection dbobj = new DataBaseConnection();
 		List<String> swiftList=new LinkedList<String>();
@@ -38,9 +40,37 @@ public class AccountingManagementService {
 			System.out.println("Exception " + e.getMessage());
 		}
 		return swiftList;
-	}
-	
+	}*/
 	public List<ChartOfAccount> getCOAList()
+	{
+		DataBaseConnection dbobj = new DataBaseConnection();
+		List<ChartOfAccount> coaList=new LinkedList<ChartOfAccount>();
+		try {
+			Connection con = dbobj.getConnection();
+			Statement statement = con.createStatement();  
+			System.out.println("In getCOAswiftList - After create statement");
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='yes') ");		
+			while(resultSet.next())
+			{
+				ChartOfAccount coa=new ChartOfAccount();
+				coa.setHead(resultSet.getString("bank_name"));
+				//coa.setLegalEntity(resultSet.getString("legalEntity"));
+				coa.setCountry(resultSet.getString("country"));
+				coa.setBranch(resultSet.getString("city"));
+				//coa.setProduct(resultSet.getString("product"));
+				coa.setCurrency(resultSet.getString("currency"));
+				//coa.setBook(resultSet.getInt("book"));
+				coa.setProductSwiftID(resultSet.getString("swift_id"));
+				coaList.add(coa);
+			}
+			con.close();
+		}
+		catch(Exception e) {
+			System.out.println("Exception " + e.getMessage());
+		}
+		return coaList;
+	}
+	/*public List<ChartOfAccount> getCOAList()
 	{
 		DataBaseConnection dbobj = new DataBaseConnection();
 		List<ChartOfAccount> coaList=new LinkedList<ChartOfAccount>();
@@ -68,7 +98,7 @@ public class AccountingManagementService {
 			System.out.println("Exception " + e.getMessage());
 		}
 		return coaList;
-	}
+	}*/
 	
 	public ChartOfAccount getCOA(String swiftID)
 	{
@@ -78,17 +108,17 @@ public class AccountingManagementService {
 			Connection con = dbobj.getConnection();
 			Statement statement = con.createStatement();  
 			System.out.println("In getCOAswiftList - After create statement");
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM ChartOfAccounts where productSwiftID='"+swiftID+"'");		
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM bank where swift_id='"+swiftID+"'");		
 			while(resultSet.next())
 			{
-				coa.setHead(resultSet.getString("head"));
-				coa.setLegalEntity(resultSet.getString("legalEntity"));
+				coa.setHead(resultSet.getString("bank_name"));
+				//coa.setLegalEntity(resultSet.getString("legalEntity"));
 				coa.setCountry(resultSet.getString("country"));
-				coa.setBranch(resultSet.getString("branch"));
-				coa.setProduct(resultSet.getString("product"));
+				coa.setBranch(resultSet.getString("city"));
+				//coa.setProduct(resultSet.getString("product"));
 				coa.setCurrency(resultSet.getString("currency"));
-				coa.setBook(resultSet.getInt("book"));
-				coa.setProductSwiftID(resultSet.getString("productSwiftID"));
+				//coa.setBook(resultSet.getInt("book"));
+				coa.setProductSwiftID(resultSet.getString("swift_id"));
 				return coa;
 			}
 			con.close();
@@ -240,7 +270,7 @@ public class AccountingManagementService {
 			Connection con = dbobj.getConnection();
         	Statement stmt=con.createStatement(); 
         	//String[] chartNamesToDelete=request.getParameterValues("chartGroup");
-        		stmt.executeUpdate("delete from ChartOfAccounts where productSwiftID='"+sID+"'");  
+        		stmt.executeUpdate("update chart_of_accounts set addedornot='no' where swift_id='"+sID+"'");  
       		con.commit();
       		con.close();
 	    }
@@ -270,7 +300,24 @@ public class AccountingManagementService {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
 	}
-	public void addCOAService(ChartOfAccount coa)
+	public void addCOAService(String swift)
+	{
+		DataBaseConnection dbobj = new DataBaseConnection();
+		try
+	    {
+			Connection con = dbobj.getConnection();
+        	Statement stmt=con.createStatement(); 
+        	stmt.executeUpdate("update chart_of_accounts set addedornot='yes' where swift_id='"+swift+"'");
+      		con.commit();
+      		con.close();
+	    }
+
+	    catch(Exception e)
+	    {
+	    	System.out.println("Exception " + e.getMessage());
+	    }
+	}
+	/*public void addCOAService(ChartOfAccount coa)
 	{
 		DataBaseConnection dbobj = new DataBaseConnection();
 		try
@@ -286,6 +333,174 @@ public class AccountingManagementService {
 	    {
 	    	System.out.println("Exception " + e.getMessage());
 	    }
+	}*/
+	
+	public void updateCOAtableService()
+	{
+		DataBaseConnection dbobj = new DataBaseConnection();
+		try
+	    {
+			Connection con = dbobj.getConnection();
+        	Statement stmt=con.createStatement(); 
+        	ResultSet resultSet = stmt.executeQuery("SELECT swift_id FROM chart_of_accounts");		
+        	Set<String> swiftFromCOA=new HashSet<String>();
+			while(resultSet.next())
+			{
+				System.out.println(resultSet.getString("swift_id"));
+				swiftFromCOA.add(resultSet.getString("swift_id"));
+				/*Statement stmt1=con.createStatement(); 
+				stmt1.executeUpdate("insert into chart_of_accounts values('"+resultSet.getString("swift_id")+"','no')");*/
+			}
+			resultSet = stmt.executeQuery("SELECT swift_id FROM bank");
+			while(resultSet.next())
+			{
+				System.out.println(resultSet.getString("swift_id"));
+				if(swiftFromCOA.contains(resultSet.getString("swift_id")))
+					continue;
+				Statement stmt1=con.createStatement();
+				stmt1.executeUpdate("insert into chart_of_accounts values('"+resultSet.getString("swift_id")+"','no')");
+			}
+        	con.commit();
+      		con.close();
+	    }
+
+	    catch(Exception e)
+	    {
+	    	System.out.println("Exception " + e.getMessage());
+	    }
+	}
+	
+	public List<String> getNoSwift_headService()
+	{
+		List<String> headList=new LinkedList<String>();
+		DataBaseConnection dbobj = new DataBaseConnection();
+		try
+	    {
+			Connection con = dbobj.getConnection();
+        	Statement stmt=con.createStatement(); 
+        	ResultSet resultSet = stmt.executeQuery("select bank_name from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no')");	
+        	System.out.println("get head list");
+			while(resultSet.next())
+			{
+				System.out.println("Head: "+resultSet.getString("bank_name"));
+				headList.add(resultSet.getString("bank_name"));
+			}
+      		con.close();
+	    }
+
+	    catch(Exception e)
+	    {
+	    	System.out.println("Exception " + e.getMessage());
+	    }
+		return headList;
+	}
+	
+	public List<String> getNoSwift_countryService(String head)
+	{
+		List<String> countryList=new LinkedList<String>();
+		DataBaseConnection dbobj = new DataBaseConnection();
+		try
+	    {
+			Connection con = dbobj.getConnection();
+        	Statement stmt=con.createStatement(); 
+        	ResultSet resultSet = stmt.executeQuery("select country from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no') and bank_name = '"+head+"'");	
+        	
+			while(resultSet.next())
+			{
+				countryList.add(resultSet.getString("country"));
+			}
+      		con.close();
+	    }
+
+	    catch(Exception e)
+	    {
+	    	System.out.println("Exception " + e.getMessage());
+	    }
+		System.out.println("Service Countries: "+countryList);
+		return countryList;
+	}
+	
+	public List<String> getNoSwift_branchService(String head, String country)
+	{
+		List<String> branchList=new LinkedList<String>();
+		DataBaseConnection dbobj = new DataBaseConnection();
+		try
+	    {
+			Connection con = dbobj.getConnection();
+        	Statement stmt=con.createStatement(); 
+        	ResultSet resultSet = stmt.executeQuery("select city from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no')"
+        											+" and bank_name = '"+head
+        											+"' and country = '"+country+"'");	
+        	
+			while(resultSet.next())
+			{
+				branchList.add(resultSet.getString("city"));
+			}
+      		con.close();
+	    }
+
+	    catch(Exception e)
+	    {
+	    	System.out.println("Exception " + e.getMessage());
+	    }
+		System.out.println("Service Countries: "+branchList);
+		return branchList;
+	}
+	
+	public List<String> getNoSwift_currencyService(String head, String country, String branch)
+	{
+		List<String> currencyList=new LinkedList<String>();
+		DataBaseConnection dbobj = new DataBaseConnection();
+		try
+	    {
+			Connection con = dbobj.getConnection();
+        	Statement stmt=con.createStatement(); 
+        	ResultSet resultSet = stmt.executeQuery("select currency from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no')"
+													+" and bank_name = '"+head
+													+"' and country = '"+country
+													+"' and city= '"+branch+"'");	
+        	
+			while(resultSet.next())
+			{
+				currencyList.add(resultSet.getString("currency"));
+			}
+      		con.close();
+	    }
+
+	    catch(Exception e)
+	    {
+	    	System.out.println("Exception " + e.getMessage());
+	    }
+		System.out.println("Service Countries: "+currencyList);
+		return currencyList;
+	}
+	
+	public List<String> getNoSwift_swiftService(String head, String country, String branch, String currency)
+	{
+		List<String> swiftList=new LinkedList<String>();
+		DataBaseConnection dbobj = new DataBaseConnection();
+		try
+	    {
+			Connection con = dbobj.getConnection();
+        	Statement stmt=con.createStatement(); 
+        	ResultSet resultSet = stmt.executeQuery("select swift_id from bank where swift_id in (SELECT swift_id FROM chart_of_accounts where addedornot='no')"
+													+" and bank_name = '"+head
+													+"' and country = '"+country
+													+"' and city= '"+branch
+													+"' and currency = '"+currency+"'");	
+        	
+			while(resultSet.next())
+			{
+				swiftList.add(resultSet.getString("swift_id"));
+			}
+      		con.close();
+	    }
+
+	    catch(Exception e)
+	    {
+	    	System.out.println("Exception " + e.getMessage());
+	    }
+		return swiftList;
 	}
 	public   List<String> sanctionedCountries(){  
 		 

@@ -17,6 +17,9 @@ acmApp.config(function ($routeProvider){
 acmApp.controller('coaListCtrl', function ($scope, $http){    
 	$scope.callCoaList = function () {
 		console.log("coaListCtrl");
+		$http.post(BASE_PATH +'/ACM/updateCOAtable').success(function () {
+            console.log("coa table updated");		
+	    });
         $http.post(BASE_PATH +'/ACM/viewCOAlist').success(function (data) {
             $scope.coaList = data;
             console.log(data);
@@ -133,7 +136,88 @@ $scope.checkCompliance1=function(){
 		}
 	}
 	
+	$scope.addCoaPage = function () {
+        /*$http.post(BASE_PATH +'/ACM/updateCOAtable').success(function () {
+            console.log("coa table updated");		
+	    });*/
+        $http.post(BASE_PATH +'/ACM/getNoSwift_head').success(function (data) {
+        	$scope.headList=data;
+            console.log(data);
+            window.location = "#/addCOA";		
+	    });
+	}
+	
+	$scope.getSelectedHead = function () {
+		$http({url:BASE_PATH +'/ACM/getNoSwift_country',method:"POST",params:{'head':this.head}}).success(function (data) {
+            console.log("countries :"+data);		
+            $scope.countryList=data;
+	    });
+	}
+	
+	$scope.getSelectedCountry = function () {
+		$http({url:BASE_PATH +'/ACM/getNoSwift_branch',method:"POST",params:{'head':this.head,'country':this.country}}).success(function (data) {
+            console.log("Branches :"+data);		
+            $scope.branchList=data;
+	    });
+	}
+
+	$scope.getSelectedBranch = function () {
+		$http({url:BASE_PATH +'/ACM/getNoSwift_currency',method:"POST",params:{'head':this.head,'country':this.country,'branch':this.branch}}).success(function (data) {
+            console.log("currencies :"+data);		
+            $scope.currencyList=data;
+	    });
+	}
+
+	$scope.getSelectedCurrency = function () {
+		$http({url:BASE_PATH +'/ACM/getNoSwift_swift',method:"POST",params:{'head':this.head,'country':this.country,'branch':this.branch,'currency':this.currency}}).success(function (data) {
+            console.log("swiftIDs :"+data);		
+            $scope.swiftList=data;
+	    });
+	}
+
 	$scope.addCoa = function () {
+		$scope.head=this.head;
+		$scope.legalEntity=this.legalEntity;
+		$scope.country=this.country;
+		$scope.branch=this.branch;
+		$scope.product=this.product;
+		$scope.currency=this.currency;
+		$scope.book=this.book;
+		$scope.productSwiftID=this.productSwiftID;
+		if($scope.head==undefined||$scope.head=='null')
+			$scope.head='';
+		if($scope.legalEntity==undefined||$scope.legalEntity=='null')
+			$scope.legalEntity='';
+		if($scope.country==undefined||$scope.country=='null')
+			$scope.country='';
+		if($scope.branch==undefined||$scope.branch=='null')
+			$scope.branch='';
+		if($scope.product==undefined||$scope.product=='null')
+			$scope.product='';
+		if($scope.currency==undefined||$scope.currency=='null')
+			$scope.currency='';
+		if($scope.book==undefined||$scope.book=='null')
+			$scope.book='';
+		if($scope.productSwiftID==undefined||$scope.productSwiftID=='null')
+			$scope.productSwiftID='';
+		/*if($scope.head==''||$scope.legalEntity==''||$scope.country==''||$scope.branch==''||$scope.product==''||$scope.currency==''||$scope.book==''||$scope.productSwiftID=='')
+		{	
+			alert("Enter all the fields");
+			//$scope.callGl();
+		}
+		else
+		{*/
+			var url=BASE_PATH +'/ACM/addCOAContoller';
+			$http({url:url,method:"POST",params:{'productSwiftID':$scope.productSwiftID}}).success(function () {
+	           // $scope.glList = data;
+	           // console.log(data);  
+	            //alert("Chart Of Accounts Added");
+	            window.location = "#/addCoaResult";					
+			});
+			//$scope.callCoaList();
+		/*}*/
+	}
+	/*$scope.addCoa = function () {
 		$scope.head=this.head;
 		$scope.legalEntity=this.legalEntity;
 		$scope.country=this.country;
@@ -174,7 +258,7 @@ $scope.checkCompliance1=function(){
 			});
 			//$scope.callCoaList();
 		}
-	}
+	}*/
 });
 
 function getFormattedDate(input) {
