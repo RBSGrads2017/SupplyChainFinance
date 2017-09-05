@@ -70,6 +70,11 @@
             <type>pom</type>
             <scope>test</scope>
         </dependency>
+         <dependency>
+        	<groupId>com.sun.jersey</groupId>
+        	<artifactId>jersey-client</artifactId>
+        	<version>1.9.1</version>
+        </dependency>
     </dependencies>
 
     <build>
