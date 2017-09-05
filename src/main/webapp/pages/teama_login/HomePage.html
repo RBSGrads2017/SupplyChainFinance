@@ -487,7 +487,7 @@
 		    console.log(BASE_PATH);
 		    $scope.LoginClick = function () {
 		        console.log("Clicked");
-		        $scope.overlay = "overlay";
+		        //$scope.overlay = "overlay";
 		        if(!($scope.UserNameMod && $scope.PasswordMod)){
 		    		window.alert("please enter all the details!")
 		    	}else {
@@ -504,13 +504,26 @@
 		    	            password: $scope.PasswordMod
 		                }
 		            })
-		            promise.then(function(){
+		            promise.then(function(response){
 		                //$location.url('./Dashboard.html')
-		            	$window.location.href = './Dashboard.html'
-		            }, function(response){
-		            	console.log("could not login!")
+		            	if (response.data == "LoggedInSuccessfully") {
+		                	
+		            		$window.location.href = './Dashboard.html';
+		                	
+		            	} else if (response.data == "WrongCredentials") {
+		            		
+		        		    $scope.PasswordMod = "";
+		            		window.alert("You Entered Wrong Credentials!");
 		            	
-		            })
+		            	} else if (response.data == "UserDoesNotExist") {
+		            		$scope.UserNameMod = "";
+		        		    $scope.PasswordMod = "";
+		            		window.alert("This user does not exist");
+		            	}
+		            			            	
+		            }, function(response){
+		            	window.alert("server error occured");
+		            });
 		            console.log("click return")
 		        }
 	

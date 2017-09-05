@@ -44,15 +44,28 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("checkCredentials")
-	public Response authenticateUser(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response authenticateUser(String data, @Context HttpServletRequest request) throws JSONException {
 		JSONObject inputJsonObj = new JSONObject(data);
-		System.out.println("hi0");
+		
 		String username = inputJsonObj.getString("username");
 		String password = inputJsonObj.getString("password");
+		System.out.println(username);
+		GenericUser gu = null;
+		try {
+			gu = GenericUserDaoImpl.searchUser(username);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		}
+		System.out.println(gu);
+		if(gu == null)	{ 
+			System.out.print("doesnotexist");
+			return Response.ok("UserDoesNotExist").header("Access-Control-Allow-Origin", "*").status(Status.OK).build(); 
+		}
 		
-		GenericUser gu = GenericUserDaoImpl.searchUser(username);
-		if(gu == null)	{ return Response.serverError().status(Status.EXPECTATION_FAILED).build(); }
 		System.out.println("hi");
+		
 		if(password.equals(gu.getPassword())) {
 			String TypeOfUser = null;
 			
@@ -65,9 +78,12 @@ public class LoginServices {
 			Session s = new Session(gu.getUsername(), TypeOfUser);
 			HttpSession hs = request.getSession();//CREATE A SESSION FOR THE USER.
 			hs.setAttribute("session", s);
-			return Response.ok("Logged in Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
-		}		
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+			
+			return Response.ok("LoggedInSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
+		} else {
+			return Response.ok("WrongCredentials").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		}
+		
 	}
 	
 	@POST
@@ -255,8 +271,6 @@ public class LoginServices {
 		String customerEmail = inputJsonObj.getString("email");	
 		// check db 
 		
-		
-		
 		GenericUser gu = null;
 		try {
 			gu = GenericUserDaoImpl.searchUser(customerEmail);
@@ -330,6 +344,6 @@ public class LoginServices {
 		} else {
 			 return Response.ok("LinkGotExpired").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 		}
-		return Response.ok("Logged in Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		return Response.ok("LoggedInSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 	}
 }
