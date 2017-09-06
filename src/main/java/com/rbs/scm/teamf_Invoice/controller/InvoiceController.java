@@ -312,10 +312,13 @@ public class InvoiceController {
 	
 	}
 	@RequestMapping(path = "/getNextInvoiceNo", method = RequestMethod.GET)
-	public ResponseEntity<Invoice> download1() {
+	public ResponseEntity<Invoice> download1() throws ClassNotFoundException, SQLException {
 	Invoice n=new Invoice();
 	CustomMessage msg= null;
 	n=invoiceServiceObj.getNextInvoiceNo();
-	return new ResponseEntity<Invoice>(n,HttpStatus.OK);
+	if (n==null) {
+		return new ResponseEntity<Invoice>(n,HttpStatus.NO_CONTENT);
+	}
+	return new ResponseEntity<Invoice>(n, HttpStatus.OK);
 	}
 }

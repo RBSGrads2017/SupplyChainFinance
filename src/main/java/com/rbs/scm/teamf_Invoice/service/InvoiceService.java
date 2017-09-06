@@ -1046,13 +1046,14 @@ public class InvoiceService {
 		
 		
 	}
-	public Invoice getNextInvoiceNo()
+	public Invoice getNextInvoiceNo() throws ClassNotFoundException, SQLException
 	{
 		Invoice p=new Invoice();
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		CustomMessage msg=null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select nextval(\'invoiceno_seq\');");
 				ResultSet rs = stmt.executeQuery();				
 				
@@ -1066,7 +1067,9 @@ public class InvoiceService {
 		{
 			
 		}
-		
+		finally {
+			con.close();
+		}
 		return p;
 	}
 
