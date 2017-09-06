@@ -667,7 +667,7 @@ public Customer_Transaction[] getCustomerTransactionDetailsbyPayerId(String sid)
 			ResultSet rs=stmt.executeQuery();
 			if( rs.first()){
 				 
-			t1=new Customer_Transaction(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs1.getString(9),rs1.getString(10),rs1.getString(2),rs1.getString(3));
+			t1=new Customer_Transaction(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs1.getString(2),rs1.getString(3));
 			b[i++]=t1;
 			}
 		}
@@ -703,7 +703,7 @@ public Bank_to_Customer[] getBankToCustomerDetailsbyPayerId(String sid) {
 			ResultSet rs=stmt.executeQuery();
 			if( rs.first()){
 				 
-			t1=new Bank_to_Customer(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs1.getString(9),rs1.getString(10),rs1.getString(2),rs1.getString(3));
+			t1=new Bank_to_Customer(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs1.getString(2),rs1.getString(3));
 			b[i++]=t1;
 			}
 		}
@@ -739,7 +739,7 @@ public Customer_to_Bank[] getCustomerToBankDetailsbyPayerId(String sid) {
 			ResultSet rs=stmt.executeQuery();
 			if( rs.first()){
 				 
-			t1=new Customer_to_Bank(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs1.getString(9),rs1.getString(10),rs1.getString(2),rs1.getString(3));
+			t1=new Customer_to_Bank(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs1.getString(2),rs1.getString(3));
 			b[i++]=t1;
 			}
 		}
@@ -775,7 +775,7 @@ public Customer_Transaction[] getCustomerTransactionDetailsbyPayeeId(String sid)
 			ResultSet rs=stmt.executeQuery();
 			if( rs.first()){
 				 
-			t1=new Customer_Transaction(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs1.getString(9),rs1.getString(10),rs1.getString(2),rs1.getString(3));
+			t1=new Customer_Transaction(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs1.getString(2),rs1.getString(3));
 			b[i++]=t1;
 			}
 		}
@@ -811,7 +811,7 @@ public Bank_to_Customer[] getBankToCustomerDetailsbyPayeeId(String sid) {
 			ResultSet rs=stmt.executeQuery();
 			if( rs.first()){
 				 
-			t1=new Bank_to_Customer(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs1.getString(9),rs1.getString(10),rs1.getString(2),rs1.getString(3));
+			t1=new Bank_to_Customer(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs1.getString(2),rs1.getString(3));
 			b[i++]=t1;
 			}
 		}
@@ -847,7 +847,7 @@ public Customer_to_Bank[] getCustomerToBankDetailsbyPayeeId(String sid) {
 			ResultSet rs=stmt.executeQuery();
 			if( rs.first()){
 				 
-			t1=new Customer_to_Bank(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs1.getString(9),rs1.getString(10),rs1.getString(2),rs1.getString(3));
+			t1=new Customer_to_Bank(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs1.getString(2),rs1.getString(3));
 			b[i++]=t1;
 			}
 		}

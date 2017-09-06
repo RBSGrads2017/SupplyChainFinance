@@ -10,6 +10,8 @@
     <meta name="author" content="">
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -111,10 +113,10 @@
                 text-align: center;
                 border: 1px solid black;
                 background-color: white;
-                border-radius: 20px;
+                border-radius: 20px 20px 20px 20px;
             }
             th,td{
-                padding: 15px;
+                padding: 12px;
             }
             .btnss{
                 background-color:#3383FF ;
@@ -294,7 +296,7 @@
         </div>
     </nav>
 
-    <div style="margin-top: 10px">
+    <div style="margin-top: 10px" ng-app="CustTransaction" ng-controller="Custctrl">
         <div class="row">
             <div class="col-sm-offset-1 col-sm-8 jumbotron" id="alignMain" style="padding-top:0px; 
             height:70%; 
@@ -330,44 +332,53 @@
                                     
 
                                     <table style="width:100%">
-                                        
                                         <tr>
                                             <th> DATE </th>
                                             <th> TRANSACTION </th> 
                                             
-                                            <th>DEPOSIT</th>
-                                            <th>WITHDRAWAL</th>
-                                            <th>RUNNING BALANCE</th>
+                                            <th>SENDER</th>
+                                            <th>BENEFICIARY</th>
+                                            <th>AMOUNT</th>
+                                            <th>AML STATUS</th>
                                             <th>STATUS</th>
                                         </tr>
-                                        <tr>
-                                            <td>14/08/17</td>
-                                            <td>LB36701708 XXXX 0000000-00 </td> 
+                                        <tr ng-repeat="credit in creditArray">
+                                            <td>{{credit.date}}</td>
+                                            <td>{{credit.transaction_id}}</td> 
                                             
-                                            <td></td>
-                                            <td>9,000.00 </td>
-                                            <td>31,319.00</td>
-                                            <td>SUCCESS</td>
-                                            
+                                            <td>{{credit.sender}}</td>
+                                            <td>{{credit.beneficiary}}</td>
+                                            <td>{{credit.amount}}</td>
+                                            <td>{{credit.aml_status}}</td>
+                                            <td>{{credit.status}}</td>     
                                         </tr>
-                                        <tr>
-                                            <td>01/08/17</td>
-                                            <td>LB36781708 YYYY 0000000-00 </td> 
-                                            
-                                            <td>8,000.00</td>
-                                            <td> </td>
-                                            <td>39,319.00</td>
-                                            <td>SUCCESS</td>
-                                            
-                                        </tr>
-                                        
-                                        
-                                        
-                                    </table>
+                                        </table>
                                     <br>
                                     <br>
                                    
-
+                                   
+                                   <table style="width:100%">
+                                        <tr>
+                                            <th> DATE </th>
+                                            <th> TRANSACTION </th> 
+                                            
+                                            <th>SENDER</th>
+                                            <th>BENEFICIARY</th>
+                                            <th>AMOUNT</th>
+                                            <th>AML STATUS</th>
+                                            <th>STATUS</th>
+                                        </tr>
+                                        <tr ng-repeat="debit in debitArray">
+                                            <td>{{debit.date}}</td>
+                                            <td>{{debit.transaction_id}}</td> 
+                                            
+                                            <td>{{debit.sender}}</td>
+                                            <td>{{debit.beneficiary}}</td>
+                                            <td>{{debit.amount}}</td>
+                                            <td>{{debit.aml_status}}</td>
+                                            <td>{{debit.status}}</td>     
+                                        </tr>
+                                        </table>
 
 
                                  </div>
@@ -403,7 +414,23 @@
             <!-- Custom Theme JavaScript -->
             <script src="../../dist/js/sb-admin-2.js"></script>
 
-
+			<script>
+			
+			var app = angular.module('CustTransaction', []);
+			app.controller('Custctrl', function($scope, $http){
+			
+                $http.get("http://localhost:8089/scm/service/Transactions/getAllMyCredits").then(function(response){
+            		$scope.creditArray = response.data;   
+            		console.log(response);
+                });
+                
+                $http.get("http://localhost:8089/scm/service/Transactions/getAllMyDebits").then(function(response){
+            		$scope.debitArray = response.data;
+            		console.log(response);
+                });
+			});
+			
+			</script>
 
     </body>
 

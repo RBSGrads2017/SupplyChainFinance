@@ -10,6 +10,8 @@
     <meta name="author" content="">
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -111,10 +113,10 @@
                 text-align: center;
                 border: 1px solid black;
                 background-color: white;
-                border-radius: 20px;
+                border-radius: 20px 20px 20px 20px;
             }
             th,td{
-                padding: 15px;
+                padding: 12px;
             }
             .btnss{
                 background-color:#3383FF ;
@@ -296,7 +298,7 @@
         </div>
     </nav>
 
-    <div style="margin-top: 10px">
+    <div style="margin-top: 10px" ng-app="amlflr" ng-controller="amlflrController">
         <div class="row">
             <div class="col-sm-offset-1 col-sm-8 jumbotron" id="alignMain"  style="padding-top:0px;
               height:500px; 
@@ -334,26 +336,25 @@
                                     <table style="width:100%">
                                         <col width="20%">
                                         <tr>
-                                            <th> SERIAL NO. </th>
-                                            <th> PAYEE </th> 
-                                            <th> BENEFICIARY </th>
-                                            <th> AMOUNT </th>
-                                            <th>  </th>
+                                            <th> DATE </th>
+                                            <th> TRANSACTION </th> 
+                                            
+                                            <th>SENDER</th>
+                                            <th>BENEFICIARY</th>
+                                            <th>AMOUNT</th>
+                                            <th>AML STATUS</th>
+                                            <th>STATUS</th>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>ABCD Ltd.</td>
-                                            <td>XYZ Pvt. Ltd.</td>
-                                            <td>USD 15000.00</td>
-                                            <td> <button type="button" class="btnss" id="editButton" onclick="window.open('../pages/AMLOverrides.html','_self')">GO</button></td> 
+                                        <tr ng-repeat="trn in trnArray">
+                                            <td>{{trn.date}}</td>
+                                            <td>{{trn.transaction_id}}</td> 
+                                            
+                                            <td>{{trn.sender}}</td>
+                                            <td>{{trn.beneficiary}}</td>
+                                            <td>{{trn.amount}}</td>
+                                            <td>{{trn.aml_status}}</td>
+                                            <td>{{trn.status}}</td>     
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>XXXX</td>
-                                            <td>YYYY</td>
-                                            <td>INR 100000</td>
-                                            <td> <button type="button" class="btnss" id="editButton" onclick="window.open('../pages/AMLOverrides.html','_self')">GO</button></td> 
-                                        </tr>  
                                     </table>
                                  </div>
                             </div>
@@ -386,7 +387,17 @@
             <!-- Custom Theme JavaScript -->
             <script src="../../dist/js/sb-admin-2.js"></script>
 
-
+			<script>
+			
+			var app = angular.module('amlflr', []);
+			app.controller('amlflrController', function($scope, $http){
+			
+                $http.get("http://localhost:8089/scm/service/Transactions/getAMLFailures").then(function(response){
+            		$scope.trnArray = response.data;        
+                });
+			});
+			
+			</script>
 
     </body>
 

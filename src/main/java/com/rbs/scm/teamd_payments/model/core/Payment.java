@@ -150,6 +150,9 @@ public class Payment {
 				newObj.put("status", txn1.getStatus());
 				newObj.put("message_code", txn1.getMessage_code());
 				newObj.put("transaction_id", txn1.getTransaction_id());
+				newObj.put("debitAcc", txn1.getPayer_account());
+				newObj.put("creditAcc", txn1.getPayee_account());
+				
 			}
 			else if(txn2!=null)
 			{
@@ -163,6 +166,9 @@ public class Payment {
 				newObj.put("status", txn2.getStatus());
 				newObj.put("message_code", txn2.getMessage_code());
 				newObj.put("transaction_id", txn2.getTransaction_id());
+				newObj.put("debitAcc", txn2.getPayer_account());
+				newObj.put("creditAcc", txn2.getPayee_account());
+				
 			}
 			else if(txn3!=null)
 			{
@@ -175,7 +181,10 @@ public class Payment {
 				newObj.put("aml_status", txn3.getAml_status());
 				newObj.put("status", txn3.getStatus());
 				newObj.put("message_code", txn3.getMessage_code());
-				newObj.put("transaction_id", txn3.getTransaction_id());				
+				newObj.put("transaction_id", txn3.getTransaction_id());		
+				newObj.put("debitAcc", txn3.getPayer_account());
+				newObj.put("creditAcc", txn3.getPayee_account());
+				
 			}
 			return newObj;
 			
@@ -212,38 +221,44 @@ public class Payment {
 		PaymentsImpl p = new PaymentsImpl(); 
 		//Get User country from user details
 		String AMLStatusSender =  cons.getAMLStatus(sender, "IND");
-		String AMLStatusBeneficiary = cons.getAMLStatus(sender, "CUB");
+		String AMLStatusBeneficiary = cons.getAMLStatus(beneficiary, "IND");
 		JSONObject senderStatus = new JSONObject(AMLStatusSender);
 		JSONObject beneficiaryStatus = new JSONObject(AMLStatusBeneficiary);
-		if(senderStatus.getString("status")=="success" && beneficiaryStatus.getString("status")=="success")
+		if(senderStatus.getString("status").equals("success") && beneficiaryStatus.getString("status").equals("success"))
 		{
 			p.updateAmlStatus(transactionId, Constants.AML_DONE);
 			p.updateTransactionStatus(transactionId, Constants.PAYMENT_SUCCESS);
 		}
 		else
 		{
+			System.out.println("eee");
 			p.updateAmlStatus(transactionId, Constants.AML_FAILED);
-			p.updateTransactionStatus(transactionId, Constants.AWAITING_APPROVAL);
+			p.updateTransactionStatus(transactionId, Constants.AML_FAILED);
 		}
-		if(beneficiaryStatus.getString("status")=="success" && beneficiaryStatus.getString("status")=="success")
+		if(beneficiaryStatus.getString("status").equals("success") && beneficiaryStatus.getString("status").equals("success"))
 		{
 			p.updateAmlStatus(transactionId, Constants.AML_DONE);
 			p.updateTransactionStatus(transactionId, Constants.PAYMENT_SUCCESS);
+			paymentSuccess(transactionId);
 		}
 		else
 		{
+			System.out.println("eee1");
 			p.updateAmlStatus(transactionId, Constants.AML_FAILED);
-			p.updateTransactionStatus(transactionId, Constants.AWAITING_APPROVAL);
+			p.updateTransactionStatus(transactionId, Constants.AML_FAILED);
 		}
 	}
 	public JSONArray getAllMyDebits(String userid)
 	{
 		try {
 			PaymentsImpl p = new PaymentsImpl();
+			System.out.println("eee2");
 			Customer_Transaction[] arrayOfTxn = p.getCustomerTransactionDetailsbyPayerId(userid);
 			JSONArray toReturn = new JSONArray();
+			System.out.println("eee1");
 			for( Customer_Transaction txn:arrayOfTxn)
 			{
+				System.out.println("eee");
 				JSONObject newObj = new JSONObject();
 				newObj.put("sender", txn.getPayer_id());
 				newObj.put("amount", txn.getAmount());
@@ -255,6 +270,7 @@ public class Payment {
 				newObj.put("status", txn.getStatus());
 				newObj.put("message_code", txn.getMessage_code());
 				newObj.put("transaction_id", txn.getTransaction_id());
+				System.out.println(newObj);
 				toReturn.put(newObj);
 			}
 			
@@ -273,6 +289,7 @@ public class Payment {
 				newObj.put("status", txn.getStatus());
 				newObj.put("message_code", txn.getMessage_code());
 				newObj.put("transaction_id", txn.getTransaction_id());
+				System.out.println(newObj);
 				toReturn.put(newObj);
 			}
 			
@@ -292,6 +309,7 @@ public class Payment {
 				newObj.put("status", txn.getStatus());
 				newObj.put("message_code", txn.getMessage_code());
 				newObj.put("transaction_id", txn.getTransaction_id());
+				System.out.println(newObj);
 				toReturn.put(newObj);
 			}
 
@@ -380,4 +398,88 @@ public class Payment {
 			return newArray;
 		}
 	}
+	
+	
+	
+	void paymentSuccess(int transactionId)
+	{
+		return;
+	}
+	
+	
+	//Getting all the aml check failure transactions
+	public JSONArray getAMLFailures()
+	{
+		try {
+			PaymentsImpl p = new PaymentsImpl();
+			Customer_Transaction[] arrayOfTxn = p.getAllCustomerTransactionDetailsByAmlStatus(Constants.AML_FAILED);
+			JSONArray toReturn = new JSONArray();
+			for( Customer_Transaction txn:arrayOfTxn)
+			{
+				JSONObject newObj = new JSONObject();
+				newObj.put("sender", txn.getPayer_id());
+				newObj.put("amount", txn.getAmount());
+				newObj.put("beneficiary", txn.getPayee_id());
+				newObj.put("date", txn.getTransaction_date());
+				newObj.put("details", txn.getComments());
+				newObj.put("comments", txn.getComments());
+				newObj.put("aml_status", txn.getAml_status());
+				newObj.put("status", txn.getStatus());
+				newObj.put("message_code", txn.getMessage_code());
+				newObj.put("transaction_id", txn.getTransaction_id());
+				toReturn.put(newObj);
+			}
+			
+			Bank_to_Customer[] arrayOfTxn2 = p.getAllBankToCustomerDetailsByAmlStatus(Constants.AML_FAILED);
+			
+			for( Bank_to_Customer txn:arrayOfTxn2)
+			{
+				JSONObject newObj = new JSONObject();
+				newObj.put("sender", txn.getPayer_id());
+				newObj.put("amount", txn.getAmount());
+				newObj.put("beneficiary", txn.getPayee_id());
+				newObj.put("date", txn.getTransaction_date());
+				newObj.put("details", txn.getComments());
+				newObj.put("comments", txn.getComments());
+				newObj.put("aml_status", txn.getAml_status());
+				newObj.put("status", txn.getStatus());
+				newObj.put("message_code", txn.getMessage_code());
+				newObj.put("transaction_id", txn.getTransaction_id());
+				toReturn.put(newObj);
+			}
+			
+
+			Customer_to_Bank[] arrayOfTxn3 = p.getAllCustomerToBankDetailsByAmlStatus(Constants.AML_FAILED);
+			
+			for( Customer_to_Bank txn:arrayOfTxn3)
+			{
+				JSONObject newObj = new JSONObject();
+				newObj.put("sender", txn.getPayer_id());
+				newObj.put("amount", txn.getAmount());
+				newObj.put("beneficiary", txn.getPayee_id());
+				newObj.put("date", txn.getTransaction_date());
+				newObj.put("details", txn.getComments());
+				newObj.put("comments", txn.getComments());
+				newObj.put("aml_status", txn.getAml_status());
+				newObj.put("status", txn.getStatus());
+				newObj.put("message_code", txn.getMessage_code());
+				newObj.put("transaction_id", txn.getTransaction_id());
+				toReturn.put(newObj);
+			}
+
+			
+			
+			
+			return toReturn;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+			JSONArray newArray = new JSONArray();
+			return newArray;
+		}
+	}
+	
+	
+	
 }

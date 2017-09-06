@@ -615,7 +615,7 @@ label {
 	            	messageCode : $scope.type,
 					transactionId : $scope.trn_id,
 					reciever : $scope.rcv,
-					messageText : $scope.msgTxt,
+					messageText : $scope.msgtxt,
 					bankOperationCode : $scope.boc,
 					senderRef : $scope.sendref,
 					interbankSettledAmount : $scope.date,
@@ -625,7 +625,7 @@ label {
 					senderCorrespondent : $scope.scorr,
 					recieverCorrespondent : $scope.rcorr,
 					remitInfo : $scope.rmtinf,
-					detailsOfCharge : $scope.dtlschrgs
+					detailsOfCharge : "SHR"
 				}
 	        }).then(function (response) {console.log(response.data)});
 		

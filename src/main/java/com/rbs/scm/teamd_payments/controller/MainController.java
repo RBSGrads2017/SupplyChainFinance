@@ -206,7 +206,7 @@ public class MainController {
     	String detailsOfCharge = newObj.getString("detailsOfCharge");
     	Payment pay = new Payment();
     	
-    	Swift smessage = new Swift(messageCode,transactionId,sender,reciever,messageTxt,bankOperationCode,senderRef,interbankSettledAmount,instructedAmount,orderingCustomer,beneficiaryCustomer,senderCorrespondent,recieverCorrespondent,remitInfo,detailsOfCharge);
+    	Swift smessage = new Swift(messageCode,transactionId,sender,reciever,messageTxt,bankOperationCode,senderRef,interbankSettledAmount,instructedAmount,orderingCustomer,beneficiaryCustomer,senderCorrespondent,recieverCorrespondent,remitInfo,"SHR");
     	
     	pay.checkAML(transactionId);
     	
@@ -216,6 +216,20 @@ public class MainController {
     	}
     	else return "failure";
     }
+    
+    @GET
+    @Path("/getAMLFailures")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getAMLFailures() throws JSONException
+    {
+    	Payment pay = new Payment();
+    	
+    	
+    	JSONArray resultArray =  pay.getAMLFailures();
+    	return resultArray.toString();
+    }
+    
     
     
     

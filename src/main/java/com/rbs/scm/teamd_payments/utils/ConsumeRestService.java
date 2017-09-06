@@ -80,9 +80,9 @@ public class ConsumeRestService {
 			Client client = Client.create();
 
 			WebResource webResource = client
-			   .resource("http://localhost:8089/scm/service/checkAML/?userid="+userid+"&country="+country);
+			   .resource("http://localhost:8089/scm/service/AML/checkAML/?userid="+userid+"&country="+country);
 
-			ClientResponse response = webResource.accept("application/json")
+			ClientResponse response = webResource.accept("text/plain")
 	                   .get(ClientResponse.class);
 
 			if (response.getStatus() != 200) {
