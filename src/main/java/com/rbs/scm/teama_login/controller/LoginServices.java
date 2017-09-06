@@ -22,17 +22,20 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.postgresql.util.PSQLException;
 
 import com.rbs.scm.teama_login.model.beans.AdditionalDetails;
 import com.rbs.scm.teama_login.model.beans.BankUser;
 import com.rbs.scm.teama_login.model.beans.Customer;
 import com.rbs.scm.teama_login.model.beans.GenericUser;
+import com.rbs.scm.teama_login.model.beans.IdMapping;
 import com.rbs.scm.teama_login.model.beans.Session;
 import com.rbs.scm.teama_login.model.beans.UserProducts;
 import com.rbs.scm.teama_login.model.dao.AdditionalDetailsDao;
 import com.rbs.scm.teama_login.model.dao.BankUserDaoImpl;
 import com.rbs.scm.teama_login.model.dao.CustomerDaoImpl;
 import com.rbs.scm.teama_login.model.dao.GenericUserDaoImpl;
+import com.rbs.scm.teama_login.model.dao.IdMappingDaoImpl;
 import com.rbs.scm.teama_login.model.dao.SessionUtility;
 import com.rbs.scm.teama_login.model.dao.UserProductsDao;
 import com.rbs.scm.teama_login.utils.MyMailClass;
@@ -44,7 +47,7 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("checkCredentials")
-	public Response authenticateUser(String data, @Context HttpServletRequest request) throws JSONException {
+	public Response authenticateUser(String data, @Context HttpServletRequest request) throws JSONException, SQLException {
 		JSONObject inputJsonObj = new JSONObject(data);
 		
 		String username = inputJsonObj.getString("username");
@@ -53,11 +56,15 @@ public class LoginServices {
 		GenericUser gu = null;
 		try {
 			gu = GenericUserDaoImpl.searchUser(username);
+		} catch(PSQLException e) {
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
 		}
+		
 		System.out.println(gu);
 		if(gu == null)	{ 
 			System.out.print("doesnotexist");
@@ -65,17 +72,31 @@ public class LoginServices {
 		}
 		
 		System.out.println("hi");
-		
+	
+		String UserFullName;
 		if(password.equals(gu.getPassword())) {
 			String TypeOfUser = null;
 			
 			if (gu.get_is_Bank_User()) {
 				TypeOfUser = "Bank User";
+				BankUser b = BankUserDaoImpl.searchBankUser(username);
+				UserFullName=b.getFullname();
+				
 			} else {
 				TypeOfUser = "Customer";
+				Customer c = CustomerDaoImpl.searchCustomer(username);
+				UserFullName=c.getName();
+				
 			}
 			
-			Session s = new Session(gu.getUsername(), TypeOfUser);
+			//userIdInt;		 userFullName;
+			
+			
+				IdMapping c = IdMappingDaoImpl.FindIntId(username);
+				
+			
+			
+			Session s = new Session(gu.getUsername(), TypeOfUser,c.getUserIntId(), UserFullName);
 			HttpSession hs = request.getSession();//CREATE A SESSION FOR THE USER.
 			hs.setAttribute("session", s);
 			  
@@ -134,7 +155,7 @@ public class LoginServices {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
-		}
+		} 
 		if (flag_notfound) {
 			return Response.ok("SignupSuccess").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 		} else {
@@ -177,6 +198,26 @@ public class LoginServices {
 		return c.convertObjectToJSON();
 	}
 	
+	@GET
+	@Path("fetchStringId")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String fetchStringId(@QueryParam("uname") int Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		IdMapping c = IdMappingDaoImpl.FindStringId(Uname);
+		if(c == null)	{ return null; }
+		System.out.println(c);
+		return c.convertObjectToJSON();
+	}
+	
+	@GET
+	@Path("fetchIntId")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String fetchIntId(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		System.out.println(Uname);
+		IdMapping c = IdMappingDaoImpl.FindIntId(Uname);
+		if(c == null)	{ return null; }
+		System.out.println(c);
+		return c.convertObjectToJSON();
+	}
 	
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
@@ -366,4 +407,8 @@ public class LoginServices {
 		}
 		return Response.ok("LoggedInSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 	}
+	
+	
+	
+	
 }

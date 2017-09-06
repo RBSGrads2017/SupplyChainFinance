@@ -540,6 +540,12 @@
 		var MyDashboardApp = angular.module("MyDashboardApp", []);
 		MyDashboardApp.controller("Controller", ["$scope", "$http", "$window", function($scope, $http, $window){
 			
+			$http.get(BASE_PATH + '/service/login/fetchIntId?=YASH')
+			.then(function(response) {
+				console.log(response.data + "hey");
+			});
+			
+			
 			$scope.SessionUsername  =  "";
 		    $scope.SessionUsertype  =  ""; 
 		    
