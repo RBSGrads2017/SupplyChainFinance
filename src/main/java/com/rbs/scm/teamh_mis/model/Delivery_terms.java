@@ -1,4 +1,4 @@
-package com.rbs.scm.model;
+package com.rbs.scm.teamh_mis.model;
 
 public class Delivery_terms {
 private int id;

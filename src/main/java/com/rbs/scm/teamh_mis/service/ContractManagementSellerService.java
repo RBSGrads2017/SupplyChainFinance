@@ -1,4 +1,4 @@
-package com.rbs.scm.service;
+package com.rbs.scm.teamh_mis.service;
 
 import java.sql.Connection;
 
@@ -12,13 +12,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.rbs.scm.DAO.DatabaseConnectionPostgreSQL;
-import com.rbs.scm.model.Addn_response;
-import com.rbs.scm.model.Buyer;
-import com.rbs.scm.model.PaymentandDeliveryDetails;
-import com.rbs.scm.model.Proposal_Sellers_Bid;
-import com.rbs.scm.model.Proposal_Sellers_Bid_Proposals;
-import com.rbs.scm.model.Sfeatures;
+import com.rbs.scm.teamh_mis.DAO.DatabaseConnectionPostgreSQL;
+import com.rbs.scm.teamh_mis.model.Addn_response;
+import com.rbs.scm.teamh_mis.model.Buyer;
+import com.rbs.scm.teamh_mis.model.PaymentandDeliveryDetails;
+import com.rbs.scm.teamh_mis.model.Proposal_Sellers_Bid;
+import com.rbs.scm.teamh_mis.model.Proposal_Sellers_Bid_Proposals;
+import com.rbs.scm.teamh_mis.model.Sfeatures;
 
 
 

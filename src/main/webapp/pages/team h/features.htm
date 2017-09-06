@@ -18,6 +18,7 @@
 											<th>A</th>
 											<th>C</th>
 											<th>N</th>
+											<th>Cost</th>
 											</tr>
 										</thead>
 											<tr ng-repeat="i in features">
@@ -29,7 +30,7 @@
 												<td><input type="radio" value="A{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'A')"/></td>
 												<td><input type="radio" value="C{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'C')"/></td>
 												<td><input type="radio" value="N{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'N')"/></td>
-											</tr>				
+												<td><input type="text" name="cost{{$index + 1}}"/></tr>				
 									</table>
 								</div>
 						</div>

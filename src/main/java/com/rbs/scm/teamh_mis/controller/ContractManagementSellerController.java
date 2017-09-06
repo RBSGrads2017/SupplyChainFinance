@@ -1,4 +1,4 @@
-package com.rbs.scm.controller;
+package com.rbs.scm.teamh_mis.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rbs.scm.model.Addn_response;
-import com.rbs.scm.model.Buyer;
-import com.rbs.scm.model.PaymentandDeliveryDetails;
-import com.rbs.scm.model.Proposal_Sellers_Bid;
-import com.rbs.scm.model.Proposal_Sellers_Bid_Proposals;
-import com.rbs.scm.model.Sfeatures;
-import com.rbs.scm.service.ContractManagementSellerService;
+import com.rbs.scm.teamh_mis.model.Addn_response;
+import com.rbs.scm.teamh_mis.model.Buyer;
+import com.rbs.scm.teamh_mis.model.PaymentandDeliveryDetails;
+import com.rbs.scm.teamh_mis.model.Proposal_Sellers_Bid;
+import com.rbs.scm.teamh_mis.model.Proposal_Sellers_Bid_Proposals;
+import com.rbs.scm.teamh_mis.model.Sfeatures;
+import com.rbs.scm.teamh_mis.service.ContractManagementSellerService;
 
 
 /*service to fetch all the request for proposals(rfps)*/
