@@ -34,11 +34,12 @@ import com.rbs.scm.teamf_Invoice.util.CustomMessage;
 
 @Service("invoiceServiceObj")
 public class InvoiceService {
-	public Invoice search(double InvoiceID){
+	public Invoice search(double InvoiceID) throws SQLException, ClassNotFoundException{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		Invoice invobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("select * from invoice1 where invoice_id="+InvoiceID+"and deletestatus=0");
 				invobj = new Invoice();
@@ -78,16 +79,20 @@ public class InvoiceService {
 			{							
 				System.out.println(e);
 			}
+		finally{
+			con.close();
+		}
 		return invobj;			
 	}
 	
-	public List<Invoice> listAllInvocies(double sellerID){
+	public List<Invoice> listAllInvocies(double sellerID) throws SQLException, ClassNotFoundException{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		
 		List<Invoice> lst = new ArrayList<Invoice>();
 		Invoice invobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where \"sellerID\"=? and deletestatus=0");
 				stmt.setDouble(1,sellerID);
 				ResultSet rs = stmt.executeQuery();				
@@ -118,14 +123,18 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return lst;			
 	}
-	public List<Invoice> approvedInvocies(int approvalStatus){
+	public List<Invoice> approvedInvocies(int approvalStatus) throws ClassNotFoundException, SQLException{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<Invoice> lst = new ArrayList<Invoice>();
 		Invoice invobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where approvalstatus=? and deletestatus=0 and draftstatus=0");
 				stmt.setInt(1,approvalStatus);
 				ResultSet rs = stmt.executeQuery();				
@@ -157,14 +166,18 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return lst;			
 	}
-	public List<Invoice> listSentInvoices(double sellerID) {
+	public List<Invoice> listSentInvoices(double sellerID) throws ClassNotFoundException, SQLException {
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<Invoice> lst = new ArrayList<Invoice>();
 		Invoice invobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where approvalstatus=0 and deletestatus=0 and \"senderID\"=? and draftstatus=0");
 				stmt.setDouble(1,sellerID);
 				ResultSet rs = stmt.executeQuery();				
@@ -197,15 +210,19 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return lst;	
 	}
 
-	public List<Invoice> listReceivedInvoices(double sellerID) {
+	public List<Invoice> listReceivedInvoices(double sellerID) throws ClassNotFoundException, SQLException {
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<Invoice> lst = new ArrayList<Invoice>();
 		Invoice invobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where \"receiverID\"=? and deletestatus=0 and approvalstatus=0 and draftstatus=0");
 				stmt.setDouble(1,sellerID);
 				ResultSet rs = stmt.executeQuery();				
@@ -237,14 +254,18 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return lst;	
 	}
-	public List<Invoice> listDraftInvoices(double sellerID) {
+	public List<Invoice> listDraftInvoices(double sellerID) throws ClassNotFoundException, SQLException {
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<Invoice> lst = new ArrayList<Invoice>();
 		Invoice invobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where \"sellerID\"=? and deletestatus=0 and draftstatus=1");
 				stmt.setDouble(1,sellerID);
 				ResultSet rs = stmt.executeQuery();				
@@ -276,15 +297,19 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return lst;	
 	}
 	
-	public CustomMessage addInvoice(double invoiceID,double contractID,double productID,double quantity, double sellerID, double buyerID, double billbookNo,double senderID,double receiverID, Date paymentDate, float invoiceAmount,Date invoiceDueDate) {
+	public CustomMessage addInvoice(double invoiceID,double contractID,double productID,double quantity, double sellerID, double buyerID, double billbookNo,double senderID,double receiverID, Date paymentDate, float invoiceAmount,Date invoiceDueDate) throws ClassNotFoundException, SQLException {
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		Invoice invobj = null;
 		CustomMessage msg = null; 
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 			msg = new CustomMessage();
 				invobj = new Invoice();
 				
@@ -325,16 +350,20 @@ public class InvoiceService {
 				System.out.println(e.getMessage());
 				msg.setMessage("Adding Invocie Failed due to:"+e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return msg;			
 }
 	
-		public List<InvoiceItems> viewProduct(int id){
+		public List<InvoiceItems> viewProduct(int id) throws ClassNotFoundException, SQLException{
 			DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 			List<InvoiceItems> lst = new ArrayList<InvoiceItems>();
 			InvoiceItems itemobj = null;
+			Connection con = dbobj.getConnection();
 			try{
-				Connection con = dbobj.getConnection();
-					PreparedStatement stmt = con.prepareStatement("select * from invoiceitems where invoice_id=? and (select deletestatus from invoice where invoice_id=?)=0");
+				
+					PreparedStatement stmt = con.prepareStatement("select * from invoiceitems where invoice_id=? and (select deletestatus from invoice1 where invoice_id=?)=0");
 					stmt.setInt(1,id);
 					stmt.setInt(2,id);
 					ResultSet rs = stmt.executeQuery();				
@@ -355,16 +384,20 @@ public class InvoiceService {
 				{							
 					System.out.println(e.getMessage());
 				}
+			finally{
+				con.close();
+			}
 			return lst;			
 		}
 		
 		
-		public InvoiceItems getItemDetails(int invoiceID, int productID, int quantity) {
+		public InvoiceItems getItemDetails(int invoiceID, int productID, int quantity) throws ClassNotFoundException, SQLException {
 			DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 			InvoiceItems itemobj = null;
 			CustomMessage msg = null; 
+			Connection con = dbobj.getConnection();
 			try{
-				Connection con = dbobj.getConnection();
+				
 				msg = new CustomMessage();
 					itemobj = new InvoiceItems();
 					
@@ -402,17 +435,21 @@ public class InvoiceService {
 				{							
 					System.out.println(e.getMessage());
 				}
+			finally{
+				con.close();
+			}
 			return itemobj;			
 	}	
 		
 		
-		public void updateInvoiceAmount(int invoiceID)
+		public void updateInvoiceAmount(int invoiceID) throws ClassNotFoundException, SQLException
 		{
 			DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 			InvoiceItems itemobj = null;
 			CustomMessage msg = null; 
+			Connection con = dbobj.getConnection();
 			try{
-				Connection con = dbobj.getConnection();
+				
 				msg = new CustomMessage();
 					itemobj = new InvoiceItems();
 					
@@ -440,21 +477,25 @@ public class InvoiceService {
 			{
 				System.out.println(e.getMessage());
 			}
+			finally{
+				con.close();
+			}
 		}
-		public InvoiceItems addItems( int invoiceID,int productId,double quantity, double grossAmount, float tax,double netAmount) {
+		public InvoiceItems addItems( int invoiceID,int productId,double quantity, double grossAmount, float tax,double netAmount) throws ClassNotFoundException, SQLException {
 					DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 					InvoiceItems itemobj = null;
 					CustomMessage msg = null; 
+					Connection con = dbobj.getConnection();
 					try{
-						Connection con = dbobj.getConnection();
+						
 						msg = new CustomMessage();
 							itemobj = new InvoiceItems();
 							
 							InvoiceItems in=new InvoiceItems();
 									in=getItemDetails(invoiceID,productId,(int)quantity);
 								
-							String updateTableSQL1 ="insert into invoiceitems (invoice_id,\"Product_id\",quantity,gross_amount,tax,net_amount) values("+invoiceID+",'"
-									+productId+"',"+quantity+","+in.getGrossAmount()+","+in.getTax()+","+in.getNetAmount()+")";
+							String updateTableSQL1 ="insert into invoiceitems (invoice_id,\"product_id\",quantity,gross_amount,tax,net_amount) values("+invoiceID+","
+									+productId+","+quantity+","+in.getGrossAmount()+","+in.getTax()+","+in.getNetAmount()+")";
 							
 							System.out.println(updateTableSQL1);
 							PreparedStatement preparedStatement  = con.prepareStatement(updateTableSQL1,Statement.RETURN_GENERATED_KEYS);
@@ -485,21 +526,24 @@ public class InvoiceService {
 						{							
 							System.out.println(e.getMessage());
 						}
+					finally{
+						con.close();
+					}
 					return itemobj;			
 			}
 
 			
 			
-	public CustomMessage deleteItem(int invoiceNo ,int productID) {
+	public CustomMessage deleteItem(int invoiceNo ,int productID) throws SQLException, ClassNotFoundException {
 			
 			
 			DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 			CustomMessage msg=null;
-			
+			Connection con = dbobj.getConnection();
 			try{
-				Connection con = dbobj.getConnection();
+				
 				msg = new CustomMessage();
-				PreparedStatement stmt=con.prepareStatement("delete from invoiceitems where invoice_id  =? and \"Product_id\"=?");
+				PreparedStatement stmt=con.prepareStatement("delete from invoiceitems where invoice_id  =? and \"product_id\"=?");
 				stmt.setInt(1,invoiceNo);
 				stmt.setInt(2,productID);
 				stmt.executeUpdate();
@@ -517,14 +561,18 @@ public class InvoiceService {
 				msg.setMessage(e.getMessage());
 				System.out.println(e.getMessage());
 				}
+			finally{
+				con.close();
+			}
 			return msg;
 		}		
-	public List<ProductInvoice> listProducts(){
+	public List<ProductInvoice> listProducts() throws ClassNotFoundException, SQLException{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<ProductInvoice> lst = new ArrayList<ProductInvoice>();
 		ProductInvoice itemobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from \"ProductInvoice\"");
 				ResultSet rs = stmt.executeQuery();				
 				
@@ -542,6 +590,9 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return lst;			
 	}
 	public CustomMessage deleteInvoice(double invoiceID) throws ClassNotFoundException, SQLException {
@@ -781,13 +832,13 @@ public class InvoiceService {
         
         return s;
     }
-	public CustomMessage sendInvoice(int invoiceID) {
+	public CustomMessage sendInvoice(int invoiceID) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		CustomMessage msg=null;
-		
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 			msg = new CustomMessage();
 			PreparedStatement stmt=con.prepareStatement("update invoice1 set draftstatus=0,approvalstatus=0 where invoice_id=? and deletestatus=0");
 			stmt.setDouble(1,invoiceID);
@@ -807,17 +858,21 @@ public class InvoiceService {
 			msg.setMessage(e.getMessage());
 			System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return msg;
 	}
 	
 		
-	public CustomMessage approveInvoice(int invoiceID) {
+	public CustomMessage approveInvoice(int invoiceID) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		CustomMessage msg=null;
 		String s="";
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 			msg = new CustomMessage();
 			PreparedStatement stmt=con.prepareStatement("update invoice1 set draftstatus=0,approvalstatus=1 where invoice_id=? and deletestatus=0");
 			stmt.setDouble(1,invoiceID);
@@ -838,15 +893,19 @@ public class InvoiceService {
 			msg.setMessage(e.getMessage());
 			System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return msg;
 	}
-	public CustomMessage rejectInvoice(int invoiceID) {
+	public CustomMessage rejectInvoice(int invoiceID) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		CustomMessage msg=null;
 		String s="";
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 			msg = new CustomMessage();
 			PreparedStatement stmt=con.prepareStatement("update invoice1 set draftstatus=0,approvalstatus=2 where invoice_id=? and deletestatus=0");
 			stmt.setDouble(1,invoiceID);
@@ -871,13 +930,14 @@ public class InvoiceService {
 	}
 
 
-	public List<Contract> getContractNos(int sellerID)
+	public List<Contract> getContractNos(int sellerID) throws ClassNotFoundException, SQLException
 	{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<Contract> lst = new ArrayList<Contract>();
 		Contract itemobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from \"ContractInvoice\" where \"buyerID\"=? OR \"sellerID\"=?");
 				stmt.setInt(1,sellerID);
 				stmt.setInt(2,sellerID);
@@ -895,16 +955,20 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return lst;	
 		
 		
 	}
-	public Contract getContractNo(int sellerID)
+	public Contract getContractNo(int sellerID) throws ClassNotFoundException, SQLException
 	{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		Contract itemobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from \"ContractInvoice\" where \"contractID\"=?");
 				stmt.setInt(1,sellerID);
 				
@@ -921,16 +985,20 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return itemobj;	
 		
 		
 	}
-	public List<Invoice> listAllInvocies1(double sellerID){
+	public List<Invoice> listAllInvocies1(double sellerID) throws ClassNotFoundException, SQLException{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<Invoice> lst = new ArrayList<Invoice>();
 		Invoice invobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where \"sellerID\"=? or \"buyerID\"=? and deletestatus=0 and draftstatus=1");
 				stmt.setDouble(1,sellerID);
 				stmt.setDouble(2,sellerID);
@@ -963,15 +1031,19 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return lst;			
 	}
-	public List<ContractItems> getContractItems(int sellerID)
+	public List<ContractItems> getContractItems(int sellerID) throws ClassNotFoundException, SQLException
 	{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<ContractItems> lst = new ArrayList<ContractItems>();
 		ContractItems itemobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from \"Contract_Product\" where \"contractID\"=?");
 				stmt.setInt(1,sellerID);
 				ResultSet rs = stmt.executeQuery();				
@@ -987,16 +1059,20 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return lst;	
 		
 		
 	}
-	public ProductInvoice getProductDetails(int sellerID)
+	public ProductInvoice getProductDetails(int sellerID) throws ClassNotFoundException, SQLException
 	{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		ProductInvoice itemobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from \"ProductInvoice\" where product_id=?");
 				stmt.setInt(1,sellerID);
 				
@@ -1015,17 +1091,21 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return itemobj;	
 		
 		
 	}
 	
-	public Contract getContractNoPg(int sellerID)
+	public Contract getContractNoPg(int sellerID) throws ClassNotFoundException, SQLException
 	{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		Contract itemobj = null;
+		Connection con = dbobj.getConnection();
 		try{
-			Connection con = dbobj.getConnection();
+			
 				PreparedStatement stmt = con.prepareStatement("select * from \"ContractInvoice\" where \"contractID\"=?");
 				stmt.setInt(1,sellerID);
 				
@@ -1042,6 +1122,9 @@ public class InvoiceService {
 			{							
 				System.out.println(e.getMessage());
 			}
+		finally{
+			con.close();
+		}
 		return itemobj;	
 		
 		
@@ -1065,11 +1148,12 @@ public class InvoiceService {
 		}
 		catch(Exception e)
 		{
-			
+			System.out.println(e.getMessage());
 		}
-		finally {
+		finally{
 			con.close();
 		}
+		
 		return p;
 	}
 

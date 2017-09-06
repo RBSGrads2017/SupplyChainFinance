@@ -46,7 +46,7 @@ public class InvoiceController {
 // List all the invoices by id
 		
 	@RequestMapping(value = "/viewInvoices", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<List<Invoice>> listAllInvocies(@PathParam("sellerID") double sellerID) {
+		public ResponseEntity<List<Invoice>> listAllInvocies(@PathParam("sellerID") double sellerID) throws ClassNotFoundException, SQLException {
 		System.out.println("id is"+sellerID);
 			List<Invoice> invoices = invoiceServiceObj.listAllInvocies(sellerID);
 			if (invoices.isEmpty()) {
@@ -56,7 +56,7 @@ public class InvoiceController {
 		}
 	
 	@RequestMapping(value = "/SentInvoices", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Invoice>> listSentInvoices(@PathParam("sellerID") double sellerID) {
+	public ResponseEntity<List<Invoice>> listSentInvoices(@PathParam("sellerID") double sellerID) throws ClassNotFoundException, SQLException {
 	System.out.println("id is"+sellerID);
 		List<Invoice> invoices = invoiceServiceObj.listSentInvoices(sellerID);
 		if (invoices.isEmpty()) {
@@ -65,7 +65,7 @@ public class InvoiceController {
 		return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/ReceivedInvoices", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Invoice>> listReceivedInvoices(@PathParam("sellerID") double sellerID) {
+	public ResponseEntity<List<Invoice>> listReceivedInvoices(@PathParam("sellerID") double sellerID) throws ClassNotFoundException, SQLException {
 	System.out.println("id is"+sellerID);
 		List<Invoice> invoices = invoiceServiceObj.listReceivedInvoices(sellerID);
 		if (invoices.isEmpty()) {
@@ -74,7 +74,7 @@ public class InvoiceController {
 		return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/approvedInvoices", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<List<Invoice>> listApprovedInvoices(@PathParam("approvalStatus") int approvalStatus) {
+		public ResponseEntity<List<Invoice>> listApprovedInvoices(@PathParam("approvalStatus") int approvalStatus) throws ClassNotFoundException, SQLException {
 		System.out.println("id is"+approvalStatus);
 			List<Invoice> invoices = invoiceServiceObj.approvedInvocies(approvalStatus);
 			if (invoices.isEmpty()) {
@@ -83,7 +83,7 @@ public class InvoiceController {
 			return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
 		}
 	@RequestMapping(value = "/listProducts", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ProductInvoice>> listProducts() {
+	public ResponseEntity<List<ProductInvoice>> listProducts() throws ClassNotFoundException, SQLException {
 		List<ProductInvoice> invoices = invoiceServiceObj.listProducts();
 		if (invoices.isEmpty()) {
 			return new ResponseEntity<List<ProductInvoice>>(HttpStatus.NO_CONTENT);
@@ -91,7 +91,7 @@ public class InvoiceController {
 		return new ResponseEntity<List<ProductInvoice>>(invoices, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/draftInvoices", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Invoice>> listDraftInvoices(@PathParam("sellerID") double sellerID) {
+	public ResponseEntity<List<Invoice>> listDraftInvoices(@PathParam("sellerID") double sellerID) throws ClassNotFoundException, SQLException {
 	System.out.println("id is"+sellerID);
 		List<Invoice> invoices = invoiceServiceObj.listDraftInvoices(sellerID);
 		if (invoices.isEmpty()) {
@@ -100,7 +100,7 @@ public class InvoiceController {
 		return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/sendInvoice", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomMessage listAllUsers12(@PathParam("invoiceID") int invoiceID) {
+	public CustomMessage listAllUsers12(@PathParam("invoiceID") int invoiceID) throws ClassNotFoundException, SQLException {
 	
 		CustomMessage s=invoiceServiceObj.sendInvoice(invoiceID);
 	return s;
@@ -108,14 +108,14 @@ public class InvoiceController {
 	}
 	
 	@RequestMapping(value = "/approveInvoice", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomMessage listAllUsers123(@PathParam("invoiceID") int invoiceID) {
+	public CustomMessage listAllUsers123(@PathParam("invoiceID") int invoiceID) throws ClassNotFoundException, SQLException {
 	
 	CustomMessage s=invoiceServiceObj.approveInvoice(invoiceID);
 	return s;
 	
 	}
 	@RequestMapping(value = "/rejectInvoice", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomMessage listAllUsers1234(@PathParam("invoiceID") int invoiceID) {
+	public CustomMessage listAllUsers1234(@PathParam("invoiceID") int invoiceID) throws ClassNotFoundException, SQLException {
 	
 	CustomMessage s=invoiceServiceObj.rejectInvoice(invoiceID);
 	return s;
@@ -147,7 +147,7 @@ public class InvoiceController {
    }
 	
 	@RequestMapping(value = "/viewProduct", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<InvoiceItems>> listAllUsers(@PathParam("id") int id) {
+	public ResponseEntity<List<InvoiceItems>> listAllUsers(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
 	System.out.println("id is"+id);
 		List<InvoiceItems> invoicesItems = invoiceServiceObj.viewProduct(id);
 		if (invoicesItems.isEmpty()) {
@@ -249,7 +249,7 @@ public class InvoiceController {
 	    return ResponseEntity.ok().headers(headers).contentLength(file.length()).contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(resource);
 	}*/
 	@RequestMapping(value = "/getContractNos",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Contract>> getContractNos(@PathParam("sellerID") int sellerID)
+	public ResponseEntity<List<Contract>> getContractNos(@PathParam("sellerID") int sellerID) throws ClassNotFoundException, SQLException
 	{
 		List<Contract> invoicesItems = invoiceServiceObj.getContractNos(sellerID);
 		if (invoicesItems.isEmpty()) {
@@ -259,7 +259,7 @@ public class InvoiceController {
 	
 	}
 	@RequestMapping(value = "/getContractNo",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Contract> getContractNo(@PathParam("sellerID") int sellerID)
+	public ResponseEntity<Contract> getContractNo(@PathParam("sellerID") int sellerID) throws ClassNotFoundException, SQLException
 	{
 		Contract invoicesItems = invoiceServiceObj.getContractNo(sellerID);
 		if (invoicesItems==null) {
@@ -270,7 +270,7 @@ public class InvoiceController {
 	}
 	
 	@RequestMapping(value = "/getInvoicesForUpdate", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Invoice>> listAllInvocies1(@PathParam("sellerID") double sellerID) {
+	public ResponseEntity<List<Invoice>> listAllInvocies1(@PathParam("sellerID") double sellerID) throws ClassNotFoundException, SQLException {
 	System.out.println("id is"+sellerID);
 		List<Invoice> invoices = invoiceServiceObj.listAllInvocies1(sellerID);
 		if (invoices.isEmpty()) {
@@ -279,7 +279,7 @@ public class InvoiceController {
 		return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/getContractItems",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ContractItems>> getContractItems(@PathParam("sellerID") int sellerID)
+	public ResponseEntity<List<ContractItems>> getContractItems(@PathParam("sellerID") int sellerID) throws ClassNotFoundException, SQLException
 	{
 		List<ContractItems> invoicesItems = invoiceServiceObj.getContractItems(sellerID);
 		if (invoicesItems.isEmpty()) {
@@ -302,7 +302,7 @@ public class InvoiceController {
     }
 	
 	@RequestMapping(value = "/getCPG",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Contract> getContractNo1(@PathParam("sellerID") int sellerID)
+	public ResponseEntity<Contract> getContractNo1(@PathParam("sellerID") int sellerID) throws ClassNotFoundException, SQLException
 	{
 		Contract invoicesItems = invoiceServiceObj.getContractNoPg(sellerID);
 		if (invoicesItems==null) {
