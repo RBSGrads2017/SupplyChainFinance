@@ -172,6 +172,7 @@ public class LoginServices {
 	public String fetchAdditionalDetails(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		AdditionalDetails c = AdditionalDetailsDao.search(Uname);
 		if(c == null)	{ return null; }
+		System.out.println(c);
 		System.out.println(c.getContNumber());
 		return c.convertObjectToJSON();
 	}
@@ -236,7 +237,7 @@ public class LoginServices {
 		//String username = "neha";
 		//return Response.ok("Details updated Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 		
-		AdditionalDetails ad = new AdditionalDetails(username,swift, accnumber, contnumber, postallocation, factorylocation, postalcity, factorycity, postalstate, factorystate, department);
+		AdditionalDetails ad = new AdditionalDetails(username,swift, accnumber, contnumber, postallocation, factorylocation, postalcity, factorycity, postalstate, factorystate, department,true);
 		try {
 			AdditionalDetailsDao.insertIntoAdditionalDetails(ad);
 		} catch (SQLException e) {

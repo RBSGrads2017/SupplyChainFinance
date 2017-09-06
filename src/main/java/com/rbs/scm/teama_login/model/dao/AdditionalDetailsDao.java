@@ -22,10 +22,11 @@ public class AdditionalDetailsDao {
 				String factoryLocation = res.getString(6);
 				String factoryCity = res.getString(7);
 				String factoryState = res.getString(8);
-				String department = res.getString(9);
-				String swift=res.getString(10);
-				int accNumber=res.getInt(11);
-				ad = new AdditionalDetails(username,swift, accNumber,contNumber, postalLocation, postalCity, postalState, factoryLocation, factoryCity, factoryState, department);
+				boolean is_valid = res.getBoolean(9);
+				String department = res.getString(10);
+				String swift=res.getString(11);
+				int accNumber=res.getInt(12);
+				ad = new AdditionalDetails(username,swift, accNumber,contNumber, postalLocation, postalCity, postalState, factoryLocation, factoryCity, factoryState, department, is_valid);
 			}
 		}
 		return ad;
@@ -47,7 +48,7 @@ public class AdditionalDetailsDao {
 		st.setString(10, add.getDepartment());
 		st.setString(11, add.getSwift());
 		st.setInt(12, add.getAccNumber());
-		st.executeUpdate();
+		st.executeUpdate();	
 		return true;
 	}
 

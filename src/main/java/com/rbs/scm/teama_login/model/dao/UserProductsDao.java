@@ -20,6 +20,7 @@ public class UserProductsDao {
 				st.setString(1, up.getUsername());
 				st.setString(2, (up.getUserProducts())[i]);
 				st.executeUpdate();
+				conn.close();
 			}
 			
 			return true;

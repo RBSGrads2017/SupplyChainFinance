@@ -46,7 +46,9 @@ public class CustomerDaoImpl {
 			res = st.executeQuery(queryString);
 		}
 		
-		if(res.next())	return true;
+		if(res.next()) {
+			return true;
+		}
 		return false;
 	}
 	

@@ -296,21 +296,28 @@
 	                                        	<p style=""><b><h4>Postal Address:</h4></b></p>
 
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" ng-model = "PostalState" placeholder="State" class="form-control MyInputField" list="add1Statelist" id="add1State" name="add1State" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>Address Line 1</b></span> <input type="text" ng-model = "PostalState" placeholder="Loaction, Area" class="form-control MyInputField" list="add1Statelist" id="add1State" name="add1State" style="border-radius: 0px 20px 20px 0px;"/>
 		                                            <datalist id="add1Statelist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" ng-model = "PostalCity" placeholder="City" class="form-control MyInputField" list="add1Citylist" id="add1City" name="add1City" style="border-radius: 0px 20px 20px 0px;" />
+		                                            <span class="input-group-addon MyInputSpan" ><b>Address Line 2</b></span> <input type="text" ng-model = "PostalCity" placeholder="State, Country" class="form-control MyInputField" list="add1Citylist" id="add1City" name="add1City" style="border-radius: 0px 20px 20px 0px;" />
 		                                            <datalist id="add1Citylist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" ng-model = "PostalLocality" placeholder="Locality" class="form-control MyInputField" list="add1Locallist" id="add1Local" name="add1Local" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>Country</b></span> <input list="country" name="country" ng-model = "PostalLocality" placeholder="Country" class="form-control MyInputField" list="add2Locallist" id="add2Local"  style="border-radius: 0px 20px 20px 0px;"/>
+		                                           <datalist id="country">
+		                                           <option value="USA"></option>
+		                                           <option value="IND"></option>
+		                                           <option value="PRK"></option>
+		                                           <option value="SYR"></option>
+		                                           <option value="GBR"></option>
+		                                           </datalist>
 		                                            <datalist id="add1Locallist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
@@ -324,21 +331,28 @@
 	                                        <div class="col-sm-offset-1 col-sm-10" style="background-color: #777; border-radius: 20px 20px; color: #f7f7f7; text-align: left;">
 	                                        	<p style=""><b><h4>Factory Address:</h4></b></p>
 	                                            <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" ng-model = "FactoryState" placeholder="State" class="form-control MyInputField" list="add2Statelist" id="add2State" name="add2State" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>Address Line 1</b></span> <input type="text" ng-model = "FactoryState" placeholder="Loaction, Area" class="form-control MyInputField" list="add2Statelist" id="add2State" name="add2State" style="border-radius: 0px 20px 20px 0px;"/>
 		                                            <datalist id="add2Statelist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" ng-model = "FactoryCity" placeholder="City" class="form-control MyInputField" list="add2Citylist" id="add2City" name="add2City" style="border-radius: 0px 20px 20px 0px;" />
+		                                            <span class="input-group-addon MyInputSpan" ><b>Address Line 2</b></span> <input type="text" ng-model = "FactoryCity" placeholder="State, Country" class="form-control MyInputField" list="add2Citylist" id="add2City" name="add2City" style="border-radius: 0px 20px 20px 0px;" />
 		                                            <datalist id="add2Citylist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" ng-model = "FactoryLocality" placeholder="Locality" class="form-control MyInputField" list="add2Locallist" id="add2Local" name="add2Local" style="border-radius: 0px 20px 20px 0px;"/>
+		                                           <span class="input-group-addon MyInputSpan" ><b>Country</b></span> <input list="country" name="country" ng-model = "FactoryLocality" placeholder="Country" class="form-control MyInputField" list="add2Locallist" id="add2Local"  style="border-radius: 0px 20px 20px 0px;"/>
+		                                           <datalist id="country">
+		                                           <option value="USA"></option>
+		                                           <option value="IND"></option>
+		                                           <option value="PRK"></option>
+		                                           <option value="SYR"></option>
+		                                           <option value="GBR"></option>
+		                                           </datalist>
 		                                            <datalist id="add2Locallist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
@@ -599,7 +613,26 @@
 		    		$scope.sessionUsername = response.data.username;
 		    		console.log(response.data.username);
 		        	console.log(response.data.userType);
-		    	//var data = JSON.parse(response.data)
+		    	
+			        	/*
+			        	SERVICE FOR ADDITIONAL DETAILS WORKING
+		    			$http.get(BASE_PATH + "/service/login/fetchAdditionalDetails/?uname=" + response.data.username)
+					    .then(function (response) {
+				    		console.log(response);
+					    	if (response.data == "no session") {
+					    		$window.location.href = './HomePage.html'
+					    	} else {
+					    		$scope.sessionUsertype = response.data.userType;
+					    		$scope.sessionUsername = response.data.username;
+					    		console.log(response.data.username);
+					        	console.log(response.data.userType);
+					    		    		
+					    	}
+				    	}, function(response) {
+				    	console.log("couldnot load data");
+				      });
+		    			*/
+		    		
 		    	}
 		    }, function(response) {
 		    	console.log("couldnot load data");
@@ -625,6 +658,11 @@
 
 		}]);
 		app.controller('myController',[ '$scope', '$http', function($scope, $http) {
+			
+			
+			
+			
+			
             $scope.UpdateDet = function(){
             	console.log("we are here");
             	var data  = {

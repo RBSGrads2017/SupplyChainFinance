@@ -19,8 +19,6 @@ public class GenericUserDaoImpl{
 				boolean isConfirmed = res.getBoolean(3);
 				boolean userType = res.getBoolean(4);
 				boolean is_Bank_User = res.getBoolean(5);
-				
-				
 				gu = new GenericUser(uID, password, isConfirmed, userType,is_Bank_User);
 			}
 		}
@@ -56,7 +54,10 @@ public class GenericUserDaoImpl{
 		st.setBoolean(4, gu.isConfirmed());
 		st.setBoolean(5, gu.get_is_Bank_User());
 		st.executeUpdate();
-		
+		//insert in mapping table.
+		PreparedStatement st2 = conn.prepareStatement("INSERT INTO \"user_id_name\" values" + "(?)");
+		st2.setString(1, gu.getUsername());
+		st2.executeUpdate();
 		return true;
 	}
 	
@@ -95,7 +96,6 @@ public class GenericUserDaoImpl{
 		ss = conn.createStatement();
 		str = "DELETE FROM \"Forgot_Password\" WHERE \"Username\" = '" + username + "'";
 		ss.executeUpdate(str);
-		
 		return true;
 	}
 }
