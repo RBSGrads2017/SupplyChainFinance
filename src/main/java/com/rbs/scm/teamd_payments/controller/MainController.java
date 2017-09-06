@@ -51,9 +51,7 @@ public class MainController {
     		returnObj.put("creditAccount","123456789");
     		returnObj.put("debitAccount","987654321");
     		returnObj.put("comments","Invoice "+invoiceId);
-    		returnObj.put("details","SHR");
-    		
-    		
+    		returnObj.put("details","SHR");    		
     		return returnObj.toString();
     }
     
@@ -114,6 +112,31 @@ public class MainController {
     	return resultArray.toString();
     }
     
+    
+    
+    @GET 
+    @Path("/getAllMyDebits")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllMyDebits()
+    {
+    	Payment pay = new Payment();
+    	String userid = "123";
+    	
+    	JSONArray resultArray =  pay.getAllMyDebits(userid);
+    	return resultArray.toString();
+    }
+    
+    @GET 
+    @Path("/getAllMyCredits")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllMyCredits()
+    {
+    	Payment pay = new Payment();
+    	String userid = "123";
+    	
+    	JSONArray resultArray =  pay.getAllMyCredits(userid);
+    	return resultArray.toString();
+    }
     
     
     @GET 

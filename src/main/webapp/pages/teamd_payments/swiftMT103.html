@@ -330,7 +330,7 @@ label {
     <div style="margin-top: 10px" ng-hide="v1" >
         <div class="row">
             <div class="col-sm-offset-1 col-sm-8 jumbotron" id="alignMain" style="padding-top:0px; 
-            height:1100px; 
+            height:70%; 
             border-radius: 20px; 
             text-align: center; 
             background-color:#555">
@@ -363,74 +363,74 @@ label {
                                     <form>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>SENDER</b></span>
-                                            <input type="text" class="form-control MyInputField" id="sender" name="sender" ng-model="sender" />
+                                            <input type="text" class="form-control MyInputField" id="sender" name="sender" ng-model="sender" required />
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>MESSAGE TYPE</b></span> 
-                                            <input type="text" class="form-control MyInputField" id="msgType" name="msgType" ng-model="type" />
+                                            <input type="text" class="form-control MyInputField" id="msgType" name="msgType" ng-model="type" required />
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>RECEIVER</b></span>
-                                            <input type="text" class="form-control MyInputField" id="receiver" name="receiver" ng-model="rcv" />
+                                            <input type="text" class="form-control MyInputField" id="receiver" name="receiver" ng-model="rcv" required/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>MESSAGE TEXT</b></span>
-                                            <input type="text" class="form-control MyInputField" id="msgText103" name="msgText103" ng-model="msgtxt" />
+                                            <input type="text" class="form-control MyInputField" id="msgText103" name="msgText103" ng-model="msgtxt" required/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">   
                                             <span class="input-group-addon MyInputSpan"><b>SENDER'S REFERENCE</b></span> 
-                                            <input type="text" class="form-control MyInputField" id="senderRef" name="senderRef" ng-model="sendref" />
+                                            <input type="text" class="form-control MyInputField" id="senderRef" name="senderRef" ng-model="sendref" required/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>BANK OPERATION CODE</b></span> 
-                                            <input type="text" class="form-control MyInputField" id="bankOperationCode" name="bankOperationCode" ng-model="boc" />
+                                            <input type="text" class="form-control MyInputField" id="bankOperationCode" name="bankOperationCode" ng-model="boc" required/>
                                         </div>
 
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>VALUE DATE</b></span> 
-                                            <input type="text" class="form-control MyInputField" id="date103" name="date103" ng-model="date" />
+                                            <input type="text" class="form-control MyInputField" id="date103" name="date103" ng-model="date" required/>
                                         </div>
 
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>CURRENCY/INSTRUCTED AMOUNT</b></span> 
-                                            <input type="text" class="form-control MyInputField" id="currency" name="currency" ng-model="curr" />
+                                            <input type="text" class="form-control MyInputField" id="currency" name="currency" ng-model="curr" required/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>ORDERING CUSTOMER</b></span> 
-                                            <input type="text" class="form-control MyInputField" id="orderingCustomer" name="orderingCustomer" ng-model="ordcust" />
+                                            <input type="text" class="form-control MyInputField" id="orderingCustomer" name="orderingCustomer" ng-model="ordcust" required/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>SENDER'S CORRESPONDENT</b></span> 
-                                            <input type="text" class="form-control MyInputField" id="senderCorres" name="senderCorres" ng-model="scorr" />
+                                            <input type="text" class="form-control MyInputField" id="senderCorres" name="senderCorres" ng-model="scorr" required/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>RECEIVER'S CORRESPONDENT</b></span> 
-                                            <input type="text" class="form-control MyInputField" id="receiverCorres" name="receiverCorres" ng-model="rcorr"/>
+                                            <input type="text" class="form-control MyInputField" id="receiverCorres" name="receiverCorres" ng-model="rcorr" required/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>BENEFICIARY CUSTOMER</b></span>
-                                            <input type="text" class="form-control MyInputField" id="benecust" name="benecust" ng-model="benecust" />
+                                            <input type="text" class="form-control MyInputField" id="benecust" name="benecust" ng-model="benecust" required/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>REMITTANCE INFORMATION</b></span>
-                                            <input type="text" class="form-control MyInputField" id="remittanceInfo" name="remittanceInfo" ng-model="rmtinf" />
+                                            <input type="text" class="form-control MyInputField" id="remittanceInfo" name="remittanceInfo" ng-model="rmtinf" required/>
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">
-                                            <span class="input-group-addon MyInputSpan"><b>DETAILS OF CHARGERS</b></span>
-                                            <input type="text" class="form-control MyInputField" id="detailsOfChargers" name="detailsOfChargers" ng-model="dtlschrgs" />
+                                            <span class="input-group-addon MyInputSpan"><b>DETAILS OF CHARGES</b></span>
+                                            <input type="text" class="form-control MyInputField" id="detailsOfChargers" name="detailsOfChargers" ng-model="dtlschrgs" required/>
                                         </div>
                                         <br>
                                         <div class="row">
@@ -549,7 +549,7 @@ label {
                                    
                                     <br>
                                     <br>
-                                    <button type="button" class="btnss" id="editButton" onclick="window.open('../teamd_payments/swiftMT103.html','_self')">EDIT</button>
+                                    <button type="button" class="btnss" id="editButton" onclick="window.open('../pages/swiftMT103.html','_self')">EDIT</button>
                                     <button type="button" class="btnss" id="confirmButton" ng-click="sendFormData()">CONFIRM</button>
 
 
@@ -570,6 +570,8 @@ label {
 </div>
 
 <script>
+
+	
 	var app = angular.module('swftapp', []);
 
 	app.controller('swftctrl', function($scope, $http){
@@ -587,13 +589,23 @@ label {
     	})
     
 		$scope.func = function(){
+			console.log("func called");
+
+			if(!($scope.sender && $scope.type && $scope.rcv && $scope.msgtxt && $scope.sendref && $scope.boc && $scope.date && $scope.curr && $scope.ordcust && $scope.scorr && $scope.rcorr && $scope.benecust && $scope.rmtinf && $scope.dtlschrgs))
+			{
+				console.log("alert called");
+				alert("Please enter all the fields");
+			}
+		else {
     		$scope.v1 = true;
     		$scope.v2 = false;
+		}
     	}
     	
     	$scope.sendFormData = function(){
 			console.log("Form being submitted");
-		
+			
+			
 			$http({
 	            method: 'POST',
 	            url: 'http://localhost:8089/scm/service/Transactions/submitSwiftMessage',
@@ -616,28 +628,29 @@ label {
 					detailsOfCharge : $scope.dtlschrgs
 				}
 	        }).then(function (response) {console.log(response.data)});
-	 
+		
     	}
 	});
+	
 </script>
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-<script src="../../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="../../vendor/metisMenu/metisMenu.min.js"></script>
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
 <!-- Morris Charts JavaScript -->
-<script src="../../vendor/raphael/raphael.min.js"></script>
-<script src="../../vendor/morrisjs/morris.min.js"></script>
-<script src="../../data/morris-data.js"></script>
+<script src="../vendor/raphael/raphael.min.js"></script>
+<script src="../vendor/morrisjs/morris.min.js"></script>
+<script src="../data/morris-data.js"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="../../dist/js/sb-admin-2.js"></script>
+<script src="../dist/js/sb-admin-2.js"></script>
 
 </body>
 
