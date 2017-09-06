@@ -1,4 +1,4 @@
-package com.rbs.scm.DAO;
+package com.rbs.scm.teamg_accounting.dao;
 
 //Sample code to test connectivity in local machine- will be updated later
 

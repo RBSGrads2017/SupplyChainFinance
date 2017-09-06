@@ -1,4 +1,4 @@
-package com.rbs.scm.DAO;
+package com.rbs.scm.teamg_accounting.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

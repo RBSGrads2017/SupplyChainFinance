@@ -1,4 +1,4 @@
-package com.rbs.scm.model;
+package com.rbs.scm.teamg_accounting.model;
 
 public class ChartOfAccount {
 	

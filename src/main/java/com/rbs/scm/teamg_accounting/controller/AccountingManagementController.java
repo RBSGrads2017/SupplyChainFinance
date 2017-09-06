@@ -1,5 +1,6 @@
-package com.rbs.scm.controller;
+package com.rbs.scm.teamg_accounting.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -18,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rbs.scm.model.ChartOfAccount;
-import com.rbs.scm.model.GeneralLedger;
-import com.rbs.scm.service.AccountingManagementService;
+import com.rbs.scm.teamg_accounting.model.ChartOfAccount;
+import com.rbs.scm.teamg_accounting.model.GeneralLedger;
+import com.rbs.scm.teamg_accounting.service.AccountingManagementService;
 
 @Component
 @RestController
@@ -35,7 +36,7 @@ public class AccountingManagementController {
 	    }
 	 
 	 @RequestMapping(value = "/viewGL",method = RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	 public ResponseEntity<List<GeneralLedger>> ViewLedger(){
+	 public ResponseEntity<List<GeneralLedger>> ViewLedger() throws SQLException{
 			List<GeneralLedger> generalledgerlists=accountingManagementServiceObj.getEachGLEntry();
 			return new ResponseEntity<List<GeneralLedger>>(generalledgerlists, HttpStatus.OK);
 		}
