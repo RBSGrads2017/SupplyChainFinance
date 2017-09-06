@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import com.rbs.scm.teamd_payments.model.beans.*;
 import com.rbs.scm.teamd_payments.model.core.Payment;
+import com.rbs.scm.teamd_payments.utils.Constants;
 import com.rbs.scm.teamd_payments.utils.ConsumeRestService;
 
 @Path("/Transactions")
@@ -45,9 +46,15 @@ public class MainController {
     {
     		
     		ConsumeRestService consumer = new ConsumeRestService();
+    		JSONObject returnObj = new JSONObject(consumer.getInvoice(invoiceId));
+    		//Get Account details
+    		returnObj.put("creditAccount","123456789");
+    		returnObj.put("debitAccount","987654321");
+    		returnObj.put("comments","Invoice "+invoiceId);
+    		returnObj.put("details","SHR");
     		
     		
-    		return consumer.getInvoice(invoiceId);
+    		return returnObj.toString();
     }
     
     @POST
@@ -61,16 +68,18 @@ public class MainController {
     	double amount = newObj.getDouble("amount");
     	String currency = newObj.getString("currency");
     	String beneficiary = newObj.getString("beneficiary");
-    	String accno = newObj.getString("accountNo");
+    	String debitAcc = newObj.getString("debitAcc");
+    	String creditAcc = newObj.getString("creditAcc"); 
     	String date = newObj.getString("date");
     	String details  = newObj.getString("details");
-   	
+    	String comments  = newObj.getString("comments");
+    	
     	
     	Random generator= new Random();
     	int txnId = generator.nextInt(10000);
     	java.sql.Date sqlDate = java.sql.Date.valueOf(date);
     	
-    	Customer_Transaction newTrans = new Customer_Transaction(txnId, "104", currency, amount, sqlDate, null, null, details,"12345","54321", senderId,beneficiary );
+    	Customer_Transaction newTrans = new Customer_Transaction(txnId, "104", currency, amount, sqlDate, Constants.AML_NOT_DONE, Constants.AWAITING_APPROVAL, comments,debitAcc,creditAcc, senderId,beneficiary );
     	Payment pay = new Payment();
     	JSONObject returnStatus = new JSONObject();
     	
@@ -94,6 +103,18 @@ public class MainController {
     	JSONArray resultArray =  pay.getAllTransactions();
     	return resultArray.toString();
     }
+    
+    @GET 
+    @Path("/getAllPendingTransactions")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllPendingTransactions()
+    {
+    	Payment pay = new Payment();
+    	JSONArray resultArray =  pay.getAllPendingTransactions();
+    	return resultArray.toString();
+    }
+    
+    
     
     @GET 
     @Path("/getTransaction")

@@ -56,7 +56,77 @@ public class Payment {
 		}
 	}
 	
-	
+	public JSONArray getAllPendingTransactions()
+	{
+		try {
+			PaymentsImpl p = new PaymentsImpl();
+			Customer_Transaction[] arrayOfTxn = p.getAllPendingCustomerTransactionDetails(Constants.AWAITING_APPROVAL);
+			JSONArray toReturn = new JSONArray();
+			for( Customer_Transaction txn:arrayOfTxn)
+			{
+				JSONObject newObj = new JSONObject();
+				newObj.put("sender", txn.getPayer_id());
+				newObj.put("amount", txn.getAmount());
+				newObj.put("beneficiary", txn.getPayee_id());
+				newObj.put("date", txn.getTransaction_date());
+				newObj.put("details", txn.getComments());
+				newObj.put("comments", txn.getComments());
+				newObj.put("aml_status", txn.getAml_status());
+				newObj.put("status", txn.getStatus());
+				newObj.put("message_code", txn.getMessage_code());
+				newObj.put("transaction_id", txn.getTransaction_id());
+				toReturn.put(newObj);
+			}
+			
+			Bank_to_Customer[] arrayOfTxn2 = p.getAllPendingBankToCustomerDetails(Constants.AWAITING_APPROVAL);
+			
+			for( Bank_to_Customer txn:arrayOfTxn2)
+			{
+				JSONObject newObj = new JSONObject();
+				newObj.put("sender", txn.getPayer_id());
+				newObj.put("amount", txn.getAmount());
+				newObj.put("beneficiary", txn.getPayee_id());
+				newObj.put("date", txn.getTransaction_date());
+				newObj.put("details", txn.getComments());
+				newObj.put("comments", txn.getComments());
+				newObj.put("aml_status", txn.getAml_status());
+				newObj.put("status", txn.getStatus());
+				newObj.put("message_code", txn.getMessage_code());
+				newObj.put("transaction_id", txn.getTransaction_id());
+				toReturn.put(newObj);
+			}
+			
+
+			Customer_to_Bank[] arrayOfTxn3 = p.getAllPendingCustomerToBankDetails(Constants.AWAITING_APPROVAL);
+			
+			for( Customer_to_Bank txn:arrayOfTxn3)
+			{
+				JSONObject newObj = new JSONObject();
+				newObj.put("sender", txn.getPayer_id());
+				newObj.put("amount", txn.getAmount());
+				newObj.put("beneficiary", txn.getPayee_id());
+				newObj.put("date", txn.getTransaction_date());
+				newObj.put("details", txn.getComments());
+				newObj.put("comments", txn.getComments());
+				newObj.put("aml_status", txn.getAml_status());
+				newObj.put("status", txn.getStatus());
+				newObj.put("message_code", txn.getMessage_code());
+				newObj.put("transaction_id", txn.getTransaction_id());
+				toReturn.put(newObj);
+			}
+
+			
+			
+			
+			return toReturn;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+			JSONArray newArray = new JSONArray();
+			return newArray;
+		}
+	}
 	
 	
 	public JSONObject getTransaction(int transactionId)

@@ -336,7 +336,7 @@
                                     <form>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>SENDER</b></span>
-                                            <input type="text" class="form-control MyInputField" id="sender" name="sender" ng-model=buyerId />
+                                            <input type="text" class="form-control MyInputField" id="sender" name="sender" ng-model=buyerId disabled=true/>
                                         </div>
                                         <br>
                                          <div class="input-group MyInputDiv">
@@ -354,15 +354,16 @@
                                             <input type="text" class="form-control MyInputField" id="beneficiary" name="beneficiary" ng-model=sellerId disabled=true />
                                         </div>
                                         <br>
+                                       
+                                        <br>
                                         <div class="input-group MyInputDiv">
-                                            <span class="input-group-addon MyInputSpan" ><b>ACCOUNT TO DEBIT FROM</b></span> 
-
-                                            <select name="accountNo" class=dropdown ng-model=accno>
-                                                <option value="acc1">1009090488   </option>
-                                                <option value="acc2">1040909034 </option>
-                                                
-                                            </select>
-
+                                            <span class="input-group-addon MyInputSpan"><b>ACCOUNT TO CREDIT TO</b></span>
+                                            <input type="text" class="form-control MyInputField" id="credAcc" name="beneficiary" ng-model=creditAccount disabled=true />
+                                        </div>
+                                        <br>
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>ACCOUNT TO DEBIT FROM</b></span>
+                                            <input type="text" class="form-control MyInputField" id="debAcc" name="debAcc" ng-model=debitAccount disabled=true />
                                         </div>
                                         <br>
                                         <div class="input-group MyInputDiv">   
@@ -372,13 +373,13 @@
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>DETAILS OF CHARGERS</b></span> 
-                                            <input type="text" class="form-control MyInputField" id="chargerDetails" name="details" ng-model=details />
+                                            <input type="text" class="form-control MyInputField" id="chargerDetails" name="details" ng-model=details disabled=true/>
                                         </div>
 
                                         <br>
                                         <div class="input-group MyInputDiv">
                                             <span class="input-group-addon MyInputSpan"><b>ADDITIONAL MESSAGE TEXT</b></span>
-                                            <input type="text" class="form-control MyInputField" id="msgText" name="comments" />
+                                            <input type="text" class="form-control MyInputField" id="msgText" name="comments" ng-model=comments disabled=true/>
                                         </div>
                                         <br>
                                         <div class="row">
@@ -442,6 +443,11 @@
                                                     $scope.amount = prefill.amount;
                                                     $scope.currency = prefill.currency;
                                                     $scope.date = prefill.dateOfPayment;
+                                                    $scope.creditAccount = prefill.creditAccount;
+                                                    $scope.debitAccount = prefill.debitAccount;
+                                                    $scope.comments = prefill.comments,
+                                                    $scope.details = prefill.details
+                                                    
                                                 })
                                                 
                                              
@@ -457,9 +463,11 @@
 															amount : $scope.amount,
 															currency : $scope.currency,
 															beneficiary : $scope.sellerId,
-															accountNo : $scope.accno,
+															creditAcc : $scope.creditAccount,
+															debitAcc:$scope.debitAccount,
 															date : $scope.date,
-															details : $scope.details
+															details : $scope.details,
+															comments:$scope.comments
 														}
 											        }).then(function (response) {console.log(response.data)});
 											 
