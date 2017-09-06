@@ -16,35 +16,37 @@ import com.rbs.scm.teamb_contract1.POJO.JsonParse.viewResponse.Response;
 
 @Path("view")
 public class ViewResponsesService {
-	
-	
+
 	@Path("/all/responses/{pid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public ListOfResponses ViewAllResponses(@PathParam("pid") Integer pId) {
-		
+
 		System.out.println("all responses");
 		return ViewResponseBL.ViewAllResponses(pId);
 	}
+
 	@Path("/response/{pid}/{sid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response ViewResponse(@PathParam("pid") Integer pid, @PathParam("sid") Integer sid) {	
+	public Response ViewResponse(@PathParam("pid") Integer pid, @PathParam("sid") Integer sid) {
 		return ViewResponseBL.viewResponse(pid, sid);
-		
+
 	}
+
 	@Path("/productcostfinal/{pid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ProductCost> ViewProductCostForProposal(@PathParam("pid") Integer pid) {	
-		return ViewProductsCostBL.getProductCostForProposal(pid);	
+	public List<ProductCost> ViewProductCostForProposal(@PathParam("pid") Integer pid) {
+		return ViewProductsCostBL.getProductCostForProposal(pid);
 	}
+
 	@Path("/productcost/{pid}/{sid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ProductCost> ViewProductCost(@PathParam("pid") Integer pid, @PathParam("sid") Integer sid) {	
+	public List<ProductCost> ViewProductCost(@PathParam("pid") Integer pid, @PathParam("sid") Integer sid) {
 		System.out.println(pid);
 		System.out.println(sid);
-		return ViewProductsCostBL.getProductCost(pid, sid);	
+		return ViewProductsCostBL.getProductCost(pid, sid);
 	}
 }
