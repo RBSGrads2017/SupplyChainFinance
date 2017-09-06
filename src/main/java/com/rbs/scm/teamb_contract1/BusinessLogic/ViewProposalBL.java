@@ -13,7 +13,7 @@ import com.rbs.scm.teamb_contract1.POJO.Table.ProductsTable;
 import com.rbs.scm.teamb_contract1.POJO.Table.ProposalsTable;
 
 public class ViewProposalBL {
-	
+	//TODO String id
 	public static ListOfProposals view(Integer id) {
 		
 		

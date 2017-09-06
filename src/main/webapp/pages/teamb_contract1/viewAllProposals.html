@@ -13,19 +13,19 @@
     <title>View Existing Proposals</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -390,23 +390,24 @@
              
 			app.controller('myCtrl',[ "$scope", "$http", function($scope, $http){
 			
-                $http.get("http://localhost:8089/teamB/view/proposals").then(function(response){
+                $http.get("http://localhost:8089/scm/service/view/proposals").then(function(response){
             		$scope.obj = response.data;
                 });
 
                 $scope.func1 =  function (id,stts) {
                     if(stts=='y') {
+                        console.log("In yet to be published");
                              //   location.href = "http://localhost:8089/teamB/publish/proposal/"+id;
                         window.location="listofSellers.html?id="+id;
                         }else if(stts=='p'){
                             window.location = "ListResponses.html?id="+id;
                         }else if(stts=='c'){
-                            
-                             $http.get("http://localhost:8089/teamB/view/all/responses/"+id).then(function(response){
+                                console.log("Entered into completed");
+                             $http.get("http://localhost:8089/scm/service/view/all/responses/"+id).then(function(response){
                     $scope.obj = response.data;
 
                         $scope.listofresponses = response.data;
-                    listofresponses.responses.forEach(function(entry) {
+                    $scope.listofresponses.responses.forEach(function(entry) {
                                              if(entry["buyerBidStatus"]=="a"){
                                                 window.location = "awardedResponse.html?pid="+id+"&sid="+entry["sellerId"];
                                              }

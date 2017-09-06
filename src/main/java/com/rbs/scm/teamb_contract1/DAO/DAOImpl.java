@@ -9,10 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import com.rbs.scm.teamb_contract1.POJO.JsonParse.PublishProposal.IdentifiedSellers;
+import com.rbs.scm.teamb_contract1.POJO.JsonParse.viewResponse.ProductCost;
 import com.rbs.scm.teamb_contract1.POJO.Table.FeaturesDetailsTable;
 import com.rbs.scm.teamb_contract1.POJO.Table.FeaturesTable;
 import com.rbs.scm.teamb_contract1.POJO.Table.PaymentTermsTable;
@@ -35,9 +38,18 @@ public class DAOImpl {
 		ResultSet rs= null;
 
 		try {
-			connection = DriverManager.getConnection(
+			/*connection = DriverManager.getConnection(
 					"jdbc:postgresql://localhost:5432/vi", "postgres",
-					"1");
+					"1");*/
+			
+			String url = "jdbc:postgresql://ec2-23-21-85-76.compute-1.amazonaws.com:5432/d11rrktmmgd00t?user=liybotsvyembvp&password=e40dd8cba8730c3a7b167d3648acbb0d442bdef9c92cb9062110193cf126b37a&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	        Properties props = new Properties();
+	        props.setProperty("user", "liybotsvyembvp");
+	        props.setProperty("password", "e40dd8cba8730c3a7b167d3648acbb0d442bdef9c92cb9062110193cf126b37a");
+	        props.setProperty("ssl", "true");
+	        connection = DriverManager.getConnection(url, props);
+			
+			
 			return connection;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -869,6 +881,7 @@ public boolean UpdateFeatureTable(Integer fid, Integer id, Integer proposalid, S
 public List<String> ListSellers(int proposalId){
 	
 	List<String> listOfSellers = new ArrayList<String>();
+	List<String> UniquelistOfSellers = null;
 	Statement statement = null;
 	Connection connection = create_connection();
 	System.out.println("Entered into dao");
@@ -877,16 +890,23 @@ public List<String> ListSellers(int proposalId){
 		sql += " FROM \"Products\"";
 		sql += " WHERE \"proposal_id\"=";
 		sql += proposalId;
-
+		
 		statement = connection.createStatement();	
 		ResultSet rs = statement.executeQuery(sql);
 		
 		while(rs.next()) {
 			
-			sql = "SELECT \"Username\"";
-			sql += " FROM \"User_products\"";
+			sql = "SELECT \"Name\"";
+			sql += " FROM \"Products_list\"";
 			sql += " WHERE \"Product_id\"=";
 			sql += rs.getInt(1);
+			statement = connection.createStatement();
+			ResultSet rs2 = statement.executeQuery(sql);
+			rs2.next();
+			sql = "SELECT \"Username\"";
+			sql += " FROM \"User_products\"";
+			sql += " WHERE \"Products_name\"=";
+			sql += "'" + rs2.getString(1) + "'";
 			statement = connection.createStatement();
 			ResultSet rs1 = statement.executeQuery(sql);
 			while(rs1.next()) {
@@ -894,6 +914,9 @@ public List<String> ListSellers(int proposalId){
 			System.out.println(rs1.getString(1));
 			System.out.println("sql :"+sql);
 			}
+			Set<String> unique_sellers = new HashSet<String>(listOfSellers);
+			UniquelistOfSellers = new ArrayList<String>(unique_sellers);
+			
 			rs1.close();
 		}
 		
@@ -908,7 +931,7 @@ public List<String> ListSellers(int proposalId){
 			e.printStackTrace();
 		}
 	}
-	return listOfSellers;
+	return UniquelistOfSellers;
 	
 }
 
@@ -943,7 +966,7 @@ public void PublishProposal(IdentifiedSellers identifiedSellers,Integer proposal
 			pstatement = connection.prepareStatement(sql);
 			pstatement.setInt(1, proposalId);
 			pstatement.setInt(2, id);
-			pstatement.setString(3, "P");
+			pstatement.setString(3, "p");
 			pstatement.setString(4, "n");
 			System.out.println(sql);
 			pstatement.executeUpdate();
@@ -1052,7 +1075,6 @@ public boolean award(int proposal_id, int seller_id) {
 }
 
 
-
 public boolean reject(int proposal_id, int seller_id) {
 	
 	Statement statement = null;
@@ -1088,11 +1110,6 @@ public boolean reject(int proposal_id, int seller_id) {
 	return true;
 }
 
-
-
-
-
-
 public List<PaymentTermsTable> get_payment_terms() {
 	
 		Statement statement = null;
@@ -1127,6 +1144,118 @@ public List<PaymentTermsTable> get_payment_terms() {
 			}
 		}
 	
+	}
+
+	public List<ProductCost> get_product_cost(int proposal_id, int seller_id) {
+		
+		Statement statement = null;
+		Connection connection = create_connection();
+		List<ProductCost> pc_list = new ArrayList<ProductCost>();
+		
+		try {
+			String sql = "SELECT";
+			sql += " \"id\", \"product_id\"";
+			sql += " from \"Products\"";
+			sql += " WHERE \"proposal_id\"=";
+			sql += proposal_id;
+			System.out.println(sql);
+			statement = connection.createStatement();	
+			ResultSet rs = statement.executeQuery(sql);
+			
+			while(rs.next()) {
+				ProductCost pc = new ProductCost();
+				int product_id = rs.getInt(1);
+				String sql2 = "SELECT";
+				sql2 += " \"cost\"";
+				sql2 += " from \"product_cost_quot\"";
+				sql2 += " WHERE \"product_id\"=";
+				sql2 += product_id;
+				sql2 += " AND \"seller_id\"=";
+				sql2 += seller_id;
+				System.out.println(sql2);
+				Statement statement2 = connection.createStatement();	
+				ResultSet rs2 = statement2.executeQuery(sql2);
+				rs2.next();
+				pc.setPrice(rs2.getInt(1));
+				pc.setProduct_name(productid_to_productname(rs.getInt(2)));
+				rs2.close();
+				pc_list.add(pc);	
+			}
+			rs.close();
+			return pc_list;		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return pc_list;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public String productid_to_productname(int product_id) {
+		
+		Statement statement = null;
+		Connection connection = create_connection();
+		
+		try {
+			String sql = "SELECT";
+			sql += " \"Name\"";
+			sql += " from \"Products_list\"";
+			sql += " WHERE \"Product_id\"=";
+			sql += product_id;
+			System.out.println(sql);
+			statement = connection.createStatement();	
+			ResultSet rs = statement.executeQuery(sql);
+			rs.next();
+			String a = rs.getString(1);
+			rs.close();
+			return a;		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public int get_selected_seller(int proposal_id) {
+		
+		Statement statement = null;
+		Connection connection = create_connection();
+		
+		try {
+			String sql = "SELECT";
+			sql += " \"bid_seller_id\"";
+			sql += " from \"Proposals\"";
+			sql += " WHERE \"proposal_id\"=";
+			sql += proposal_id;
+			System.out.println(sql);
+			statement = connection.createStatement();	
+			ResultSet rs = statement.executeQuery(sql);
+			rs.next();
+			int a = rs.getInt(1);
+			rs.close();
+			return a;		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 }

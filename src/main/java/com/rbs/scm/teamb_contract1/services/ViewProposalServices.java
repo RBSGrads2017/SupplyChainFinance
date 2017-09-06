@@ -21,6 +21,8 @@ public class ViewProposalServices {
 		
 		/*HttpSession ses = httpRequest.getSession(false);
     	User usr =  (User)ses.getAttribute("user");*/
+		//TODO string 
+		
 		int buyerId = 1;
 		
 		return ViewProposalBL.view(buyerId);

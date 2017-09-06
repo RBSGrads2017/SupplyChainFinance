@@ -10,15 +10,14 @@
 
     <title>Supply Chain Finance - Contract Management</title>
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">   
+    <link href="../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Morris Charts CSS -->
-    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
    
     <style type="text/css">
@@ -66,7 +65,7 @@
 
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
@@ -228,7 +227,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                         <tr ng-repeat="seller in sellersList.sellers">
+                         <tr ng-repeat="seller in sellersList">
                             <td>{{$index+1}}</td>
                             <td>{{seller}}</td>
                             <td> <input id="{{seller}}" value="{{seller}}" type="checkbox" ng-checked="selection.indexOf(seller) > -1" ng-click="toggleSelection(seller)" /></td>
@@ -242,40 +241,7 @@
 
 </div>
                  
-      
-                    <!--        <div class="panel panel-default" style="margin-top: 50px">
-                                <div class="panel-heading" id="module_section_div1" style="text-align: center;font-size: 24px;padding-bottom: 40px">SHORTLISTED PROPOSALS
-                                </div>
-                            </div>
-                            <div id="container">
-                                <table class="table table-hover" style="width: 100%; float: center; border: 1px solid #cccccc;">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center;">S.No.</th>
-                                            <th style="text-align: center;">Primary</th>
-                                            <th style="text-align: center;">Sub</th>
-                                            <th style="text-align: center;">Feature</th>
-                                            <th style="text-align: center;">Description</th>
-                                            <th style="text-align: center;">Specification</th>
-                                        </tr>
-                                    </thead>
-                                    <div id="container" >
-                                        <tbody>
-                                            <tr ng-repeat="feature in features">
-                                                <td style="text-align: center;">$index</td>
-                                                <td style="text-align: center;">{{feature.primary}}</td>
-                                                <td style="text-align: center;">{{feature.featureName}}</td>
-                                                <td style="text-align: center;">{{feature.sub}}</td>
-                                                <td style="text-align: center;">{{feature.description}}</td>
-                                                <td style="text-align: center;">{{feature.specification}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </div>
-                                </table>
-                            </div>-->
-                          
-                          
-                               <div ng-controller="ClickController"><button ng-click="Send()" class="btn btn-success" style="padding:15px; margin:15px; float:right;">Proceed</button> <h1 {{ResponseDetails}}></h1></div>
+      <div ng-controller="ClickController"><button ng-click="Send()" class="btn btn-success" style="padding:15px; margin:15px; float:right;">Proceed</button> <h1 {{ResponseDetails}}></h1></div>
 							   
                         </div>
                     </div>                    
@@ -285,13 +251,11 @@
    
         <!-- /#wrapper -->
         <!-- jQuery -->
-        <script src="../vendor/jquery/jquery.min.js"></script>
         <!-- Bootstrap Core JavaScript -->
-        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
         <!-- Metis Menu Plugin JavaScript -->
         <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-        <!-- Morris Charts JavaScript -->
-        <script src="../vendor/raphael/raphael.min.js"></script>
+        <!-- Morris Charts JavaScript 
+        <script src="../vendor/raphael/raphael.min.js"></script>-->
       <!--  <script src="../vendor/morrisjs/morris.min.js"></script>
         <script src="../data/morris-data.js"></script>
     <!-- Custom Theme JavaScript -->
@@ -352,47 +316,18 @@ $('#selectall').click(function (e) {
 });
 
 var app = angular.module("MyApplication", []);
-/*app.controller('ViewController', function($scope){
-                
-                console.log(typeof data);
-                
-                console.log(JSON.stringify(data));
-                $scope.sellers = data.response;
-               
-            
-                        $scope.selection=[];
-  // toggle selection for a given employee by name
 
-  $scope.toggleSelection = function toggleSelection(sellerName) {
-     var idx = $scope.selection.indexOf(sellerName);
-     
-     // is currently selected
-     if (idx > -1) {
-       $scope.selection.splice(idx, 1);
-     }
-
-     // is newly selected
-     else {
-       $scope.selection.push(sellerName);
-     }
-     console.log(sellerName);
-     console.log($scope.selection);
-     console.log(JSON.stringify($scope.selection));
-   };
-        });*/
-
-//querystring
 var data={};
 var data1={}; 
 var qs = location.search.split('?')[1].split('=')[1];
-
+console.log(qs);
         app.controller('ViewController', function($scope, $http){
-            $http.get("http://localhost:8089/teamB/publish/proposal/"+qs).then(function(response){
+            $http.get("http://localhost:8089/scm/service/publish/proposal/"+qs).then(function(response){
                 $scope.sellersList =response.data;
                 $scope.selection=[]; 
-                console.log(typeof response);
-                console.log($scope.sellers);
-                console.log(JSON.stringify($scope.sellers));
+                console.log(response.data);
+                console.log($scope.sellersList);
+                console.log(JSON.stringify($scope.sellersList));
               
   // toggle selection for a given employee by name
 
@@ -436,7 +371,7 @@ console.log(data);
             }
 
                 // POST method is used to pass the data to Backend from Angular JS Frontend 
-        $http.post("http://localhost:8089/teamB/publish/toIdentifiedSellers/"+qs, data, config).then(function (data, status) {
+        $http.post("http://localhost:8089/scm/service/publish/toIdentifiedSellers/"+qs, data, config).then(function (data, status) {
 		
 window.location="viewAllProposals.html";
 console.log("Display");

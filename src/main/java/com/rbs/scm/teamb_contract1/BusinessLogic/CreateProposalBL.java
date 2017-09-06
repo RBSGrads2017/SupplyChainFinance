@@ -65,6 +65,7 @@ public class CreateProposalBL {
 	
 	private static ProposalsTable ProposalTabObj(Proposal p) {
 		ProposalsTable pt =new ProposalsTable();
+		//TODO string
 		pt.setBuyerId(1);
 		pt.setDescription(p.getDescription());
 		pt.setBuyerStatus('y');
