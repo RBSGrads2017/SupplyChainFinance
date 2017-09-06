@@ -1,4 +1,4 @@
-package com.rbs.scm.service;
+package com.rbs.scm.teamf_Invoie.service;
 
 
 import java.io.File;
@@ -28,9 +28,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rbs.scm.DAO.*;
-import com.rbs.scm.model.*;
-import com.rbs.scm.util.CustomMessage;
+import com.rbs.scm.teamf_Invoie.DAO.*;
+import com.rbs.scm.teamf_Invoie.model.*;
+import com.rbs.scm.teamf_Invoie.util.CustomMessage;
 
 @Service("invoiceServiceObj")
 public class InvoiceService {

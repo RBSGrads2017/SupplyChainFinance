@@ -1,4 +1,4 @@
-package com.rbs.scm.model;
+package com.rbs.scm.teamf_Invoie.model;
 
 public class Contract {
 private int contract_number;

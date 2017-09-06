@@ -1,4 +1,4 @@
-package com.rbs.scm.util;
+package com.rbs.scm.teamf_Invoie.util;
 
 public class CustomMessage {
 	 private String message;
