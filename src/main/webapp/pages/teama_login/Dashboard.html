@@ -316,8 +316,8 @@
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                            <li ng-click=LogoutClk()>
-                                <a href="HomePage.html"> Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
+                            <li ng-click="LogoutClk()">
+                                <a>Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
                                 <!-- /.nav-second-level -->
                             </li>
                         </ul>
@@ -344,11 +344,11 @@
 							      </div>
 							
 							      <div class="item">
-							        <img src="car2.jpg" alt="Chicago" style="width:100%">
+							        <img src="car3.jpg" alt="Chicago" style="width:100%">
 							      </div>
 							    
 							      <div class="item">
-							        <img src="car3.jpg" alt="New york" style="width:100%">
+							        <img src="car2.jpg" alt="New york" style="width:100%">
 							      </div>
 							    </div>
 							
@@ -567,7 +567,8 @@
 		        	} else {
 		        		$http.get(BASE_PATH + "/service/login/fetchBankUserDetails/?uname=" + response.data.username)
 			            .then(function(response) {
-			            	$scope.SessionUsername = response.data.Fullname;
+			            	$scope.SessionUsername = response.data.fullname;
+			            	console.log(response.data);
 			            });
 		        	}
 		        	
@@ -577,7 +578,9 @@
 		    	console.log("couldnot load data");
 		    });
 			
-			var LogoutClk = function() {
+		    $scope.LogoutClk = function() {
+				
+				console.log("logged out");
 				var promise = $http({
 	                url: BASE_PATH + '/service/login/logout',
 	                method: 'POST',

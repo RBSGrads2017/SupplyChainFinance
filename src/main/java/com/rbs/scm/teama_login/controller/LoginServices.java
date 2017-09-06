@@ -103,6 +103,11 @@ public class LoginServices {
 	public boolean logoutUser(@Context HttpServletRequest request) {
 		HttpSession hs = request.getSession(false);
 		hs.invalidate();
+		Session s = SessionUtility.sessionValidation(request);
+		if (s == null) {
+			System.out.println("null");
+		}
+		System.out.println("hi");
 		return true;
 	}
 	
@@ -155,7 +160,9 @@ public class LoginServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String fetchUserDetails(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
 		BankUser b = BankUserDaoImpl.searchBankUser(Uname);
+		
 		if(b == null)	{ return null; }
+		System.out.println(b.getFullname());
 		return b.convertObjectToJSON();
 	}
 	

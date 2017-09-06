@@ -21,10 +21,10 @@ Initially, cursor points to before the first row.*/
 		BankUser gu = null;
 		if(res != null) {
 			while(res.next()) {
-				String Username= res.getString("1");
-				String Fullname= res.getString("2");
-				String address= res.getString("3");
-				String p_group = res.getString("4");
+				String Username= res.getString(1);
+				String Fullname= res.getString(2);
+				String address= res.getString(3);
+				String p_group = res.getString(4);
 				gu = new BankUser(Username,Fullname,address,p_group);
 			}
 		}
@@ -54,6 +54,7 @@ Initially, cursor points to before the first row.*/
 			Statement st = conn.createStatement();
 			String queryString = "select * from \"Bank_user\" where \"Username\" ='" + username + "'";
 			res = st.executeQuery(queryString);
+			System.out.println(res);
 			BankUser b = convertResToObject();
 			return b;
 		}
