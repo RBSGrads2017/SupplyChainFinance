@@ -1,4 +1,4 @@
-package com.rbs.scm.teamf_Invoie.DAO;
+package com.rbs.scm.teamf_Invoice.DAO;
 
 //Sample code to test connectivity in local machine- will be updated later
 

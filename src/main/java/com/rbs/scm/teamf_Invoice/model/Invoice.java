@@ -1,4 +1,4 @@
-package com.rbs.scm.teamf_Invoie.model;
+package com.rbs.scm.teamf_Invoice.model;
 
 import java.util.Date;
 

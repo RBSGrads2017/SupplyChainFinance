@@ -1,4 +1,4 @@
-package com.rbs.scm.teamf_Invoie.controller;
+package com.rbs.scm.teamf_Invoice.controller;
 
 
 import java.io.File;
@@ -30,10 +30,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.rbs.scm.teamf_Invoie.controller.*;
-import com.rbs.scm.teamf_Invoie.model.*;
-import com.rbs.scm.teamf_Invoie.service.*;
-import com.rbs.scm.teamf_Invoie.util.*;
+import com.rbs.scm.teamf_Invoice.controller.*;
+import com.rbs.scm.teamf_Invoice.model.*;
+import com.rbs.scm.teamf_Invoice.service.*;
+import com.rbs.scm.teamf_Invoice.util.*;
 
 @Component
 @RestController
