@@ -171,10 +171,10 @@ public class InvoiceController {
 	
 	@RequestMapping(value = "/addItems",method = RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	
-	 public ResponseEntity<InvoiceItems> addItems(@PathParam("invoiceID") int invoiceID,@PathParam("productID") int productID,@PathParam("quantity") int quantity,@PathParam("grossAmount") double grossAmount,@PathParam("tax") float tax,@PathParam("netAmount") double  netAmount) throws ClassNotFoundException, SQLException {
+	 public ResponseEntity<InvoiceItems> addItems(@PathParam("invoiceID") int invoiceID,@PathParam("productID") int productID,@PathParam("quantity") int quantity) throws ClassNotFoundException, SQLException {
 		System.out.println("Adding Items with Invoice no"+ invoiceID+"and ProductID"+productID);
 		
-		InvoiceItems invoiceObj=invoiceServiceObj.addItems(invoiceID,productID,quantity,grossAmount,tax,netAmount);
+		InvoiceItems invoiceObj=invoiceServiceObj.addItems(invoiceID,productID,quantity);
 		if(invoiceObj == null){
 			System.out.println("Item with Invoice No"+invoiceID+"and productID "+productID+"is not found");
 			return new ResponseEntity<InvoiceItems>(invoiceObj,HttpStatus.NOT_FOUND);

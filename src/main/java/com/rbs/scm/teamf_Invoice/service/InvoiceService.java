@@ -339,7 +339,7 @@ public class InvoiceService {
 				
 				
 				InvoiceItems i= getItemDetails((int)invoiceID,(int)productID,(int)quantity);
-				 addItems((int)invoiceID,(int)productID,(int)quantity,i.getGrossAmount(),i.getTax(),i.getNetAmount());
+				 addItems((int)invoiceID,(int)productID,(int)quantity);
 						
 				con.close();
 				
@@ -370,13 +370,14 @@ public class InvoiceService {
 					
 					while(rs.next()){
 						itemobj = new InvoiceItems();
-						itemobj.setItemNo(rs.getInt(1)); 
-						itemobj.setInvoiceID(rs.getInt(2));
-						itemobj.setProductID(rs.getInt(3));
-						itemobj.setQuantity(rs.getInt(4));
-						itemobj.setGrossAmount(rs.getFloat(5));
-						itemobj.setTax(rs.getFloat(6));
-						itemobj.setNetAmount(rs.getFloat(7));
+						
+						itemobj.setInvoiceID(rs.getInt(1));
+						itemobj.setProductID(rs.getInt(2));
+						itemobj.setQuantity(rs.getInt(3));
+						itemobj.setGrossAmount(rs.getFloat(4));
+						itemobj.setTax(rs.getFloat(5));
+						itemobj.setNetAmount(rs.getFloat(6));
+						itemobj.setItemNo(rs.getInt(7)); 
 						lst.add(itemobj);
 				}
 				}
@@ -408,8 +409,9 @@ public class InvoiceService {
 					float tax=0;
 					while(rs.next())
 					{
-						unitPrice=rs.getDouble(1);
-						tax= rs.getFloat(2);
+						unitPrice = rs.getDouble(1);
+						tax = rs.getFloat(2);
+						System.out.println("unitprice:"+unitPrice+"---tax"+tax);
 							
 					}
 					double grossAmount=quantity*unitPrice;
@@ -417,13 +419,13 @@ public class InvoiceService {
 					System.out.println("gross"+grossAmount);
 					
 					float grossTax=(float)(grossAmount*(tax/100));
-					double netAmount=grossAmount+grossTax;
+					double netAmount= grossAmount+grossTax;
 					System.out.println("grossAmount="+grossAmount);
-							System.out.println("tax="+grossTax);
-						con.close();
+					System.out.println("tax="+grossTax);
 						itemobj.setInvoiceID(invoiceID);
 						itemobj.setProductID(productID);
 						itemobj.setTax(grossTax);
+						System.out.println("before setting unitprice:"+unitPrice+"---tax"+tax);
 						itemobj.setUnitprice(unitPrice);
 						itemobj.setQuantity(quantity);
 						itemobj.setGrossAmount(grossAmount);
@@ -481,7 +483,7 @@ public class InvoiceService {
 				con.close();
 			}
 		}
-		public InvoiceItems addItems( int invoiceID,int productId,double quantity, double grossAmount, float tax,double netAmount) throws ClassNotFoundException, SQLException {
+		public InvoiceItems addItems( int invoiceID,int productId,double quantity) throws ClassNotFoundException, SQLException {
 					DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 					InvoiceItems itemobj = null;
 					CustomMessage msg = null; 
@@ -498,8 +500,9 @@ public class InvoiceService {
 									+productId+","+quantity+","+in.getGrossAmount()+","+in.getTax()+","+in.getNetAmount()+")";
 							
 							System.out.println(updateTableSQL1);
-							PreparedStatement preparedStatement  = con.prepareStatement(updateTableSQL1,Statement.RETURN_GENERATED_KEYS);
-							
+							//PreparedStatement preparedStatement  = con.prepareStatement(updateTableSQL1,Statement.RETURN_GENERATED_KEYS);
+							PreparedStatement preparedStatement  = con.prepareStatement(updateTableSQL1);
+
 							preparedStatement.executeUpdate();
 							updateInvoiceAmount(invoiceID);
 							/*
@@ -514,10 +517,10 @@ public class InvoiceService {
 								con.close();
 								itemobj.setInvoiceID(invoiceID);
 								itemobj.setProductID(productId);
-								itemobj.setTax(tax);
+								itemobj.setTax(in.getTax());
 								itemobj.setQuantity(quantity);
-								itemobj.setGrossAmount(grossAmount);
-								itemobj.setNetAmount(netAmount);
+								itemobj.setGrossAmount(in.getGrossAmount());
+								itemobj.setNetAmount(in.getNetAmount());
 						
 								System.out.println(itemobj.toString());
 								System.out.println(msg.getMessage());
@@ -535,25 +538,31 @@ public class InvoiceService {
 			
 			
 	public CustomMessage deleteItem(int invoiceNo ,int productID) throws SQLException, ClassNotFoundException {
-			
-			
 			DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 			CustomMessage msg=null;
 			Connection con = dbobj.getConnection();
 			try{
 				
 				msg = new CustomMessage();
-				PreparedStatement stmt=con.prepareStatement("delete from invoiceitems where invoice_id  =? and \"product_id\"=?");
+				String updateTableSQL1 = "delete from invoiceitems where invoice_id="+invoiceNo+"and \"product_id\"="+productID;
+				System.out.println(updateTableSQL1);
+				PreparedStatement preparedStatement  = con.prepareStatement(updateTableSQL1);
+				
+				/*
+				PreparedStatement stmt=con.prepareStatement("delete from invoiceitems where invoice_id=? and \"product_id\"=?");
 				stmt.setInt(1,invoiceNo);
 				stmt.setInt(2,productID);
 				stmt.executeUpdate();
+				*/
+				
+				preparedStatement.executeUpdate();
 				String updateTableSQL3 = "COMMIT";
-				stmt = con.prepareStatement(updateTableSQL3);
-				stmt.executeUpdate();
+				preparedStatement = con.prepareStatement(updateTableSQL3);
+				preparedStatement.executeUpdate();
 				updateInvoiceAmount(invoiceNo);
 				String updateTableSQL2 = "COMMIT";
-				stmt = con.prepareStatement(updateTableSQL2);
-				stmt.executeUpdate();
+				preparedStatement = con.prepareStatement(updateTableSQL2);
+				preparedStatement.executeUpdate();
 				msg.setMessage("successfully deleted");
 				
 			}
