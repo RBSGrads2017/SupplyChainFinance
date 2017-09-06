@@ -24,14 +24,22 @@ public class CustomerDaoImpl {
 	
 	public static boolean insertIntoCustomers(GenericUser gu, Customer c) throws SQLException {
 		
-		if (GenericUserDaoImpl.insertIntoUser(gu)) {
-			Connection conn = SQLConnection.getConnection();
-			PreparedStatement st = conn.prepareStatement("INSERT INTO \"Customer_user\" values" + "(?,?)");
-			st.setString(1, c.getEmail());
-			st.setString(2, c.getName());
-			st.executeUpdate();
-			return true;
 		
+		Connection conn = null;
+		try {
+			if (GenericUserDaoImpl.insertIntoUser(gu)) {
+				conn = SQLConnection.getConnection();
+				PreparedStatement st = conn.prepareStatement("INSERT INTO \"Customer_user\" values" + "(?,?)");
+				st.setString(1, c.getEmail());
+				st.setString(2, c.getName());
+				st.executeUpdate();
+				return true;
+			
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		
 		return false;
@@ -39,33 +47,66 @@ public class CustomerDaoImpl {
 	
 	public static boolean checkCustomerExistence(String email) throws SQLException{
 		res = null;
-		Connection conn = SQLConnection.getConnection();
-		if(conn != null) {
-			Statement st = conn.createStatement();
-			String queryString = "select * from \"Customer_user\" where \"Username\"='" + email + "'";
-			res = st.executeQuery(queryString);
+		
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			if(conn != null) {
+				Statement st = conn.createStatement();
+				String queryString = "select * from \"Customer_user\" where \"Username\"='" + email + "'";
+				res = st.executeQuery(queryString);
+			}
+			if(res.next()) {
+				return true;
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		
-		if(res.next()) {
-			return true;
-		}
 		return false;
 	}
 	
 	public static Customer searchCustomer(String username) throws SQLException{  //username is email here
 		res = null;
-		Connection conn = SQLConnection.getConnection();
-		if(conn != null) {
-			Statement st = conn.createStatement();
-			String queryString = "select * from \"Customer_user\" where \"Username\" ='" + username + "'";
-			res = st.executeQuery(queryString);
-			Customer c = convertResToObject();
-			return c;
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			if(conn != null) {
+				Statement st = conn.createStatement();
+				String queryString = "select * from \"Customer_user\" where \"Username\" ='" + username + "'";
+				res = st.executeQuery(queryString);
+				Customer c = convertResToObject();
+				return c;
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		return null;
 	}
 	
-	
+	public static Customer searchCustomerByName(String username) throws SQLException{  //username is email here
+		res = null;
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			if(conn != null) {
+				Statement st = conn.createStatement();
+				String queryString = "select * from \"Customer_user\" where \"Name\" ='" + username + "'";
+				res = st.executeQuery(queryString);
+				Customer c = convertResToObject();
+				return c;
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return null;
+	}
 	
 	
 }

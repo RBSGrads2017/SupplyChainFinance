@@ -540,50 +540,52 @@
 		var MyDashboardApp = angular.module("MyDashboardApp", []);
 		MyDashboardApp.controller("Controller", ["$scope", "$http", "$window", function($scope, $http, $window){
 			
-			$http.get(BASE_PATH + '/service/login/fetchIntId?=YASH')
-			.then(function(response) {
-				console.log(response.data + "hey");
-			});
 			
 			
 			$scope.SessionUsername  =  "";
 		    $scope.SessionUsertype  =  ""; 
-		    
+		   
 		    var promise = $http({
 		        url: BASE_PATH + '/service/login/getUserInfo',
 		        method: 'POST',
 		        headers: { 'Content-Type': 'text/plain' }
 		    });
 		    promise.then(function (response) {
-		    	console.log(response);
+		    	console.log(response.data);
 		    	
 		    	if (response.data == "no session") {
 		    		$window.location.href = './HomePage.html'
 		    	} else {
 		    		
 		    	    $scope.SessionUsertype  =  response.data.userType; 
-		    	    console.log(response.data.username);
-		        	console.log(response.data.userType);
-		        	
-		        	if (response.data.userType == "Customer") {
-			        	$http.get(BASE_PATH + "/service/login/fetchCustomerDetails/?uname=" + response.data.username)
-			            .then(function(response) {
-			            	$scope.SessionUsername = response.data.name;
-			            });
-		        	} else {
-		        		$http.get(BASE_PATH + "/service/login/fetchBankUserDetails/?uname=" + response.data.username)
-			            .then(function(response) {
-			            	$scope.SessionUsername = response.data.fullname;
-			            	console.log(response.data);
-			            });
-		        	}
-		        	
+		    	    $scope.SessionUsername  =  response.data.fullName;
+		    	    
 		    	}
 		    	
 		    }, function(response) {
 		    	console.log("couldnot load data");
 		    });
 			
+		    /*
+		    var promise = $http({
+		        url: BASE_PATH + '/service/login/getUserIdFromName',
+		        method: 'POST',
+		        headers: { 'Content-Type': 'text/plain' },
+		    	data : {
+		    		userFullname: "Yash Bansal",
+		    		userType:"Customer"
+		    	}
+		    });
+		    promise.then(function (response) {
+		    	console.log(response.data.name);
+		    	
+		    }, function(response) {
+		    	console.log("couldnot load data");
+		    });
+		    */
+		    
+		    
+		    
 		    $scope.LogoutClk = function() {
 				
 				console.log("logged out");

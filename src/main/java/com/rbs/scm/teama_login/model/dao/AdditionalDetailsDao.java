@@ -33,34 +33,49 @@ public class AdditionalDetailsDao {
 	}
 	
 	public static boolean insertIntoAdditionalDetails(AdditionalDetails add) throws SQLException {
-		
-		Connection conn = SQLConnection.getConnection();
-		PreparedStatement st = conn.prepareStatement("INSERT INTO \"Customer_Additional_Details\" values(?,?,?,?,?,?,?,?,?,?,?,?)");
-		st.setString(1, add.getUsername());
-		st.setInt(2, add.getContNumber());
-		st.setString(3, add.getPostalLocation());
-		st.setString(4, add.getPostalCity());
-		st.setString(5, add.getPostalState());
-		st.setString(6, add.getFactoryLocation());
-		st.setString(7, add.getFactoryCity());
-		st.setString(8, add.getFactoryState());
-		st.setBoolean(9, true);
-		st.setString(10, add.getDepartment());
-		st.setString(11, add.getSwift());
-		st.setInt(12, add.getAccNumber());
-		st.executeUpdate();	
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			PreparedStatement st = conn.prepareStatement("INSERT INTO \"Customer_Additional_Details\" values(?,?,?,?,?,?,?,?,?,?,?,?)");
+			st.setString(1, add.getUsername());
+			st.setInt(2, add.getContNumber());
+			st.setString(3, add.getPostalLocation());
+			st.setString(4, add.getPostalCity());
+			st.setString(5, add.getPostalState());
+			st.setString(6, add.getFactoryLocation());
+			st.setString(7, add.getFactoryCity());
+			st.setString(8, add.getFactoryState());
+			st.setBoolean(9, true);
+			st.setString(10, add.getDepartment());
+			st.setString(11, add.getSwift());
+			st.setInt(12, add.getAccNumber());
+			st.executeUpdate();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 		return true;
 	}
 
 	public static AdditionalDetails search(String username) throws SQLException{  //username is email here
 		res = null;
-		Connection conn = SQLConnection.getConnection();
-		if(conn != null) {
-			Statement st = conn.createStatement();
-			String queryString = "select * from \"Customer_Additional_Details\" where \"Username\" ='" + username + "'";
-			res = st.executeQuery(queryString);
-			AdditionalDetails c = convertResToObject();
-			return c;
+		Connection conn = null;
+		try {
+			
+			conn = SQLConnection.getConnection();
+			if(conn != null) {
+				Statement st = conn.createStatement();
+				String queryString = "select * from \"Customer_Additional_Details\" where \"Username\" ='" + username + "'";
+				res = st.executeQuery(queryString);
+				AdditionalDetails c = convertResToObject();
+				return c;
+			}
+		
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		return null;
 	}

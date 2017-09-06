@@ -23,29 +23,43 @@ public class IdMappingDaoImpl {
 	}
 	
 	public static IdMapping FindStringId(int UserIntId) throws SQLException {
-		res = null;
-		Connection conn = SQLConnection.getConnection();
-		if(conn != null) {
-			Statement st = conn.createStatement();
-			String queryString = "select * from user_id_name where user_id = " + UserIntId;
-			res = st.executeQuery(queryString);
-		}
-		if(res.next()) {
-			IdMapping m = convertResToObject();
-			return m;
+		res = null;		
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			if(conn != null) {
+				Statement st = conn.createStatement();
+				String queryString = "select * from user_id_name where user_id = " + UserIntId;
+				res = st.executeQuery(queryString);
+			}
+			if(res.next()) {
+				IdMapping m = convertResToObject();
+				return m;
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		return null;
 	}
 	
 	public static IdMapping FindIntId(String UserStringId) throws SQLException {
 		res = null;
-		Connection conn = SQLConnection.getConnection();
-		if(conn != null) {
-			Statement st = conn.createStatement();
-			String queryString = "select * from \"user_id_name\" where \"Username\" = '" + UserStringId + "'";
-			res = st.executeQuery(queryString);
-			IdMapping m = convertResToObject();
-			return m;
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			if(conn != null) {
+				Statement st = conn.createStatement();
+				String queryString = "select * from \"user_id_name\" where \"Username\" = '" + UserStringId + "'";
+				res = st.executeQuery(queryString);
+				IdMapping m = convertResToObject();
+				return m;
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		return null;
 	}

@@ -267,9 +267,9 @@
 	
 </head>
 
-<body ng-app='SignupSwitch' ng-controller="mySignupSwitch" class="{{overlay}}">
+<body ng-app='SignupSwitch' ng-controller="mySignupSwitch">
 		
-		<div class = "container" style="margin-top: 5%;" >
+		<div class = "container {{MainBodyCollapse}}" style="margin-top: 5%;" >
 		<!-- ============================Body Start ================================ -->
 		<div class = "row">	
 			
@@ -409,10 +409,31 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class = "row {{LoadCollapse}}">
+		<div class = "col-sm-12" Style="text-align:center;">
+		<br><Br><BR><Br><BR><Br><br><Br><BR><Br><BR><Br>
+			<h1>Loading</h1>
+			<br><br>
+			<div class = "row">
+				<div class = "col-sm-offset-4 col-sm-4">
+					<div class="progress">
+					    <div class="progress-bar progress-bar-striped active" style="background-color:#888; width:100%">
+					      Please Wait .. 
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<script>
 		var app = angular.module("SignupSwitch", []);
 		app.controller("mySignupSwitch", ["$scope", "$http", "$httpParamSerializer", "$window", function($scope, $http, $httpParamSerializer, $window) {
-		    $scope.bizvar = false;
+		    $scope.LoadCollapse = "collapse";
+		    $scope.MainBodyCollapse = "";
+			$scope.bizvar = false;
 		    $scope.finvar = false;
 		    $scope.nopage = true;
 
@@ -491,6 +512,8 @@
 		        if(!($scope.UserNameMod && $scope.PasswordMod)){
 		    		window.alert("please enter all the details!")
 		    	}else {
+		    		$scope.LoadCollapse = "";
+				    $scope.MainBodyCollapse = "collapse";
 		            var data = {
 		                username: $scope.UserNameMod,
 		                password: $scope.PasswordMod
@@ -511,17 +534,24 @@
 		            		$window.location.href = './Dashboard.html';
 		                	
 		            	} else if (response.data == "WrongCredentials") {
-		            		
+		            		$scope.LoadCollapse = "collapse";
+						    $scope.MainBodyCollapse = "";
+						    
 		        		    $scope.PasswordMod = "";
 		            		window.alert("You Entered Wrong Credentials!");
 		            	
 		            	} else if (response.data == "UserDoesNotExist") {
+		            		$scope.LoadCollapse = "collapse";
+						    $scope.MainBodyCollapse = "";
+						    
 		            		$scope.UserNameMod = "";
 		        		    $scope.PasswordMod = "";
 		            		window.alert("This user does not exist");
 		            	}
 		            			            	
 		            }, function(response){
+		            	$scope.LoadCollapse = "collapse";
+					    $scope.MainBodyCollapse = "";
 		            	window.alert("server error occured");
 		            });
 		            console.log("click return")
@@ -540,7 +570,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../../dist/js/sb-admin-2.js"></script>
-    </div>
+    
 </body>
 
 </html>

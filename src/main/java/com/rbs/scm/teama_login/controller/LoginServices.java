@@ -81,19 +81,20 @@ public class LoginServices {
 				TypeOfUser = "Bank User";
 				BankUser b = BankUserDaoImpl.searchBankUser(username);
 				UserFullName=b.getFullname();
+				System.out.println(UserFullName);
 				
 			} else {
 				TypeOfUser = "Customer";
 				Customer c = CustomerDaoImpl.searchCustomer(username);
 				UserFullName=c.getName();
-				
+				System.out.println(UserFullName);
 			}
 			
 			//userIdInt;		 userFullName;
 			
 			
-				IdMapping c = IdMappingDaoImpl.FindIntId(username);
-				
+			IdMapping c = IdMappingDaoImpl.FindIntId(username);
+			System.out.println(c.getUserIntId());	
 			
 			
 			Session s = new Session(gu.getUsername(), TypeOfUser,c.getUserIntId(), UserFullName);
@@ -113,7 +114,7 @@ public class LoginServices {
 	public String checkToken(@Context HttpServletRequest request) throws JSONException{
 		Session s = SessionUtility.sessionValidation(request);
 		if(s != null) {
-			String obj = "{\"username\": \"" + s.getUserId() + "\", \"userType\": \"" + s.getUserType() + "\"}";
+			String obj = "{\"username\": \"" + s.getUserId() + "\", \"usernameInt\": \"" + s.getUserIdInt() + "\", \"fullName\": \"" + s.getUserFullName() + "\", \"userType\": \"" + s.getUserType() + "\"}";
 			return obj;
 		}
 		return "no session";
@@ -132,7 +133,28 @@ public class LoginServices {
 		return true;
 	}
 	
-
+	@POST
+	@Path("getUserIdFromName")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getUserIdFromName(String data, @Context HttpServletRequest request) throws JSONException, SQLException, JsonGenerationException, JsonMappingException, IOException {
+		JSONObject inputJsonObj = new JSONObject(data);
+		String name = inputJsonObj.getString("userFullname");
+		String userType = inputJsonObj.getString("userType");
+		BankUser b = null;
+		Customer c = null;
+		
+		if(userType.equals("Bank User")) {
+			b = BankUserDaoImpl.searchBankUserByName(name);
+			return b.convertObjectToJSON();
+		} else if (userType.equals("Customer")) {
+			c = CustomerDaoImpl.searchCustomerByName(name);
+			return c.convertObjectToJSON();
+		}
+		return null;
+	}
+	
+	
 	
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)

@@ -27,7 +27,7 @@ public class IdMapping {
 		UserIntId = userIntId;
 	}
 	public String toString() {
-		return "Customer [name=" + UserStringId + ", email=" + UserIntId + "]";
+		return "Idmapping [StringId=" + UserStringId + ", IntId=" + UserIntId + "]";
 	}
 	
 	public String convertObjectToJSON() throws JsonGenerationException, JsonMappingException, IOException {

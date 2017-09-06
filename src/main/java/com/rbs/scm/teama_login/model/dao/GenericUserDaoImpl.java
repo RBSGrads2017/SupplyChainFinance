@@ -27,16 +27,22 @@ public class GenericUserDaoImpl{
 	
 	public static GenericUser searchUser(String username) throws SQLException{
 		res = null;
-		
-		Connection conn = SQLConnection.getConnection();
-		if(conn != null) {
-			Statement st = conn.createStatement();
-			System.out.println("in GenericUser searchUser");
-			String queryString = "select * from  \"User\" where \"Username\"='" + username + "'";
-			res = st.executeQuery(queryString);
-			GenericUser gu = convertResToObject();
-			System.out.println("out GenericUser searchUser");
-			return gu;
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			if(conn != null) {
+				Statement st = conn.createStatement();
+				System.out.println("in GenericUser searchUser");
+				String queryString = "select * from  \"User\" where \"Username\"='" + username + "'";
+				res = st.executeQuery(queryString);
+				GenericUser gu = convertResToObject();
+				System.out.println("out GenericUser searchUser");
+				return gu;
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		return null;
 	}
@@ -45,57 +51,85 @@ public class GenericUserDaoImpl{
 	public static boolean insertIntoUser(GenericUser gu) throws SQLException {
 		
 		if(searchUser(gu.getUsername()) != null) { return false; }
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			PreparedStatement st = conn.prepareStatement("INSERT INTO \"User\" values" + "(?,?,?,?,?)");
+			st.setString(1, gu.getUsername());
+			st.setString(2, gu.getPassword());
+			st.setBoolean(3, gu.isActive());
+			st.setBoolean(4, gu.isConfirmed());
+			st.setBoolean(5, gu.get_is_Bank_User());
+			st.executeUpdate();
+			//insert in mapping table.
+			PreparedStatement st2 = conn.prepareStatement("INSERT INTO \"user_id_name\" values" + "(?)");
+			st2.setString(1, gu.getUsername());
+			st2.executeUpdate();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 		
-		Connection conn = SQLConnection.getConnection();
-		PreparedStatement st = conn.prepareStatement("INSERT INTO \"User\" values" + "(?,?,?,?,?)");
-		st.setString(1, gu.getUsername());
-		st.setString(2, gu.getPassword());
-		st.setBoolean(3, gu.isActive());
-		st.setBoolean(4, gu.isConfirmed());
-		st.setBoolean(5, gu.get_is_Bank_User());
-		st.executeUpdate();
-		//insert in mapping table.
-		PreparedStatement st2 = conn.prepareStatement("INSERT INTO \"user_id_name\" values" + "(?)");
-		st2.setString(1, gu.getUsername());
-		st2.executeUpdate();
 		return true;
 	}
 	
 	public static boolean addToPwdTable (GenericUser gu, String token) throws SQLException {
-		Connection conn = SQLConnection.getConnection();
-		Statement ss = conn.createStatement();
-		String str = "DELETE FROM \"Forgot_Password\" WHERE \"Username\" = '" +gu.getUsername() + "'";
-		ss.executeUpdate(str);
-		PreparedStatement st = conn.prepareStatement("INSERT INTO \"Forgot_Password\" values" + "(?,?)");
-		st.setString(1, gu.getUsername());
-		st.setString(2, token);
-		st.executeUpdate();
+		
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			Statement ss = conn.createStatement();
+			String str = "DELETE FROM \"Forgot_Password\" WHERE \"Username\" = '" +gu.getUsername() + "'";
+			ss.executeUpdate(str);
+			PreparedStatement st = conn.prepareStatement("INSERT INTO \"Forgot_Password\" values" + "(?,?)");
+			st.setString(1, gu.getUsername());
+			st.setString(2, token);
+			st.executeUpdate();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 		return true;
 	}
 	
 	public static String GetUserFromToken (String token) throws SQLException {
 		res = null;
-		Connection conn = SQLConnection.getConnection();
-		Statement ss = conn.createStatement();
-		String str = "select \"Username\" from \"Forgot_Password\" where \"Token\" = '" + token + "'";
-		res = ss.executeQuery(str);
-		
-		if (res.next()) {
-			return res.getString(1);
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			Statement ss = conn.createStatement();
+			String str = "select \"Username\" from \"Forgot_Password\" where \"Token\" = '" + token + "'";
+			res = ss.executeQuery(str);
+			
+			if (res.next()) {
+				return res.getString(1);
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		return null;
 	}
 	
 	public static boolean ChangePwdUser (String username, String password) throws SQLException {
-		
-		Connection conn = SQLConnection.getConnection();
-		Statement ss = conn.createStatement();
-		String str = "UPDATE \"User\" SET \"Password\" = '" + password + "' WHERE \"Username\" = '" + username + "'";
-		ss.executeUpdate(str);
-		
-		ss = conn.createStatement();
-		str = "DELETE FROM \"Forgot_Password\" WHERE \"Username\" = '" + username + "'";
-		ss.executeUpdate(str);
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			Statement ss = conn.createStatement();
+			String str = "UPDATE \"User\" SET \"Password\" = '" + password + "' WHERE \"Username\" = '" + username + "'";
+			ss.executeUpdate(str);
+			
+			ss = conn.createStatement();
+			str = "DELETE FROM \"Forgot_Password\" WHERE \"Username\" = '" + username + "'";
+			ss.executeUpdate(str);
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+		}
 		return true;
 	}
 }
