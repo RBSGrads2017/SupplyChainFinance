@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Supply Chain Finance - Contract Management</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        a.UserName
+        {
+            text-decoration: none;
+        }
+        #module_section_tr {
+            border: 1px solid #cccccc; 
+            border-radius: 10px;
+        }
+        #module_section_td1 {
+            padding:15px; 
+            margin:15px;
+        }
+        #module_section_td2 {
+            text-align: justify;
+            display: inline;
+        }
+        #module_section_div1 {
+            border: 1px solid #cccccd; 
+            height: 42px; 
+            padding: 10px 48px; 
+            border-radius: 3px; 
+            background-color: #cccccc; 
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #module_section_div2 {
+            height: 80px;
+            overflow-y: scroll;
+            margin: 5px 5px 5px 35px;
+            border-right:1px solid #cccccd;
+        }
+        #module_section_div3 {
+            height: 80px;
+            overflow-y: scroll;
+            margin: 5px 5px 5px 35px;
+            border-right:1px solid #cccccd;
+        }
+        #module_section_label1 {
+            border: 1px solid #cccccd;
+            height: 42px; 
+            width: 200px; 
+            border-radius: 3px;
+            background-color: #cccccc;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #module_section_label2 {
+            border: 1px solid #cccccd;
+            height: 42px;
+            width: 200px; 
+            border-radius: 3px;
+            background-color: #ccccd0;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #btn-spec {
+            width: 120px; 
+            background-color: #cccccc; 
+            border: #ccccc0; 
+            color: black; 
+            font-weight: bold; 
+            margin: 2px;
+        }
+        #table_head {
+            text-align: center;  
+            height: 30px; 
+            padding: 4px;
+            font-size: 16px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        #element1 {
+            position: relative;
+            top: 50%;
+            transform: translateY(180%);
+        }
+        #element2 {
+            position: relative;
+            top: 50%;
+            transform: translateY(90%);
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" >
+                        <img src="2358536-rbs-tm-2013.png" style=" display: block; margin: 10px 5px; width: 180px;"> 
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-pencil-square-o"></i> Contracts Pending Approval
+                                    <span class="badge">3</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-list-alt"></i> Invoices received
+                                    <span class="badge">2</span>
+                                </div>
+                            </a>
+                        </li>
+                       
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+
+            <!-- /.navbar-top-links -->
+            <div dir="rtl">
+                <div class="navbar-default sidebar" role="navigation" >
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
+                            <li>
+                                <div style="overflow: auto;" >
+                                    <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
+                                    <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
+                                    <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="index.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
+                            </li>
+                            <li>
+                                <a href="#"> Contract Management <i class="fa fa-briefcase fa-fw"></i>   
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="flot.html">Create Proposal</a></li>
+                                    <li><a href="morris.html">View Proposal</a></li>
+                                    <li><a href="morris.html">Edit Proposal</a></li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"> Purchase Order <i class="fa fa-file-text-o"></i>  
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="panels-wells.html">Review</a></li> 
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"> Invoice Management <i class="fa fa-list-alt"></i>   <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="#">Create Invoice</a></li>
+                                    <li><a href="#">View Invoice</a></li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="login.html"> Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </div>
+        </nav>
+
+        <div style="margin-top: 5px">
+            <div style="margin-left: 10px; margin-right: 262px;">
+                <div class="jumbotron" style="padding-top: 2px; padding-bottom: 3px; height:100%; border-radius: 5px; text-align: left;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="module_section_div1" style="margin-top: 0px; text-align: center; font-size: 24px; padding-top: 2px auto;">
+                            View Contract
+                        </div>
+                    </div>
+                    <!-- <h1 style="color:#337ab7;">View Proposal</h1> -->
+                    <div id="container" ng-app="MyApplication">     
+                        <div id="container" ng-controller="ViewController" id="MainWrp">           
+                            <div style=" float:center;">
+                                <table> 
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 180px; float: right;"></td>
+                                            <td style="width: 100%; text-align: left;"></td>
+                                        </tr>
+                                    </thead>
+                                    <tr id="module_section_tr">
+                                        <td id="module_section_td1">
+                                            <div id="module_section_div1" >Proposal </div>
+                                        </td>
+                                        <td id="module_section_td2">
+                                            <div id="module_section_div2" style="padding-top:25px;">{{myProposal}}</div>
+                                        </td>
+                                    </tr>
+                                    <tr id="module_section_tr">
+                                        <td id="module_section_td1">
+                                            <div id="module_section_div1">Description </div>
+                                        </td>
+                                        <td id="module_section_td2">
+                                            <div id="module_section_div2" style="padding-top:25px;">{{myDescription}}</div>
+                                       </td>
+                                    </tr>
+                                    <tr id="module_section_tr">
+                                        <td id="module_section_td1">
+                                            <div id="module_section_label1" style="padding: 10px 35px;" >Seller Details </div>
+                                        </td>
+                                        <td id="module_section_td2">
+                                            <div id="module_section_div2" style="padding-top:25px;">{{mySellerDetails}}</div>
+                                        </td>
+                                    </tr>
+                                    <tr id="module_section_tr">
+                                        <td id="module_section_td1">
+                                            <div id="module_section_label1" style="padding: 10px 52px;" >Address</div>
+                                        </td>
+                                        <td id="module_section_td2">
+                                           <div id="module_section_div2" style="padding-top:25px;">{{myAddress}}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="container" style="border: 1px solid #cccccc;">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" id="module_section_div1" style="margin: 8px 0px 0px 0px;">Product & Feature Details
+                                    </div>
+                                </div>
+                                <div id="container" style="border: 1px solid #cccccc; background-color: #cccccc; border-radius: 2px; margin: 0px 5px;">
+                                    <div class = "row" style="height: 35px;"> 
+                                        <div class = "col-sm-1">
+                                            <div id="table_head">S.No.</div>            
+                                        </div>
+                                        <div class = "col-sm-1">
+                                            <div id="table_head">Product</div> 
+                                        </div>
+                                        <div class = "col-sm-3">
+                                            <div id="table_head">Features</div>
+                                                   
+                                        </div>
+                                        <div class = "col-sm-2">
+                                            <div id="table_head">Unit Price</div>            
+                                        </div>
+                                        <div class = "col-sm-1">
+                                            <div id="table_head">Quantity</div>            
+                                        </div>
+                                        <div class = "col-sm-2">
+                                            <div id="table_head">Amount</div>            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="container" style="border: 1px solid #cccccc; border-radius: 3px;">
+                                    <div class = "row" ng-repeat="product in products" id="{{product.id}}" style="margin: 5px;"> 
+                                        <div class = "col-sm-1">
+                                            <div style="text-align: center;">{{$index +1}}</div>            
+                                        </div>
+                                        <div class = "col-sm-1" style="">
+                                            <div style="text-align: center;">{{product.productName}}</div> 
+                                        </div>
+                                        <div class = "col-sm-3" style="margin-top: 4px;">
+                                            <div class = "row"  ng-repeat="feature in product.feature" id="{{feature.featureId}}">
+                                                <div class = "col-sm-7">
+                                                    <div style="text-align: center;">{{feature.name}}</div>
+                                                </div>    
+                                                <div class = "col-sm-5">
+                                                    <div style="text-align: center;">
+                                                        <button ng-click="deleteFeature(feature.featureId,product.id)" onmouseup="deleteF(this)">Delete</button>
+                                                    </div>
+                                                </div>          
+                                            </div>      
+                                        </div>
+                                        <div class = "col-sm-2" style="">
+                                            <div style="text-align: center;">{{product.price}}</div>            
+                                        </div>
+                                        <div class = "col-sm-1" style="">
+                                            <div style="text-align: center;">{{product.quantity}}</div>         
+                                        </div>
+                                        <div class = "col-sm-2" style="">
+                                            <div style="text-align: center;">{{product.price * product.quantity}}</div>
+                                        </div>
+                                        <div class = "col-sm-2" id="inp" style="">
+                                            <div style="text-align: center;" hidden>{{product.id}}</div>
+                                        </div>
+                                        <!--<div class = "col-sm-1" style="">
+                                            <div style="text-align: center;">
+                                                <button ng-click="addFeature(product.id)">Add Feature</button>
+                                            </div> 
+                                        </div>-->
+                                        <div class = "col-sm-1" style="">
+                                            <div style="text-align: center;">
+                                                <button ng-click="addFeature('Add a New Feature')">Add Feature</button>
+                                                <modal visible="showFeature">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label>Features :</label>
+                                                            <input class="form-control" style="width: 100%;" />
+                                                        </div>
+                                                        <button type="submit" class="btn btn-default" ng-click="addThisFeature(product.id,feature.id)">Add This Feature</button>
+                                                    </form>
+                                                </modal>
+                                            </div> 
+                                        </div>
+                                        <div class = "col-sm-1" style="">
+                                            <div style="text-align: center;">
+                                                <button ng-click="deleteProduct(product.id)" onmouseup="deleteP(this)">Delete Product</button>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 180px; float: right;"></td>
+                                            <td style="width: 100%; text-align: left;"></td>
+                                        </tr>
+                                    </thead>
+                                    <!-- class="btn btn-block btn-primary" id="btn-spec"  -->
+                                    <div class="container">
+                                        <div class="row" id="container" style="margin: 5px;">
+                                            <div class="col-sm-2">
+                                                <button ng-click="addProduct('Add a New Product')">Add Product</button>
+                                                <modal visible="showModal">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label>Category :</label>
+                                                            <input class="form-control" style="width: 100%;" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Product :</label>
+                                                            <input class="form-control" style="width: 100%;" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Features :</label>
+                                                            <input class="form-control" disabled="disabled" style="width: 100%;" />
+                                                        </div>
+                                                        <button type="submit" class="btn btn-default" ng-click="addThisProduct(category.id,product.id,feature.id)">Add This Product</button>
+                                                    </form>
+                                                </modal>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </table>
+                            </div>
+                            <table> 
+                                <div class="container">
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 180px; float: right;"></td>
+                                            <td style="width: 100%; text-align: left;"></td>
+                                        </tr>
+                                    </thead>
+                                    <tr id="module_section_tr">
+                                        <td id="module_section_td1">
+                                            <div id="module_section_label1" style="padding: 10px 35px;">Payment Terms 
+                                            </div>
+                                        </td>
+                                        <td id="module_section_td2">
+                                            <div id="module_section_div3" style="overflow-y: hidden; padding-top:25px;">{{paymentTerms}}</div>
+                                        </td>
+                                        <td id="module_section_td3">
+                                            <div class="col-sm-2">
+                                                <button class="btn btn-block btn-primary" id="btn-spec" ng-click="editPaymentTerms('Edit Payment Terms')">Edit</button>
+                                                <modal visible="showPayment">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label>Payment Terms :</label>
+                                                            <select class="form-control" ng-model="selectedPaymentTerms" placeholder="--Select an Option--" style="width: 100%;">
+                                                                <option ng-repeat="payment in payments" placeholder="--Select an Option--">{{payment.desc}}</option>
+                                                            </select> 
+                                                        </div>
+                                                        <button type="submit" class="btn btn-default" ng-click="modifyPaymentTerms()">Save</button>
+                                                    </form>
+                                                </modal>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="module_section_tr">
+                                        <td id="module_section_td1">
+                                            <div id="module_section_label1" style="padding: 10px 42px;">Delivery Terms
+                                            </div>
+                                        </td>
+                                        <td id="module_section_td2">
+                                            <div id="module_section_div3" style="overflow-y: hidden; padding-top:25px;">{{deliveryTerms}}</div>
+                                        </td>
+                                        <td id="module_section_td3">
+                                            <div class="col-sm-2">
+                                                <button class="btn btn-block btn-primary" id="btn-spec" ng-click="editDeliveryTerms('Edit Delivery Terms')">Edit</button>
+                                                <modal visible="showDelivery">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label>Delivery Terms :</label>
+                                                            <select class="form-control" ng-model="selectedDeliveryTerms" placeholder="--Select an Option--" style="width: 100%;">
+                                                                <option ng-repeat="delivery in deliveries">{{delivery.desc}}</option>
+                                                            </select> 
+                                                        </div>
+                                                        <button type="submit" class="btn btn-default" ng-click="modifyDeliveryTerms()">Save</button>
+                                                    </form>
+                                                </modal>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="module_section_tr">
+                                        <td id="module_section_td1">
+                                            <div id="module_section_label1" style="padding: 10px 42px;">Total Price
+                                            </div>
+                                        </td>
+                                        <td id="module_section_td2">
+                                            <div id="module_section_div3" style="overflow-y: hidden; padding-top:25px;">{{totalPrice}}</div>
+                                        </td>
+                                        <td id="module_section_td3">
+                                            <div class="col-sm-2">
+                                                <button class="btn btn-block btn-primary" id="btn-spec" ng-click="autoAdjustPrice()">Auto Adjust</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="module_section_tr">
+                                        <td id="module_section_td1">
+                                            <div id="module_section_label1" style="padding: 10px 42px;">Date of Invoice
+                                            </div>
+                                        </td>
+                                        <td id="module_section_td2">
+                                            <div id="module_section_div2" style="overflow-y: hidden; padding-top:25px;">{{dateOfInvoice}}</div>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </table>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td style="width: 180px; float: right;"></td>
+                                        <td style="width: 100%; text-align: left;"></td>
+                                    </tr>
+                                </thead>
+                                <div>
+                                    <tr>
+                                        <td><input type="checkbox" name="financingOption" value="availFinancing" style="padding:15px; margin:15px;">Avail Financing
+                                        </td>
+                                        <td>
+                                            <div id="container" ng-controller="ClickController" style="margin: 30px 5px;">
+                                                <button ng-click="awardContract()" class="btn btn-success" style="padding:15px; margin:12px; float:right;">
+                                                    <a href="#">Save Contract</a>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </table>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="../../vendor/raphael/raphael.min.js"></script>
+    <script src="../../vendor/morrisjs/morris.min.js"></script>
+    <script src="../../data/morris-data.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../../dist/js/sb-admin-2.js"></script>
+    
+    <script>
+        var app = angular.module("MyApplication", []);
+        var data = {};
+        var paymentTermsData = {};
+        var deliveryTermsData = {};
+        var JSON_length;
+        var feature_length = {};
+        var selectedPaymentTerms = "";
+        var selectedDeliveryTerms = "";
+        var uri = "http://localhost:8080/scm/service/";
+
+        app.controller('ViewController', function($scope, $http){
+            $scope.showModal = false;
+            $scope.showPayment = false;
+            $scope.showDelivery = false;
+            $scope.showFeature = false;
+            $scope.buttonClicked = "";
+
+            $scope.addFeature = function(btnClicked) {
+                $scope.buttonClicked = btnClicked;
+                $scope.showFeature = !$scope.showFeature;         
+            }
+
+            $scope.addThisFeature = function(product_id, feature_id) {
+                for(var i=0; i<JSON_length; i++) {
+                    if(data.product[i].id == product_id) {
+                        data.product[i].feature = data.product[i].feature.concat([{
+                            "featureId" : (data.product[i].feature.length+1), 
+                            "name": "Feature"+(data.product[i].feature.length+1)
+                        }]);
+                        feature_length[i] = data.product[i].feature.length;
+                    } else { continue; }
+                }
+                $scope.showFeature = !$scope.showFeature;
+            }
+
+            $scope.addProduct = function(btnClicked) {
+            	$scope.buttonClicked = btnClicked;
+                $scope.showModal = !$scope.showModal;
+    			/*console.log(data);*/
+                /*data.product = data.product.concat([
+                {
+                    "category" : 1, 
+                    "feature" : [
+                        {
+                            "featureId" : 1, 
+                            "name": "Feature 5"
+                        },{
+                            "featureId": 2, 
+                            "name": "Feature 6"
+                        }], 
+                    "id" : 3, 
+                    "price" : 29162.221, 
+                    "productName" : "Phone", 
+                    "quantity" : 700}
+                ]);
+                $scope.products = data.product;
+                JSON_length = data.product.length;*/
+            }
+
+            $scope.addThisProduct = function(category_id, product_id, feature_id) {
+                var product_name = "";
+                var feature_name = "";
+                for(var i=0; i<product.length; i++) {
+                    if(product[i].id == product_id) {
+                        product_name = product[i].name;
+                    }
+                }
+                for(var j=0; j<product[i].feature.length; j++) {
+                    if(products[i].feature[j].id == feature_id) {
+                        feature_name = product[i].feature[j].featureName;
+                    }
+                }
+                $scope.showModal = !$scope.showModal;
+                data.product = data.product.concat([{
+                            "id" : data.product[i].id, 
+                            "name": product_name,
+                            "feature" : {
+                                "id" : data.product[i].feature[j].id,
+                                "featureName" : feature_name
+                            }
+                        }]);
+                JSON_length = data.product.length;
+                sentDataToServer();
+                $scope.showModal = !$scope.showModal;
+            }
+
+            $scope.deleteFeature = function(feature_id, product_id) {
+                for(var i=0; i<JSON_length; i++) {
+                    if(data.product[i].id == product_id) {
+                        for(var j=0; j<feature_length[i]; j++) {
+                            if(data.product[i].feature[j].featureId == feature_id) {
+                                delete data.product[i].feature[j];
+                            }
+                        }
+                    } else { continue; }
+                    feature_length[i] = data.product[i].feature.length;
+                }
+                sentDataToServer();
+            }
+
+            $scope.deleteProduct = function(product_id) {
+                for(var i=0; i<JSON_length; i++) {
+                    if(data.product[i].id == product_id) {
+                        delete data.product[i];         
+                    } else { continue; }
+                    JSON_length = data.product.length;
+                }
+                sentDataToServer();
+            }
+
+            $scope.editPaymentTerms = function(btnClicked) {
+                $http.get(uri + "contracts/helper/paymentTerms").then(function(response){
+                    paymentTermsData = response.data;  
+                    $scope.payments = paymentTermsData;
+                })       
+                $scope.buttonClicked = btnClicked;
+                $scope.showPayment = !$scope.showPayment;
+            }
+
+            $scope.modifyPaymentTerms = function() {
+                $scope.showPayment = !$scope.showPayment;
+                $scope.paymentTerms = selectedPaymentTerms;
+                for(var i=0; i<paymentTermsData.length; i++) {
+                    if(paymentTermsData[i].desc == selectedPaymentTerms) {
+                        data.paymentTermId = paymentTermsData[i].id; 
+                    }
+                }   
+                //console.log(selectedPaymentTerms);
+                sentDataToServer();
+            }
+
+            $scope.editDeliveryTerms = function(btnClicked) {
+                $http.get(uri + "contracts/helper/deliveryTerms").then(function(response){
+                    deliveryTermsData = response.data; 
+                    $scope.deliveries = deliveryTermsData;   
+                })
+                $scope.buttonClicked = btnClicked;
+                $scope.showDelivery = !$scope.showDelivery;
+            }
+
+            $scope.modifyDeliveryTerms = function() {
+                $scope.showDelivery = !$scope.showDelivery;
+                $scope.deliveryTerms = selectedDeliveryTerms;
+                for(var i=0; i<deliveryTermsData.length; i++) {
+                    if(deliveryTermsData[i].desc == selectedDeliveryTerms) {
+                        data.deliveryTermId = deliveryTermsData[i].id; 
+                    }
+                }  
+                sentDataToServer();  
+            }
+
+            $scope.autoAdjustPrice = function() {
+                var tempPrice = 0;
+                for(var i=0; i<JSON_length; i++) {
+                    tempPrice += (data.product[i].price * data.product[i].quantity);
+                }
+                $scope.totalPrice = tempPrice;
+            }
+
+            var sentDataToServer = function() {
+                var promise = $http({
+                    url: uri + "contracts/",
+                    method: 'POST',
+                    headers: { 'Content-Type':'application/json;charset=utf-8' },
+                    data: { 
+                        "buyerId" : data.buyerId,
+                        "contract": data.contract,
+                        "dateofInvoice": data.dateofInvoice,
+                        "deliveryTermId": data.deliveryTermId,
+                        "paymentTermId": data.paymentTermId,
+                        "periodOfDelivery": data.periodOfDelivery,
+                        "product" : data.product,
+                        "sellerId": data.sellerId,
+                        "status": data.status
+                    }
+                });
+                promise.then(function(response){                
+                   alert("Data sent to Server...");
+                });
+            }
+
+            $http.get(uri + "contracts/draft/5").then(function(response){
+                data = response.data;
+                JSON_length = data.product.length;
+                for(var i=0; i<JSON_length; i++) {
+                    feature_length[i] = data.product[i].feature.length;
+                }
+                $scope.myProposal = data.contract;
+                $scope.myDescription = "DESC";
+                $scope.mySellerDetails = data.sellerId;
+                $scope.myAddress = "ABC";
+                $scope.products = data.product;
+                $scope.paymentTerms = data.paymentTermId;
+                $scope.deliveryTerms = data.deliveryTermId;
+                $scope.totalPrice = 10000000;
+                $scope.dateOfInvoice = data.dateofInvoice;
+            })
+            
+            /*$scope.sendFormData = function(){
+                console.log("Form being submitted");
+                $http.get("http://localhost:8080/payments/services/sendInitTransaction?sender="+$scope.buyerId+"&amount="+$scope.amount+"&currency="+$scope.currency+"&beneficiary="+$scope.sellerId+"&accountNo=1009090488&date="+$scope.date+"&details="+$scope.details+"&comments="+$scope.comments).then(function(response){
+                                                     
+                console.log(response.data);
+            })*/
+        });
+
+        app.controller("ClickController", function($scope, $http, $location){
+            $scope.awardContract = function () {
+                /*use $.param jQuery function to serialize data from JSON*/
+                /*var config = {
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                    }
+                }*/
+                var promise = $http({
+                    url: uri + "/contracts/",
+                    method: 'POST',
+                    headers: { 'Content-Type':'application/json;charset=utf-8' },
+                    data: { 
+                        "buyerId" : data.buyerId,
+                        "contract": data.contract,
+                        "dateofInvoice": data.dateofInvoice,
+                        "deliveryTermId": data.deliveryTermId,
+                        "paymentTermId": data.paymentTermId,
+                        "periodOfDelivery": data.periodOfDelivery,
+                        "product" : data.product,
+                        "sellerId": data.sellerId,
+                        "status": data.status
+                    }
+                });
+                promise.then(function(response){                
+                   alert("Data sent to Server...");
+                });
+            };
+        });
+
+        app.directive('modal', function (){
+            return {
+                template :  '<div class="modal fade">' + 
+                                '<div class="modal-dialog">' + 
+                                    '<div class="modal-content">' + 
+                                        '<div class="modal-header">' + 
+                                            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' + 
+                                            '<h4 class="modal-title">{{buttonClicked}}</h4>' + 
+                                        '</div>' + 
+                                        '<div class="modal-body" ng-transclude></div>' + 
+                                    '</div>' + 
+                                '</div>' + 
+                            '</div>',
+                restrict :  'E',
+                transclude :true,
+                replace :   true,
+                scope :     true,
+                link : function postLink(scope, element, attrs){
+                    scope.$watch(attrs.visible, function(value){
+                        if(value == true){
+                            $(element).modal('show');
+                        } else {
+                            $(element).modal('hide');
+                        }
+                    });
+                    $(element).on('shown.bs.modal', function(){
+                        scope.$apply(function(){
+                            scope.$parent[attrs.visible] = true;
+                        });
+                    });
+                    $(element).on('hidden.bs.modal', function(){
+                        scope.$apply(function(){
+                            scope.$parent[attrs.visible] = false;
+                        });
+                    });
+                }
+            };
+        });
+
+        function deleteF(btndel) {
+            $(btndel).parent().parent().parent().remove();
+        }
+
+        function deleteP(btndel) {   
+            $(btndel).parent().parent().parent().remove();
+        }
+
+        function addSkeletonF(division_id) {
+        	console.log(division_id);
+        	//$('division_id').show();
+        }
+    </script>
+</body>
+</html>
