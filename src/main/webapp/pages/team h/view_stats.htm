@@ -1,0 +1,72 @@
+<!-- <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Buyers's Response for accepted proposals</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+<script src="h.resources/script.js"></script>
+	<link href = "h.resources/bootstrap.min.css" rel="stylesheet"> 
+    <link href="h.resources/metisMenu.min.css" rel="stylesheet">
+    <link href="h.resources/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="h.resources/dataTables.responsive.css" rel="stylesheet">
+    <link href="h.resources/sb-admin-2.css" rel="stylesheet">
+    <link href="h.resources/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+</head>
+<body>
+    <html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myController"> -->
+
+<div ng-app="myApp" ng-controller="myController">
+    	 <p><b>BUYERS RESPONSE</b></p>
+         <!-- <a href="HtmlPage5.html">View full proposal</a>    --> 
+		<br><br>				
+		<div class="row" style="margin: 0 auto; width: 100%">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="font-size: 20px; font-weight: bold">
+                            BUYER'S RESPONSE
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No</th>
+											<th>PROPOSAL ID</th>
+											<th>COST AVAIL</th>
+											<th>COST AVAIL CUSTOMISED</th>
+											<th>SELLER'S STATUS</th>
+											<th>BUYER'S STATUS</th>
+											
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="i in stats">                   
+										<td>{{$index + 1 }}</td>
+										<td>{{i.proposal_id}}</td>
+										<td>{{i.cost_avail}}</td>
+										<td>{{i.cost_avail_cust}}</td>
+										<td>{{i.seller_status}}</td> 
+										<td>{{i.buyer_bid_status}}</td> 
+										
+										
+										
+										</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                   <!-- /.panel -->
+            </div>
+        </div>
+</div>
+<!-- </body>
+</html> -->

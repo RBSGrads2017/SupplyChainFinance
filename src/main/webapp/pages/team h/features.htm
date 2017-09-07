@@ -1,0 +1,73 @@
+<div class="row" style="margin: 0 auto; width: 150%">
+		<div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="font-size: 20px; font-weight: bold">
+									FEATURES
+							</div>
+								<!-- /.panel-heading -->
+							<div class="panel-body" ng-controller="proposalTableCtrl">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered table-hover">
+										<thead>
+											<tr>    
+											<th>S.NO</th>
+											<th>Product ID</th>
+											<th>Feature ID</th>
+											<th>Feature-Name</th>
+											<th>Priority_order</th>
+											<th>Cost</th>
+											<th>A</th>
+											<th>C</th>
+											<th>N</th>
+											
+											</tr>
+										</thead>
+											<tr ng-repeat="i in features">
+												<td>{{$index +1}}</td>
+												<td>{{i.p_id}}</td>
+												<td>{{i.f_id}}</td>
+												<td>{{i.feature_name}}</td>
+												<td>{{i.priority_order}}</td>
+												<td><input type="text" id="cost{{$index + 1}}" value=0 style="display:block ; width:20px" />	
+												<td><input type="radio" value="A{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'A', $index+1)"/></td>
+												<td><input type="radio" value="C{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'C', $index+1)"/></td>
+												<td><input type="radio" value="N{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'N' ,$index+1)"/></td>
+												</tr>
+												<!-- //<td><input type="text" id="cost{{$index + 1}}" style="display:block" /></tr>	 -->			
+									</table>
+								</div>
+						</div>
+				</div>
+		</div>
+</div>
+<div ng-controller="proposalTableCtrl">
+<input type="button" value="Accept" ng-click="showconfirmbox('A')" />
+
+<input type="button" value="Reject" ng-click="showconfirmbox('R')" />
+
+<input type="button" value="See later" ng-click="showconfirmbox('P')" /><br> <br>
+</div>
+
+<div id="addresp" ng-controller="myController" style="display:none">
+	<form>
+		<fieldset>
+   				 <legend> Additional Response for a product </legend>
+					Enter the product id for which you want to send additional response:
+					<input type="text-area" ng-model="prod_id"/>
+						<!-- <div class="dropdown">
+		    				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Product-ID
+		   						 <span class="caret"></span></button>
+		   						 <ul class="dropdown-menu">
+		     						<li><a href="#">HTML</a></li>
+		      						<li><a href="#">CSS</a></li>
+		      						<li><a href="#">JavaScript</a></li>
+		    					</ul>
+		  				</div> -->
+					Enter the response you want to send:
+					<input type="text-area" ng-model="specification"/>
+			<button type="submit" ng-click="addresponse()">Submit</button>
+		</fieldset>
+	</form>
+	
+</div>
+</div>
