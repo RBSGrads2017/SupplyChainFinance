@@ -27,10 +27,10 @@
 												<td>{{i.f_id}}</td>
 												<td>{{i.feature_name}}</td>
 												<td>{{i.priority_order}}</td>
-												<td><input type="radio" value="A{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'A')"/></td>
-												<td><input type="radio" value="C{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'C')"/></td>
-												<td><input type="radio" value="N{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'N')"/></td>
-												<td><input type="text" name="cost{{$index + 1}}"/></tr>				
+												<td><input type="radio" value="A{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'A', $index+1)"/></td>
+												<td><input type="radio" value="C{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'C', $index+1)"/></td>
+												<td><input type="radio" value="N{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'N' ,$index+1)"/></td>
+												<td><input type="text" id="cost{{$index + 1}}" style="display:block" /></tr>				
 									</table>
 								</div>
 						</div>
@@ -45,7 +45,7 @@
 <input type="button" value="See later" ng-click="showconfirmbox('P')" /><br> <br>
 </div>
 
-<div ng-controller="myController">
+<div id="addresp" ng-controller="myController" style="display:none">
 	<form>
 		<fieldset>
    				 <legend> Additional Response for a product </legend>

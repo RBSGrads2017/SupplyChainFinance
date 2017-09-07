@@ -205,7 +205,7 @@ var myApp = angular.module('myApp', ["ngRoute"]);
 	            $rootScope.features = $scope.features;
 	        });
 	        
-	        $scope.update = function (prodid, fid, resp) {        	
+	        $scope.update = function (prodid, fid, resp, index) {        	
 				console.log("radio button service");
 				var s = $scope.seller_id;
 				console.log("seller id:" +s);
@@ -215,6 +215,16 @@ var myApp = angular.module('myApp', ["ngRoute"]);
 				console.log("feature id:" + f);
 				var r = resp;
 				console.log("response:" + r);
+				  if(resp == 'N'){
+					  var text = "cost"+index;
+					  var x = document.getElementById("cost"+index);
+					  console.log(x);
+					    if (x.style.display === 'block') {
+					    	console.log("inside if");
+					        x.style.display = 'none';
+					    }
+				  }
+				
 				console.log(BASE_PATH + '/contractmanagementseller/updatesellerresponse/'
 						+ $rootScope.proposal_id +'/' + p + '/' +f + '/' + s + '/' +r);
 				$http.post(BASE_PATH + '/contractmanagementseller/updatesellerresponse/'
@@ -245,8 +255,9 @@ var myApp = angular.module('myApp', ["ngRoute"]);
 					}
 					if($window.confirm("Do you want to accept the proposal?")){
 						//$scope.result = "You accepted this proposal";
-						var x = document.getElementById('myDIV');
+						var x = document.getElementById("addresp");
 					    if (x.style.display === 'none') {
+					    	console.log("inside if");
 					        x.style.display = 'block';
 					    }
 					  /*  else {
@@ -261,6 +272,7 @@ var myApp = angular.module('myApp', ["ngRoute"]);
 						.success(function (data) {                 
 			                console.log('updated Seller Status A');
 						});
+						
 					}
 				}
 				if(status=='R'){

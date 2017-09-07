@@ -1,4 +1,4 @@
-package com.rbs.scm.util;
+package com.rbs.scm.teamh_mis.util;
 
 public class CustomMessage {
 	 private String message;
