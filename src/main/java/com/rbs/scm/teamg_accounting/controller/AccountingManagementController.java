@@ -166,6 +166,38 @@ public class AccountingManagementController {
 		 return new ResponseEntity<List<String>>(accountingManagementServiceObj.getNoSwift_swiftService(request.getParameter("head"),request.getParameter("country"),request.getParameter("branch"),request.getParameter("currency")), HttpStatus.OK);
 	 }
 	 
+	 @RequestMapping(value = "/CheckComplianceForInvoice",method = RequestMethod.POST)
+	 @ResponseBody
+	 public int checkcompliance(int buyerID) throws SQLException {   //checked = 0 --> denied; checked = 1 --> approved;
+		 
+		 int checked;
+		 
+			List<String> lstCountries = new ArrayList<String>();
+			List<String> lstNames = new ArrayList<String>();
+			List<String> lstBuyerDetails = new ArrayList<String>();
+			
+			lstCountries = accountingManagementServiceObj.sanctionedCountries();
+			lstNames =accountingManagementServiceObj.sanctionedIndividuals();
+			
+			lstBuyerDetails = accountingManagementServiceObj.BuyerDetails(buyerID);
+			
+			
+			String individualCountry = lstBuyerDetails.get(0);
+			String individualname = lstBuyerDetails.get(1);
+			
+		int c1=	checkCountry(lstCountries, individualCountry);
+		int c2=	checkName(lstNames, individualname);
+			
+		if(c1==0||c2==0)
+		{
+			checked = 0;
+		}
+		else
+			checked=1;
+			
+			return checked;
+		}
+	 
 	 @RequestMapping(value = "/CheckCompliance",method = RequestMethod.POST)
 	 @ResponseBody
 	 public String complianceCheck(HttpServletRequest request,HttpServletResponse response){
