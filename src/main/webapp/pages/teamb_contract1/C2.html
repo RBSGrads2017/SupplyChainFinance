@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Contract Management</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        a.UserName
+        {
+            text-decoration: none;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" >
+                        <img src="2358536-rbs-tm-2013.png" style=" display: block; margin: 10px 5px; width: 180px;">  
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-pencil-square-o"></i> Contracts Pending Approval
+                                    <span class="badge">3</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-list-alt"></i> Invoices received
+                                    <span class="badge">2</span>
+                                </div>
+                            </a>
+                        </li>
+                       
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div dir="rtl">
+        
+            <div class="navbar-default sidebar" role="navigation" >
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
+                        <!--<li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                             /input-group 
+                        </li> -->
+                        <li>
+                            <div style="overflow: auto;" >
+                                <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
+
+                                <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
+                               
+                                <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="index.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
+                        </li>
+                        <li>
+                            <a href="#"> Contract Management <i class="fa fa-briefcase fa-fw"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Create Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">View Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Edit Proposal</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="#"> Purchase Order <i class="fa fa-file-text-o"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Review</a>
+                                </li> 
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"> Invoice Management <i class="fa fa-list-alt"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Create Invoice</a>
+                                </li>
+                                <li>
+                                    <a href="#">View Invoice</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="login.html"> Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </div>
+        </nav>
+
+        <div style="margin-top: 5px">
+            <div style="margin-left: 5px; margin-right: 260px;">
+                <div class="jumbotron" style=" height:800px; border-radius: 9px; text-align: center;">
+                    <!--<div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Proposal
+                        </div>
+                        <div class="panel-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                        </div>
+                        <div class="panel-footer">
+                            Panel Footer
+                        </div>
+                    </div>
+                </div> -->
+
+                <!--<div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" class="">Collapsible Group Item #1</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true" style="">
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Collapsible Accordion Panel Group
+                        </div>
+                        <!-- .panel-heading -->
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" class="">Collapsible Group Item #1</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true" style="">
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">Collapsible Group Item #2</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false">
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed" aria-expanded="false">Collapsible Group Item #3</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false">
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .panel-body -->
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <script src="../vendor/morrisjs/morris.min.js"></script>
+    <script src="../data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <script>
+    var app = angular.module("myApp1", []);
+    app.controller("displayController1", function($scope) {
+    $scope.myProposal = "Breeze-Eastern Corporation, herein after referred to as “Buyer” and Purchase Order Recipient, herein after referred to as “Seller” and collectively referred to as “the Parties,” hereby enter into this Long Term Agreement (LTA) which is beneficial to the Parties for the purchase of the “Item(s)” listed on the Subject P/O for the Airbus A400M Military Transport Aircraft Systems (herein after referred to as “the Program”).  This LTA is effective as of the date of issue of the Subject & Subsequent Purchase Orders and is valid and in effect for the life of the A400M Performance Period (anticipated to continue until at least 2025).";
+    $scope.myDescription = "Purchase Orders ~ Buyer will issue Purchase Orders to Seller for production, spare, overhaul and repair unit requirements specific to the Performance Period for the Item(s) in support of the Program provided Seller continues to deliver conforming Item(s) in accordance with the applicable Purchase Order requirements. Where, with no fault of the Seller, Buyer elects to procure production, spare, overhaul or repair Item(s) requirements from an alternate source of supply, Seller shall be entitled to revise Seller’s Item(s) prices to reflect the new requirements, and submit new prices for the Item(s) to the Buyer.";
+    $scope.mySellerDetails = "All Item(s) shipped in against the LTA will meet all Buyer’s specifications and requirements provided to Seller.  Seller also agrees to monitor its key (sub-tier) suppliers for both On-Time Deliveries and Quality Performance and to share this data (as requested) with Buyer.  Seller agrees to maintain lot control and traceability of top level assemblies, sub assemblies and all associated components.";
+    $scope.myAddress = "Address of the Seller";
+    $scope.myPaymentDetails = "Unless other terms are in place, Buyer agrees to make payment within 45 days of delivery of Item(s) to Buyer provided the Item(s) is not rejected by Buyer.";
+});
+</script>
+
+
+</body>
+
+</html>
