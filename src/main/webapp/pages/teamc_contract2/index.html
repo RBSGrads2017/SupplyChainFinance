@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html ng-app = "myApp">
+<head>
+	<title>Angular Ex</title>
+	<script type="text/javascript" src = "js/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+<body>
+<div class = "container">
+	<ul class = "list-unstyled nav navbar-nav navbar-default">
+		<li><a href="#/">Home</a></li>
+		<li><a href="#/about">About</a></li>
+		<li><a href="#/service">Service</a></li>
+		<li><a href="#/xyz">Nowhere</a></li>
+	</ul>
+</div>
+<div ng-view></div>
+<user-detail></user-detail>
+
+
+<div class = "container" ng-controller = "UserController">
+	<ul class="list-group">
+		<li class = "list-group-item" ng-repeat="user in users | orderBy : '-lastName' | limitTo:3"> 
+			<img ng-src = "{{user.image}}" height = "200" width = "200">
+			<em class="pull-right">
+				<h3>{{user.firstName | myFilter : user.isFemale | uppercase}} {{user.lastName | uppercase}}</h3>
+				<p>Date of Birth :{{user.dob | date : 'short'}}</p>
+				<p ng-show = "user.isWorking === true"> Income : {{user.income | currency : '&#163'}} </p>
+			</em>
+			<section ng-controller="SectionController">
+				<ul class = "nav nav-pills">
+					<li ng-class="{active:isSelected(1)}">
+						<a href="" ng-click="selectedTab(1)">
+							Description
+						</a>
+					</li>
+					<li ng-class="{active:isSelected(2)}">
+						<a href="" ng-click="selectedTab(2)">
+							Comments
+						</a>
+					</li>
+				</ul>
+				<div class = "panel" ng-show="isSelected(1)">
+					<h4> {{user.firstName}} is working with {{user.company}} </h4>
+				</div>
+				<div class = "panel" ng-show="isSelected(2)">
+					<ul class = "list-unstyled">
+						<li class="well" ng-repeat="comment in user.comments">
+							<blockquote>
+								<cite>{{comment.author}}</cite>:{{comment.body}}
+							</blockquote>
+						</li>
+					</ul>
+					<form name = "form1" class = "form" ng-submit="formSubmit(user)" ng-controller="formController">
+						<textarea 
+							class = "form-control"
+							placeholder="Your comment here"
+							style="resize: none"
+							required
+							ng-model = "comment.body"
+							></textarea><br>
+						<input type="email"
+							class = "form-control"
+							required
+							placeholder="abc@xyz.com"
+							ng-model = "comment.author"><br>
+						<input type="submit" 
+							class = "btn btn-success" 
+							value = "Submit"
+							ng-disabled="form1.$invalid">
+					</form>
+				</div>
+			</section>
+		</li>
+	</ul> 
+</div>
+
+
+<script type="text/javascript" src = "js/app.js"></script>
+</body>
+</html>
