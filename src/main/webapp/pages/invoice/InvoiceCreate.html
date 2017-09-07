@@ -1,52 +1,81 @@
- <div>
- 		<fieldset>
-   			<legend style="font:bold">Invoices Details</legend>
-   			</br>
- 			<table border=1 class="table table-striped table-bordered table-hover">
-				<tr>
-					<td>Invoice No:</td><td><input type="text" ng-model="invoiceID"/></td>
-					<td>Bill Book No:</td><td ><input type="text" ng-model="billBookNo"/> </td>
-				</tr>
-				<tr>
-					<td>Contract/PO No:</td><td><input type="text" ng-model="poNo"/></td>
-					<td>Invoice Amount:</td><td><input type="text" ng-model="invoiceAmt"/> </td>
-				</tr>
-				<tr>
-					<td>Buyer:</td><td><input type="text" ng-model="buyerId"/></td>
-					<td>Seller:</td><td><input type="text" ng-model="sellerId"/></td>
-				</tr>
-				<tr>
-					<td>Invoice Created Date:</td><td><input type="text" ng-model="invoiceCreatedDate"/></td>
-					<td>Payment Date:</td><td><input type="text" ng-model="paymentDate"/> </td>
-				</tr>
-				<tr>
-					<td>Invoice Due Date:</td><td><input type="text" ng-model="invoiceDueDate"/></td>
-				</tr>
-			</table>
-   		</fieldset>
-   		</br>
-   		</br>
-   		<fieldset>	
-   			<legend><b> ADD Product Details</b></legend>
-   			</br>
-   			<table  border=1 class="table table-striped table-bordered table-hover">
-   					<tr>
-						<th>Product Id</th>
-   						<th>Quantity</th>
-   						<th>Gross Amount</th>
-   						<th>Tax</th>
-   						<th>Net Amount</th>
-   					</tr>
-   					<tr>
-   						<td><input type="text" ng-model="productID"></td>
-   						<td><input type="text" ng-model="quantity"></td>
-   						<td><input type="text" ng-model="grossAmount"></td>
-   						<td><input type="text" ng-model="tax"></td>
-   						<td><input type="text" ng-model="netAmount"></td>
-                    </tr>
-   				</table>
-   				</fieldset>
-   			<input type="button" value="Save As Draft"/>
-   		</div>
-</div> 	    
-
+<div ng-app="invoiceApp" ng-controller="mainController">
+    <fieldset>
+        <legend><b>Invoices Details</b>
+        </legend>
+        <table border=1 class="table table-striped table-bordered table-hover">
+            <tr>
+                <td>Invoice No:</td>
+                <td ng-model="invoiceIDGen">{{invoice.invoiceID}}
+                </td>
+                <input type="button" value="Get Invoice Number" ng-click="getInvoiceNofunc()" />
+                <td>Bill Book No:</td>
+                <td>
+                    <input type="text" ng-model="billBookNo" required/> </td>
+            </tr>
+            <tr>
+                <td>Contract/PO No:</td>
+                <td>
+                    <select ng-model="selectedContract">
+                        <option value="">Select Contract</option>
+                        <option ng-repeat="c in contractslist" value="{{c.contract_number}}">
+                            {{c.contract_number}}
+                        </option>
+                    </select>
+                    <input type="button" value="Get Contract Details" ng-click="getContractDetailsfunc(selectedContract)" />
+                </td>
+               
+            </tr>
+            <tr>
+                <td>Buyer:</td>
+                <td ng-model="buyerIDGen">{{contract.buyerID}} </td>
+                <td >Seller:</td>
+                <td ng-model="sellerIDGen">{{contract.sellerID}} </td>
+            </tr>
+            <tr>
+                <td>Payment Date:</td>
+                <td>
+                    <input type="date" ng-model="paymentDate" required/> </td>
+            </tr>
+            <tr>
+                <td>Invoice Due Date:</td>
+                <td>
+                    <input type="date" ng-model="invoiceDueDate" required/>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend><b> Add Product Details</b>
+        </legend>
+        <table border=1 class="table table-striped table-bordered table-hover">
+            <tr>
+                <th>Product Id</th>
+                 <th>Quantity</th>
+                <th>Product Name</th>
+                 <th>Description</th>
+                  <th>Unit Price</th>
+                   <th>Tax/ Unit</th>
+            </tr>
+            <tr>
+                <td>
+                     <select ng-model="selectedProduct">
+                        <option value="">Select Product</option>
+                        <option ng-repeat="p in productlist" value="{{p.product_id}}">
+                            {{p.product_id}}
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" ng-model="quantity" required>
+                    <input type="button" value="Get Product Details" ng-click="getProductDetailsfunc(selectedProduct)" />
+                </td>
+                <td>{{product.productName}} </td>
+                <td>{{product.description}} </td>
+                <td>{{product.unitPrice}} </td>
+                <td>{{product.tax}} </td>
+            </tr>
+        </table>
+    </fieldset>
+    <input type="button" value="Go to Update" ng-click="createInvoiceFunc()" />
+</div>
+</div>

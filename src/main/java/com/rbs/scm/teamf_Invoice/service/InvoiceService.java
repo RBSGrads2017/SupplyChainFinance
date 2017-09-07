@@ -34,14 +34,14 @@ import com.rbs.scm.teamf_Invoice.util.CustomMessage;
 
 @Service("invoiceServiceObj")
 public class InvoiceService {
-	public Invoice search(double InvoiceID) throws SQLException, ClassNotFoundException{
+	public Invoice search(double billBookNo, double sellerid) throws SQLException, ClassNotFoundException{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		Invoice invobj = null;
 		Connection con = dbobj.getConnection();
 		try{
 			
 				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from invoice1 where invoice_id="+InvoiceID+"and deletestatus=0");
+				ResultSet rs = stmt.executeQuery("select * from invoice1 where billbookno="+billBookNo+"and (\"sellerID\"="+sellerid+" or \"buyerID\"="+sellerid+") and deletestatus=0");
 				invobj = new Invoice();
 				//System.out.println(rs.toString());
 				if(rs.next()==false) {
@@ -64,13 +64,13 @@ public class InvoiceService {
 						invobj.setFundingRequestStatus(rs.getInt(8));
 						invobj.setApprovalStatus(rs.getInt(9));
 						invobj.setDraftStatus(rs.getInt(10));
-						//invobj.setPaymentDate(rs.getDate(11));
+						invobj.setPaymentDate(rs.getDate(11));
 						invobj.setInvoiceAmount(rs.getFloat(12));
-						//invobj.setInvoiceDueDate(rs.getDate(13));
+						invobj.setInvoiceDueDate(rs.getDate(13));
 						invobj.setComplianceStatus(rs.getInt(14));
 						invobj.setDeleteStatus(rs.getInt(15));
-						//invobj.setDeleteTimestamp(rs.getDate(16));
-						//invobj.setInvoiceCreatedDate(rs.getDate(17));
+						invobj.setDeleteTimestamp(rs.getDate(16));
+						invobj.setInvoiceCreatedDate(rs.getDate(17));
 					System.out.println(invobj.toString());
 			}while(rs.next());
 		}
@@ -303,7 +303,7 @@ public class InvoiceService {
 		return lst;	
 	}
 	
-	public CustomMessage addInvoice(double invoiceID,double contractID,double productID,double quantity, double sellerID, double buyerID, double billbookNo,double senderID,double receiverID, Date paymentDate, float invoiceAmount,Date invoiceDueDate) throws ClassNotFoundException, SQLException {
+	public CustomMessage addInvoice(double invoiceID,double contractID,double productID,double quantity, double sellerID, double buyerID, double billbookNo,double senderID,double receiverID, Date paymentDate,Date invoiceDueDate) throws ClassNotFoundException, SQLException {
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		Invoice invobj = null;
 		CustomMessage msg = null; 
@@ -321,8 +321,8 @@ public class InvoiceService {
 			    
 				//String updateTableSQL1 ="insert into invoice1 values(" +invoiceID +","+contractID+","+sellerID+","+buyerID+","+billbookNo+","+senderID+","+receiverID+","+"0,0,1,' "+invoiceCreatedDate+" ',' "+paymentDate+" ',"+invoiceAmount+", '"+invoiceDueDate+ "' ,1,0,NULL )";
 
-				String updateTableSQL1 ="INSERT INTO invoice1(invoice_id, \"contractID\", \"sellerID\", \"buyerID\", \"billbookNo\", \"senderID\", \"receiverID\", \"FundingRequestStatus\", \"approvalstatus\", \"draftstatus\", \"Payment_Date\", invoice_amount, invoice_due_date, \"ComplianceStatus\", \"DeleteStatus\", delete_timestamp)"
-	+"VALUES (" +invoiceID +","+contractID+","+sellerID+","+buyerID+","+billbookNo+","+senderID+","+receiverID+","+"0,0,1,' "+paymentDate+" ',"+invoiceAmount+", '"+invoiceDueDate+ "' ,1,0,NULL )";
+				String updateTableSQL1 ="INSERT INTO invoice1(invoice_id, \"contractID\", \"sellerID\", \"buyerID\", billbookNo, \"senderID\", \"receiverID\", \"FundingRequestStatus\", \"approvalstatus\", \"draftstatus\", \"Payment_Date\", invoice_amount, invoice_due_date, \"ComplianceStatus\", DeleteStatus, delete_timestamp)"
+	+"VALUES (" +invoiceID +","+contractID+","+sellerID+","+buyerID+","+billbookNo+","+senderID+","+receiverID+","+"0,0,1,' "+paymentDate+" ',0, '"+invoiceDueDate+ "' ,1,0,NULL )";
 
 				System.out.println(updateTableSQL1);
 				PreparedStatement preparedStatement  = con.prepareStatement(updateTableSQL1);
@@ -341,7 +341,7 @@ public class InvoiceService {
 				InvoiceItems i= getItemDetails((int)invoiceID,(int)productID,(int)quantity);
 				 addItems((int)invoiceID,(int)productID,(int)quantity);
 						
-				con.close();
+			
 				
 					System.out.println(msg.getMessage());
 			}
@@ -957,6 +957,7 @@ public class InvoiceService {
 					itemobj.setContract_number(rs.getInt(1));
 					itemobj.setBuyerID(rs.getInt(2));
 					itemobj.setSellerID(rs.getInt(3));
+					System.out.println("contract no"+itemobj.getContract_number());
 					lst.add(itemobj);
 			}
 			}
@@ -968,10 +969,8 @@ public class InvoiceService {
 			con.close();
 		}
 		return lst;	
-		
-		
 	}
-	public Contract getContractNo(int sellerID) throws ClassNotFoundException, SQLException
+	public Contract getContractNo(int contractID) throws ClassNotFoundException, SQLException
 	{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		Contract itemobj = null;
@@ -979,7 +978,7 @@ public class InvoiceService {
 		try{
 			
 				PreparedStatement stmt = con.prepareStatement("select * from \"ContractInvoice\" where \"contractID\"=?");
-				stmt.setInt(1,sellerID);
+				stmt.setInt(1,contractID);
 				
 				ResultSet rs = stmt.executeQuery();				
 				
@@ -1045,7 +1044,7 @@ public class InvoiceService {
 		}
 		return lst;			
 	}
-	public List<ContractItems> getContractItems(int sellerID) throws ClassNotFoundException, SQLException
+	public List<ContractItems> getContractItems(int contractID) throws ClassNotFoundException, SQLException
 	{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<ContractItems> lst = new ArrayList<ContractItems>();
@@ -1054,7 +1053,7 @@ public class InvoiceService {
 		try{
 			
 				PreparedStatement stmt = con.prepareStatement("select * from \"Contract_Product\" where \"contractID\"=?");
-				stmt.setInt(1,sellerID);
+				stmt.setInt(1,contractID);
 				ResultSet rs = stmt.executeQuery();				
 				
 				while(rs.next()){
@@ -1075,7 +1074,7 @@ public class InvoiceService {
 		
 		
 	}
-	public ProductInvoice getProductDetails(int sellerID) throws ClassNotFoundException, SQLException
+	public ProductInvoice getProductDetails(int productID) throws ClassNotFoundException, SQLException
 	{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		ProductInvoice itemobj = null;
@@ -1083,7 +1082,7 @@ public class InvoiceService {
 		try{
 			
 				PreparedStatement stmt = con.prepareStatement("select * from \"ProductInvoice\" where product_id=?");
-				stmt.setInt(1,sellerID);
+				stmt.setInt(1,productID);
 				
 				ResultSet rs = stmt.executeQuery();				
 				

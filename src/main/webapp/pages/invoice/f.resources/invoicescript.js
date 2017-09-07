@@ -111,27 +111,130 @@ function myFunction() {
 	});
 
 	invoiceApp.controller('mainController', function($scope, $http){
+		$scope.SessionUsername  =  "";
+	    $scope.SessionUsertype  =  ""; 
+	   
+	    var promise = $http({
+	        url: BASE_PATH + '/service/login/getUserInfo',
+	        method: 'POST',
+	        headers: { 'Content-Type': 'text/plain' }
+	    });
+	    promise.then(function (response) {
+	    	console.log(response.data);
+	    	
+	    	if (response.data == "no session") {
+	    		$window.location.href = './HomePage.html'
+	    	} else {
+	    		
+	    	    $scope.SessionUsertype  =  response.data.userType; 
+	    	    $scope.SessionUsername  =  response.data.fullName;
+	    	    
+	    	}
+	    	
+	    }, function(response) {
+	    	console.log("couldnot load data");
+	    });
+		
+		
 		
         $scope.deletefunc = function () {
         console.log("on delete function ");
-
-			var invoiceNo = $scope.invoiceNo;
-			console.log(invoiceNo);
+        	var billBookNo = $scope.billBookNo;
+        	console.log(billBookNo);
 			/*  view Invoice  */
-			$http.post('http://localhost:8181/scm/invoice/searchInvoice?invoiceID='+invoiceNo).success(function (data) {
-				console.log( "in view http");
+			 $http.post('http://localhost:8181/scm/invoice/searchInvoice?billBookNo='+$scope.billBookNo+'&sellerid='+$scope.sessionid).success(function(data) {
+				console.log( "in search for delete http");
 				$scope.invoice = data;
                 console.log($scope.invoice);
+                $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + $scope.invoice.invoiceID)
+    			.success(function (data) {
+                    $scope.productslist = data;
+                    console.log($scope.productslist);
+                    });
                 window.location = "#/InvoiceDeleteConfirm";
             });
 			/*  view product  */
-            $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + invoiceNo)
-			.success(function (data) {
-                $scope.productslist = data;
-                console.log($scope.productslist);
-                });
+            
                 
 		}
+        $scope.createInvoiceFunc = function() {
+
+            console.log("in Add Invoice function ");
+            console.log($scope.invoice.invoiceID);
+            console.log($scope.billBookNo);
+            console.log($scope.selectedContract);
+            console.log($scope.contract.buyerID);
+            console.log($scope.contract.sellerID);
+            console.log($scope.paymentDate.split(' ')[0].split('-').join('/'));
+            console.log($scope.invoiceDueDate.split(' ')[0].split('-').join('/'));
+            console.log($scope.selectedProduct);
+            console.log($scope.quantity);
+
+            /*  view Invoice  */
+            $http.post('http://localhost:8181/scm/invoice/addInvoice?invoiceID=' + $scope.invoice.invoiceID + "&productID=" + $scope.selectedProduct + "&quantity=" + $scope.quantity + "&contractID=" + $scope.selectedContract + "&sellerID=" + $scope.contract.sellerID + "&buyerID=" + $scope.contract.buyerID + "&senderID=" + $scope.contract.sellerID + "&receiverID=" + $scope.contract.buyerID + "&billbookNo=" + $scope.billBookNo + "&paymentDate=" +$scope.paymentDate.split(' ')[0].split('-').join('/') + "&invoiceDueDate=" +$scope.invoiceDueDate.split(' ')[0].split('-').join('/')).success(function(data) {
+                console.log("in Add page After Add service");
+                $scope.status = data;
+                console.log($scope.message);
+                alert("Invoice Addition Status: " + $scope.status.message);
+                window.location = "#/InvoiceUpdate";
+            });
+        }
+        $scope.getInvoiceNofunc=function() {
+    		
+    		console.log("inside get invoice no. function");
+    		$http.get('http://localhost:8181/scm/invoice/getNextInvoiceNo').success(function(data) {
+                console.log("in get invoice no.http");
+                $scope.invoice = data;
+                console.log($scope.invoice);
+            });
+    		$http.post('http://localhost:8181/scm/invoice/getContractNos?sellerID='+$scope.sessionid).success(function(data) {
+                console.log("in get contract no.");
+                $scope.contractslist = data;
+                console.log($scope.contractslist);
+    		});
+            //window.location = "#/InvoiceCreate";
+           
+    	}
+        
+        $scope.getContractDetailsfunc=function(selectedContract) {
+    		console.log("in get contract details function");
+    		$http.post('http://localhost:8181/scm/invoice/getContractNo?contractID='+selectedContract).success(function(data) {
+                console.log("in get contracthttp");
+                $scope.contract = data;
+                console.log($scope.contract);
+            });
+    		$http.post('http://localhost:8181/scm/invoice/getContractItems?contractID='+selectedContract).success(function(data) {
+                console.log("in get contract items http");
+                $scope.productlist = data;
+                console.log($scope.productlist);
+            });
+    		window.location = "#/InvoiceCreate";
+    	}
+        $scope.getproductsinInvfunc=function() {
+    		console.log("in get contract details function");
+    		$http.post('http://localhost:8181/scm/invoice/getContractNo?contractID='+$scope.invoice.contractID).success(function(data) {
+                console.log("in get contracthttp");
+                $scope.contract = data;
+                console.log($scope.contract);
+            });
+    		window.location = "#/InvoiceCreate";
+    	}
+        
+        $scope.getProductDetailsfunc=function(selectedProduct) {
+    		console.log("in get product details function");
+    		$http.post('http://localhost:8181/scm/invoice/getProductDetails?productID='+selectedProduct).success(function(data) {
+                console.log("in get product http");
+                $scope.product = data;
+                console.log($scope.product);
+            });
+    		/*$http.post('http://localhost:8181/scm/invoice/getitemDetails?productID='+selectedProduct+'&quantity='+$scope.quantity).success(function(data) {
+                console.log("in get contract items http");
+                $scope.item = data;
+                console.log($scope.item);
+            });*/
+    		window.location = "#/InvoiceCreate";
+    	}
+        
         $scope.searchfunc = function () {
             
         	console.log("in search function ");
@@ -154,48 +257,55 @@ function myFunction() {
       
         $scope.updateSearchfunc = function () {
             
-        	console.log("in search function ");
-    			var invoiceNo = $scope.invoiceNo;
-    			console.log(invoiceNo);
-    			/*  view Invoice  */
-    			$http.post('http://localhost:8181/scm/invoice/searchInvoice?invoiceID='+invoiceNo).success(function (data) {
-    				console.log( "in updat after Search http");
-    				$scope.invoice = data;
-                    console.log($scope.invoice);
-                    window.location = "#/InvoiceUpdate";
-                });
-    			/*  view product  */
-                $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + invoiceNo)
-    			.success(function (data) {
-                    $scope.productslist = data;
-                    console.log($scope.productslist);
-                });
+        	 console.log("in search function ");
+             var billBookNo = $scope.billBookNo;
+             console.log(billBookNo);
+             /*  view Invoice  */
+             $http.post('http://localhost:8181/scm/invoice/searchInvoice?billBookNo='+$scope.billBookNo+'&sellerid='+$scope.sessionid).success(function(data) {
+                 console.log("in updat after Search http");
+                 $scope.invoice = data;
+                 console.log($scope.invoice);
+                 $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' +$scope.invoice.invoiceID)
+                 .success(function(data) {
+                     $scope.productslist = data;
+                     console.log($scope.productslist);
+                     console.log("in get produt dropdown function");
+                     $http.post('http://localhost:8181/scm/invoice/getContractItems?contractID='+$scope.invoice.contractID).success(function(data) {
+                         console.log("in get contract items http");
+                         $scope.productlist = data;
+                         console.log($scope.productlist);
+                     });
+                 });
+                 window.location = "#/InvoiceUpdate";
+             });
+             /*  view product  */
+             
     	}
         $scope.addItemFunc = function () {
             
         	console.log("in addItem function ");
-    			var invoiceNo = $scope.invoiceNo;
-    			console.log('invoice: ' + invoiceNo);
-    			console.log('Product id: ' + $scope.productID);
+    			var invoiceNo = $scope.invoice.invoiceID;
+    			console.log('invoice: ' + $scope.invoice.invoiceID);
+    			console.log('Product id: ' + $scope.invoice.product_id);
     			console.log('quantity: ' + $scope.quantity);
     		
     			/*  Add New product  */
-                $http.post('http://localhost:8181/scm/invoice/addItems?invoiceID='+$scope.invoiceNo+'&productID='+$scope.productID+'&quantity='+ $scope.quantity)
+                $http.post('http://localhost:8181/scm/invoice/addItems?invoiceID='+$scope.invoice.invoiceID+'&productID='+ $scope.selectedProduct+'&quantity='+ $scope.quantity)
     			.success(function (data) {
     				alert("Added new Item");
-    				$http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + $scope.invoiceNo)
+    				$http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + $scope.invoice.invoiceID)
         			.success(function (data) {
                         $scope.productslist = data;
                         console.log($scope.productslist);
                     });
-    				$http.post('http://localhost:8181/scm/invoice/searchInvoice?invoiceID='+$scope.invoiceNo).success(function (data) {
+    				$http.post('http://localhost:8181/scm/invoice/searchInvoice?billBookNo='+$scope.invoice.billBookNo+'&sellerid='+$scope.sessionid).success(function(data) {
         				console.log( "in updat after Search http");
         				$scope.invoice = data;
                         console.log($scope.invoice);
                         window.location = "#/InvoiceUpdate";
                     });
         			/*  view product  */
-                    $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + $scope.invoiceNo)
+                    $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + $scope.invoice.invoiceID)
         			.success(function (data) {
                         $scope.productslist = data;
                         console.log($scope.productslist);
@@ -209,8 +319,8 @@ function myFunction() {
         $scope.deleteItemFunc = function () {
             
         	console.log("in update function ");
-    			var invoiceNo = $scope.invoiceNo;
-    			console.log('invoice: ' + invoiceNo);
+    			var invoiceNo = $scope.invoice.invoiceID;
+    			console.log('invoice: ' + $scope.invoice.invoiceID);
     			console.log('Product id: ' + $scope.delProductId);
     			
     			/*  view Invoice  
@@ -220,27 +330,35 @@ function myFunction() {
                     console.log($scope.invoice);
                 });*/
     			/*  delete product  */
-              $http.post('http://localhost:8181/scm/invoice/deleteItem?invoiceID='+$scope.invoiceNo +'&productID=' + $scope.delProductId)
+              $http.post('http://localhost:8181/scm/invoice/deleteItem?invoiceID='+$scope.invoice.invoiceID +'&productID=' + $scope.delProductId)
     			.success(function (data) {
     				alert(" deleted item with product id= "+$scope.delProductId+ "Item");
-    				$http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + invoiceNo)
+    				$http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + $scope.invoice.invoiceID)
         			.success(function (data) {
                         $scope.productslist = data;
                         console.log($scope.productslist);
                     });
-    				$http.post('http://localhost:8181/scm/invoice/searchInvoice?invoiceID='+invoiceNo).success(function (data) {
+    				$http.post('http://localhost:8181/scm/invoice/searchInvoice?billBookNo='+$scope.invoice.billBookNo+'&sellerid='+$scope.sessionid).success(function(data) {
         				console.log( "in updat after Search http");
         				$scope.invoice = data;
                         console.log($scope.invoice);
                         window.location = "#/InvoiceUpdate";
                     });
         			/*  view product  */
-                    $http.post('http://localhost:8181/scm/invoice/viewProduct?id=' + $scope.invoiceNo)
+                    $http.post('http://localhost:8181/scm/invoice/viewProduct?id=' + $scope.invoice.invoiceID)
         			.success(function (data) {
                         $scope.productslist = data;
                         console.log($scope.productslist);
                     });});
     	}
+        $scope.deleteresultfunc = function () {
+    		console.log('go to delete result page');
+    		 $http.post('http://localhost:8181/scm/invoice/deleteInvoice?invoiceID=' + $scope.invoice.invoiceID)
+    			.success(function (data) {
+                    $scope.message = data;
+                    console.log(data);
+                    });
+            }
         
 		$scope.landingfunc = function () {
 		console.log('go to landing page');
@@ -248,15 +366,7 @@ function myFunction() {
         }
 	
 	 
-		$scope.deleteresultfunc = function () {
-		console.log('go to delete result page');
-		 $http.post('http://localhost:8181/scm/invoice/deleteInvoice?invoiceID=' + $scope.invoiceNo)
-			.success(function (data) {
-                $scope.message = data;
-                console.log(data);
-                });
-		window.location = "#/InvoiceDeleteResult";
-        }
+		
 		
 
 		$scope.receivedInvoicefunc = function () {

@@ -123,22 +123,22 @@ public class InvoiceController {
 	}
 	
 	@RequestMapping(value = "/searchInvoice",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Invoice> searchInvoice(@PathParam("invoiceID") double invoiceID) throws ClassNotFoundException, SQLException {
-		System.out.println("Getting Invoice with Invoice no"+ invoiceID);
+    public ResponseEntity<Invoice> searchInvoice(@PathParam("billBookNo") double billBookNo,@PathParam("sellerid") double sellerid) throws ClassNotFoundException, SQLException {
+		System.out.println("Getting Invoice with billBook no"+ billBookNo);
 		//Invoice invoiceObj = invoiceServiceObj.search(invoiceNo);
 		
-		Invoice invoiceObj = invoiceServiceObj.search(invoiceID);
+		Invoice invoiceObj = invoiceServiceObj.search(billBookNo,sellerid);
 		if(invoiceObj == null){
-			System.out.println("Invoice with Invoice No"+invoiceID+"is not found");
+			System.out.println("Invoice with billBook No"+billBookNo+"is not found");
 			return new ResponseEntity<Invoice>(invoiceObj,HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Invoice>(invoiceObj,HttpStatus.OK);
     }
 	@RequestMapping(value = "/addInvoice",method = RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	 public ResponseEntity<CustomMessage> addInvoice(@PathParam("invoiceID") double invoiceID,@PathParam("productID") double productID,@PathParam("quantity") double quantity,@PathParam("contractID") double contractID,@PathParam("sellerID") double sellerID,@PathParam("buyerID") double buyerID,@PathParam("senderID") double senderID,@PathParam("receiverID") double receiverID,@PathParam("billbookNo") double billbookNo,@PathParam("invoiceCreatedDate") Date invoiceCreatedDate,@PathParam("paymentDate") Date paymentDate,@PathParam("invoiceAmount") float  invoiceAmount,@PathParam("invoiceDueDate") Date invoiceDueDate) throws ClassNotFoundException, SQLException {
+	 public ResponseEntity<CustomMessage> addInvoice(@PathParam("invoiceID") double invoiceID,@PathParam("productID") double productID,@PathParam("quantity") double quantity,@PathParam("contractID") double contractID,@PathParam("sellerID") double sellerID,@PathParam("buyerID") double buyerID,@PathParam("senderID") double senderID,@PathParam("receiverID") double receiverID,@PathParam("billbookNo") double billbookNo,@PathParam("paymentDate") Date paymentDate,@PathParam("invoiceDueDate") Date invoiceDueDate) throws ClassNotFoundException, SQLException {
 		System.out.println("Adding Invoice with Invoice no"+ invoiceID);
 		
-		CustomMessage msg = invoiceServiceObj.addInvoice(invoiceID,contractID,productID,quantity,sellerID,buyerID,billbookNo,senderID,receiverID,paymentDate,invoiceAmount,invoiceDueDate); 
+		CustomMessage msg = invoiceServiceObj.addInvoice(invoiceID,contractID,productID,quantity,sellerID,buyerID,billbookNo,senderID,receiverID,paymentDate,invoiceDueDate); 
 			if(msg == null){
 			System.out.println("Invoice with Invoice No"+invoiceID+"cannot be added");
 			return new ResponseEntity<CustomMessage>(msg,HttpStatus.NOT_FOUND);
@@ -253,17 +253,17 @@ public class InvoiceController {
 	{
 		List<Contract> invoicesItems = invoiceServiceObj.getContractNos(sellerID);
 		if (invoicesItems.isEmpty()) {
-			return new ResponseEntity<List<Contract>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Contract>>(invoicesItems,HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Contract>>(invoicesItems, HttpStatus.OK);
 	
 	}
 	@RequestMapping(value = "/getContractNo",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Contract> getContractNo(@PathParam("sellerID") int sellerID) throws ClassNotFoundException, SQLException
+	public ResponseEntity<Contract> getContractNo(@PathParam("contractID") int contractID) throws ClassNotFoundException, SQLException
 	{
-		Contract invoicesItems = invoiceServiceObj.getContractNo(sellerID);
+		Contract invoicesItems = invoiceServiceObj.getContractNo(contractID);
 		if (invoicesItems==null) {
-			return new ResponseEntity<Contract>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Contract>(invoicesItems,HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<Contract>(invoicesItems, HttpStatus.OK);
 	
@@ -274,28 +274,28 @@ public class InvoiceController {
 	System.out.println("id is"+sellerID);
 		List<Invoice> invoices = invoiceServiceObj.listAllInvocies1(sellerID);
 		if (invoices.isEmpty()) {
-			return new ResponseEntity<List<Invoice>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Invoice>>(invoices,HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/getContractItems",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ContractItems>> getContractItems(@PathParam("sellerID") int sellerID) throws ClassNotFoundException, SQLException
+	public ResponseEntity<List<ContractItems>> getContractItems(@PathParam("contractID") int contractID) throws ClassNotFoundException, SQLException
 	{
-		List<ContractItems> invoicesItems = invoiceServiceObj.getContractItems(sellerID);
+		List<ContractItems> invoicesItems = invoiceServiceObj.getContractItems(contractID);
 		if (invoicesItems.isEmpty()) {
-			return new ResponseEntity<List<ContractItems>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ContractItems>>(invoicesItems,HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<ContractItems>>(invoicesItems, HttpStatus.OK);
 	
 	}
 	@RequestMapping(value = "/getProductDetails",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductInvoice> getProductDetails(@PathParam("invoiceID") int invoiceID) throws ClassNotFoundException, SQLException {
-		System.out.println("Getting Invoice with Invoice no"+ invoiceID);
+    public ResponseEntity<ProductInvoice> getProductDetails(@PathParam("productID") int productID) throws ClassNotFoundException, SQLException {
+		System.out.println("Getting product with product no"+ productID);
 		//Invoice invoiceObj = invoiceServiceObj.search(invoiceNo);
 		
-		ProductInvoice invoiceObj = invoiceServiceObj.getProductDetails(invoiceID);
+		ProductInvoice invoiceObj = invoiceServiceObj.getProductDetails(productID);
 		if(invoiceObj == null){
-			System.out.println("Invoice with Invoice No"+invoiceID+"is not found");
+			System.out.println("Invoice with Invoice No"+productID+"is not found");
 			return new ResponseEntity<ProductInvoice>(invoiceObj,HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<ProductInvoice>(invoiceObj,HttpStatus.OK);

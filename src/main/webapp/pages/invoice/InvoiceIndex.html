@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -9,12 +9,13 @@
     <meta name="author" content="">
 
     <title>Supply Chain Management</title>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
-	<title>Supply Chain Finance - Contract Management</title>
- 
-	<script type="text/javascript" src="f.resources/invoicescript.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <title>Supply Chain Finance - Invoice Management</title>
+
+
+   <script type="text/javascript" src="f.resources/invoicescript.js"></script>  
   
      <link href="f.resources/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -28,28 +29,27 @@
     
     <script src="https://use.fontawesome.com/caba7b4681.js"></script>
     <style type="text/css">
-        a.UserName
-        {
+        a.UserName {
             text-decoration: none;
         }
         #module_section_tr {
-            border: 1px solid #cccccc; 
+            border: 1px solid #cccccc;
             border-radius: 10px;
         }
         #module_section_td1 {
-            padding:15px; 
-            margin:15px;
+            padding: 15px;
+            margin: 15px;
         }
         #module_section_td2 {
             text-align: justify;
             display: inline;
         }
         #module_section_div1 {
-            border: 1px solid #cccccd; 
-            height: 42px; 
-            padding: 10px 48px; 
-            border-radius: 3px; 
-            background-color: #cccccc; 
+            border: 1px solid #cccccd;
+            height: 42px;
+            padding: 10px 48px;
+            border-radius: 3px;
+            background-color: #cccccc;
             font-weight: bold;
             font-size: 16px;
         }
@@ -57,10 +57,11 @@
             height: 80px;
             overflow-y: scroll;
             margin: 5px 5px 5px 35px;
-            border-right:1px solid #cccccd;
+            border-right: 1px solid #cccccd;
         }
     </style>
-    </head>
+</head>
+
 <body ng-app="invoiceApp" ng-controller="mainController">
 
     <div id="wrapper">
@@ -73,7 +74,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                
+
             </div>
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
@@ -101,7 +102,7 @@
                                 </div>
                             </a>
                         </li>
-                       
+
                         <li class="divider"></li>
                         <li>
                             <a class="text-center" href="#">
@@ -118,10 +119,13 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
@@ -130,14 +134,14 @@
 
             <!-- /.navbar-top-links -->
             <div dir="rtl">
-                <div class="navbar-default sidebar" role="navigation" >
+                <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
-                  
+
                             <li>
-                                <div style="overflow: auto;" >
-                                    <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
-                                    <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
+                                <div style="overflow: auto;">
+                                    <a href="#" style="float: left" class="UserName"><h3>Welcome<span><input class="form-control" type="text" ng-model="sessionid" id="session_id" name="session_id" /></span></h3></a>
+                                    <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>
                                     <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
                                 </div>
                             </li>
@@ -149,9 +153,12 @@
                                     <span class="fa arrow"></span>
                                 </a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="flot.html">Create Proposal</a></li>
-                                    <li><a href="morris.html">View Proposal</a></li>
-                                    <li><a href="morris.html">Edit Proposal</a></li>
+                                    <li><a href="flot.html">Create Proposal</a>
+                                    </li>
+                                    <li><a href="morris.html">View Proposal</a>
+                                    </li>
+                                    <li><a href="morris.html">Edit Proposal</a>
+                                    </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
@@ -160,23 +167,32 @@
                                     <span class="fa arrow"></span>
                                 </a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="panels-wells.html">Review</a></li> 
+                                    <li><a href="panels-wells.html">Review</a>
+                                    </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                            
+
                             <!--  <li>
                                 <a href="InvoiceIndex.html">Invoice Management <i class="fa fa-list-alt"></i> </a>
-                            </li>--> 
+                            </li>-->
                             <li>
                                 <a href="InvoiceIndex.html"> Invoice Management <i class="fa fa-list-alt"></i>   <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                	<li><a href="#/InvoiceLanding" >Invoice Profile</a></li>
-                                    <li><a href="#/InvoiceCreate"  >Create Invoice</a></li>
-                                    <li><a href="#/InvoiceView" >View Invoice</a></li>
-                                    <li><a href="#/InvoiceUpdate"  >Update Invoice</a></li>
-                                    <li><a href="#/InvoiceSearch" >Search Invoice</a></li>
-                                    <li><a href="#/InvoiceDeleteConfirm" >Delete Invoice</a></li>
+                                    <li><a href="#/InvoiceLanding">Invoice Profile</a>
+                                    </li>
+                                    <li><a href="#/InvoiceCreate">Create Invoice</a>
+                                    </li>
+                                    <li><a href="#/InvoiceView">View Invoice</a>
+                                    </li>
+                                    <li><a href="#/InvoiceUpdate">Update Invoice</a>
+                                    </li>
+                                    <li><a href="#/InvoiceSearch">Search Invoice</a>
+                                    </li>
+                                    <li><a href="#/InvoiceDeleteConfirm">Delete Invoice</a>
+                                    </li>
+                                    <li><a href="#/UploadInvoice">Upload Invoices in bulk</a>
+                                    </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
@@ -192,25 +208,22 @@
             </div>
         </nav>
         <script>
-		
-	</script>
+        </script>
+    </div>
+    <div style="margin-top: 10px">
+        <div style="margin-left: 10px; margin-right: 260px;">
+            <div class="jumbotron" style=" height:800px; border-radius: 10px; text-align: left;">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="module_section_div1" style="margin-top: 0px; text-align: center; font-size: 24px;">
+                        Invoice Management
+                    </div>
+                </div>
+                <div>
+                    <div ng-view></div>
+                </div>
             </div>
-             <div style="margin-top: 10px">
-            <div style="margin-left: 10px; margin-right: 260px;">
-                <div class="jumbotron" style=" height:800px; border-radius: 10px; text-align: left;">
-                   	<div id="main" >
-                   		<div class="panel panel-default">
-       
-                        <div class="panel-heading" id="module_section_div1" style="margin-top: 0px; text-align: center; font-size: 30px;height:50px">
-                        Supply Chain Management
-                        </div>
-						</br>
-						</br>
-						<div ng-view></div>
-                   		 </div> 
-                   		
-                   		 </div>
-                   		 </div>
-       				</div>
+        </div>
+     </div>
 </body>
+
 </html>

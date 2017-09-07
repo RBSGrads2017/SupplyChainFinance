@@ -1,8 +1,8 @@
   <div ng-app="invoiceApp" ng-controller="mainController">
     
   
-    	Seller Id<input type="text" ng-model="invoiceNo" required/>
-        <button type="submit" ng-click="searchfunc()">Search Invoice</button>
+    	BillBook Number<input type="text" ng-model="billBookNo" required/>
+        <button type="submit" ng-click="updateSearchfunc()">Search Invoice</button>
 
         <div>
    			<legend><b>Invoices Details</b></legend>
@@ -16,9 +16,7 @@
                 <tr><td>Invoice Due Date:&emsp;</td><td>{{invoice.invoiceDueDate}}&emsp;&emsp;&emsp;&emsp;</td><td></td><td></td></tr>
 			</table>
 			</br>
-
-
-   		</br>
+   		    </br>
    		</br>
    		<fieldset>
    			<legend><b>Product Details</b></legend>
@@ -29,7 +27,6 @@
 
    						<th>Product Id</th>
    						<th>Quantity</th>
-   						<th>Unit Price</th>
    						<th> Unit Tax</th>
    						<th>Gross Amount</th>
    						<th>Tax</th>
@@ -38,18 +35,13 @@
    					<tr ng-repeat="p in productslist">
    						<td>{{p.productID}}</td>
    						<td>{{p.quantity}}</td>
-   						<td>{{p.unitprice}}</td>
    						<td>{{p.tax}}</td>
    						<td>{{p.grossAmount}}</td>
    						<td>{{p.tax +p.grossAmount}}</td>
    						<td>{{p.netAmount}}</td>
                     </tr>
-                    <tr><td colspan="5" border="0"></td><td><b>Total</b></td><td>{{invoice.invoiceAmount}}</td></tr>
+                    <tr><td colspan="4" border="0"></td><td><b>Total</b></td><td>{{invoice.invoiceAmount}}</td></tr>
    				</table>
-   				</br>
    				</fieldset>
-   				</br>
-   				</br>
- 
         </div>
     </div>
