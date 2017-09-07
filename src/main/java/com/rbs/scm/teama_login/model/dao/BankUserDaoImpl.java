@@ -18,12 +18,15 @@ public class BankUserDaoImpl {
 	private static BankUser convertResToObject() throws SQLException {
 		BankUser gu = null;
 		if (res != null) {
+			System.out.println("hello");
 			while (res.next()) {
 				String Username = res.getString(1);
 				String Fullname = res.getString(2);
 				String address = res.getString(3);
 				String p_group = res.getString(4);
 				gu = new BankUser(Username, Fullname, address, p_group);
+				System.out.println("inside the restoobj function");
+				System.out.println(gu);
 			}
 		}
 		return gu;
@@ -54,28 +57,44 @@ public class BankUserDaoImpl {
 
 	public static BankUser searchBankUser(String username) throws SQLException { // username is email here
 		res = null;
-		Connection conn = SQLConnection.getConnection();
-		if (conn != null) {
-			Statement st = conn.createStatement();
-			String queryString = "select * from \"Bank_user\" where \"Username\" ='" + username + "'";
-			res = st.executeQuery(queryString);
-			System.out.println(res);
-			BankUser b = convertResToObject();
-			return b;
+		Connection conn = null;
+		try {
+		    conn = SQLConnection.getConnection();
+			if (conn != null) {
+				Statement st = conn.createStatement();
+				System.out.println(username);
+				String queryString = "select * from \"Bank_user\" where \"Username\" ='" + username + "'";
+				res = st.executeQuery(queryString);
+				System.out.println(res);
+				BankUser b = convertResToObject();
+				System.out.println(b);
+				return b;
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		return null;
 	}
 	
 	public static BankUser searchBankUserByName(String username) throws SQLException { // username is email here
 		res = null;
-		Connection conn = SQLConnection.getConnection();
-		if (conn != null) {
-			Statement st = conn.createStatement();
-			String queryString = "select * from \"Bank_user\" where \"Name\" ='" + username + "'";
-			res = st.executeQuery(queryString);
-			System.out.println(res);
-			BankUser b = convertResToObject();
-			return b;
+		Connection conn = null;
+		try {
+			conn = SQLConnection.getConnection();
+			if (conn != null) {
+				Statement st = conn.createStatement();
+				String queryString = "select * from \"Bank_user\" where \"Name\" ='" + username + "'";
+				res = st.executeQuery(queryString);
+				System.out.println(res);
+				BankUser b = convertResToObject();
+				return b;
+			}
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
 		}
 		return null;
 	}

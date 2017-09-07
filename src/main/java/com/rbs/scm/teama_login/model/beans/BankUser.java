@@ -51,7 +51,7 @@ public class BankUser{
 	}
 	@Override
 	public String toString() {
-		return "BankUser [Username="+"Username"+ ",Fullname=" + Fullname + " , address="+ address + ", p_group=" + p_group + "]";
+		return "BankUser [Username="+Username+ ",Fullname=" + Fullname + " , address="+ address + ", p_group=" + p_group + "]";
 	}
 
 

@@ -529,10 +529,14 @@
 		            })
 		            promise.then(function(response){
 		                //$location.url('./Dashboard.html')
-		            	if (response.data == "LoggedInSuccessfully") {
+		            	if (response.data == "LoggedInSuccessfullyCustomer") {
 		                	
 		            		$window.location.href = './Dashboard.html';
 		                	
+		            	} else if (response.data == "LoggedInSuccessfullyBank") {
+		            		console.log("heyyy!");
+		            		$window.location.href = './Dashboard_bankuser.html';
+		            		
 		            	} else if (response.data == "WrongCredentials") {
 		            		$scope.LoadCollapse = "collapse";
 						    $scope.MainBodyCollapse = "";

@@ -102,7 +102,11 @@ public class LoginServices {
 			hs.setAttribute("session", s);
 			hs.setAttribute("sessionObj", s.convertObjectToJSON());  
 			
-			return Response.ok("LoggedInSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
+			if (TypeOfUser == "Bank User") {
+				return Response.ok("LoggedInSuccessfullyBank").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
+			} else  {
+				return Response.ok("LoggedInSuccessfullyCustomer").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+			}
 		} else {
 			return Response.ok("WrongCredentials").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 		}
@@ -203,11 +207,13 @@ public class LoginServices {
 	@Path("fetchBankUserDetails")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String fetchUserDetails(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		System.out.println("checkpoint 1");
+		System.out.println(Uname);
 		BankUser b = BankUserDaoImpl.searchBankUser(Uname);
 		
 		if(b == null)	{ return null; }
 		System.out.println("bank details available");
-		System.out.println(b);
+		System.out.println(b.getp_group());
 		return b.convertObjectToJSON();
 	}
 	
