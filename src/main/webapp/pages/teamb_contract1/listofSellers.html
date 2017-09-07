@@ -8,7 +8,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Supply Chain Finance - Contract Management</title>
+<title>Supply Chain Finance - Contract Management 1</title>
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -20,7 +20,10 @@
 <!-- Custom Fonts -->
 <link href="../../vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style type="text/css">
 a.UserName {
@@ -71,14 +74,7 @@ th {
 	text-transform: uppercase;
 }
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -212,7 +208,6 @@ th {
 									<form action="#" method="get"
 										style="width: 40%; margin-left: 4%">
 										<div class="input-group">
-											<!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
 											<input class="form-control" id="system-search" name="q"
 												placeholder="Search Seller" required
 												style="text-transform: uppercase"> <span
@@ -246,8 +241,6 @@ th {
 									</table>
 								</div>
 							</div>
-
-
 						</div>
 
 						<div ng-controller="ClickController">
@@ -263,9 +256,7 @@ th {
 	</div>
 
 	<!-- /#wrapper -->
-	<!-- jQuery -->
-	<!-- Bootstrap Core JavaScript -->
-	<!-- Metis Menu Plugin JavaScript -->
+
 	<script src="../vendor/metisMenu/metisMenu.min.js"></script>
 	<!-- Morris Charts JavaScript 
         <script src="../vendor/raphael/raphael.min.js"></script>-->
@@ -273,9 +264,7 @@ th {
         <script src="../data/morris-data.js"></script>
     <!-- Custom Theme JavaScript -->
 	<script src="../dist/js/sb-admin-2.js"></script>
-
 	<script>
-
     $(document).ready(function() {
     var activeSystemClass = $('.list-group-item.active');
 
@@ -329,7 +318,6 @@ $('#selectall').click(function (e) {
 });
 
 var app = angular.module("MyApplication", []);
-
 var data={};
 var data1={}; 
 var qs = location.search.split('?')[1].split('=')[1];
@@ -343,7 +331,6 @@ console.log(qs);
                 console.log(JSON.stringify($scope.sellersList));
               
   // toggle selection for a given employee by name
-
   $scope.toggleSelection = function toggleSelection(sellerName) {
      var idx = $scope.selection.indexOf(sellerName);
      
@@ -371,11 +358,8 @@ console.log(data);
  })
 });
 
-
-        app.controller("ClickController", function($scope,$location, $http){
-			//data = {
-					//"a" : $scope.selection
-			//	};
+ app.controller("ClickController", function($scope,$location, $http){
+			
 			$scope.Send= function () {
 			var config = {
                 headers : {
@@ -384,23 +368,12 @@ console.log(data);
             }
 
                 // POST method is used to pass the data to Backend from Angular JS Frontend 
-        $http.post("http://192.168.4.141:8089/scm/service/publish/toIdentifiedSellers/"+qs, data, config).then(function (data, status) {
-		
+        $http.post("http://192.168.4.141:8089/scm/service/publish/toIdentifiedSellers/"+qs, data, config).then(function (data, status) {		
 window.location="viewAllProposals.html";
 console.log("Display");
-     })/*).error(function (data, status, headers, config) {
-                    $scope.ResponseDetails = "Data: " + data +
-                        "<hr />status: " + status +
-                        "<hr />headers: " + header +
-                        "<hr />config: " + config;
-                });*/
+     })
 	 }
-          	});
-
-      
-
-
-
-    </script>
+});
+ </script>
 </body>
 </html>
