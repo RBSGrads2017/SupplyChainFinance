@@ -170,7 +170,7 @@ public class ContractLogImpl implements ContractLogDao{
 	public ArrayList<ContractLog> selectAllContractLogSeller(String sellerId) {
 		Connection conn = SQLConnection.getConnection();
 		ArrayList<ContractLog> historyContract = new ArrayList<>();
-		ContractLog contract = new ContractLog();
+		
 		PreparedStatement stmt = null;
 		try {
 			
@@ -179,6 +179,7 @@ public class ContractLogImpl implements ContractLogDao{
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next())
 			{
+				ContractLog contract = new ContractLog();
 				
 				contract.setContract_id(rs.getInt(1));
 				contract.setSeller_id(rs.getString(2));
@@ -243,7 +244,7 @@ public class ContractLogImpl implements ContractLogDao{
 				contract.setPeriod_of_delivery(rs.getString(9));
 				contract.setInvoice_date(rs.getString(10));
 				contract.setVersion(rs.getInt(11));
-				System.out.println(" CL " + contract.toString());
+				
 				historyContract.add(contract);
 			
 			}
@@ -345,7 +346,7 @@ public class ContractLogImpl implements ContractLogDao{
 				contract.setPeriod_of_delivery(rs.getString(9));
 				contract.setInvoice_date(rs.getString(10));
 				contract.setVersion(rs.getInt(11));
-				
+				System.out.println("COntract buyer " + contract);
 				archivedContract.add(contract);
 
 				

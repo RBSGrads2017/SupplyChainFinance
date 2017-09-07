@@ -339,13 +339,13 @@
                                             </div>      
                                         </div>
                                         <div class = "col-sm-2" style="">
-                                            <div style="text-align: center;">{{product.price}}</div>            
+                                            <div style="text-align: center;">{{product.price}} INR</div>            
                                         </div>
                                         <div class = "col-sm-1" style="">
                                             <div style="text-align: center;">{{product.quantity}}</div>         
                                         </div>
                                         <div class = "col-sm-2" style="">
-                                            <div style="text-align: center;">{{product.price * product.quantity}}</div>
+                                            <div style="text-align: center;">{{product.price * product.quantity}} INR</div>
                                         </div>
                                         <div class = "col-sm-2" id="inp" style="">
                                             <div style="text-align: center;" hidden>{{product.id}}</div>
@@ -396,7 +396,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Product :</label>
-                                                            <input class="form-control" style="width: 100%;" />
+                                                            <input class="form-control" disabled="disabled" style="width: 100%;" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Features :</label>
@@ -474,7 +474,7 @@
                                             </div>
                                         </td>
                                         <td id="module_section_td2">
-                                            <div id="module_section_div3" style="overflow-y: hidden; padding-top:25px;">{{totalPrice}}</div>
+                                            <div id="module_section_div3" style="overflow-y: hidden; padding-top:25px;">{{totalPrice}} INR</div>
                                         </td>
                                         <td id="module_section_td3">
                                             <div class="col-sm-2">
@@ -633,6 +633,7 @@
                     feature_length[i] = data.product[i].feature.length;
                 }
                 sentDataToServer();
+                getDataFromServer();
             }
 
             $scope.deleteProduct = function(product_id) {
@@ -643,6 +644,7 @@
                     JSON_length = data.product.length;
                 }
                 sentDataToServer();
+                getDataFromServer();
             }
 
             $scope.editPaymentTerms = function(btnClicked) {
@@ -662,8 +664,8 @@
                         data.paymentTermId = paymentTermsData[i].id; 
                     }
                 }   
-                //console.log(selectedPaymentTerms);
                 sentDataToServer();
+                getDataFromServer();
             }
 
             $scope.editDeliveryTerms = function(btnClicked) {
@@ -684,6 +686,7 @@
                     }
                 }  
                 sentDataToServer();  
+                getDataFromServer();
             }
 
             $scope.autoAdjustPrice = function() {
@@ -714,6 +717,25 @@
                 promise.then(function(response){                
                    alert("Data sent to Server...");
                 });
+            }
+            
+            var getDataFromServer = function() {
+            	$http.get(uri + "contracts/draft/5").then(function(response){
+                    data = response.data;
+                    JSON_length = data.product.length;
+                    for(var i=0; i<JSON_length; i++) {
+                        feature_length[i] = data.product[i].feature.length;
+                    }
+                    $scope.myProposal = data.contract;
+                    $scope.myDescription = "DESC";
+                    $scope.mySellerDetails = data.sellerId;
+                    $scope.myAddress = "ABC";
+                    $scope.products = data.product;
+                    $scope.paymentTerms = data.paymentTermId;
+                    $scope.deliveryTerms = data.deliveryTermId;
+                    $scope.totalPrice = 10000000;
+                    $scope.dateOfInvoice = data.dateofInvoice;
+                })
             }
 
             $http.get(uri + "contracts/draft/5").then(function(response){

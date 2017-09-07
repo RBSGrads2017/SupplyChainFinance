@@ -80,6 +80,7 @@ public class ContractResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	// type = seller or buyer
 	public ArrayList<Contract> getContractsByUser(@QueryParam("type") String userType, @PathParam("userId") String userId){
+		
 		return contractBL.getAllContractsByUser(userType, userId);
 	}
 	
