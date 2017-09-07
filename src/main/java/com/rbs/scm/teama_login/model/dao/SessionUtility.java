@@ -6,6 +6,11 @@ import com.rbs.scm.teama_login.model.beans.*;
 public class SessionUtility {
 	public static Session sessionValidation(HttpServletRequest request) {
 		HttpSession hs = request.getSession(false);
+		
+		if(hs == null) {
+			return null;
+		}
+		
 		Session s = null;
 		try{
 			s = (Session) hs.getAttribute("session");

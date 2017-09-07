@@ -22,17 +22,20 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.postgresql.util.PSQLException;
 
 import com.rbs.scm.teama_login.model.beans.AdditionalDetails;
 import com.rbs.scm.teama_login.model.beans.BankUser;
 import com.rbs.scm.teama_login.model.beans.Customer;
 import com.rbs.scm.teama_login.model.beans.GenericUser;
+import com.rbs.scm.teama_login.model.beans.IdMapping;
 import com.rbs.scm.teama_login.model.beans.Session;
 import com.rbs.scm.teama_login.model.beans.UserProducts;
 import com.rbs.scm.teama_login.model.dao.AdditionalDetailsDao;
 import com.rbs.scm.teama_login.model.dao.BankUserDaoImpl;
 import com.rbs.scm.teama_login.model.dao.CustomerDaoImpl;
 import com.rbs.scm.teama_login.model.dao.GenericUserDaoImpl;
+import com.rbs.scm.teama_login.model.dao.IdMappingDaoImpl;
 import com.rbs.scm.teama_login.model.dao.SessionUtility;
 import com.rbs.scm.teama_login.model.dao.UserProductsDao;
 import com.rbs.scm.teama_login.utils.MyMailClass;
@@ -44,58 +47,120 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("checkCredentials")
-	public Response authenticateUser(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response authenticateUser(String data, @Context HttpServletRequest request) throws JSONException, SQLException {
 		JSONObject inputJsonObj = new JSONObject(data);
-		System.out.println("hi0");
+		
 		String username = inputJsonObj.getString("username");
 		String password = inputJsonObj.getString("password");
+		System.out.println(username);
+		GenericUser gu = null;
+		try {
+			gu = GenericUserDaoImpl.searchUser(username);
+		} catch(PSQLException e) {
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		}
 		
-		GenericUser gu = GenericUserDaoImpl.searchUser(username);
-		if(gu == null)	{ return Response.serverError().status(Status.EXPECTATION_FAILED).build(); }
+		System.out.println(gu);
+		if(gu == null)	{ 
+			System.out.print("doesnotexist");
+			return Response.ok("UserDoesNotExist").header("Access-Control-Allow-Origin", "*").status(Status.OK).build(); 
+		}
+		
 		System.out.println("hi");
+	
+		String UserFullName;
 		if(password.equals(gu.getPassword())) {
 			String TypeOfUser = null;
 			
 			if (gu.get_is_Bank_User()) {
-				TypeOfUser = "Bank";
+				TypeOfUser = "Bank User";
+				BankUser b = BankUserDaoImpl.searchBankUser(username);
+				UserFullName=b.getFullname();
+				System.out.println(UserFullName);
+				
 			} else {
 				TypeOfUser = "Customer";
+				Customer c = CustomerDaoImpl.searchCustomer(username);
+				UserFullName=c.getName();
+				System.out.println(UserFullName);
 			}
 			
-			Session s = new Session(gu.getUsername(), TypeOfUser);
+			//userIdInt;		 userFullName;
+			
+			
+			IdMapping c = IdMappingDaoImpl.FindIntId(username);
+			System.out.println(c.getUserIntId());	
+			
+			
+			Session s = new Session(gu.getUsername(), TypeOfUser,c.getUserIntId(), UserFullName);
 			HttpSession hs = request.getSession();//CREATE A SESSION FOR THE USER.
 			hs.setAttribute("session", s);
-			return Response.ok("Logged in Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
-		}		
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+			  
+			return Response.ok("LoggedInSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
+		} else {
+			return Response.ok("WrongCredentials").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		}
+		
 	}
 	
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("getUserInfo")
-	public String checkToken(@Context HttpServletRequest request) throws SQLException, JSONException{
+	public String checkToken(@Context HttpServletRequest request) throws JSONException{
 		Session s = SessionUtility.sessionValidation(request);
 		if(s != null) {
-			String obj = "{\"username\": \"" + s.getUserId() + "\", \"userType\": \"" + s.getUserType() + "\"}";
+			String obj = "{\"username\": \"" + s.getUserId() + "\", \"usernameInt\": \"" + s.getUserIdInt() + "\", \"fullName\": \"" + s.getUserFullName() + "\", \"userType\": \"" + s.getUserType() + "\"}";
 			return obj;
 		}
 		return "no session";
 	}
 	
-//	@POST
-//	@Path("/logout/")
-//	public boolean logoutUser(@Context HttpServletRequest request) throws SQLException{
-//		
-//		return true;
-//	}
-//	
-
+	@POST
+	@Path("logout")
+	public boolean logoutUser(@Context HttpServletRequest request) {
+		HttpSession hs = request.getSession(false);
+		hs.invalidate();
+		Session s = SessionUtility.sessionValidation(request);
+		if (s == null) {
+			System.out.println("null");
+		}
+		System.out.println("hi");
+		return true;
+	}
+	
+	@POST
+	@Path("getUserIdFromName")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getUserIdFromName(String data, @Context HttpServletRequest request) throws JSONException, SQLException, JsonGenerationException, JsonMappingException, IOException {
+		JSONObject inputJsonObj = new JSONObject(data);
+		String name = inputJsonObj.getString("userFullname");
+		String userType = inputJsonObj.getString("userType");
+		BankUser b = null;
+		Customer c = null;
+		
+		if(userType.equals("Bank User")) {
+			b = BankUserDaoImpl.searchBankUserByName(name);
+			return b.convertObjectToJSON();
+		} else if (userType.equals("Customer")) {
+			c = CustomerDaoImpl.searchCustomerByName(name);
+			return c.convertObjectToJSON();
+		}
+		return null;
+	}
+	
+	
 	
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("signupCustomer")
-	public Response signUpCustomer(String data, @Context HttpServletRequest request) throws SQLException, JSONException{
+	public Response signUpCustomer(String data, @Context HttpServletRequest request) throws JSONException{
 		JSONObject inputJsonObj = new JSONObject(data);
 		String name = inputJsonObj.getString("name");
 		String email = inputJsonObj.getString("email");
@@ -105,10 +170,19 @@ public class LoginServices {
 		GenericUser gu = new GenericUser(email,password,false, false, false);
 		System.out.println(c);
 		
-		if(CustomerDaoImpl.insertIntoCustomers(gu,c)) {
+		boolean flag_notfound = false;
+		try {
+			flag_notfound = CustomerDaoImpl.insertIntoCustomers(gu,c);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		} 
+		if (flag_notfound) {
 			return Response.ok("SignupSuccess").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		} else {
+			return Response.ok("UserExists").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 		}
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
 	}
 	
 	
@@ -116,17 +190,62 @@ public class LoginServices {
 	@Path("fetchCustomerDetails")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String fetchCustomerDetails(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		System.out.println(Uname);
 		Customer c = CustomerDaoImpl.searchCustomer(Uname);
+		System.out.println(c);
 		if(c == null)	{ return null; }
 		return c.convertObjectToJSON();
 	}
+
 	
+	@GET
+	@Path("fetchBankUserDetails")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String fetchUserDetails(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		BankUser b = BankUserDaoImpl.searchBankUser(Uname);
+		
+		if(b == null)	{ return null; }
+		System.out.println(b.getFullname());
+		return b.convertObjectToJSON();
+	}
+	
+	@GET
+	@Path("fetchAdditionalDetails")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String fetchAdditionalDetails(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		AdditionalDetails c = AdditionalDetailsDao.search(Uname);
+		if(c == null)	{ return null; }
+		System.out.println(c);
+		System.out.println(c.getContNumber());
+		return c.convertObjectToJSON();
+	}
+	
+	@GET
+	@Path("fetchStringId")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String fetchStringId(@QueryParam("uname") int Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		IdMapping c = IdMappingDaoImpl.FindStringId(Uname);
+		if(c == null)	{ return null; }
+		System.out.println(c);
+		return c.convertObjectToJSON();
+	}
+	
+	@GET
+	@Path("fetchIntId")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String fetchIntId(@QueryParam("uname") String Uname ,@Context HttpServletRequest request) throws SQLException, JsonGenerationException, JsonMappingException, IOException{
+		System.out.println(Uname);
+		IdMapping c = IdMappingDaoImpl.FindIntId(Uname);
+		if(c == null)	{ return null; }
+		System.out.println(c);
+		return c.convertObjectToJSON();
+	}
 	
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("signupUser")
-	public Response signupUser(String data, @Context HttpServletRequest request) throws SQLException, JSONException{
+	public Response signupUser(String data, @Context HttpServletRequest request) throws JSONException{
 		JSONObject inputJsonObj = new JSONObject(data);
 		String username= inputJsonObj.getString("CorpID");
 		String password = inputJsonObj.getString("Password");
@@ -137,10 +256,22 @@ public class LoginServices {
 		GenericUser gu = new GenericUser(username,password,false, false, true);
 		System.out.println(b);
 		
-		if(BankUserDaoImpl.insertIntoBankUser(gu,b)) {
-			return Response.ok("SignupSuccess").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		
+		boolean flag_notfound = false;
+		try {
+			flag_notfound = BankUserDaoImpl.insertIntoBankUser(gu,b);
+				
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
 		}
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		if (flag_notfound) {
+			return Response.ok("SignupSuccess").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		} else {
+			return Response.ok("UserExists").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		}
 	}
 	
 	
@@ -151,7 +282,7 @@ public class LoginServices {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("updateDetails")
 
-	public Response addDetails(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response addDetails(String data, @Context HttpServletRequest request) throws JSONException {
 		JSONObject JsonObj = new JSONObject(data);
 		System.out.println("hi");
 		Session s = SessionUtility.sessionValidation(request);
@@ -169,12 +300,15 @@ public class LoginServices {
 		//String username = "neha";
 		//return Response.ok("Details updated Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 		
-		AdditionalDetails ad = new AdditionalDetails(username,swift, accnumber, contnumber, postallocation, factorylocation, postalcity, factorycity, postalstate, factorystate, department);
-		if (AdditionalDetailsDao.insertIntoAdditionalDetails(ad))
-		{
-			return Response.ok("Details updated Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		AdditionalDetails ad = new AdditionalDetails(username,swift, accnumber, contnumber, postallocation, factorylocation, postalcity, factorycity, postalstate, factorystate, department,true);
+		try {
+			AdditionalDetailsDao.insertIntoAdditionalDetails(ad);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
 		}
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		return Response.ok("DetailsUpdatedSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 	}
 
 
@@ -183,7 +317,7 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("updateProducts")
-	public Response addproducts(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response addproducts(String data, @Context HttpServletRequest request) throws JSONException {
 		JSONObject JsonObj = new JSONObject(data);
 		JSONArray productCategories = JsonObj.getJSONArray("UserProductsCategories");
 		JSONArray products = JsonObj.getJSONArray("UserProducts");
@@ -197,18 +331,22 @@ public class LoginServices {
 			prod[j]=(products.get(j).toString());	
 		}
 		UserProducts up = new UserProducts(username, prod);
-		if ( UserProductsDao.insertIntoProducts(up)) {
-			return Response.ok("Products updated Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
-		}
 		
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		try {
+			 UserProductsDao.insertIntoProducts(up);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		}
+		return Response.ok("ProductsUpdatedSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();	
 	}
 	
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("forgotPassword")
-	public Response forgotPassword(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response forgotPassword(String data, @Context HttpServletRequest request) throws JSONException {
 		
 		System.out.println("entered into forgotPassword service");
 				
@@ -216,9 +354,17 @@ public class LoginServices {
 		String customerEmail = inputJsonObj.getString("email");	
 		// check db 
 		
-		GenericUser gu = GenericUserDaoImpl.searchUser(customerEmail);
-		if (gu == null) {
+		GenericUser gu = null;
+		try {
+			gu = GenericUserDaoImpl.searchUser(customerEmail);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		}
+		
+		if (gu == null) {
+			return Response.ok("UserDoesNotExist").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 		}
 		
 		String subjectToSend="Password change request";
@@ -226,13 +372,21 @@ public class LoginServices {
 		String randomString   = Integer.toString(rand.nextInt(5000));
 		// db store token
 		
-		GenericUserDaoImpl.addToPwdTable(gu, randomString);
+		try {
+			GenericUserDaoImpl.addToPwdTable(gu, randomString);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		}
 			
 		//String basePath = request.getScheme()+request.getRemoteHost()+request.getpo;
 		System.out.println("the random string generated is"+randomString);
-		String messageToSend = "Hi!! To reset the password kindly click the link. \n" + "\n<a href='http://localhost:8089/scm/pages/ChangePassword.htm?"+randomString+"'>Reset password</a>";
+		
+		String messageToSend = "Hi!! To reset the password kindly click the link. \n" + "\n<a href='http://localhost:8089/scm/pages/teama_login/ChangePassword.htm?"+randomString+"'>Reset password</a>";
 		
 		System.out.print(customerEmail + " this is the email where i have to send the message");
+
 		MyMailClass.sendMail(customerEmail ,messageToSend,subjectToSend);		
 			
 	    return Response.ok("Mailed Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
@@ -242,7 +396,7 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("saveNewPassword")
-	public Response changePassword(String data, @Context HttpServletRequest request) throws SQLException, JSONException {
+	public Response changePassword(String data, @Context HttpServletRequest request) throws JSONException {
 		
 		System.out.println("entered into change Password service");
 		
@@ -253,11 +407,30 @@ public class LoginServices {
 		System.out.print(newPassword + " this is the password that i have to now chnage in db");
 		System.out.print(token + " this is the token for the user id");
 		
-		String Username = GenericUserDaoImpl.GetUserFromToken(token);
-		if (Username != null) {
-			 GenericUserDaoImpl.ChangePwdUser(Username, newPassword);
-			 return Response.ok("Logged in Successfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		String Username = null;
+		try {
+			Username = GenericUserDaoImpl.GetUserFromToken(token);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Response.serverError().status(Status.EXPECTATION_FAILED).build();		
 		}
-		return Response.serverError().status(Status.EXPECTATION_FAILED).build();
+		
+		if (Username != null) {
+			 try {
+				GenericUserDaoImpl.ChangePwdUser(Username, newPassword);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return Response.serverError().status(Status.EXPECTATION_FAILED).build();		
+			}
+		} else {
+			 return Response.ok("LinkGotExpired").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
+		}
+		return Response.ok("LoggedInSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
 	}
+	
+	
+	
+	
 }

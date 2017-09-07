@@ -18,11 +18,11 @@ public class AdditionalDetails {
 	String postalState; 
 	String factoryState; 
 	String department;
-	
+	boolean is_valid;
 	
 
 	public AdditionalDetails(String username, String swift, int accNumber, int contNumber, String postalLocation, String factoryLocation,
-			String postalCity, String factoryCity, String postalState, String factoryState, String department) {
+			String postalCity, String factoryCity, String postalState, String factoryState, String department, boolean is_valid) {
 		super();
 		this.swift = swift;
 		this.accNumber = accNumber;
@@ -35,6 +35,13 @@ public class AdditionalDetails {
 		this.factoryState = factoryState;
 		this.department = department;
 		this.username = username;
+		this.is_valid = is_valid;
+	}
+	public boolean isIs_valid() {
+		return is_valid;
+	}
+	public void setIs_valid(boolean is_valid) {
+		this.is_valid = is_valid;
 	}
 	public String getUsername() {
 		return username;
@@ -111,7 +118,7 @@ public class AdditionalDetails {
 				", Postal Address: {Location=" + postalLocation + ", City= " + postalCity + 
 				", State="+ postalState + " }"+ ", Factory Address: {Location=" + factoryLocation + ", City= " + factoryCity + 
 				", State="+ factoryState + " }" +
-				", Department= "+ department + "]";
+				", Department= "+ department + "is_valid" + is_valid + "]";
 	}
 	public String convertObjectToJSON() throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
