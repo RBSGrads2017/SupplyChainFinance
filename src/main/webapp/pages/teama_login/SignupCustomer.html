@@ -7,14 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	
-	
+	<script src="../../js/commonResources.js"></script>
 	<link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="../../js/commonResources.js"></script>
+    
 	<title>Signup Page For Customer</title>
 	
 	<style type="text/css">
@@ -124,8 +124,7 @@
 							<h1 style="font-size: 250%; color: #555;"><b>Welcome,<br>To this new platform!</b></h1><br><br>
 						</div>
 						<div class = "col-sm-6" id="FormContainer" style="">
-							<form method="post">
-								
+							<form name = "myForm" method="post">
 								<div class = "row">
 									<div class = "col-sm-offset-2 col-sm-8 FormInputs">
 										<div class = "FormInputLabels">
@@ -159,13 +158,14 @@
 										<div class= "FormInputLabels">
 											<p style="margin-bottom: 0px"><b>Retype Password</b></p>
 										</div>
-										<input type="input"  ng-model="RePassword" name="RePassword" class="FormTextInputs" ng-change="chkValidation()" required />
+										<input type="Password"  ng-model="RePassword" name="RePassword" class="FormTextInputs" ng-change="chkValidation()" required />
 									</div>
 								</div>
 								<br>
 								<div class="row">
 									<div class = "col-sm-offset-1 col-sm-5">
-										<input type="checkbox" name="terms" value="terms" required style="float:left;" />
+									
+										<input type="checkbox" ng-model="termChecked" name="terms" value="terms" required style="float:left;" />
 										<p style="text-align:center; float: left; color:white; text-decoration:none;">I accept the terms</p>
 									</div>
 									<div class = "col-sm-offset-1 col-sm-4">
@@ -195,57 +195,88 @@
 			-->
 		</div>
 	</div>
+	
 	<script>
-		var Signupapp = angular.module("SignupApp", []);
-	
-		Signupapp.controller("SignupCustController", ["$scope", "$http", "$httpParamSerializer", "$window", function($scope, $http, $httpParamSerializer, $window){
-			console.log("hii");
-			$scope.UserNameMod = "";
-		    $scope.EmailMod = "";
-		    $scope.Password = "";
-		    $scope.RePassword = "";
-		    $scope.validclass="";
-		    
-		    $scope.chkValidation = function() {
-		        if ($scope.Password == $scope.RePassword) {
-		            $scope.validclass="changedcorrect";
-		        } else {
-		            $scope.validclass="changedincorrect";
-		        }
-		    }
-		    
-		    $scope.SubmitSignup = function () {
-	
-			    if (($scope.Password == $scope.RePassword)){
-			       var data = {
-			            name: $scope.UserNameMod,
-			            email:$scope.EmailMod,
-			            password: $scope.Password
-			        }
-			       console.log(data);
-			        var promise = $http({
-			            url: BASE_PATH + '/service/login/signupCustomer/',
-			            method: 'POST',
-			            headers: { 'Content-Type': 'text/plain' },
-			            data: {
-			            	name: $scope.UserNameMod,
-			                email:$scope.EmailMod,
-			                password: $scope.Password
-			            }
-			        });
-			        promise.then(function(response){
-			            //$location.url('./Dashboard.html')
-			        	
-			        	$window.location.href = './HomePage.html'
-			        	console.log(response.data);
-			        });
-			    } else {
-			    	 console.log("credentials not matching"); 
-			    }
-		    }
-			
-		}]);
+	var Signupapp = angular.module("SignupApp", []);
 
+	Signupapp.controller("SignupCustController", ["$scope", "$http", "$httpParamSerializer", "$window", function($scope, $http, $httpParamSerializer, $window){
+		console.log("hii");
+		$scope.UserNameMod = "";
+	    $scope.EmailMod = "";
+	    $scope.Password = "";
+	    $scope.RePassword = "";
+	    $scope.termChecked=false;
+	   /* $scope.validclass="";    
+	    $scope.chkValidation = function() {
+	        if ($scope.Password == $scope.RePassword) {
+	            $scope.validclass="changedcorrect";
+	        } else {
+	            $scope.validclass="changedincorrect";
+	        }
+	    }*/
+	    console.log($scope.termChecked);
+	    $scope.SubmitSignup = function () {
+	    	if(!($scope.UserNameMod && $scope.EmailMod && $scope.Password && $scope.RePassword)) {
+	    	
+	    		window.alert("Please enter all the details!")		
+	    	
+	    	} else {
+	    		
+	    		if($scope.termChecked==false) {    			 
+	        		  window.alert("Please agree to the terms and conditions!")
+	        	} else {
+	        		
+	        		if (($scope.Password == $scope.RePassword)) {
+	          	      /* var data = {
+	          	            name: $scope.UserNameMod,
+	          	            email:$scope.EmailMod,
+	          	            password: $scope.Password
+	          	        }*/
+	          	       console.log(" in submit signup:  customername"+ $scope.UserNameMod + " email "+  $scope.EmailMod);
+	          	        var promise = $http({
+	          	            url: BASE_PATH + '/service/login/signupCustomer/',
+	          	            method: 'POST',
+	          	            headers: { 'Content-Type': 'text/plain' },
+	          	            data: {
+	          	            	name: $scope.UserNameMod,
+	          	                email:$scope.EmailMod,
+	          	                password: $scope.Password
+	          	            }
+	          	        });
+	          	        promise.then(function(response){
+	          	            if (response.data == "SignupSuccess") {
+	          	            	$window.location.href = './HomePage.html'
+	    	          	        console.log(response.data);
+	          	            } else if (response.data == "UserExists") {
+	          	            	$scope.UserNameMod = "";
+			          	  	    $scope.EmailMod = "";
+			          	  	    $scope.Password = "";
+			          	  	    $scope.RePassword = "";
+			          	  	    $scope.termChecked=false;
+	          	            	window.alert("This user already exists");
+	          	            }	        	
+	          	        	
+	          	        }, function(response){
+		          	        $scope.UserNameMod = "";
+		          	  	    $scope.EmailMod = "";
+		          	  	    $scope.Password = "";
+		          	  	    $scope.RePassword = "";
+		          	  	    $scope.termChecked=false;
+	          	        	window.alert("Server Error, Please Try Later!");
+	          	        });
+	          	        
+	          	    } else {
+	            			$scope.Password="";    	  	
+	               	  	    $scope.RePassword="";
+	            			window.alert("Form Validation Error");		
+	            	}
+	        	}    		
+	        }
+	    }   	
+		
+	}]);
+
+	
 	</script>
 		<!-- jQuery -->
     <script src="../../vendor/jquery/jquery.min.js"></script>
