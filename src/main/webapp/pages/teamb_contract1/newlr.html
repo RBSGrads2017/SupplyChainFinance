@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Supply Chain Finance - Contract Management</title>
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+<!-- Morris Charts CSS -->
+<link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="../../vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+
+
+<style type="text/css">
+a.UserName {
+	text-decoration: none;
+}
+
+#module_section_tr {
+	border: 1px solid #cccccc;
+	border-radius: 10px;
+}
+
+#module_section_td1 {
+	padding: 15px;
+	margin: 15px;
+}
+
+#module_section_td2 {
+	text-align: justify;
+	display: inline;
+}
+
+#module_section_div1 {
+	border: 1px solid #cccccd;
+	height: 42px;
+	padding: 10px 48px;
+	border-radius: 3px;
+	background-color: #cccccc;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#module_section_div2 {
+	height: 80px;
+	overflow-y: scroll;
+	margin: 5px 5px 5px 35px;
+	border-right: 1px solid #cccccd;
+}
+
+td {
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-family: Verdana;
+}
+
+th {
+	text-align: center;
+	text-transform: uppercase;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div id="wrapper">
+		<!-- Navigation -->
+	<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html"> <img
+					src="2358536-rbs-tm-2013.png"
+					style="display: block; margin: 10px 5px; width: 180px;">
+				</a>
+			</div>
+			<!-- /.navbar-header -->
+			<ul class="nav navbar-top-links navbar-right">
+				<!-- /.dropdown -->
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i class="fa fa-bell fa-fw"></i>
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-alerts">
+						<li><a href="#">
+								<div>
+									<i class="fa fa-pencil-square-o"></i> Contracts Pending
+									Approval <span class="badge">3</span>
+								</div>
+						</a></li>
+
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<i class="fa fa-list-alt"></i> Invoices received <span
+										class="badge">2</span>
+								</div>
+						</a></li>
+
+						<li class="divider"></li>
+						<li><a class="text-center" href="#"> <strong>See
+									All Alerts</strong> <i class="fa fa-angle-right"></i>
+						</a></li>
+					</ul> <!-- /.dropdown-alerts --></li>
+				<!-- /.dropdown -->
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-user">
+						<li><a href="#"><i class="fa fa-user fa-fw"></i> User
+								Profile</a></li>
+						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+						<li class="divider"></li>
+						<li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
+								Logout</a></li>
+					</ul> <!-- /.dropdown-user --></li>
+				<!-- /.dropdown -->
+			</ul>
+
+			<!-- /.navbar-top-links -->
+			<div dir="rtl">
+				<div class="navbar-default sidebar" role="navigation">
+					<div class="sidebar-nav navbar-collapse">
+						<ul class="nav" id="side-menu"
+							style="padding-right: 0px; text-align: left;">
+
+							<li>
+								<div style="overflow: auto;">
+									<a href="#" style="float: left" class="UserName"><h3>
+											Welcome<br>User Name
+										</h3></a> <i
+										style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color: #337ab7;"
+										class="fa fa-user fa-5x"></i> <a class="UserName"
+										style="float: left; padding-bottom: 2px">You are a
+										Customer</a>
+								</div>
+							</li>
+							<li><a href="index.html"> Dashboard <i
+									class="fa fa-dashboard fa-fw"></i>
+							</a></li>
+							<li><a href="#"> Contract Management <i
+									class="fa fa-briefcase fa-fw"></i> <span class="fa arrow"></span>
+							</a>
+								<ul class="nav nav-second-level">
+									<li><a href="flot.html">Create Proposal</a></li>
+									<li><a href="morris.html">View Proposal</a></li>
+									<li><a href="morris.html">Edit Proposal</a></li>
+								</ul> <!-- /.nav-second-level --></li>
+							<li><a href="#"> Purchase Order <i
+									class="fa fa-file-text-o"></i> <span class="fa arrow"></span>
+							</a>
+								<ul class="nav nav-second-level">
+									<li><a href="panels-wells.html">Review</a></li>
+								</ul> <!-- /.nav-second-level --></li>
+							<li><a href="#"> Invoice Management <i
+									class="fa fa-list-alt"></i> <span class="fa arrow"></span></a>
+								<ul class="nav nav-second-level">
+									<li><a href="#">Create Invoice</a></li>
+									<li><a href="#">View Invoice</a></li>
+								</ul> <!-- /.nav-second-level --></li>
+							<li><a href="login.html"> Log Out <i
+									class="fa fa-power-off"></i> <span class="fa arrow"></span></a> <!-- /.nav-second-level -->
+							</li>
+						</ul>
+					</div>
+					<!-- /.sidebar-collapse -->
+				</div>
+				<!-- /.navbar-static-side -->
+			</div>
+	</nav>
+
+		<div style="margin-top: 10px">
+			<div style="margin-left: 10px; margin-right: 260px;">
+				<div class="jumbotron"
+					style="height: 800px; border-radius: 10px; text-align: left;">
+					<div class="panel panel-default">
+						<div class="panel-heading" id="module_section_div1"
+							style="margin-top: 0px; text-align: center; font-size: 24px; padding-bottom: 40px;">
+							SUPPLIERS NOTIFIED</div>
+					</div>
+					<div id="container" ng-app="myApp">
+						<br><center><button ng-click="func3()">View full proposal</button></center>
+						<br>
+						<div id="container" ng-controller="myCtrl">
+						  <div class="container">
+								<div class="col-md-12">
+								  <table class="table table-list-search">
+										<thead>
+											<tr>
+												<th style="text-align: center; font-family: Georgia">No.</th>
+												<th style="text-align: center; font-family: Georgia">Seller</th>
+												<th style="text-align: center; font-family: Georgia">Score</th>
+												<th style="text-align: center; font-family: Georgia">Avail cost</th>
+												<th style="text-align: center; font-family: Georgia">Avail customer cost</th>
+												<th style="text-align: center; font-family: Georgia">Supplier's response</th>
+												
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="x in obj.responses">
+
+											<td>{{$index+1}}</td>
+											<td>{{x["sellerId"]}}</td>
+											<td>{{x["score"]}}</td>
+											<td>{{x["costAvail"]}}</td>
+											<td>{{x["costAvailCust"]}}</td>
+
+											<td><button type="button" class="btns" id="btn1"
+													ng-click="func1(x['sellerId'])">View</button></td>
+										</tr>
+
+										</tbody>
+									</table>
+									<button type="button" class="btn btn-success" id="btn2" ng-click="func2()">Inactivate
+										Proposal</button>
+								</div>
+							</div>
+
+
+						</div>
+
+						
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- /#wrapper -->
+	<!-- jQuery -->
+	<!-- Bootstrap Core JavaScript -->
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+	<script src="../dist/js/sb-admin-2.js"></script>
+
+	<script>
+             var app = angular.module('myApp', []);
+             
+            app.controller('myCtrl',[ "$scope", "$http", function($scope, $http){
+
+                var pid = location.search.split('?')[1].split('=')[1];
+
+                //console.log(str);
+            
+                $http.get("http://192.168.4.141:8089/scm/service/view/all/responses/"+pid).then(function(response){
+                    $scope.obj = response.data;
+                });
+
+                $scope.func1 =  function (sid) {
+                     //window.alert("ksji");
+                     window.location = "viewSelectedresponse.html?pid="+pid+"&sid="+sid;
+                } 
+ $scope.func3 =  function (sid) {
+                  //   window.alert("");
+                     window.location = "viewfullproposal.html?pid="+pid;
+                }     
+				
+                $scope.func2 =  function () {
+
+
+                     window.alert("Proposal Inactivated!!!");
+                     $http.get("http://192.168.4.141:8089/scm/service/view/proposal/inactivate/"+pid).then(function(response){
+                    $scope.obj = response.data;
+                });
+                     window.location = "ListResponses.html?pid="+pid;
+                }                    
+                   
+            }]);
+
+            </script>
+</body>
+</html>

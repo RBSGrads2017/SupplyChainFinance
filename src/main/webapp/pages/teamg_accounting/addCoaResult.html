@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>COA List</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../../js/commonResources.js"></script>
+</head>
+	    <style>
+	fieldset { 
+		font-size:15px;
+		font-family:sans-serif;
+		font-size-adjust:inherit;
+    	display:inline;
+		width:500px;
+		height:400px;
+		border-style:solid;
+		padding-left: 10%;
+			
+}
+</style>
+<body ng-app="acmApp" ng-controller="coaListCtrl">
+<div class="container">
+  <div class="table-responsive">          
+  <table class="table">
+  <thead>
+  		<tr><th>The following Chart of Accounts has been added:</th></tr>
+</thead>
+		<tbody>
+				<tr><th>Head</th><td>{{head}}</td></tr>
+				<tr><th>Legal Entity</th><td>{{legalEntity}}</td></tr>
+				<tr><th>Country</th><td>{{country}}</td></tr>
+				<tr><th>Branch</th><td>{{branch}}</td></tr>
+				<tr><th>Product</th><td>{{product}}</td></tr>
+				<tr><th>Currency</th><td>{{currency}}</td></tr>
+				<tr><th>Book</th><td>{{book}}</td></tr>
+				<tr><th>SWIFT ID</th><td>{{productSwiftID}}</td></tr>
+				</tbody>
+			</table>
+			<a href="" ng-click="callCoaList()">Back to Chart Of Accounts</a>
+			</div>
+			</div>
+<!-- <fieldset  align="center">
+  <legend>Chart Of Account</legend>
+	<form class="form-horizontal">
+	  <div class="form-group">
+    			<label class="control-label col-sm-2" for="head">Head</label>
+    			<div class="col-sm-10">
+    			<input type="text" class="form-control" id="head" ng-model="head"/>
+  	  </div>
+  	  </div>
+  	  
+  	  <div class="form-group">
+    			<label class="control-label col-sm-2" for="legalEntity">Legal Entity</label>
+    			<div class="col-sm-10">
+    			<input type="text" class="form-control" id="legalEntity" ng-model="legalEntity">
+  	   </div>
+      </div>
+      <div class="form-group">
+		      	<label class="control-label col-sm-2" for="country">Country</label>
+      			<div class="col-sm-10">
+      			<input type="text" class="form-control" id="country" ng-model="country">
+      </div></div>
+      <div class="form-group">
+      	      	<label class="control-label col-sm-2" for="branch">Branch</label>
+      	      	<div class="col-sm-10">
+      	      	<input type="text" class="form-control" id="branch" ng-model="branch">
+      </div></div>
+      <div class="form-group">
+      	      	<label class="control-label col-sm-2" for="product">Product</label>
+      	      	<div class="col-sm-10">
+      	      	<input type="text" class="form-control" id="product" ng-model="product">
+      </div></div>
+      <div class="form-group">
+      	      	<label class="control-label col-sm-2" for="currency">Currency</label>
+      	      	<div class="col-sm-10">
+      	      	<input type="text" class="form-control" id="currency" ng-model="currency">
+      </div>
+      </div>
+      
+      <div class="form-group">
+      	      	<label class="control-label col-sm-2" for="book">Book Number</label>
+      	      	<div class="col-sm-10">
+      	      	<input type="text" class="form-control" id="book" ng-model="book">
+      </div></div>
+      <div class="form-group">
+      	      	<label class="control-label col-sm-2" for="productSwiftID">Product Swift ID</label>
+      	      	<div class="col-sm-10">
+      	      	<input type="text" class="form-control" id="productSwiftID" ng-model="productSwiftID">
+     </div>	 	  </div>
+</form>
+</fieldset> -->
+</body>
+</html>

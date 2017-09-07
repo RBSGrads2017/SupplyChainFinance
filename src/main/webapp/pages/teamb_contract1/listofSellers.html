@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Supply Chain Finance - Contract Management</title>
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+<!-- Morris Charts CSS -->
+<link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="../../vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+
+
+<style type="text/css">
+a.UserName {
+	text-decoration: none;
+}
+
+#module_section_tr {
+	border: 1px solid #cccccc;
+	border-radius: 10px;
+}
+
+#module_section_td1 {
+	padding: 15px;
+	margin: 15px;
+}
+
+#module_section_td2 {
+	text-align: justify;
+	display: inline;
+}
+
+#module_section_div1 {
+	border: 1px solid #cccccd;
+	height: 42px;
+	padding: 10px 48px;
+	border-radius: 3px;
+	background-color: #cccccc;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#module_section_div2 {
+	height: 80px;
+	overflow-y: scroll;
+	margin: 5px 5px 5px 35px;
+	border-right: 1px solid #cccccd;
+}
+
+td {
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-family: Verdana;
+}
+
+th {
+	text-align: center;
+	text-transform: uppercase;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+</head>
+
+<body>
+	<div id="wrapper">
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html"> <img
+					src="2358536-rbs-tm-2013.png"
+					style="display: block; margin: 10px 5px; width: 180px;">
+				</a>
+			</div>
+			<!-- /.navbar-header -->
+			<ul class="nav navbar-top-links navbar-right">
+				<!-- /.dropdown -->
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i class="fa fa-bell fa-fw"></i>
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-alerts">
+						<li><a href="#">
+								<div>
+									<i class="fa fa-pencil-square-o"></i> Contracts Pending
+									Approval <span class="badge">3</span>
+								</div>
+						</a></li>
+
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<i class="fa fa-list-alt"></i> Invoices received <span
+										class="badge">2</span>
+								</div>
+						</a></li>
+
+						<li class="divider"></li>
+						<li><a class="text-center" href="#"> <strong>See
+									All Alerts</strong> <i class="fa fa-angle-right"></i>
+						</a></li>
+					</ul> <!-- /.dropdown-alerts --></li>
+				<!-- /.dropdown -->
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-user">
+						<li><a href="#"><i class="fa fa-user fa-fw"></i> User
+								Profile</a></li>
+						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+						<li class="divider"></li>
+						<li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
+								Logout</a></li>
+					</ul> <!-- /.dropdown-user --></li>
+				<!-- /.dropdown -->
+			</ul>
+
+			<!-- /.navbar-top-links -->
+			<div dir="rtl">
+				<div class="navbar-default sidebar" role="navigation">
+					<div class="sidebar-nav navbar-collapse">
+						<ul class="nav" id="side-menu"
+							style="padding-right: 0px; text-align: left;">
+
+							<li>
+								<div style="overflow: auto;">
+									<a href="#" style="float: left" class="UserName"><h3>
+											Welcome<br>User Name
+										</h3></a> <i
+										style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color: #337ab7;"
+										class="fa fa-user fa-5x"></i> <a class="UserName"
+										style="float: left; padding-bottom: 2px">You are a
+										Customer</a>
+								</div>
+							</li>
+							<li><a href="index.html"> Dashboard <i
+									class="fa fa-dashboard fa-fw"></i>
+							</a></li>
+							<li><a href="#"> Contract Management <i
+									class="fa fa-briefcase fa-fw"></i> <span class="fa arrow"></span>
+							</a>
+								<ul class="nav nav-second-level">
+									<li><a href="flot.html">Create Proposal</a></li>
+									<li><a href="morris.html">View Proposal</a></li>
+									<li><a href="morris.html">Edit Proposal</a></li>
+								</ul> <!-- /.nav-second-level --></li>
+							<li><a href="#"> Purchase Order <i
+									class="fa fa-file-text-o"></i> <span class="fa arrow"></span>
+							</a>
+								<ul class="nav nav-second-level">
+									<li><a href="panels-wells.html">Review</a></li>
+								</ul> <!-- /.nav-second-level --></li>
+							<li><a href="#"> Invoice Management <i
+									class="fa fa-list-alt"></i> <span class="fa arrow"></span></a>
+								<ul class="nav nav-second-level">
+									<li><a href="#">Create Invoice</a></li>
+									<li><a href="#">View Invoice</a></li>
+								</ul> <!-- /.nav-second-level --></li>
+							<li><a href="login.html"> Log Out <i
+									class="fa fa-power-off"></i> <span class="fa arrow"></span></a> <!-- /.nav-second-level -->
+							</li>
+						</ul>
+					</div>
+					<!-- /.sidebar-collapse -->
+				</div>
+				<!-- /.navbar-static-side -->
+			</div>
+		</nav>
+
+		<div style="margin-top: 10px">
+			<div style="margin-left: 10px; margin-right: 260px;">
+				<div class="jumbotron"
+					style="height: 800px; border-radius: 10px; text-align: left;">
+					<div class="panel panel-default">
+						<div class="panel-heading" id="module_section_div1"
+							style="margin-top: 0px; text-align: center; font-size: 24px; padding-bottom: 40px;">
+							LIST OF SELLERS</div>
+					</div>
+					<div id="container" ng-app="MyApplication">
+						<div id="container" ng-controller="ViewController">
+
+							<div class="container">
+
+								<div class="col-md-12">
+									<form action="#" method="get"
+										style="width: 40%; margin-left: 4%">
+										<div class="input-group">
+											<!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
+											<input class="form-control" id="system-search" name="q"
+												placeholder="Search Seller" required
+												style="text-transform: uppercase"> <span
+												class="input-group-btn">
+												<button type="submit" class="btn btn-default">
+													<i class="glyphicon glyphicon-search"></i>
+												</button>
+											</span>
+										</div>
+									</form>
+									<table class="table table-list-search">
+										<thead>
+											<tr>
+												<th style="text-align: center; font-family: Georgia">S.No</th>
+												<th style="text-align: center; font-family: Georgia">Seller
+													Name</th>
+												<th style="text-align: center; font-family: Georgia"><input
+													type="checkbox" id="selectall"> Select All</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="seller in sellersList.sellers">
+												<td>{{$index+1}}</td>
+												<td>{{seller}}</td>
+												<td><input id="{{seller}}" value="{{seller}}"
+													type="checkbox" ng-checked="selection.indexOf(seller) > -1"
+													ng-click="toggleSelection(seller)" /></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+
+						</div>
+
+						<div ng-controller="ClickController">
+							<button ng-click="Send()" class="btn btn-success"
+								style="padding: 15px; margin: 15px; float: right;">Proceed</button>
+							<h1{{ResponseDetails}}></h1>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- /#wrapper -->
+	<!-- jQuery -->
+	<!-- Bootstrap Core JavaScript -->
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+	<!-- Morris Charts JavaScript 
+        <script src="../vendor/raphael/raphael.min.js"></script>-->
+	<!--  <script src="../vendor/morrisjs/morris.min.js"></script>
+        <script src="../data/morris-data.js"></script>
+    <!-- Custom Theme JavaScript -->
+	<script src="../dist/js/sb-admin-2.js"></script>
+
+	<script>
+
+    $(document).ready(function() {
+    var activeSystemClass = $('.list-group-item.active');
+
+    //something is entered in search form
+    $('#system-search').keyup( function() {
+       var that = this;
+        // affect all table rows on in systems table
+        var tableBody = $('.table-list-search tbody');
+        var tableRowsClass = $('.table-list-search tbody tr');
+        $('.search-sf').remove();
+        tableRowsClass.each( function(i, val) {
+        
+            //Lower text for case insensitive
+            var rowText = $(val).text().toLowerCase();
+            var inputText = $(that).val().toLowerCase();
+            if(inputText != '')
+            {
+                $('.search-query-sf').remove();
+                tableBody.prepend('<tr class="search-query-sf"><td colspan="6"><strong>Searching for: "'
+                    + $(that).val()
+                    + '"</strong></td></tr>');
+            }
+            else
+            {
+                $('.search-query-sf').remove();
+            }
+
+            if( rowText.indexOf( inputText ) == -1 )
+            {
+                //hide rows
+                tableRowsClass.eq(i).hide();
+                
+            }
+            else
+            {
+                $('.search-sf').remove();
+                tableRowsClass.eq(i).show();
+            }
+        });
+        //all tr elements are hidden
+        if(tableRowsClass.children(':visible').length == 0)
+        {
+            tableBody.append('<tr class="search-sf"><td class="text-muted" colspan="6">No entries found.</td></tr>');
+        }
+    });
+
+});
+
+$('#selectall').click(function (e) {
+    $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+});
+
+var app = angular.module("MyApplication", []);
+
+var data={};
+var data1={}; 
+var qs = location.search.split('?')[1].split('=')[1];
+console.log(qs);
+        app.controller('ViewController', function($scope, $http){
+            $http.get("http://192.168.4.141:8089/scm/service/publish/proposal/"+qs).then(function(response){
+                $scope.sellersList =response.data;
+                $scope.selection=[]; 
+                console.log(response.data);
+                console.log($scope.sellersList);
+                console.log(JSON.stringify($scope.sellersList));
+              
+  // toggle selection for a given employee by name
+
+  $scope.toggleSelection = function toggleSelection(sellerName) {
+     var idx = $scope.selection.indexOf(sellerName);
+     
+     // is currently selected
+     if (idx > -1) {
+       $scope.selection.splice(idx, 1);
+     }
+
+     // is newly selected
+     else {
+       $scope.selection.push(sellerName);
+     }
+     console.log(sellerName);
+     console.log($scope.selection);
+     console.log(JSON.stringify($scope.selection));
+	 var x= $scope.selection;
+	 data1={
+	 "sellers":x
+	 };
+	console.log(typeof data1);
+	 console.log(JSON.stringify(data1));
+	 data=JSON.stringify(data1);
+console.log(data);
+   };
+ })
+});
+
+
+        app.controller("ClickController", function($scope,$location, $http){
+			//data = {
+					//"a" : $scope.selection
+			//	};
+			$scope.Send= function () {
+			var config = {
+                headers : {
+                    'Content-Type': 'application/json;charset=utf-8;'
+                }
+            }
+
+                // POST method is used to pass the data to Backend from Angular JS Frontend 
+        $http.post("http://192.168.4.141:8089/scm/service/publish/toIdentifiedSellers/"+qs, data, config).then(function (data, status) {
+		
+window.location="viewAllProposals.html";
+console.log("Display");
+     })/*).error(function (data, status, headers, config) {
+                    $scope.ResponseDetails = "Data: " + data +
+                        "<hr />status: " + status +
+                        "<hr />headers: " + header +
+                        "<hr />config: " + config;
+                });*/
+	 }
+          	});
+
+      
+
+
+
+    </script>
+</body>
+</html>

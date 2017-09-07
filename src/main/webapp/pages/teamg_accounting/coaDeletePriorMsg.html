@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>COA List</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../../js/commonResources.js"></script>
+</head>
+	    <style>
+	fieldset { 
+		font-size:15px;
+		font-family:sans-serif;
+		font-size-adjust:inherit;
+    	display:inline;
+		width:500px;
+		height:400px;
+		border-style:solid;
+		padding-left: 10%;
+			
+}
+</style>
+<body ng-app="acmApp" ng-controller="coaListCtrl">
+<div class="container">
+  <div class="table-responsive">          
+  <table class="table">
+  <thead>
+  		<tr><th>Do you wanna delete the following Chart of Accounts:</th></tr>
+</thead>
+		<tbody>
+				<tr><th>Head</th><td>{{coaSingle.head}}</td></tr>
+				<tr><th>Legal Entity</th><td>{{coaSingle.legalEntity}}</td></tr>
+				<tr><th>Country</th><td>{{coaSingle.country}}</td></tr>
+				<tr><th>Branch</th><td>{{coaSingle.branch}}</td></tr>
+				<tr><th>Product</th><td>{{coaSingle.product}}</td></tr>
+				<tr><th>Currency</th><td>{{coaSingle.currency}}</td></tr>
+				<tr><th>Book</th><td>{{coaSingle.book}}</td></tr>
+				<tr><th>SWIFT ID</th><td>{{coaSingle.productSwiftID}}</td></tr>
+				</tbody>
+			</table>
+			<button ng-click="coaDelSingleConfirm(coaSingle.productSwiftID)">Delete</button>
+			<button ng-click="callCoaList()">Back to Chart Of Accounts</button>
+			</div>
+			</div>
+</body>
+</html>
