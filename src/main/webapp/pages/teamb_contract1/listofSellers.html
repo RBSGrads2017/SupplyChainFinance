@@ -47,7 +47,7 @@ a.UserName {
 	height: 42px;
 	padding: 10px 48px;
 	border-radius: 3px;
-	background-color: #8d8fce;
+	background-color: #cccccc;
 	font-weight: bold;
 	font-size: 16px;
 }
@@ -234,7 +234,7 @@ th {
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="seller in sellersList">
+											<tr ng-repeat="seller in sellersList.sellers">
 												<td>{{$index+1}}</td>
 												<td>{{seller}}</td>
 												<td><input id="{{seller}}" value="{{seller}}"
@@ -335,7 +335,7 @@ var data1={};
 var qs = location.search.split('?')[1].split('=')[1];
 console.log(qs);
         app.controller('ViewController', function($scope, $http){
-            $http.get("http://localhost:8089/scm/service/publish/proposal/"+qs).then(function(response){
+            $http.get("http://192.168.4.141:8089/scm/service/publish/proposal/"+qs).then(function(response){
                 $scope.sellersList =response.data;
                 $scope.selection=[]; 
                 console.log(response.data);
@@ -384,7 +384,7 @@ console.log(data);
             }
 
                 // POST method is used to pass the data to Backend from Angular JS Frontend 
-        $http.post("http://localhost:8089/scm/service/publish/toIdentifiedSellers/"+qs, data, config).then(function (data, status) {
+        $http.post("http://192.168.4.141:8089/scm/service/publish/toIdentifiedSellers/"+qs, data, config).then(function (data, status) {
 		
 window.location="viewAllProposals.html";
 console.log("Display");

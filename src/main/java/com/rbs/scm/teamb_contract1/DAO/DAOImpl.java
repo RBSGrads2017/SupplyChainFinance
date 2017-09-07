@@ -1211,5 +1211,81 @@ public class DAOImpl {
 		}
 
 	}
+	
+public int get_available_cost(int proposal_id, int seller_id) {
+		
+		Statement statement = null;
+		Connection connection = create_connection();
+		int cost_a = 0;
+		
+		try {
+			String sql = "SELECT \"cost\" FROM";
+			sql += " \"Response\" ";
+			sql += " WHERE \"proposal_id\"=";
+			sql += proposal_id;
+			sql += " AND \"seller_id\"=";
+			sql += seller_id;
+			sql += " AND \"response_status\"=";
+			sql += "'A'";
+			System.out.println(sql);
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			
+			while (rs.next()) {
+				cost_a += rs.getInt(1);
+			}
+			rs.close();
+			return cost_a;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return cost_a;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+	}
+	
+	
+	public int get_available_customisable_cost(int proposal_id, int seller_id) {
+		
+		Statement statement = null;
+		Connection connection = create_connection();
+		int cost_ac = 0;
+		
+		try {
+			String sql = "SELECT \"cost\" FROM";
+			sql += " \"Response\" ";
+			sql += " WHERE \"proposal_id\"=";
+			sql += proposal_id;
+			sql += " AND \"seller_id\"=";
+			sql += seller_id;
+			sql += " AND \"response_status\"!=";
+			sql += "'N'";
+			System.out.println(sql);
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			
+			while (rs.next()) {
+				cost_ac += rs.getInt(1);
+			}
+			rs.close();
+			return cost_ac;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return cost_ac;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
 
 }
