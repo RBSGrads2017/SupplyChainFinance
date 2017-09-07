@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
+	<script src="../../js/commonResources.js"></script>
+    <!-- Custom Fonts -->
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style type="text/css">
+            #hey:hover {
+                opacity: 0.9;
+            }
+            a.UserName
+            {
+                text-decoration: none;
+            }
+            input:focus{
+                outline-color:transparent;
+            }
+            .MyInputDiv {
+
+                margin:auto;
+                border-radius:20px;
+                width: 80%;
+            }
+            .MyInputSpan {
+                border-radius: 20px 0px 0px 20px; 
+                width:280px;
+                background-color: #337ab7;
+                color:#f5f5f5; 
+                border:0px;
+            }
+            .MyInputField{
+                border:0px;
+
+                background-color: #fff;
+                border-radius: 0px 20px 20px 0px;
+                color:#555;
+
+                font-weight:;
+                opacity: 1;
+            }
+            #LoginSubmitDiv {
+                position:;
+                height:30px;
+                margin:50px;
+            }
+
+            #submitLogin {
+                width:40%;
+                border-radius:20px;
+                display: block;
+                margin:auto; padding:5px;
+                padding-left:20px;
+                padding-right:20px;
+                background-color:#469c2a;
+                box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.2);
+                color:rgba(255,255,255,0.9);
+                border:0px;
+                font-size:125%;
+            }
+
+            .media-body {
+                width: 700px;
+                margin:0 auto;
+                text-align: center;
+            }
+
+            #alignPayment{
+                width: 700px;
+            }
+
+            #alignPayment{
+                align-items: center;
+            }
+
+            .dropdown{
+                width: 256px;
+                height:34px;
+                border-radius: 0px 20px 20px 0px;
+
+            }
+
+            .modal {
+                display: none; /* Hidden by default */
+/*                position: fixed; /* Stay in place */
+*/                z-index: 1; /* Sit on top */
+                padding-top: 300px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(192,192,192); /* Fallback color */
+                background-color: rgba(128,128,128,0.4); /* Black w/ opacity */
+            }
+
+            /* Modal Content */
+            .modal-content {
+                background-color: #fefefe;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+            }
+
+            /* The Close Button */
+            .close {
+                color: #aaaaaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+
+
+        </style>
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html" >
+
+                        <img src="2358536-rbs-tm-2013.png" style=" display: block; margin: auto; width: 110px;"> 
+                        
+
+                    </a>
+                </div>
+                <!-- /.navbar-header -->
+
+                <ul class="nav navbar-top-links navbar-right">
+
+
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-pencil-square-o"></i> Contracts Pending Approval
+                                        <span class="badge">3</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-list-alt"></i> Invoices received
+                                        <span class="badge">2</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+                            <li>
+                                <a class="text-center" href="#">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-alerts -->
+                    </li>
+                    <!-- /.dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="HomePage.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+                <div dir="rtl">
+
+                    <div class="navbar-default sidebar" role="navigation" >
+                        <div class="sidebar-nav navbar-collapse">
+                            <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
+                        <!--<li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                             /input-group 
+                         </li> -->
+                         <li>
+                            <div style="overflow: auto;" >
+                                <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
+
+                                <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
+
+                                <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="index.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
+                        </li>
+                        <li>
+                            <a href="#"> Contract Management <i class="fa fa-briefcase fa-fw"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Create Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">View Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Edit Proposal</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="#"> Purchase Order <i class="fa fa-file-text-o"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Review</a>
+                                </li> 
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"> Invoice Management <i class="fa fa-list-alt"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Create Invoice</a>
+                                </li>
+                                <li>
+                                    <a href="#">View Invoice</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="HomePage.html"> Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </div>
+    </nav>
+
+    <div style="margin-top: 10px">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-8 jumbotron" id="alignMain" style="padding-top:0px; height:800px; border-radius: 20px; text-align: center; background-color:#555">
+
+             <div class="row">
+                <div class="col-sm-12" style="background-color:#337ab7; border-radius: 20px 20px 0px 0px;"><br><br>
+                    <p style="font-size: 300%; color: white"><b>PAYMENT PORTAL</b></p>
+                </div>
+            </div>
+            <br><br>
+
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-6" id="alignPayment">
+
+                    <div class="media" >
+
+                                <!-- <div class="media-left media-top" >
+                                    
+                                    <div class="media-object" style="background-color:white;border-radius:20px; width:100px;height: 100px;">
+                                       
+                                    </div>
+                                   
+                                </div> -->
+                                <hr>
+                                <div class="media-body" ng-app="pymntapp" ng-controller="pymntctrl" >
+                                    <form>
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>SENDER</b></span>
+                                            <input type="text" class="form-control MyInputField" id="sender" name="sender" ng-model=buyerId disabled=true/>
+                                        </div>
+                                        <br>
+                                         <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>CURRENCY</b></span> 
+                                            <input type="text" class="form-control MyInputField" id="currency" name="currency" ng-model=currency disabled=true />
+                                        </div>
+                                        <br>
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>INSTRUCTED AMOUNT</b></span> 
+                                            <input type="text" class="form-control MyInputField" id="amount" name="amount" ng-model=amount disabled=true />
+                                        </div>
+                                        <br>
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>BENEFICIARY CUSTOMER</b></span>
+                                            <input type="text" class="form-control MyInputField" id="beneficiary" name="beneficiary" ng-model=sellerId disabled=true />
+                                        </div>
+                                        <br>
+                                       
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>ACCOUNT TO CREDIT TO</b></span>
+                                            <input type="text" class="form-control MyInputField" id="credAcc" name="beneficiary" ng-model=creditAccount disabled=true />
+                                        </div>
+                                        <br>
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>ACCOUNT TO DEBIT FROM</b></span>
+                                            <input type="text" class="form-control MyInputField" id="debAcc" name="debAcc" ng-model=debitAccount disabled=true />
+                                        </div>
+                                        <br>
+                                        <div class="input-group MyInputDiv">   
+                                            <span class="input-group-addon MyInputSpan"><b>DATE OF DEBIT</b></span> 
+                                            <input type="text" class="form-control MyInputField" id="date" name="date" ng-model=date disabled=true />
+                                        </div>
+                                        <br>
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>DETAILS OF CHARGERS</b></span> 
+                                            <input type="text" class="form-control MyInputField" id="chargerDetails" name="details" ng-model=details disabled=true/>
+                                        </div>
+
+                                        <br>
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>ADDITIONAL MESSAGE TEXT</b></span>
+                                            <input type="text" class="form-control MyInputField" id="msgText" name="comments" ng-model=comments disabled=true/>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class= "col-sm-offset-1 col-sm-10" id="LoginSubmitDiv">
+
+                                                <button type="SUBMIT" id="myBtn" ng-click="sendFormData()">SUBMIT</button>
+
+                                                <!-- The Modal -->
+                                                <div id="myModal" class="modal">
+
+                                                    <!-- Modal content -->
+                                                    <div class="modal-content">
+                                                        <span class="close">&times;</span>
+                                                        <p>PAYMENT UNDER PROCESSING...</p>
+                                                        <!-- <button type="button" id="paymentOk">OK</button> -->
+                                                        <input type="submit" value="OK" onclick="window.open('../teamd_payments/pendingTransaction.html','_self')" />
+                                                       <!--  <p id="disp"></p>
+                                                            <script>
+                                                                var btnPaymentOk= document.getElementById('paymentOk');
+                                                                btnPaymentOk.onclick = function() {
+                                                                document.getElementById('disp').innerHTML = "Move to next page."
+                                                            }
+                                                            </script> -->
+                                                    </div>
+                                                </div>
+
+                                        <script>
+                                            // Get the modal
+                                            var modal = document.getElementById('myModal');
+
+                                            // Get the button that opens the modal
+                                            var btn = document.getElementById("myBtn");
+
+                                            // Get the <span> element that closes the modal
+                                            var span = document.getElementsByClassName("close")[0];
+
+                                            // When the user clicks the button, open the modal 
+                                            btn.onclick = function() {
+                                                modal.style.display = "block";
+                                            }
+
+                                            // When the user clicks on <span> (x), close the modal
+                                            span.onclick = function() {
+                                                modal.style.display = "none";
+                                            }
+
+                                            // When the user clicks anywhere outside of the modal, close it
+                                            window.onclick = function(event) {
+                                                if (event.target == modal) {
+                                                    modal.style.display = "none";
+                                                }
+                                            }
+
+                                            var app = angular.module('pymntapp', []);
+
+                                            app.controller('pymntctrl', function($scope, $http, $httpParamSerializerJQLike,$window){
+                                            	$scope.SessionUsername  =  "";
+                                    		    $scope.SessionUsertype  =  ""; 
+                                    		   
+                                    		    var promise = $http({
+                                    		        url: BASE_PATH + '/service/login/getUserInfo',
+                                    		        method: 'POST',
+                                    		        headers: { 'Content-Type': 'text/plain' }
+                                    		    });
+                                    		    promise.then(function (response) {
+                                    		    	console.log(response.data);
+                                    		    	
+                                    		    	if (response.data == "no session") {
+                                    		    		$window.location.href = '../teama_login/HomePage.html'
+                                    		    	} else {
+                                    		    		
+                                    		    	    $scope.SessionUsertype  =  response.data.userType; 
+                                    		    	    $scope.SessionUsername  =  response.data.fullName;
+                                    		    	    
+                                    		    	}
+                                    		    	
+                                    		    }, function(response) {
+                                    		    	console.log("couldnot load data");
+                                    		    });
+                                            	
+                                            	
+                                            	
+                                            	$http.get("http://localhost:8089/scm/service/Transactions/initTransaction?Id=3333&type=Invoice").then(function(response){
+                                                	 var prefill = response.data;
+                                                    $scope.buyerId = prefill.buyerId;
+                                                    $scope.sellerId = prefill.sellerId;
+                                                    $scope.amount = prefill.amount;
+                                                    $scope.currency = prefill.currency;
+                                                    $scope.date = prefill.dateOfPayment;
+                                                    $scope.creditAccount = prefill.creditAccount;
+                                                    $scope.debitAccount = prefill.debitAccount;
+                                                    $scope.comments = prefill.comments,
+                                                    $scope.details = prefill.details
+                                                    
+                                                })
+                                                
+                                             
+											 	$scope.sendFormData = function(){
+													console.log("Form being submitted");
+												
+													$http({
+											            method: 'POST',
+											            url: 'http://localhost:8089/scm/service/Transactions/initTransaction',
+											            headers: {'Content-Type': 'text/plain'},
+											            data: {
+															sender : $scope.buyerId,
+															amount : $scope.amount,
+															currency : $scope.currency,
+															beneficiary : $scope.sellerId,
+															creditAcc : $scope.creditAccount,
+															debitAcc:$scope.debitAccount,
+															date : $scope.date,
+															details : $scope.details,
+															comments:$scope.comments
+														}
+											        }).then(function (response) {console.log(response.data)});
+											 
+                                            	}});
+                                        </script>
+
+
+
+
+
+
+</div>
+
+
+
+</div>
+<br><Br><br><br>
+
+</form>
+
+
+
+</div>
+
+
+
+
+</div>
+
+</div>
+<div class="col-sm-6">
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../../vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../../vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="../../vendor/raphael/raphael.min.js"></script>
+<script src="../../vendor/morrisjs/morris.min.js"></script>
+<script src="../../data/morris-data.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../../dist/js/sb-admin-2.js"></script>
+
+
+
+</body>
+
+</html>
