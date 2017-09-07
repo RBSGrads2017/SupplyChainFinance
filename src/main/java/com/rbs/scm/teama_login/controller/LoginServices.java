@@ -205,7 +205,8 @@ public class LoginServices {
 		BankUser b = BankUserDaoImpl.searchBankUser(Uname);
 		
 		if(b == null)	{ return null; }
-		System.out.println(b.getFullname());
+		System.out.println("bank details available");
+		System.out.println(b);
 		return b.convertObjectToJSON();
 	}
 	
