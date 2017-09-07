@@ -122,7 +122,7 @@ public class ContractManagementSellerService {
 
 	//service 3 FUNCTION TO UPDATE SELLER'S RESPONSE TO THE FEATURES OF EVERY PRODUCT IN THE PRODUCT= WITH A/C/N RADIO BUTTONS
 	 
-	 public void updatesellerresponse(int productid, int proposalid, int featureid, int sellerid, String response) throws ClassNotFoundException, SQLException {
+	 public void updatesellerresponse(int productid, int proposalid, int featureid, int sellerid, String response ,int cost) throws ClassNotFoundException, SQLException {
 
 			
 		 dbobj = new DatabaseConnectionPostgreSQL();
@@ -131,12 +131,12 @@ public class ContractManagementSellerService {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from \"Response\" where p_id="+productid+" AND f_id=" + featureid + " AND" + " seller_id="+sellerid+" AND proposal_id="+proposalid);
 		 if(!rs.next()){
-			 stmt.executeUpdate("insert into \"Response\" (response_status,seller_id,f_id,p_id,proposal_id) VALUES('"+response+"',"+sellerid+","+featureid+","+productid+","+proposalid+");");
+			 stmt.executeUpdate("insert into \"Response\" (response_status,seller_id,f_id,p_id,proposal_id,cost) VALUES('"+response+"',"+sellerid+","+featureid+","+productid+","+proposalid+","+cost+")");
 		 }
 		 else
 		 {
 			 stmt.execute("delete from \"Response\" where p_id="+productid+" AND f_id=" + featureid + " AND" + " seller_id="+sellerid+" AND proposal_id="+proposalid);
-			 stmt.executeUpdate("insert into \"Response\" VALUES('"+response+"',"+sellerid+","+featureid+","+productid+","+proposalid+")");
+			 stmt.executeUpdate("insert into \"Response\" VALUES('"+response+"',"+sellerid+","+featureid+","+productid+","+proposalid+","+cost+")");
 
 		 }
 		

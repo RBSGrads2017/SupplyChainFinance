@@ -224,13 +224,16 @@ var myApp = angular.module('myApp', ["ngRoute"]);
 					        x.style.display = 'none';
 					    }
 				  }
+				  
+				  var cos=document.getElementById("cost"+index).value;
+				  console.log(cos);
 				
 				console.log(BASE_PATH + '/contractmanagementseller/updatesellerresponse/'
-						+ $rootScope.proposal_id +'/' + p + '/' +f + '/' + s + '/' +r);
+						+ $rootScope.proposal_id +'/' + p + '/' +f + '/' + s + '/' +r + '/' +cos);
 				$http.post(BASE_PATH + '/contractmanagementseller/updatesellerresponse/'
-						+ $rootScope.proposal_id +'/' + p + '/' +f + '/' + s + '/' +r)
+						+ $rootScope.proposal_id +'/' + p + '/' +f + '/' + s + '/' +r +'/' +cos)
 				.success(function (data) {                  
-	                console.log('updated Radio Button');
+	                console.log('updated Radio Button and cost');
 				});
 			}   			
 				$scope.showconfirmbox = function (status) {

@@ -78,13 +78,14 @@ public class ContractManagementSellerController {
 	 OF EVERY PRODUCT IN THE PRODUCT= WITH A/C/N RADIO BUTTONS
 				*/
 	
-    @RequestMapping("/updatesellerresponse/{proposal_id}/{product_id}/{feature_id}/{seller_id}/{response}")
-    public void updateresponse(@PathVariable("proposal_id") String propid,@PathVariable("product_id") String prodid, @PathVariable("feature_id") String fid,@PathVariable("seller_id") String sid, @PathVariable("response") String response) throws ClassNotFoundException, SQLException {
+    @RequestMapping("/updatesellerresponse/{proposal_id}/{product_id}/{feature_id}/{seller_id}/{response}/{cost}")
+    public void updateresponse(@PathVariable("proposal_id") String propid,@PathVariable("product_id") String prodid, @PathVariable("feature_id") String fid,@PathVariable("seller_id") String sid, @PathVariable("response") String response,@PathVariable("cost") String cost) throws ClassNotFoundException, SQLException {
         int proposalid = Integer.parseInt(propid);
         int productid = Integer.parseInt(prodid);
         int featureid = Integer.parseInt(fid);
         int sellerid = Integer.parseInt(sid);
-        service.updatesellerresponse(productid,proposalid,featureid,sellerid, response);
+        int cost_ = Integer.parseInt(cost);
+        service.updatesellerresponse(productid,proposalid,featureid,sellerid, response,cost_);
       
     }
     
