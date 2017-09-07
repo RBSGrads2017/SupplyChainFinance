@@ -1,9 +1,11 @@
 package com.rbs.scm.teamd_payments.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,8 +45,10 @@ public class MainController {
     @GET 
     @Path("/initTransaction")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getInititateTransaction(@QueryParam("Id")int Id,@QueryParam("type")String type) throws JSONException
+    public String getInititateTransaction(@QueryParam("Id")int Id,@QueryParam("type")String type, @Context HttpServletRequest request,@Context HttpServletResponse response ) throws JSONException, IOException
     {
+    	
+    		
     		if(type.equals("Invoice"))
     		{
     			ConsumeRestService consumer = new ConsumeRestService();

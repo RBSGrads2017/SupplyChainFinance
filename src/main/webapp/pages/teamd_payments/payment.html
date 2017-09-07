@@ -24,7 +24,7 @@
 
     <!-- Morris Charts CSS -->
     <link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
-
+	<script src="../../js/commonResources.js"></script>
     <!-- Custom Fonts -->
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
@@ -439,10 +439,36 @@
                                                 }
                                             }
 
-                                            var app = angular.module('pymntapp', ['ngMaterial']);
+                                            var app = angular.module('pymntapp', []);
 
-                                            app.controller('pymntctrl', function($scope, $http, $httpParamSerializerJQLike){
-                                                $http.get("http://localhost:8089/scm/service/Transactions/initTransaction?InvoiceId=3333").then(function(response){
+                                            app.controller('pymntctrl', function($scope, $http, $httpParamSerializerJQLike,$window){
+                                            	$scope.SessionUsername  =  "";
+                                    		    $scope.SessionUsertype  =  ""; 
+                                    		   
+                                    		    var promise = $http({
+                                    		        url: BASE_PATH + '/service/login/getUserInfo',
+                                    		        method: 'POST',
+                                    		        headers: { 'Content-Type': 'text/plain' }
+                                    		    });
+                                    		    promise.then(function (response) {
+                                    		    	console.log(response.data);
+                                    		    	
+                                    		    	if (response.data == "no session") {
+                                    		    		$window.location.href = '../teama_login/HomePage.html'
+                                    		    	} else {
+                                    		    		
+                                    		    	    $scope.SessionUsertype  =  response.data.userType; 
+                                    		    	    $scope.SessionUsername  =  response.data.fullName;
+                                    		    	    
+                                    		    	}
+                                    		    	
+                                    		    }, function(response) {
+                                    		    	console.log("couldnot load data");
+                                    		    });
+                                            	
+                                            	
+                                            	
+                                            	$http.get("http://localhost:8089/scm/service/Transactions/initTransaction?Id=3333&type=Invoice").then(function(response){
                                                 	 var prefill = response.data;
                                                     $scope.buyerId = prefill.buyerId;
                                                     $scope.sellerId = prefill.sellerId;
