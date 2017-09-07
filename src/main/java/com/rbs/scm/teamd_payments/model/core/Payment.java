@@ -405,7 +405,10 @@ public class Payment {
 	{
 		return;
 	}
-	
+	void paymentFailed(int transactionId)
+	{
+		return;
+	}
 	
 	//Getting all the aml check failure transactions
 	public JSONArray getAMLFailures()
@@ -480,6 +483,32 @@ public class Payment {
 		}
 	}
 	
-	
-	
+	public boolean approveAML(int txnId)
+	{
+		try {
+			PaymentsImpl p = new PaymentsImpl();
+			p.updateAmlStatus(txnId, Constants.AML_DONE);
+			p.updateTransactionStatus(txnId, Constants.PAYMENT_SUCCESS);
+			paymentSuccess(txnId);
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
+	public boolean rejectAML(int txnId)
+	{
+		try {
+			PaymentsImpl p = new PaymentsImpl();
+			p.updateAmlStatus(txnId, Constants.AML_NOT_DONE);
+			p.updateTransactionStatus(txnId, Constants.PAYMENT_FAILED);
+			paymentFailed(txnId);
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
 }

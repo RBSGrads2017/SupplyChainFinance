@@ -27,7 +27,14 @@
 
     <!-- Custom Fonts -->
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 
+  <!-- Angular Material Library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -353,7 +360,15 @@
                                             <td>{{trn.beneficiary}}</td>
                                             <td>{{trn.amount}}</td>
                                             <td>{{trn.aml_status}}</td>
-                                            <td>{{trn.status}}</td>     
+                                            <td>{{trn.status}}</td>
+                                            <td>
+                                                <button type="button" class="btns" id="btn1" ng-click="approveTransaction(transaction.transaction_id);" >APPROVE</button>
+
+                                                <script type="text/javascript">
+                                                    console.log("tid1 value");
+                                                    <!--console.log($scope.msg);-->
+                                                </script>
+                                            </td> 
                                         </tr>
                                     </table>
                                  </div>
@@ -389,12 +404,28 @@
 
 			<script>
 			
-			var app = angular.module('amlflr', []);
+			var app = angular.module('amlflr', ['ngMaterial']);
 			app.controller('amlflrController', function($scope, $http){
 			
                 $http.get("http://localhost:8089/scm/service/Transactions/getAMLFailures").then(function(response){
-            		$scope.trnArray = response.data;        
+            		$scope.trnArray = response.data;
                 });
+                
+               /* $scope.approveTransaction = function(transaction_id){
+					//console.log("Form being submitted");
+				
+					$http({
+			            method: 'POST',
+			            url: 'http://localhost:8089/scm/service/Transactions/setCurrentTransaction',
+			            headers: {'Content-Type': 'text/plain'},
+			            data: {
+							trns_id : transaction_id
+						}
+			        }).then(function (response) {
+			        	console.log(response.data)
+			        	window.open('../teamd_payments/swiftMT103.html','_self')
+			        	});
+                }*/
 			});
 			
 			</script>

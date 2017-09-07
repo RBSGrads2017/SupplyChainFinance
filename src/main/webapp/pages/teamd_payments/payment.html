@@ -27,7 +27,14 @@
 
     <!-- Custom Fonts -->
     <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 
+  <!-- Angular Material Library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -432,7 +439,7 @@
                                                 }
                                             }
 
-                                            var app = angular.module('pymntapp', []);
+                                            var app = angular.module('pymntapp', ['ngMaterial']);
 
                                             app.controller('pymntctrl', function($scope, $http, $httpParamSerializerJQLike){
                                                 $http.get("http://localhost:8089/scm/service/Transactions/initTransaction?InvoiceId=3333").then(function(response){

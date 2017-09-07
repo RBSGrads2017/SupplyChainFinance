@@ -42,17 +42,30 @@ public class MainController {
     @GET 
     @Path("/initTransaction")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getInititateTransaction(@QueryParam("InvoiceId")int invoiceId) throws JSONException
+    public String getInititateTransaction(@QueryParam("Id")int Id,@QueryParam("type")String type) throws JSONException
     {
+    		if(type.equals("Invoice"))
+    		{
+    			ConsumeRestService consumer = new ConsumeRestService();
+        		JSONObject returnObj = new JSONObject(consumer.getInvoice(Id));
+        		//Get Account details
+        		returnObj.put("creditAccount","123456789");
+        		returnObj.put("debitAccount","987654321");
+        		returnObj.put("comments","Invoice "+Id);
+        		returnObj.put("details","SHR");    		
+        		return returnObj.toString();
+    		}
+    		else
+    		{
+    			ConsumeRestService consumer = new ConsumeRestService();
+        		JSONObject returnObj = new JSONObject(consumer.getInvoice(Id));
+        		returnObj.put("creditAccount","123456789");
+        		returnObj.put("debitAccount","987654321");
+        		returnObj.put("comments","PO "+Id);
+        		returnObj.put("details","SHR");    		
+        		return returnObj.toString();
+    		}
     		
-    		ConsumeRestService consumer = new ConsumeRestService();
-    		JSONObject returnObj = new JSONObject(consumer.getInvoice(invoiceId));
-    		//Get Account details
-    		returnObj.put("creditAccount","123456789");
-    		returnObj.put("debitAccount","987654321");
-    		returnObj.put("comments","Invoice "+invoiceId);
-    		returnObj.put("details","SHR");    		
-    		return returnObj.toString();
     }
     
     @POST
@@ -219,7 +232,6 @@ public class MainController {
     
     @GET
     @Path("/getAMLFailures")
-    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String getAMLFailures() throws JSONException
     {
@@ -231,7 +243,42 @@ public class MainController {
     }
     
     
+    @GET
+    @Path("/approveAML")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String approveAML(@QueryParam("TransactionId")int txnId)
+    {
+
+    	Payment pay = new Payment();
+    	if(pay.approveAML(txnId))
+    	{
+    		return "success";
+    	}
+    	else
+    	{
+    		return "failure";
+    	}
+    	
+    }
     
+    
+    @GET
+    @Path("/rejectAML")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String rejectAML(@QueryParam("TransactionId")int txnId)
+    {
+
+    	Payment pay = new Payment();
+    	if(pay.rejectAML(txnId))
+    	{
+    		return "success";
+    	}
+    	else
+    	{
+    		return "failure";
+    	}
+    	
+    }
     
 }
 
