@@ -1,6 +1,7 @@
 package com.rbs.scm;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import com.rbs.scm.teame_funding.controller.db.FundingDAOimpl;
 import com.rbs.scm.teame_funding.controller.services.Fetch;
 import com.rbs.scm.teame_funding.dao.Business;
 import com.rbs.scm.teame_funding.model.pojos.Invoice;
+import com.rbs.scm.teame_funding.model.pojos.Libor;
 import com.rbs.scm.teame_funding.model.pojos.PurchaseOrder;
 
 
@@ -40,6 +42,21 @@ public class FetchLibor {
 		String s = f.fetch();
 		System.out.print(s);
 		return s;
+	}
+	
+	@Path("insertlibor")
+	@GET
+	public boolean putlibor(@QueryParam("Currency") String Currency, @QueryParam("Duration") String Duration, @QueryParam("Rate") String Rate ) throws ParseException {
+		FundingDAOimpl db = new FundingDAOimpl();
+		Currency="3786y";
+		Duration="djk";
+		Rate="3456";
+		Libor l=new Libor();
+		l.setCurrency(Currency);
+		l.setDuration(Duration);
+		l.setRate(Double.parseDouble(Rate));
+		db.insertLIBOR(l);
+		return true;
 	}
 
 	/*@Path("/sessioncheck")

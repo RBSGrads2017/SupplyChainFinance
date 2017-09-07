@@ -6,19 +6,43 @@ public class PurchaseOrder {
 	List<Invoice> li;
 	List<Integer> invoiceIDs;
 	String FinancialInstitution;
-	String FinancingId;
-	String InvestmentAmount;
-	String DiscountRate;
-	String NetPayable;
-	String Fees;
-	
-	Buyer buyer;
-	Seller seller;
-	
+    String FinancingId;
+    Double InvestmentAmount;
+    Double DiscountRate;
+    Double NetPayable;
+    Integer Fees;
+    String buyer_id;
+    String seller_id;
+    String buyer_name;
+    String seller_name;
 	boolean isSellerApproved;
 	boolean isBankApproved;
 	
 	String POID;
+	   public String getbuyer_name() {
+	        return buyer_name;
+	    }
+	    public void setbuyer_name(String name) {
+	        buyer_name = name;
+	    }
+	    public String getseller_name() {
+	        return seller_name;
+	    }
+	    public void setseller_name(String name) {
+	        seller_name= name;
+	    }
+    public String getbuyer_id() {
+        return buyer_id;
+    }
+    public void setbuyer_id(String id) {
+        buyer_id = id;
+    }
+    public String getseller_id() {
+        return seller_id;
+    }
+    public void setseller_id(String id) {
+        seller_id= id;
+    }
 	
 	public String getPOID() {
 		return POID;
@@ -51,27 +75,14 @@ public class PurchaseOrder {
 	public void setBankApproved(boolean isBankApproved) {
 		this.isBankApproved = isBankApproved;
 	}
-
-	public Buyer getBuyer() {
-		return buyer;
-	}
-
-	public void setBuyer(Buyer buyer) {
-		this.buyer = buyer;
-	}
-
-	public Seller getSeller() {
-		return seller;
-	}
-
-	public void setSeller(Seller seller) {
-		this.seller = seller;
-	}
-
 	
+	public PurchaseOrder()
+	{
+		
+	}
 
 	public PurchaseOrder(List<Integer> invoiceIDs, String financialInstitution, String financingId,
-			String investmentAmount, String discountRate, String netPayable, String fees, Buyer buyer, Seller seller,
+			Double investmentAmount, Double discountRate, Double netPayable, Integer fees, String buyer_id, String seller_id,
 			boolean isSellerApproved, boolean isBankApproved, String pOID) {
 		super();
 		this.invoiceIDs = invoiceIDs;
@@ -81,74 +92,52 @@ public class PurchaseOrder {
 		DiscountRate = discountRate;
 		NetPayable = netPayable;
 		Fees = fees;
-		this.buyer = buyer;
-		this.seller = seller;
+		this.buyer_id = buyer_id;
+		this.seller_id =seller_id;
 		this.isSellerApproved = isSellerApproved;
 		this.isBankApproved = isBankApproved;
 		POID = pOID;
 	}
-
-	/*public PurchaseOrder(List<Invoice> li, String InvestmentAmount, 
-			String DiscountRate, String NetPayable, String Fees ){
-		FinancialInstitution="RBS";
-		FinancingId="0"; // ---------------------- generate new id.
-		this.InvestmentAmount= InvestmentAmount;
-		this.DiscountRate = DiscountRate;
-		this.NetPayable= NetPayable;
-		this.Fees= Fees;
-	}*/
-	
-	public PurchaseOrder() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public List<Invoice> getLi() {
-		return li;
-	}
-	public void setLi(List<Invoice> li) {
-		this.li = li;
-	}
-	public String getFinancialInstitution() {
-		return FinancialInstitution;
-	}
-	public void setFinancialInstitution(String financialInstitution) {
-		FinancialInstitution = financialInstitution;
-	}
-	public String getFinancingId() {
-		return FinancingId;
-	}
-	public void setFinancingId(String financingId) {
-		FinancingId = financingId;
-	}
-	public String getInvestmentAmount() {
-		return InvestmentAmount;
-	}
-	public void setInvestmentAmount(String investmentAmount) {
-		InvestmentAmount = investmentAmount;
-	}
-	public String getDiscountRate() {
-		return DiscountRate;
-	}
-	public void setDiscountRate(String discountRate) {
-		DiscountRate = discountRate;
-	}
-	public String getNetPayable() {
-		return NetPayable;
-	}
-	public void setNetPayable(String netPayable) {
-		NetPayable = netPayable;
-	}
-	public String getFees() {
-		return Fees;
-	}
-	public void setFees(String fees) {
-		Fees = fees;
-	}
-
+	 public String getFinancialInstitution() {
+	        return FinancialInstitution;
+	    }
+	    public void setFinancialInstitution(String financialInstitution) {
+	        FinancialInstitution = financialInstitution;
+	    }
+	    public String getFinancingId() {
+	        return FinancingId;
+	    }
+	    public void setFinancingId(String financingId) {
+	        FinancingId = financingId;
+	    }
+	    public Double getInvestmentAmount() {
+	        return InvestmentAmount;
+	    }
+	    public void setInvestmentAmount(Double investmentAmount) {
+	        InvestmentAmount = investmentAmount;
+	    }
+	    public Double getDiscountRate() {
+	        return DiscountRate;
+	    }
+	    public void setDiscountRate(Double discountRate) {
+	        DiscountRate = discountRate;
+	    }
+	    public Double getNetPayable() {
+	        return NetPayable;
+	    }
+	    public void setNetPayable(Double netPayable) {
+	        NetPayable = netPayable;
+	    }
+	    public Integer getFees() {
+	        return Fees;
+	    }
+	    public void setFees(Integer fees) {
+	        Fees = fees;
+	    }
 	@Override
 	public String toString() {
 		return "PurchaseOrder [invoiceIDs=" + invoiceIDs + ", InvestmentAmount=" + InvestmentAmount + ", DiscountRate="
-				+ DiscountRate + ", NetPayable=" + NetPayable + ", buyer=" + buyer.getBuyer_id() + ", seller=" + seller.getSeller_id()
+				+ DiscountRate + ", NetPayable=" + NetPayable + ", buyer=" + buyer_id + ", seller=" + seller_id
 				+ ", isSellerApproved=" + isSellerApproved + ", isBankApproved=" + isBankApproved + ", POID=" + POID
 				+ "]";
 	}
