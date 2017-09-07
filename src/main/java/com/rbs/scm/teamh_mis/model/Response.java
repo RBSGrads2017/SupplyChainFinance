@@ -7,6 +7,13 @@ public class Response {
 	private int proposal_id; 
 	private char response_status;
 	private int seller_id;
+	private int cost;
+	public int getCost() {
+		return cost;
+	}
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
 	public int getF_id() {
 		return f_id;
 	}
