@@ -65,9 +65,9 @@ public class InvoiceController {
 		return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/ReceivedInvoices", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Invoice>> listReceivedInvoices(@PathParam("sellerID") double sellerID) throws ClassNotFoundException, SQLException {
-	System.out.println("id is"+sellerID);
-		List<Invoice> invoices = invoiceServiceObj.listReceivedInvoices(sellerID);
+	public ResponseEntity<List<Invoice>> listReceivedInvoices(@PathParam("buyerID") double buyerID) throws ClassNotFoundException, SQLException {
+	System.out.println("id in buyer received"+buyerID);
+		List<Invoice> invoices = invoiceServiceObj.listReceivedInvoices(buyerID);
 		if (invoices.isEmpty()) {
 			return new ResponseEntity<List<Invoice>>(HttpStatus.NO_CONTENT);
 		}
@@ -128,6 +128,18 @@ public class InvoiceController {
 		//Invoice invoiceObj = invoiceServiceObj.search(invoiceNo);
 		
 		Invoice invoiceObj = invoiceServiceObj.search(billBookNo,sellerid);
+		if(invoiceObj == null){
+			System.out.println("Invoice with billBook No"+billBookNo+"is not found");
+			return new ResponseEntity<Invoice>(invoiceObj,HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Invoice>(invoiceObj,HttpStatus.OK);
+    }
+	@RequestMapping(value = "/searchInvoicebill",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Invoice> searchInvoice(@PathParam("billBookNo") double billBookNo) throws ClassNotFoundException, SQLException {
+		System.out.println("Getting Invoice with billBook no"+ billBookNo);
+		//Invoice invoiceObj = invoiceServiceObj.search(invoiceNo);
+		
+		Invoice invoiceObj = invoiceServiceObj.searchbybillbook(billBookNo);
 		if(invoiceObj == null){
 			System.out.println("Invoice with billBook No"+billBookNo+"is not found");
 			return new ResponseEntity<Invoice>(invoiceObj,HttpStatus.NOT_FOUND);

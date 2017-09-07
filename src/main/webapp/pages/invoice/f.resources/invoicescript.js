@@ -111,7 +111,9 @@ function myFunction() {
 	});
 
 	invoiceApp.controller('mainController', function($scope, $http){
-		$scope.SessionUsername  =  "";
+		/*
+		 * 
+		 * $scope.SessionUsername  =  "";
 	    $scope.SessionUsertype  =  ""; 
 	   
 	    var promise = $http({
@@ -134,7 +136,8 @@ function myFunction() {
 	    }, function(response) {
 	    	console.log("couldnot load data");
 	    });
-		
+		*
+		*/
 		
 		
         $scope.deletefunc = function () {
@@ -371,11 +374,11 @@ function myFunction() {
 
 		$scope.receivedInvoicefunc = function () {
 			console.log('inside received invoice');
-      		$http.post('http://localhost:8181/scm/invoice/ReceivedInvoices?sellerID=' + $scope.sellerID)
+      		$http.post('http://localhost:8181/scm/invoice/ReceivedInvoices?buyerID=' + $scope.sessionid)
 			.success(function (data) {
 				console.log("inside http");
                 $scope.invoicelist = data;
-                console.log(data);
+                console.log( $scope.invoicelist);
                 });
       		$scope.message="Click to view received invoices";
       		window.location = "#/InvoiceLanding";
@@ -383,18 +386,34 @@ function myFunction() {
 		
 		$scope.sentInvoicefunc = function () {
 			console.log('inside sent invoice');
-      		$http.post('http://localhost:8181/scm/invoice/SentInvoices?sellerID=' + $scope.sellerID)
+      		$http.post('http://localhost:8181/scm/invoice/SentInvoices?sellerID=' + $scope.sessionid)
 			.success(function (data) {
 				console.log("inside http");
                 $scope.invoicelist1 = data;
-                console.log(data);
+                console.log($scope.invoicelist1);
                 });
       		$scope.message1="Click to view sent invoices";
       		window.location = "#/InvoiceLanding";
         }
-		$scope.viewfunc = function (invoiceNo) {
+		$scope.viewfunc = function (billbookNo,invoiceNo) {
 			console.log('inside view invoice');
-			$http.post('http://localhost:8181/scm/invoice/searchInvoice?invoiceID='+invoiceNo).success(function (data) {
+			$http.post('http://localhost:8181/scm/invoice/searchInvoicebill?billBookNo='+billbookNo).success(function(data) {
+				console.log( "in search page after service");
+				$scope.invoice = data;
+                console.log($scope.invoice);
+            });
+			/*  view product  */
+            $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + invoiceNo)
+			.success(function (data) {
+                $scope.productslist = data;
+                console.log($scope.productslist);
+            });
+            window.location = "#/InvoiceLanding";
+	}
+		
+		$scope.viewfunc1 = function (billbookNo,invoiceNo) {
+			console.log('inside view invoice');
+			$http.post('http://localhost:8181/scm/invoice/searchInvoicebill?billBookNo='+billbookNo).success(function(data) {
 				console.log( "in search page after service");
 				$scope.invoice = data;
                 console.log($scope.invoice);

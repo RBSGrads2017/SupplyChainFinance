@@ -178,7 +178,7 @@ public class InvoiceService {
 		Connection con = dbobj.getConnection();
 		try{
 			
-				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where approvalstatus=0 and deletestatus=0 and \"senderID\"=? and draftstatus=0");
+				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where approvalstatus=0 and deletestatus=0 and \"sellerID\"=? ");
 				stmt.setDouble(1,sellerID);
 				ResultSet rs = stmt.executeQuery();				
 				invobj = new Invoice();
@@ -223,7 +223,7 @@ public class InvoiceService {
 		Connection con = dbobj.getConnection();
 		try{
 			
-				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where \"receiverID\"=? and deletestatus=0 and approvalstatus=0 and draftstatus=0");
+				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where \"buyerID\"=? and deletestatus=0 and approvalstatus=0");
 				stmt.setDouble(1,sellerID);
 				ResultSet rs = stmt.executeQuery();				
 				invobj = new Invoice();
@@ -1163,6 +1163,57 @@ public class InvoiceService {
 		}
 		
 		return p;
+	}
+
+	public Invoice searchbybillbook(double billBookNo) throws SQLException, ClassNotFoundException {
+		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
+		Invoice invobj = null;
+		Connection con = dbobj.getConnection();
+		try{
+			
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("select * from invoice1 where billbookno="+billBookNo+" and deletestatus=0");
+				invobj = new Invoice();
+				//System.out.println(rs.toString());
+				if(rs.next()==false) {
+					
+				}
+				else{
+					invobj.setInvoiceID(rs.getDouble(1)); 
+					do{
+				
+					//if(rs.wasNull())
+						//System.out.println("empty");
+					
+						invobj.setInvoiceID(rs.getDouble(1)); 
+						invobj.setContractID(rs.getDouble(2));
+						invobj.setSellerID(rs.getDouble(3));
+						invobj.setBuyerID(rs.getDouble(4));
+						invobj.setBillbookNo(rs.getDouble(5));
+						invobj.setSenderID(rs.getDouble(6));
+						invobj.setReceiverID(rs.getDouble(7));
+						invobj.setFundingRequestStatus(rs.getInt(8));
+						invobj.setApprovalStatus(rs.getInt(9));
+						invobj.setDraftStatus(rs.getInt(10));
+						invobj.setPaymentDate(rs.getDate(11));
+						invobj.setInvoiceAmount(rs.getFloat(12));
+						invobj.setInvoiceDueDate(rs.getDate(13));
+						invobj.setComplianceStatus(rs.getInt(14));
+						invobj.setDeleteStatus(rs.getInt(15));
+						invobj.setDeleteTimestamp(rs.getDate(16));
+						invobj.setInvoiceCreatedDate(rs.getDate(17));
+					System.out.println(invobj.toString());
+			}while(rs.next());
+		}
+			}
+			catch(Exception e)
+			{							
+				System.out.println(e);
+			}
+		finally{
+			con.close();
+		}
+		return invobj;			
 	}
 
 }
