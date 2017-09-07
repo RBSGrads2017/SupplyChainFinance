@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="../reason_for_override.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        #hey:hover {
+opacity: 0.9;
+        }
+        a.UserName
+        {
+            text-decoration: none;
+        }
+        input:focus{
+            outline-color:transparent;
+        }
+        
+        .MyInputDiv {
+            
+            margin:auto;
+            border-radius:20px;
+            width: 80%;
+        }
+        .MyInputSpan {
+            border-radius: 20px 0px 0px 20px; 
+            width:40%;
+            background-color: #337ab7;
+            color:#f5f5f5; 
+            border:0px;
+        }
+        .MyInputField{
+            border:0px;
+            
+            background-color: #fff;
+            border-radius: 0px 20px 20px 0px;
+            color:#555;
+            font-weight:;
+            opacity: 1;
+        }
+        #LoginSubmitDiv {
+            position:relative;
+            height:30px;
+        }
+
+        #submitLogin {
+            width:50%;
+            border-radius:20px;
+            display: block;
+            margin:auto; padding:5px;
+            padding-left:20px;
+            padding-right:20px;
+            background-color:#469c2a;
+            box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.2);
+            color:rgba(255,255,255,0.9);
+            border:0px;
+            font-size:145%;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" >
+                    
+                        <img src="2358536-rbs-tm-2013.png" style=" display: block; margin: auto; width: 110px;"> 
+                        
+                   
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-pencil-square-o"></i> Contracts Pending Approval
+                                    <span class="badge">3</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-list-alt"></i> Invoices received
+                                    <span class="badge">2</span>
+                                </div>
+                            </a>
+                        </li>
+                       
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="HomePage.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div dir="rtl">
+        
+            <div class="navbar-default sidebar" role="navigation" >
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
+                        <!--<li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                             /input-group 
+                        </li> -->
+                        <li>
+                            <div style="overflow: auto;" >
+                                <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
+
+                                <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
+                               
+                                <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="index.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
+                        </li>
+                        <li>
+                            <a href="#"> Contract Management <i class="fa fa-briefcase fa-fw"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Create Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">View Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Edit Proposal</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="#"> Purchase Order <i class="fa fa-file-text-o"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Review</a>
+                                </li> 
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"> Invoice Management <i class="fa fa-list-alt"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Create Invoice</a>
+                                </li>
+                                <li>
+                                    <a href="#">View Invoice</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="HomePage.html"> Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </div>
+        </nav>
+
+        <div style="margin-top: 10px">
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-8 jumbotron" style="padding-top:0px; height:700px; border-radius: 20px; text-align: center; background-color:#555">
+                    <div class="row">
+                        <div class="col-sm-12" style="background-color:#337ab7; border-radius: 20px 20px 0px 0px;"><br><br>
+                            <p style="font-size: 250%; color: white"><b>FUNDING MANAGEMENT</b></p>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class = "row">
+       
+                            <div class="col-md-3">
+                                                               
+                            </div>
+                            <div class="col-md-6 " style="margin-top: 150px;">
+                            	<h2 style="color:white; font-size: 3em;" class="fa fa-hourglass-half"></h2>
+                                <h2 style="color:white">Funding under process</h2>
+                            </div>
+                            <div class="col-md-3">
+                                
+                            </div>
+                            
+                        </div>  
+                    </div>       
+                        <div class="col-sm-6">
+
+                        
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <script src="../vendor/morrisjs/morris.min.js"></script>
+    <script src="../data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

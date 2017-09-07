@@ -58,6 +58,12 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.0</version>
 		</dependency>
+		
+		<dependency>
+  <groupId>org.glassfish.jersey.media</groupId>
+  <artifactId>jersey-media-json-jackson</artifactId>
+  <scope>runtime</scope>
+</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -70,8 +76,19 @@
             <type>pom</type>
             <scope>test</scope>
         </dependency>
+    <dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.1</version>
+    </dependency>
     
-      <dependency>
+     <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
@@ -107,7 +124,8 @@
   			<artifactId>poi-ooxml</artifactId>
   			<version>3.15</version>
 		</dependency>
-		<dependency>
+		
+    <dependency>
     		<groupId>javax.websocket</groupId>
     		<artifactId>javax.websocket-api</artifactId>
     		<version>1.1</version>
@@ -143,6 +161,7 @@
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-moxy</artifactId>
 		</dependency>
+      
     </dependencies>
 
     <build>
