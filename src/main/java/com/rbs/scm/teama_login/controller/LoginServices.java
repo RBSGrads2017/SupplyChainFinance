@@ -47,7 +47,7 @@ public class LoginServices {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("checkCredentials")
-	public Response authenticateUser(String data, @Context HttpServletRequest request) throws JSONException, SQLException {
+	public Response authenticateUser(String data, @Context HttpServletRequest request) throws JSONException, SQLException, JsonGenerationException, JsonMappingException, IOException {
 		JSONObject inputJsonObj = new JSONObject(data);
 		
 		String username = inputJsonObj.getString("username");
@@ -100,7 +100,8 @@ public class LoginServices {
 			Session s = new Session(gu.getUsername(), TypeOfUser,c.getUserIntId(), UserFullName);
 			HttpSession hs = request.getSession();//CREATE A SESSION FOR THE USER.
 			hs.setAttribute("session", s);
-			  
+			hs.setAttribute("sessionObj", s.convertObjectToJSON());  
+			
 			return Response.ok("LoggedInSuccessfully").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();  // Here we can redirect to the landing page
 		} else {
 			return Response.ok("WrongCredentials").header("Access-Control-Allow-Origin", "*").status(Status.OK).build();
@@ -205,7 +206,8 @@ public class LoginServices {
 		BankUser b = BankUserDaoImpl.searchBankUser(Uname);
 		
 		if(b == null)	{ return null; }
-		System.out.println(b.getFullname());
+		System.out.println("bank details available");
+		System.out.println(b);
 		return b.convertObjectToJSON();
 	}
 	
