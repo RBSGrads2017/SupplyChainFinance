@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+	
+	<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<style>
+
+		body{
+			background-image: url();
+			background-color:#f5f5f5; 
+			color:white;
+		}
+
+		body:before{
+		    content : "";
+		    display: block;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    background-image: url(BG.png); 
+		    width: 100%;
+		    height: 100%;
+		    opacity : 0.1;
+		}
+
+
+		#MyContainer{
+			opacity:0.8;
+			background-color:#0389b1;
+			margin-left:15%;
+			margin-right:15%;
+			margin-bottom:10%;
+			margin-top:10%;
+			overflow: auto;
+			box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+		}
+
+		#MainHeading{
+			text-align:center;
+			padding-top:5%;
+			font-size:500%
+		}
+
+		#H_DashedLine{
+			margin:auto;
+			width:80%;
+			opacity: 0.5;
+			height:0px;
+			border:1px dashed white;
+		}
+
+		#V_DashedLine{
+			margin:auto;
+			width:0px; 
+			opacity: 0.5;
+			height:150px;
+			border:1px
+			dashed white;
+		}
+
+		#biz{
+			margin-left:20%;
+			margin-top:3%;
+			float:left;
+			text-align:center;
+			padding: 10px;
+			padding-bottom: 0px
+
+		}
+
+		.fin {
+			margin-right:20%;
+			margin-top:3%;
+			float:right;
+			text-align:center;
+			padding: 10px;
+			padding-bottom: 0px
+		}
+
+		.IconStyle{
+			color:white;
+		}
+
+		.TextStyle{
+			color:white;
+			font-size: 200%;
+			text-decoration: none;
+		}
+
+		#biz:hover{
+			/*opacity: 0.8;*/
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5), 0 3px 10px 0 rgba(0, 0, 0, 0.5);
+			background-color:#101010;
+			border-radius: 10px
+
+		}
+
+		.fin:hover{
+			/*opacity: 0.8;*/
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5), 0 3px 10px 0 rgba(0, 0, 0, 0.5);
+			background-color:#0c0c0c;
+			border-radius: 10px
+		}
+
+	</style>
+
+</head>
+
+<body>
+	
+	
+	<div id= "MyContainer">
+		<h1 id="MainHeading">Supply Chain<br>Finance</h1>
+		
+		<br>
+		
+		<div id="H_DashedLine"></div>
+		
+		<br>
+		<br>
+		<br>
+		
+		<div>
+			<a href="login.html">
+			<div id="biz">
+				<p class="IconStyle"><i class="fa fa-briefcase fa-fw fa-3x"></i></p>
+				<p class="TextStyle">Business</p>
+			</div>
+			</a>
+			
+			<a href="login.html">
+				<div class="fin">
+					<p class="IconStyle"><i class="fa fa-bar-chart fa-fw fa-3x"></i></p>
+					<p class="TextStyle">Finance</p>
+				</div>
+			</a>
+			<div id = "V_DashedLine"></div>
+		</div>
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+	</div>
+
+	<!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+</body>
+
+</html>

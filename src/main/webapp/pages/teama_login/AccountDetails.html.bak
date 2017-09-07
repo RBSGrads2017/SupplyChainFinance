@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        #hey:hover {
+			opacity: 0.9;
+        }
+        a.UserName
+        {
+            text-decoration: none;
+        }
+        input:focus{
+            outline-color:transparent;
+        }
+        button:focus{
+            outline-color:transparent;
+        }
+        ul{
+            cursor: pointer;
+        }
+        .MyInputDiv {
+            
+            margin:auto;
+            border-radius:20px;
+            width: 90%;
+        }
+        .MyInputSpan {
+            border-radius: 20px 0px 0px 20px; 
+            width:40%;
+            background-color: #337ab7;
+            color:#f5f5f5; 
+            border:0px;
+        }
+        .MyInputField{
+            border:0px;
+            
+            background-color: #fff;
+            border-radius: 0px 20px 20px 0px;
+            color:#555;
+            font-weight:;
+            opacity: 1;
+        }
+        .MyBorder {
+        	 border-radius: 0px 20px 20px 0px;
+        }
+        #LoginSubmitDiv {
+            position:relative;
+            height:30px;
+        }
+
+        #submitLogin {
+            width:40%;
+            border-radius:20px;
+            display: block;
+            margin:auto; padding:5px;
+            padding-left:20px;
+            padding-right:20px;
+            background-color:#469c2a;
+            box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.2);
+            color:rgba(255,255,255,0.9);
+            border:0px;
+            font-size:125%;
+        }
+        #SellerOptionsHeader:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body ng-App="app">
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" >
+                    
+                        <img src="2358536-rbs-tm-2013.png" style=" display: block; margin: auto; width: 110px;"> 
+                        
+                   
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-pencil-square-o"></i> Contracts Pending Approval
+                                    <span class="badge">3</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-list-alt"></i> Invoices received
+                                    <span class="badge">2</span>
+                                </div>
+                            </a>
+                        </li>
+                       
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="HomePage.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div dir="rtl">
+        
+            <div class="navbar-default sidebar" role="navigation" >
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
+                        <li>
+                            <div style="overflow: auto;" >
+                                <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
+
+                                <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
+                               
+                                <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="index.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
+                        </li>
+                        <li>
+                            <a href="#" class="inactive"> Contract Management <i class="fa fa-briefcase fa-fw"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Create Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">View Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Edit Proposal</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="#"> Purchase Order <i class="fa fa-file-text-o"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Review</a>
+                                </li> 
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"> Invoice Management <i class="fa fa-list-alt"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Create Invoice</a>
+                                </li>
+                                <li>
+                                    <a href="#">View Invoice</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="HomePage.html"> Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </div>
+        </nav>
+
+        <div style="margin-top: 10px">
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-8 jumbotron" style="padding-top:0px; border-radius: 20px; text-align: center; background-color:#555">
+                    
+                   <div class="row">
+                        <div class="col-sm-12" style="background-color:#337ab7; border-radius: 20px 20px 0px 0px;"><br><br>
+                            <p style="font-size: 300%; color: white"><b>User Account Details</b></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    
+                    <div class="row">
+                        <div class="col-sm-offset-3 col-sm-6">
+
+                        <div class="media" >
+                                <div class = "row">
+                                    <div class = "col-sm-offset-0 col-sm-3">
+                                        <div style="background-color:#555; border-radius:20px; overflow: hidden;">
+                                            <img src="BG.png" style="width:100px;">
+                                        </div>
+                                        <br>
+                                        <button data-toggle="collapse" data-target="#CollapsibleUserAccountEdit" style="width:100px;background-color: #469c2a; border-radius:10px; box-shadow: 0px 2px 40px 0px rgba(0,0,0,0.1); border:0px;color: white;"><b>Edit Profile</b>
+                                        </button>
+                                    </div>
+                                    <div class = "col-sm-offset-1 col-sm-7" style="background-color: #f7f7f7; border-radius: 20px;">
+                                        name: yash
+                                        <br>
+                                        <br>
+                                        add: coho
+                                        <br>
+                                        <br>
+                                        works at:owner
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                            
+
+                                <hr>
+                                <div class="collapse" id="CollapsibleUserAccountEdit">
+                                <div class="media-body">
+                                    <form>
+                                        <!-- <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>Name</b></span><input type="text" class="form-control MyInputField" id="username" name="username"/>
+                                        </div>
+                                        <br>
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>userid</b></span> <input type="email" class="form-control MyInputField" id="emailid" name="emailid"/>
+                                        </div>
+                                        <br> -->
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>phone no.</b></span> <input type="number" class="form-control MyInputField" id="phone" name="phone"/>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+	                                        <div class="col-sm-offset-1 col-sm-10" style="background-color: #777;border-radius: 20px 20px; color: #f7f7f7; text-align: left;">
+	                                        	<p style=""><b><h4>Postal Address:</h4></b></p>
+
+		                                        <div class="input-group MyInputDiv">
+		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" class="form-control MyInputField" list="add1Statelist" id="add1State" name="add1State" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <datalist id="add1Statelist">
+													    <!--Populate <option value = ""> tag-->
+													</datalist>
+		                                        </div>
+		                                        <br>
+		                                        <div class="input-group MyInputDiv">
+		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" class="form-control MyInputField" list="add1Citylist" id="add1City" name="add1City" style="border-radius: 0px 20px 20px 0px;" />
+		                                            <datalist id="add1Citylist">
+													    <!--Populate <option value = ""> tag-->
+													</datalist>
+		                                        </div>
+		                                        <br>
+		                                        <div class="input-group MyInputDiv">
+		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" class="form-control MyInputField" list="add1Locallist" id="add1Local" name="add1Local" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <datalist id="add1Locallist">
+													    <!--Populate <option value = ""> tag-->
+													</datalist>
+		                                        </div>
+		                                       	<br>
+	                                        </div>
+                                        </div>
+                                        <br>
+
+                                        <div class="row">
+	                                        <div class="col-sm-offset-1 col-sm-10" style="background-color: #777; border-radius: 20px 20px; color: #f7f7f7; text-align: left;">
+	                                        	<p style=""><b><h4>Factory Address:</h4></b></p>
+	                                            <div class="input-group MyInputDiv">
+		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" class="form-control MyInputField" list="add2Statelist" id="add2State" name="add2State" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <datalist id="add2Statelist">
+													    <!--Populate <option value = ""> tag-->
+													</datalist>
+		                                        </div>
+		                                        <br>
+		                                        <div class="input-group MyInputDiv">
+		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" class="form-control MyInputField" list="add2Citylist" id="add2City" name="add2City" style="border-radius: 0px 20px 20px 0px;" />
+		                                            <datalist id="add2Citylist">
+													    <!--Populate <option value = ""> tag-->
+													</datalist>
+		                                        </div>
+		                                        <br>
+		                                        <div class="input-group MyInputDiv">
+		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" class="form-control MyInputField" list="add2Locallist" id="add2Local" name="add2Local" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <datalist id="add2Locallist">
+													    <!--Populate <option value = ""> tag-->
+													</datalist>
+		                                        </div>
+		                                       <br>
+	                                        </div>
+                                        </div>
+                                        <br>
+                                        <div class="input-group MyInputDiv">
+                                            <span class="input-group-addon MyInputSpan"><b>Company/Department</b></span> <input type="text" class="form-control MyInputField" id="deptt" name="priv" />
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class= "col-sm-offset-1 col-sm-10" id="LoginSubmitDiv">
+                                                <input id="submitLogin" type ="submit" name="SubmitButton" value="Update!" />
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--Collapsible Edit Account Details-->
+                        </div>
+                    </div>
+                    </div>
+                    <form>
+                    <div class="row" data-toggle="collapse" data-target="#SellerOptions">
+                    	<div class="col-sm-12" style="background-color: #337ab7; color: #f7f7f7;" id = "SellerOptionsHeader">
+                    		<p><b><h3>Are you a seller ?</h3></b></p>
+                    		<p><b><h2>Help us understand you better</h2></b></p>
+                    	</div>
+                    </div>
+                    <div class="row collapse" id="SellerOptions" ng-controller="CtrlChecklist">
+                    	<div class="col-sm-12" style="background-color: #337ab7; color: #f7f7f7;">
+                    		<div class="row" style="background-color: #f7f7f7;padding-top:2%; padding-bottom: 2%">
+                    			<div class="col-sm-offset-1 col-sm-4" style="background-color: #f7f7f7;color:#555; text-align: left;">
+                    				<p><h4><b>All avialable selling items</b></h4></p>
+                    				
+
+                    				<ul class = "MyFirstUl" style="list-style-type: none; padding: 0px; text-align: left;">
+                    					<li ng-repeat="(category, category_val) in categories">
+
+                    						<div class = "row">
+                    							<div class="col-sm-1">
+                    								<input ng-change="categoryToggle(category, category_val)" ng-model="categories[category]" type="checkbox" name="SellerCategory" value ="{{category}}">
+                    							</div> 
+                    							<div class="col-sm-10" data-toggle="collapse" data-target= "{{'#' +  category + 'List'}}">
+                    								{{category}}
+                    							</div>
+                    						</div>
+                    						
+                    						<ul  style="list-style-type: none;" class="collapse" id = "{{category + 'List'}}">
+                    							<li ng-repeat="(product, product_val) in products[category]">
+                    								<input ng-change= "subcategoryToggle(category, product)" type="checkbox" name="{{category}}" value="{{product}}" ng-model="products[category][product]"> {{product}}
+                    							</li>
+                    						</ul>
+                    					
+                    					</li>
+                    				
+                    				</ul>
+                    			</div>
+                    			<div class="col-sm-2" style="background-color: #f7f7f7;color:#337ab7;">
+                    				<div class="btn-group-vertical">
+                                    <br>
+									  <button type="button" ng-click = "addAllButton()" class="btn btn-primary">Add All</button>
+									  <button type="button" ng-click = "addButton()" class="btn btn-primary">Add</button>
+									  <button type="button" ng-click = "removeAllButton()" class="btn btn-primary">Remove All</button>
+									</div>
+                    			</div>
+
+                    			<div class="col-sm-4" style="background-color: #f7f7f7;color:#337ab7;text-align: left;">
+                    				<p><h4><b>All items sold by you</b></h4></p>
+
+                    				<ul class = "MyFirstUl" style="list-style-type: none; padding: 0px; text-align: left;">
+                    					<li ng-repeat="categ in arrayCateg">
+
+                    						<div class = "row">
+                    							<div class="col-sm-1">
+                    								
+                    							</div> 
+                                                
+                    							<div class="col-sm-10" data-toggle="collapse" data-target= "{{'#' +  categ + 'ListConf'}}">
+                    								● {{categ}}
+                    							</div>
+
+                    						</div>
+                    						
+                    						<ul  style="list-style-type: none;" class="collapse" id = "{{categ + 'ListConf'}}">
+                    							<li ng-repeat="prod in arrayCateg[categ]">
+                    								 ● {{prod}}
+                    							</li>
+                    						</ul>
+                    					
+                    					</li>
+                    				
+                    				</ul>
+                    			</div>
+
+                    		</div>
+                            <br>
+                            <div class="row">
+                                <div class= "col-sm-offset-3 col-sm-6" id="LoginSubmitDiv">
+                                    <input id="submitLogin" type ="submit" name="SubmitButton" value="Update!" />
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                    	</div>
+                        
+                    </div>
+
+                    </form>
+                    <!--Seller options Section-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+    <script type="text/javascript">
+    	var app = angular.module("app", [  ]);
+		app.controller('CtrlChecklist', function($scope) {
+              $scope.categories = {
+                "Electronics":false,
+                "Appliances":false,
+                "Clothings":false
+              }
+			  $scope.products = {
+					"Electronics":{
+						"Camera":false,
+						"Mobile":false
+					},
+					"Appliances":{
+						"Refrigerator":false,
+						"Microwave":false
+					},
+					"Clothings":{
+						"Shirts":false,
+						"Pants":false
+					}
+			 }
+			
+			$scope.arrayCateg=[];
+			$scope.arraySub=[];
+			$scope.temp=[];
+			$scope.categoryToggle = function(category){
+				for(item in $scope.products[category])
+				{
+					$scope.products[category][item] = $scope.categories[category];
+				}
+			}
+			$scope.subcategoryToggle = function(category, product) {
+
+				var flag = true;
+				if ($scope.categories[category] == true) {
+					
+					//this is if no sub category selected then main category gets disselected.
+					for(item in $scope.products[category])
+					{	
+						if ($scope.products[category][item] == true) {
+							flag = false;
+							break;
+						}
+					}
+
+					if (flag == true) {
+						console.log("hey")
+						$scope.categories[category] = false;
+					}
+
+				} else if (($scope.products[category][product] == true) && ($scope.categories[category] == false)) {
+					$scope.categories[category] = true;
+				}
+			}
+
+			$scope.addButton = function() {
+				$scope.arrayCateg=[];
+				for (categ in $scope.categories) {				
+					if ($scope.categories[categ] == true) {
+						$scope.arrayCateg.push(categ);
+						$scope.arrayCateg[categ] = [];
+						for (item in $scope.products[categ]) {
+							if ($scope.products[categ][item] == true) {
+								$scope.arrayCateg[categ].push(item);
+							}
+						}
+					}
+				}
+				
+			}
+
+			$scope.addAllButton = function() {
+				$scope.arrayCateg=[];
+				for (categ in $scope.categories) {
+                    $scope.categories[categ] = true;				
+					$scope.arrayCateg.push(categ);
+					$scope.arrayCateg[categ] = [];
+					for (item in $scope.products[categ]) {
+                        $scope.products[categ][item] = true;
+						$scope.arrayCateg[categ].push(item);
+					}
+				}
+				console.log($scope.arrayCateg);
+			}
+            $scope.removeAllButton = function(){
+                $scope.arrayCateg=[];
+                for (categ in $scope.categories){
+                    $scope.categories[categ] = false;
+                    for (item in $scope.products[categ]){
+                        $scope.products[categ][item] = false;
+                    }
+                }
+            }
+
+		});
+    </script>>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <script src="../vendor/morrisjs/morris.min.js"></script>
+    <script src="../data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

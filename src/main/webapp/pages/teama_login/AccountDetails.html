@@ -18,7 +18,7 @@
 
     <!-- Custom CSS -->
     <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
-
+	<script src="../../js/commonResources.js"></script>
     <!-- Morris Charts CSS -->
     <link href="../../vendor/morrisjs/morris.css" rel="stylesheet">
 
@@ -31,8 +31,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <script src="../../js/commonResources.js"></script>
     <style type="text/css">
         #hey:hover {
 			opacity: 0.9;
@@ -180,13 +178,20 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
                         <li>
-                            <div style="overflow: auto;" >
-                                <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
-
-                                <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
-                               
-                                <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
-                            </div>
+                            <div class = "row">
+                                	<div class = "col-sm-12" style = "color:#337ab7;">
+	                                	<div class = "row" style = "text-align:center;">
+	                                    	<h3>Welcome</h3>
+	                                    </div>
+	                                    <div class = "row" style = "text-align:center;">
+	                                    	<h4>{{sessionUsername}}</h4>
+	                                    </div>
+	                                    <div class = "row" style = "text-align:center;">
+	                                    	<h5><i>You are a {{sessionUsertype}}</i></h5>
+	                                    </div>
+	                                    
+                                	</div>
+                                </div>
                         </li>
                         <li>
                             <a href="Dashboard.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
@@ -257,6 +262,7 @@
 
                         <div class="media" >
                                 <div class = "row" >
+                                    <!--  
                                     <div class = "col-sm-offset-0 col-sm-3">
                                         <div style="background-color:#555; border-radius:20px; overflow: hidden;">
                                             <img src="BG.png" style="width:100px;">
@@ -265,18 +271,26 @@
                                         <button data-toggle="collapse" data-target="#CollapsibleUserAccountEdit" style="width:100px;background-color: #469c2a; border-radius:10px; box-shadow: 0px 2px 40px 0px rgba(0,0,0,0.1); border:0px;color: white;"><b>Edit Profile</b>
                                         </button>
                                     </div>
-                                    <div class = "col-sm-offset-1 col-sm-7" style="background-color: #f7f7f7; border-radius: 20px;">
-                                     
-                                        name: yash
+                                    -->
+                                    <div class = "col-sm-12" style="color:#f7f7f7;  border-radius: 20px;">
+                                      <div>
+                                      <b><h4>
+                                      	
+                                        <p>Name: {{sessionUsername}}</p>
                                         <br>
-                                        <br>
-                                        add: coho
-                                        <br>
-                                        <br>
-                                        works at:owner
-                                        <br>
-                                        <br>
+         								<p>Type: {{sessionUsertype}}</p>                               
+         							  </h4></b>
+         							  </div>
                                     </div>
+                                </div>
+               					<br><br>                 
+                            	 <div class = "row" >
+                                    
+                                    <div class = "col-sm-offset-4 col-sm-4">
+                                        <button data-toggle="collapse" data-target="#CollapsibleUserAccountEdit" style="width:100px;background-color: #469c2a; border-radius:10px; box-shadow: 0px 2px 40px 0px rgba(0,0,0,0.1); border:0px;color: white;"><b>Edit Profile</b>
+                                        </button>
+                                    </div>
+                                   
                                 </div>
                             
 
@@ -302,21 +316,28 @@
 	                                        	<p style=""><b><h4>Postal Address:</h4></b></p>
 
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" ng-model = "PostalState" placeholder="State" class="form-control MyInputField" list="add1Statelist" id="add1State" name="add1State" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>Address Line 1</b></span> <input type="text" ng-model = "PostalState" placeholder="Loaction, Area" class="form-control MyInputField" list="add1Statelist" id="add1State" name="add1State" style="border-radius: 0px 20px 20px 0px;"/>
 		                                            <datalist id="add1Statelist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" ng-model = "PostalCity" placeholder="City" class="form-control MyInputField" list="add1Citylist" id="add1City" name="add1City" style="border-radius: 0px 20px 20px 0px;" />
+		                                            <span class="input-group-addon MyInputSpan" ><b>Address Line 2</b></span> <input type="text" ng-model = "PostalCity" placeholder="State, Country" class="form-control MyInputField" list="add1Citylist" id="add1City" name="add1City" style="border-radius: 0px 20px 20px 0px;" />
 		                                            <datalist id="add1Citylist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" ng-model = "PostalLocality" placeholder="Locality" class="form-control MyInputField" list="add1Locallist" id="add1Local" name="add1Local" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>Country</b></span> <input list="country" name="country" ng-model = "PostalLocality" placeholder="Country" class="form-control MyInputField" list="add2Locallist" id="add2Local"  style="border-radius: 0px 20px 20px 0px;"/>
+		                                           <datalist id="country">
+		                                           <option value="USA"></option>
+		                                           <option value="IND"></option>
+		                                           <option value="PRK"></option>
+		                                           <option value="SYR"></option>
+		                                           <option value="GBR"></option>
+		                                           </datalist>
 		                                            <datalist id="add1Locallist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
@@ -330,21 +351,28 @@
 	                                        <div class="col-sm-offset-1 col-sm-10" style="background-color: #777; border-radius: 20px 20px; color: #f7f7f7; text-align: left;">
 	                                        	<p style=""><b><h4>Factory Address:</h4></b></p>
 	                                            <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>State</b></span> <input type="text" ng-model = "FactoryState" placeholder="State" class="form-control MyInputField" list="add2Statelist" id="add2State" name="add2State" style="border-radius: 0px 20px 20px 0px;"/>
+		                                            <span class="input-group-addon MyInputSpan" ><b>Address Line 1</b></span> <input type="text" ng-model = "FactoryState" placeholder="Loaction, Area" class="form-control MyInputField" list="add2Statelist" id="add2State" name="add2State" style="border-radius: 0px 20px 20px 0px;"/>
 		                                            <datalist id="add2Statelist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>City</b></span> <input type="text" ng-model = "FactoryCity" placeholder="City" class="form-control MyInputField" list="add2Citylist" id="add2City" name="add2City" style="border-radius: 0px 20px 20px 0px;" />
+		                                            <span class="input-group-addon MyInputSpan" ><b>Address Line 2</b></span> <input type="text" ng-model = "FactoryCity" placeholder="State, Country" class="form-control MyInputField" list="add2Citylist" id="add2City" name="add2City" style="border-radius: 0px 20px 20px 0px;" />
 		                                            <datalist id="add2Citylist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
 		                                        </div>
 		                                        <br>
 		                                        <div class="input-group MyInputDiv">
-		                                            <span class="input-group-addon MyInputSpan" ><b>Locality</b></span> <input type="text" ng-model = "FactoryLocality" placeholder="Locality" class="form-control MyInputField" list="add2Locallist" id="add2Local" name="add2Local" style="border-radius: 0px 20px 20px 0px;"/>
+		                                           <span class="input-group-addon MyInputSpan" ><b>Country</b></span> <input list="country" name="country" ng-model = "FactoryLocality" placeholder="Country" class="form-control MyInputField" list="add2Locallist" id="add2Local"  style="border-radius: 0px 20px 20px 0px;"/>
+		                                           <datalist id="country">
+		                                           <option value="USA"></option>
+		                                           <option value="IND"></option>
+		                                           <option value="PRK"></option>
+		                                           <option value="SYR"></option>
+		                                           <option value="GBR"></option>
+		                                           </datalist>
 		                                            <datalist id="add2Locallist">
 													    <!--Populate <option value = ""> tag-->
 													</datalist>
@@ -460,214 +488,266 @@
                     <!--Seller options Section-->
                 </div>
             </div>
-            <script type="text/javascript">
-    
-		    	var app = angular.module("app", [  ]);
-				app.controller('CtrlChecklist', ["$scope", "$http", function($scope, $http) {
-					console.log("inside the checklist controller");
-		              $scope.categories = {
-		                "Electronics":false,
-		                "Appliances":false,
-		                "Clothings":false
-		              }
-					  $scope.products = {
-							"Electronics":{
-								"Camera":false,
-								"Mobile":false
-							},
-							"Appliances":{
-								"Refrigerator":false,
-								"Microwave":false
-							},
-							"Clothings":{
-								"Shirts":false,
-								"Pants":false
-							}
-					 }
-					
-					$scope.arrayCateg=[];
-					$scope.arraySub=[];
-					$scope.temp=[];
-					$scope.categoryToggle = function(category){
-						for(item in $scope.products[category])
-						{
-							$scope.products[category][item] = $scope.categories[category];
-						}
-					}
-					$scope.subcategoryToggle = function(category, product) {
-						var flag = true;
-						if ($scope.categories[category] == true) {
-							
-							//this is if no sub category selected then main category gets disselected.
-							for(item in $scope.products[category])
-							{	
-								if ($scope.products[category][item] == true) {
-									flag = false;
-									break;
-								}
-							}
-							if (flag == true) {
-								console.log("Inside if statement");
-								$scope.categories[category] = false;
-							}
-						} else if (($scope.products[category][product] == true) && ($scope.categories[category] == false)) {
-							$scope.categories[category] = true;
-						}
-					}
-					$scope.addButton = function() {
-						$scope.arrayCateg=[];
-						$scope.arraySub = [];
-						for (categ in $scope.categories) {				
-							if ($scope.categories[categ] == true) {
-								$scope.arrayCateg.push(categ);
-								$scope.arrayCateg[categ] = [];
-								for (item in $scope.products[categ]) {
-									if ($scope.products[categ][item] == true) {
-										$scope.arrayCateg[categ].push(item);
-										$scope.arraySub.push(item);
-									}
-								}
-							}
-						}
-						
-					}
-					$scope.addAllButton = function() {
-						console.log("Add all button running");
-						$scope.arrayCateg=[];
-						$scope.arraySub = [];
-						for (categ in $scope.categories) {
-		                    $scope.categories[categ] = true;				
-							$scope.arrayCateg.push(categ);
-							$scope.arrayCateg[categ] = [];
-							for (item in $scope.products[categ]) {
-		                        $scope.products[categ][item] = true;
-								$scope.arrayCateg[categ].push(item);
-								$scope.arraySub.push(item);
-							}
-						}
-						console.log($scope.arrayCateg);
-					}
-		            $scope.removeAllButton = function(){
-		                $scope.arrayCateg=[];
-		                $scope.arraySub=[];
-		                for (categ in $scope.categories){
-		                    $scope.categories[categ] = false;
-		                    for (item in $scope.products[categ]){
-		                        $scope.products[categ][item] = false;
-		                    }
-		                }
-		            }
-		            $scope.userProd=[];
-		            $scope.UpdateProducts = function(){
-		            	console.log("we are in products");
-		            	console.log($scope.arrayCateg);
-		            	console.log($scope.arraySub);
-		            	var whatever = $http({
-		            		url: BASE_PATH + '/service/login/updateProducts',
-		            		method: 'POST',
-		            		headers: { 'Content-Type': 'text/plain' },
-		            		data:{
-		            			Username: $scope.Username,
-		            			UserProductsCategories: $scope.arrayCateg,
-								UserProducts:$scope.arraySub
-		            		}
-		            	})
-		            	whatever.then(function(){
-		            		console.log("ok");
-		            	})
-		            	
-		            }
-				}]);
-				app.controller("TestController", ["$scope", "$http", "$window", function($scope, $http, $window) {
-					
-				    $scope.UserNameMod = "";
-				    $scope.PasswordMod = "";
-				    console.log("controller loaded");
-				    var promise = $http({
-				        url: BASE_PATH + '/service/login/getUserInfo',
-				        method: 'POST',
-				        headers: { 'Content-Type': 'text/plain' }
-				    });
-				    promise.then(function (response) {
-				    	console.log(response);
-				    	
-				    	if (response.data == "no session") {
-				    		$window.location.href = './HomePage.html'
-				    	} else {
-				    		console.log(response.data.username);
-				        	console.log(response.data.userType);
-				    	//var data = JSON.parse(response.data)
-				    	}
-				    }, function(response) {
-				    	console.log("couldnot load data");
-				    });
-				    
-				    $scope.TestClick = function () {
-		
-				        var promise = $http({
-				            url: BASE_PATH + '/service/login/getUserInfo',
-				            method: 'POST',
-				            headers: { 'Content-Type': 'text/plain' }
-				        });
-				        promise.then(function (response) {
-				        	console.log(response);
-				        	//var data = JSON.parse(response.data)
-				        	console.log(response.data.username);
-				        	console.log(response.data.userType);
-				        }, function(response) {
-				        	console.log("couldnot load data");
-				        });
-				        
-				    }
-		
-				}]);
-				app.controller('myController',[ '$scope', '$http', function($scope, $http) {
-		            $scope.UpdateDet = function(){
-		            	console.log("we are here");
-		            	var data  = {
-		            			Swift: $scope.Swift,
-		            			AccNumber: $scope.AccNumber,
-		            			ContNumber: $scope.ContNumber,
-		            			PostalLocality: $scope.PostalLocality,
-		            			PostalCity: $scope.PostalCity,
-		            			PostalState: $scope.PostalState,
-		            			FactoryLocality: $scope.FactoryLocality,
-		            			FactoryCity: $scope.FactoryCity,
-		            			FactoryState: $scope.FactoryState,
-		            			Department: $scope.Department
-		            	
-		            	}
-		            	console.log(data);
-		            	var whatever = $http({
-		            		url: BASE_PATH + '/service/login/updateDetails',
-		            		method: 'POST',
-		            		headers: { 'Content-Type': 'text/plain' },
-		            		data:{
-		            			Swift: $scope.Swift,
-		            			AccNumber: $scope.AccNumber,
-		            			ContNumber: $scope.ContNumber,
-		            			PostalLocation: $scope.PostalLocality,
-		            			PostalCity: $scope.PostalCity,
-		            			PostalState: $scope.PostalState,
-		            			FactoryLocation: $scope.FactoryLocality,
-		            			FactoryCity: $scope.FactoryCity,
-		            			FactoryState: $scope.FactoryState,
-		            			Department: $scope.Department
-		            		}
-		            	})
-		            	whatever.then(function(){
-		            		console.log("ok");
-		            	})
-		            	
-		            }
-		           
-				}]);
-		    </script>
         </div>
     </div>
     <!-- /#wrapper -->
 
+    <script type="text/javascript">
     
+    	var app = angular.module("app", [  ]);
+		app.controller('CtrlChecklist', ["$scope", "$http", function($scope, $http) {
+			console.log("inside the checklist controller");
+              $scope.categories = {
+                "Electronics":false,
+                "Appliances":false,
+                "Clothings":false
+              }
+			  $scope.products = {
+					"Electronics":{
+						"Camera":false,
+						"Mobile":false
+					},
+					"Appliances":{
+						"Refrigerator":false,
+						"Microwave":false
+					},
+					"Clothings":{
+						"Shirts":false,
+						"Pants":false
+					}
+			 }
+			
+			$scope.arrayCateg=[];
+			$scope.arraySub=[];
+			$scope.temp=[];
+			$scope.categoryToggle = function(category){
+				for(item in $scope.products[category])
+				{
+					$scope.products[category][item] = $scope.categories[category];
+				}
+			}
+			$scope.subcategoryToggle = function(category, product) {
+				var flag = true;
+				if ($scope.categories[category] == true) {
+					
+					//this is if no sub category selected then main category gets disselected.
+					for(item in $scope.products[category])
+					{	
+						if ($scope.products[category][item] == true) {
+							flag = false;
+							break;
+						}
+					}
+					if (flag == true) {
+						console.log("Inside if statement");
+						$scope.categories[category] = false;
+					}
+				} else if (($scope.products[category][product] == true) && ($scope.categories[category] == false)) {
+					$scope.categories[category] = true;
+				}
+			}
+			$scope.addButton = function() {
+				$scope.arrayCateg=[];
+				$scope.arraySub = [];
+				for (categ in $scope.categories) {				
+					if ($scope.categories[categ] == true) {
+						$scope.arrayCateg.push(categ);
+						$scope.arrayCateg[categ] = [];
+						for (item in $scope.products[categ]) {
+							if ($scope.products[categ][item] == true) {
+								$scope.arrayCateg[categ].push(item);
+								$scope.arraySub.push(item);
+							}
+						}
+					}
+				}
+				
+			}
+			$scope.addAllButton = function() {
+				console.log("Add all button running");
+				$scope.arrayCateg=[];
+				$scope.arraySub = [];
+				for (categ in $scope.categories) {
+                    $scope.categories[categ] = true;				
+					$scope.arrayCateg.push(categ);
+					$scope.arrayCateg[categ] = [];
+					for (item in $scope.products[categ]) {
+                        $scope.products[categ][item] = true;
+						$scope.arrayCateg[categ].push(item);
+						$scope.arraySub.push(item);
+					}
+				}
+				console.log($scope.arrayCateg);
+			}
+            $scope.removeAllButton = function(){
+                $scope.arrayCateg=[];
+                $scope.arraySub=[];
+                for (categ in $scope.categories){
+                    $scope.categories[categ] = false;
+                    for (item in $scope.products[categ]){
+                        $scope.products[categ][item] = false;
+                    }
+                }
+            }
+            $scope.userProd=[];
+            $scope.UpdateProducts = function(){
+            	console.log("we are in products");
+            	console.log($scope.arrayCateg);
+            	console.log($scope.arraySub);
+            	var whatever = $http({
+            		url: BASE_PATH + '/service/login/updateProducts',
+            		method: 'POST',
+            		headers: { 'Content-Type': 'text/plain' },
+            		data:{
+            			Username: $scope.Username,
+            			UserProductsCategories: $scope.arrayCateg,
+						UserProducts:$scope.arraySub
+            		}
+            	})
+            	whatever.then(function(){
+            		console.log("ok");
+            	})
+            	
+            }
+		}]);
+		app.controller("TestController", ["$scope", "$http", "$window", function($scope, $http, $window) {
+			
+		    $scope.UserNameMod = "";
+		    $scope.PasswordMod = "";
+		    $scope.sessionUsername = "";
+		    $scope.sessionUsertype = "";
+		    
+		    console.log("controller loaded");
+		    
+		    var promise = $http({
+		        url: BASE_PATH + '/service/login/getUserInfo',
+		        method: 'POST',
+		        headers: { 'Content-Type': 'text/plain' }
+		    });
+		    promise.then(function (response) {
+		    	console.log(response.data);
+		    	
+		    	if (response.data == "no session") {
+		    		$window.location.href = './HomePage.html'
+		    	} else {
+		    		
+		    	    $scope.sessionUsertype  =  response.data.userType; 
+		    	    $scope.sessionUsername  =  response.data.fullName;
+		    	    
+		    	}
+		    	
+		    }, function(response) {
+		    	console.log("couldnot load data");
+		    });
+		    
+		    console.log( $scope.sessionUsertype);
+		    /*
+		    var promise = $http({
+		        url: BASE_PATH + '/service/login/getUserInfo',
+		        method: 'POST',
+		        headers: { 'Content-Type': 'text/plain' }
+		    });
+		    promise.then(function (response) {
+		    	console.log(response);
+		    	
+		    	if (response.data == "no session") {
+		    		$window.location.href = './HomePage.html'
+		    	} else {
+		    		$scope.sessionUsertype = response.data.userType;
+		    		$scope.sessionUsername = response.data.username;
+		    		console.log(response.data.username);
+		        	console.log(response.data.userType);
+		    	
+			        	/*
+			        	SERVICE FOR ADDITIONAL DETAILS WORKING
+		    			$http.get(BASE_PATH + "/service/login/fetchAdditionalDetails/?uname=" + response.data.username)
+					    .then(function (response) {
+				    		console.log(response);
+					    	if (response.data == "no session") {
+					    		$window.location.href = './HomePage.html'
+					    	} else {
+					    		$scope.sessionUsertype = response.data.userType;
+					    		$scope.sessionUsername = response.data.username;
+					    		console.log(response.data.username);
+					        	console.log(response.data.userType);
+					    		    		
+					    	}
+				    	}, function(response) {
+				    	console.log("couldnot load data");
+				      });
+		    			
+		    		
+		    	}
+		    }, function(response) {
+		    	console.log("couldnot load data");
+		    });
+		    */
+		    $scope.TestClick = function () {
+
+		        var promise = $http({
+		            url: BASE_PATH + '/service/login/getUserInfo',
+		            method: 'POST',
+		            headers: { 'Content-Type': 'text/plain' }
+		        });
+		        promise.then(function (response) {
+		        	console.log(response);
+		        	//var data = JSON.parse(response.data)
+		        	console.log(response.data.username);
+		        	console.log(response.data.userType);
+		        }, function(response) {
+		        	console.log("couldnot load data");
+		        });
+		        
+		    }
+
+		}]);
+		app.controller('myController',[ '$scope', '$http', function($scope, $http) {
+			
+			
+			
+			
+			
+            $scope.UpdateDet = function(){
+            	console.log("we are here");
+            	var data  = {
+            			Swift: $scope.Swift,
+            			AccNumber: $scope.AccNumber,
+            			ContNumber: $scope.ContNumber,
+            			PostalLocality: $scope.PostalLocality,
+            			PostalCity: $scope.PostalCity,
+            			PostalState: $scope.PostalState,
+            			FactoryLocality: $scope.FactoryLocality,
+            			FactoryCity: $scope.FactoryCity,
+            			FactoryState: $scope.FactoryState,
+            			Department: $scope.Department
+            	
+            	}
+            	console.log(data);
+            	var whatever = $http({
+            		url: BASE_PATH + '/service/login/updateDetails',
+            		method: 'POST',
+            		headers: { 'Content-Type': 'text/plain' },
+            		data:{
+            			Swift: $scope.Swift,
+            			AccNumber: $scope.AccNumber,
+            			ContNumber: $scope.ContNumber,
+            			PostalLocation: $scope.PostalLocality,
+            			PostalCity: $scope.PostalCity,
+            			PostalState: $scope.PostalState,
+            			FactoryLocation: $scope.FactoryLocality,
+            			FactoryCity: $scope.FactoryCity,
+            			FactoryState: $scope.FactoryState,
+            			Department: $scope.Department
+            		}
+            	})
+            	whatever.then(function(){
+            		console.log("ok");
+            	})
+            	
+            }
+           
+		}]);
+    </script>>
     <!-- jQuery -->
     <script src="../../vendor/jquery/jquery.min.js"></script>
 
