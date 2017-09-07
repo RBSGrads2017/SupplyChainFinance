@@ -4,7 +4,7 @@ app.controller("bodyController",function($scope,$location,$window,$http){
 	$scope.liborSelected= true;
 	$scope.uploadLIBOR= function(){
 		$scope.uploadlibor= true;
-		$http.get("http://localhost:8181/jersey-heroku-webapp/webapi/fetchlibor").then(function(response){
+		$http.get("http://localhost:8090/scm/service/fetchlibor").then(function(response){
 			$scope.libors=response.data;
 			console.log($scope.libors);
 		});

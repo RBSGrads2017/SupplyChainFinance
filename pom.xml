@@ -58,6 +58,12 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.0</version>
 		</dependency>
+		
+		<dependency>
+  <groupId>org.glassfish.jersey.media</groupId>
+  <artifactId>jersey-media-json-jackson</artifactId>
+  <scope>runtime</scope>
+</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
