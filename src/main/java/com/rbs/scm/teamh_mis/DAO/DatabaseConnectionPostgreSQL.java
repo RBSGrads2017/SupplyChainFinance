@@ -25,15 +25,15 @@ public class DatabaseConnectionPostgreSQL {
 	         
 	         //heroku db connection
 	         
-	         
+	        /* 
 	         String url = "jdbc:postgresql://ec2-23-21-85-76.compute-1.amazonaws.com:5432/d11rrktmmgd00t?user=liybotsvyembvp&password=e40dd8cba8730c3a7b167d3648acbb0d442bdef9c92cb9062110193cf126b37a&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 	         Properties props = new Properties();
 	         props.setProperty("user","liybotsvyembvp");
 	         props.setProperty("password","e40dd8cba8730c3a7b167d3648acbb0d442bdef9c92cb9062110193cf126b37a");
 	         props.setProperty("ssl","true");
-	         c = DriverManager.getConnection(url, props);
+	         c = DriverManager.getConnection(url, props);*/
 	      
-	         /*
+	         
 	         String url = "jdbc:postgresql://ec2-46-137-97-169.eu-west-1.compute.amazonaws.com:5432/dcp74dndul9afj?user=\r\n" + 
 	         		"yzqfbztsbnnnoi&password=a02372528e43fe5384947fdc13d247f85cc9da2e6925e64f717355434d941c4d&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 	         Properties props = new Properties();
@@ -42,7 +42,7 @@ public class DatabaseConnectionPostgreSQL {
 	         props.setProperty("password","a02372528e43fe5384947fdc13d247f85cc9da2e6925e64f717355434d941c4d");
 	         props.setProperty("ssl","true");
 	         c = DriverManager.getConnection(url, props);
-	      */
+	      
 	         
 	         
 	         //local db connection

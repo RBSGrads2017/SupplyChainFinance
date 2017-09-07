@@ -1,4 +1,4 @@
-<div class="row" style="margin: 0 auto; width: 150%">
+<div class="row" style="margin: 0 auto; width: 200%">
 		<div class="col-lg-6">
 						<div class="panel panel-default">
 							<div class="panel-heading" style="font-size: 20px; font-weight: bold">
@@ -28,7 +28,9 @@
 												<td>{{i.f_id}}</td>
 												<td>{{i.feature_name}}</td>
 												<td>{{i.priority_order}}</td>
-												<td><input type="text" id="cost{{$index + 1}}" value=0 style="display:block ; width:20px" />	
+												 <div class="col-xs-1" style="margin-top: 5px; margin-left: 1060px">
+													<td><input class="form-control" type="text" id="cost{{$index + 1}}" value=0 style="display:block;" />
+												</div>	
 												<td><input type="radio" value="A{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'A', $index+1)"/></td>
 												<td><input type="radio" value="C{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'C', $index+1)"/></td>
 												<td><input type="radio" value="N{{$index + 1 }}" name="{{ $index + 1 }}" ng-click="update(i.p_id,i.f_id,'N' ,$index+1)"/></td>
