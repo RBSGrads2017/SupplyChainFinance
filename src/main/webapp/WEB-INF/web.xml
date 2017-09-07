@@ -43,7 +43,8 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-    <filter>
+
+  <filter>
 	    <filter-name>CORS</filter-name>
 	    <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
 	</filter>
@@ -51,4 +52,5 @@
 	    <filter-name>CORS</filter-name>
 	    <url-pattern>/*</url-pattern>
 	</filter-mapping>
+  
 </web-app>

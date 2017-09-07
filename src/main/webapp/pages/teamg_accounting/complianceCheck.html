@@ -1,0 +1,27 @@
+
+<html lang="en">
+<head>
+  <title>Compliance Check</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../../js/commonResources.js"></script>
+</head>
+
+<body ng-app="acmApp" ng-controller="coaListCtrl">
+<form  class="form-inline" ng-submit="checkCompliance1()">
+  <div class="form-group">
+    <label for="individualname">Customer Name</label>
+    <input type="text" class="form-control" id="individualname" name="individualname" ng-model="individualname">
+  </div>
+  <div class="form-group">
+    <label for="Countryname">Customer Country</label>
+    <input type="text" class="form-control" id="Countryname" name="Countryname" ng-model="Countryname">
+  </div>
+  <div class="form-group">
+  <input type="submit" value="Check" class="btn btn-default"></input>
+	</div>
+</form>
+</body>
