@@ -423,7 +423,7 @@
 
 			<script>
 			
-			var app = angular.module('CustTransaction', ['ngMaterial']);
+			var app = angular.module('CustTransaction', []);
 			app.controller('Custctrl', function($scope, $http){
 			
                 $http.get("http://localhost:8089/scm/service/Transactions/getAllMyCredits").then(function(response){

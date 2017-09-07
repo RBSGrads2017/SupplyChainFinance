@@ -400,7 +400,7 @@
             <script src="../../dist/js/sb-admin-2.js"></script>
 
 			<script>
-			 var app = angular.module('PendingTransaction', ['ngMaterial']);
+			 var app = angular.module('PendingTransaction', []);
 			app.controller('PendingTransactionController', function($scope, $http){
 			
                 $http.get("http://localhost:8089/scm/service/Transactions/getAllPendingTransactions").then(function(response){

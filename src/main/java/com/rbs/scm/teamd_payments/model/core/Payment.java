@@ -410,6 +410,12 @@ public class Payment {
 		return;
 	}
 	
+	
+	
+	
+	
+	
+	
 	//Getting all the aml check failure transactions
 	public JSONArray getAMLFailures()
 	{

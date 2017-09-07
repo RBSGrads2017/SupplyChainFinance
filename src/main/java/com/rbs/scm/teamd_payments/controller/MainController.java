@@ -48,6 +48,12 @@ public class MainController {
     public String getInititateTransaction(@QueryParam("Id")int Id,@QueryParam("type")String type, @Context HttpServletRequest request,@Context HttpServletResponse response ) throws JSONException, IOException
     {
     	
+    		HttpSession ses = request.getSession(false);
+    		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+    		System.out.println(sesObj.get("userId")+"From Session");
+    		
+    		
+    		
     		
     		if(type.equals("Invoice"))
     		{
