@@ -10,7 +10,7 @@ xsi:schemaLocation="
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
  
-	<context:component-scan base-package="com.rbs.scm.teamh_mis.controller" />
+	<context:component-scan base-package="com.rbs.scm.teamh_mis.controller,com.rbs.scm.teama_login.controller.LoginServices"  />
 	<mvc:annotation-driven>
     	<mvc:message-converters>
         	<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>

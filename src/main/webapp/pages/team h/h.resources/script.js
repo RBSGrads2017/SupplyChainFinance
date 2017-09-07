@@ -37,7 +37,32 @@ var myApp = angular.module('myApp', ["ngRoute"]);
 	myApp.controller('myController', function($scope,$rootScope, $http){	
 		
 		/*function to fetch request for proposals*/
-		
+		/*function to fetch request for proposals*/
+	    $scope.SessionUsername  =  "";
+	    $scope.SessionUsertype  =  ""; 
+	    $scope.seller_id = ""; 
+	    var promise = $http({
+	        url: BASE_PATH + '/service/login/getUserInfo',
+	        method: 'POST',
+	        headers: { 'Content-Type': 'text/plain' }
+	    });
+	    promise.then(function (response) {
+	    	console.log(response.data);
+	    	
+	    	if (response.data == "no session") {
+	    		$window.location.href = './HomePage.html'
+	    	} else {
+	    		
+	    	    $scope.SessionUsertype  =  response.data.userType; 
+	    	    $scope.SessionUsername  =  response.data.fullName;
+	    	    $scope.seller_id = response.data.usernameInt;
+	    	}
+	    	
+	    }, function(response) {
+	    	console.log("couldnot load data");
+	    });
+	    
+	    
 		$scope.myfunc = function () {
 			console.log("on click function 1");
 			var x = $scope.seller_id;

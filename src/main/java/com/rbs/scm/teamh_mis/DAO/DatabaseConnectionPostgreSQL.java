@@ -33,6 +33,16 @@ public class DatabaseConnectionPostgreSQL {
 	         props.setProperty("ssl","true");
 	         c = DriverManager.getConnection(url, props);
 	      
+	         /*
+	         String url = "jdbc:postgresql://ec2-46-137-97-169.eu-west-1.compute.amazonaws.com:5432/dcp74dndul9afj?user=\r\n" + 
+	         		"yzqfbztsbnnnoi&password=a02372528e43fe5384947fdc13d247f85cc9da2e6925e64f717355434d941c4d&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	         Properties props = new Properties();
+	         props.setProperty("user","\r\n" + 
+	         		"yzqfbztsbnnnoi");
+	         props.setProperty("password","a02372528e43fe5384947fdc13d247f85cc9da2e6925e64f717355434d941c4d");
+	         props.setProperty("ssl","true");
+	         c = DriverManager.getConnection(url, props);
+	      */
 	         
 	         
 	         //local db connection
