@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Create Proposal</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- MetisMenu CSS -->
+<link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+<!-- Morris Charts CSS -->
+<link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script data-require="angular.js@*" data-semver="1.4.0-beta.4" src="https://code.angularjs.org/1.4.0-beta.4/angular.js"></script>
+
+
+
+
+
+
+    <style type="text/css">
+      #hey:hover {
+        opacity: 0.9;
+      }
+      a.UserName
+      {
+        text-decoration: none;
+      }
+
+     
+
+      button.menu{
+       background-color: white;
+       border:none;
+       opacity: 1;
+       color: black;
+       cursor: pointer;
+       text-align: center;
+
+
+     }
+
+     .dropdown-submenu {
+      position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -1px;
+    }
+
+    #ProdTable { 
+      display: table;
+      border-collapse: separate;
+      border-spacing: 10px;
+      border-color: gray;
+      border: 1px solid black;
+    }
+    th, td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+
+
+}
+
+.featureTables{
+
+   display: table;
+      border-collapse: separate;
+      border-spacing: 10px;
+      border-color: gray;
+      border: 1px solid black;
+
+}
+
+
+
+    
+  </style>
+ 
+
+  <script>
+
+      var Aplic = angular.module("Aplic", []);
+
+ Aplic.controller('CountryCntrl', function ($scope) {
+    console.log("hi");
+     $scope.countries =[
+   {
+     'id': '7',
+      'name': "Appliances",
+      'states': [{
+         'id': '1',
+         'dep': "Refrigerator"
+     }, {
+         'id': '2',
+         'dep': "Microwave"
+     }]
+   },
+   {
+     'id': '8',
+      'name': "Electronics",
+      'states':  [{
+         'id': '3',
+         'dep': "Mobile"
+     }, {
+         'id': '4',
+         'dep': "Camera"
+     }]
+   },
+   {
+     'id': '9',
+      'name': "Clothing",
+      'states':  [{
+         'id': '5',
+         'dep': "Shirts"
+     }, {
+         'id': '6',
+         'dep': "Pants"
+     }]
+   }
+
+   ];
+ });
+Aplic.controller("MyController", ["$scope", "$http", function($scope,$http) {
+          console.log("mY controller loaded");
+          
+            $scope.sentDataToServer= function () {
+              var jFinalJSON;
+var finalJSON;
+               finalJSON=JSON.stringify($('form').serializeObject());
+         console.log(typeof finalJSON);
+       //  alert(finalJSON);
+
+          jFinalJSON=JSON.parse(finalJSON);
+         console.log(typeof jFinalJSON);
+         console.log(jFinalJSON.description);
+        // alert(finalJSON);
+              console.log("hi function called");
+              
+              
+              var promise = $http({
+                    url: "http://192.168.4.141:8089/scm/service/create/proposal",
+                    method: 'POST',
+                    headers: { 'Content-Type':'application/json' },
+                    data: jFinalJSON
+              });
+
+            //  alert("hisfgdsga="+jFinalJSON);
+
+              promise.then(function(response){  
+                consloe.log("hi response recieved");            
+                console.log(response); 
+              },function(response){
+                console.log("error");
+                console.log(response);
+              });
+
+            }
+              /*console.log("fghfhg xnfdhw");
+                  var config = {
+                        headers : {
+                            'Content-Type': 'application/json;charset=utf-8;'
+                        }
+                  }
+
+            alert("sentDataToServer called");
+            alert(jFinalJSON);
+
+                // POST method is used to pass the data to Backend from Angular JS Frontend 
+        $http.post("http://192.168.4.141:8089/scm/service/create/proposal", jFinalJSON, config).then(function (jFinalJSON, status) {
+    
+window.location="viewAllProposals.html";
+console.log("Display");
+     })/*).error(function (data, status, headers, config) {
+                    $scope.ResponseDetails = "Data: " + data +
+                        "<hr />status: " + status +
+                        "<hr />headers: " + header +
+                        "<hr />config: " + config;
+                });
+   }
+   */
+            }]);
+
+    </script>
+
+
+</head>
+
+<body >
+<div id="wrapper">
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html" >
+
+                        <img src="2358536-rbs-tm-2013.png" style=" display: block; margin: auto; width: 110px;"> 
+                        
+
+                    </a>
+                </div>
+                <!-- /.navbar-header -->
+
+                <ul class="nav navbar-top-links navbar-right">
+
+
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-pencil-square-o"></i> Contracts Pending Approval
+                                        <span class="badge">3</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-list-alt"></i> Invoices received
+                                        <span class="badge">2</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+                            <li>
+                                <a class="text-center" href="#">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-alerts -->
+                    </li>
+                    <!-- /.dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="HomePage.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+                <div dir="rtl">
+
+                    <div class="navbar-default sidebar" role="navigation" >
+                        <div class="sidebar-nav navbar-collapse">
+                            <ul class="nav" id="side-menu" style="padding-right: 0px; text-align: left;">
+                        <!--<li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                             /input-group 
+                         </li> -->
+                         <li>
+                            <div style="overflow: auto;" >
+                                <a href="#" style="float: left" class="UserName"><h3>Welcome<br>User Name</h3></a>
+
+                                <i style="float: right; padding-right: 10px; padding-top: 5%; padding-bottom: 5%; color:#337ab7;" class="fa fa-user fa-5x"></i>  
+
+                                <a class="UserName" style="float: left; padding-bottom:2px">You are a Customer</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="index.html"> Dashboard <i class="fa fa-dashboard fa-fw"></i> </a>
+                        </li>
+                        <li>
+                            <a href="#"> Contract Management <i class="fa fa-briefcase fa-fw"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Create Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">View Proposal</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Edit Proposal</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="#"> Purchase Order <i class="fa fa-file-text-o"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Review</a>
+                                </li> 
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"> Invoice Management <i class="fa fa-list-alt"></i>   <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Create Invoice</a>
+                                </li>
+                                <li>
+                                    <a href="#">View Invoice</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="HomePage.html"> Log Out <i class="fa fa-power-off"></i>   <span class="fa arrow"></span></a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </div>
+    </nav>
+     <div style="margin-top: 10px">
+            <div style="margin-left: 10px; margin-right: 260px;">
+                <div class="jumbotron" style=" overflow:scroll;height:800px; border-radius: 10px; text-align: left;">
+<div class="col-sm-12" style="text-align: center;">
+                <br><br>
+                    <p style="font-size: 150%; 
+                    color: black ;font-family: Verdana">
+                    <b>WELCOME TO THE CREATE PROPOSAL PAGE</b></p>
+        <br>
+        <br>
+</div>
+  
+
+  <br><br>
+
+  
+  
+  <form  name="myform" >
+   <div class="container"> 
+    <p font-size: 18px> <b>Enter Proposal Description: </b></p>
+    <input type="text" size="100" name="description" id="description">
+    <br><br>
+   <!-- <div class="dropdown">
+      <div >  
+        <p font-size: 18px> Select Product Category: </p> 
+        <select id="ddCategory" onchange="fetchProds()"></select>
+      </div> -->
+
+      <br><br>
+      <div  ng-app="Aplic">
+      
+<div ng-controller="CountryCntrl">
+
+
+      <p font-size: 18px> Select Product Category: </p> 
+    <select id="country" ng-model="selectedCountry" ng-options="country.id as country.name for country  in countries track by country.id">
+        <option value="">Choose</option>
+      
+    </select>
+      <br><br>
+  <p font-size: 18px> Select Product:</p>
+    <select id="state"
+  
+    ng-disabled="!selectedCountry" 
+    ng-model="selectedState" 
+    ng-options="state.dep for state in ((countries | filter:{'id':selectedCountry})[0].states) track by state.id" onchange="addProduct()">
+        <option value="">Choose</option>
+    </select>
+
+<br><br>
+</div>
+
+ 
+   <!--<div id="sel">{{selectedState}}</div>-->
+
+
+<div >
+<p font-size: 18px><b> Products Added:</b></p>
+
+
+<table id="ProdTable">
+<tr>
+  <th>Product Name</th>
+  <th>Product ID</th>
+  
+  <th>Enter Quantity</th>
+  <th>Add Features</th>
+  <th>Features Added (Choose Priority Or Mandatory) </th>
+
+  
+
+</tr>
+
+</table>
+</div>
+
+<br><br>
+
+
+<p font-size: 18px> Select Delivery Terms: </p> 
+<select id="Delterms" name="deliveryTermsID">
+  <option value="1">"EXW: Second Subsection"</option>
+ 
+</select>
+
+<br><br>
+
+<p font-size: 18px> Select Payment Terms: </p> 
+<select id="PayTerms" name="Payment_terms_id">
+  <option value="1">PIA:Payment in advance</option>
+  <option value="2">Net 7:Payment done seven days after invoice date</option>
+  <option value="3">Net 10:Payment done ten days after invoice date</option>
+  <option value="4">Net 30:Payment done thirty days after invoice date</option>
+  <option value="5">Net 60:Payment done sixty days after invoice date</option>
+  <option value="6">Net 90:Payment done ninetydays after invoice date</option>
+  <option value="7">EOM:End of month</option>
+  <option value="8">21 MFI:Twenty first of the month following the invoice date</option>
+  <option value="9">1%10:One percent discount if payment received within 10 days </option>
+  <option value="10">COD:Cash on delivery</option>
+  <option value="11">1% 10 Net 30:\t1% discount if payment received within ten days otherwise payment 30 days after invoice date</option>
+  <option value="12">Cash account:Account conducted on a cash basis </option>
+  <option value="13">Letter of credit:A documentary credit confirmed by a bank, often used for export</option>
+  <option value="14">Bill of exchange:A promise to pay at a later date, usually supported by a bank</option>
+  <option value="15">CND:Cash next delivery</option>
+  <option value="16">CBS:Cash before shipment</option>
+  <option value="17">CIA:Cash in advance</option>
+  <option value="18">CWO:Cash with order</option>
+  <option value="19">1MD:Monthly credit payment of a full month's supply</option>
+  <option value="20">2MD:Monthly credit payment of a full month's supply plus an extra calendar month</option>
+  <option value="21">Contra:Payment from the customer offset against the value of supplies purchased from the customer</option>
+  <option value="22">Stage payment:Payment of agreed amounts at stage</option>
+</select>
+
+<br><br>
+<div ng-controller="MyController">
+        <div style= "width:70px; height:25px; border:1px solid black; background-color: #D3D3D3; text-align:center;" ng-click="sentDataToServer()">
+          Submit
+        </div>
+      </div>
+
+</div>
+</div>
+
+
+</form>
+
+
+
+</div>
+</div>
+</div>
+</div>
+<!--
+<script>
+  var idName = 'ddFeatures';
+
+$(function() {
+    $('td.select.idName').each(function(i) {
+        $(this).attr({id: idName+i});
+    });
+});
+
+</script>
+-->
+
+<script >
+var featureTableArray=[];
+var gv=1;
+var rv=1;
+//var gvx=gv;
+var prodName;
+var prodID;
+function addProduct()
+{
+//var i=1;
+
+
+var e = document.getElementById("state");
+var tprodName = e.options[e.selectedIndex].value;
+ //console.log(prodName);
+
+ var map=["Refrigerator","Microwave","Mobile","Camera","Shirts","Pants"];
+prodName=map[tprodName-1];
+
+//var scope = angular.element($('#sel')).scope();
+
+ //var prodID = i;
+
+ //prodID=document.getElementById("state").value;
+// console.log("prodid="+c);
+
+//var featuredd="ddFeatures" + i;
+//console.log("selectid=" + featuredd);
+gv++;
+$('#ProdTable').append("<tr><td>"+prodName+"</td><td>"+tprodName+"</td><td><input type= 'number' name='Quantity' size='relative'></td><td><select id="+gv+" onclick='fetchFeatures(this)' onchange='addFeatures("+gv+ "  )' ><option value=''>Choose</option></select></td> <td> <table class='featureTables' id='featureTable"+gv+"'>  </table> </td>  </tr> ");  
+
+//i++;
+/*<select id="state" 
+  
+    ng-disabled="!selectedCountry" 
+    ng-model="selectedState" 
+    ng-options="state.id as state.dep for state in ((countries | filter:{'id':selectedCountry})[0].states) track by state.dep" onchange="addProduct()">
+        <option value="">Choose</option>
+    </select>*/
+
+//  obj.disabled="true" ;
+
+}
+var fid;
+function addFeatures(gvx){
+  var flag=0;
+
+  //console.log("addFeatures called" + gvx);
+ var fid=document.getElementById(gvx).value;
+ console.log("fid="+fid);
+ var x = document.getElementById(gvx).selectedIndex;
+var y = document.getElementById(gvx).options;
+ var q=y[x].text;
+ 
+
+ //var y=q.options
+//console.log("q="+q);
+//console.log(featureTableArray.length);
+var hi="#featureTable"+gvx;
+var hie="featureTable"+gvx;
+for(i=0;i<featureTableArray.length;i++){
+  if(featureTableArray[i]==hie){
+flag=1;
+break;
+  }
+}
+if(flag==0)
+  featureTableArray.push(hie);
+
+//featureTableArray.push(hi);
+//console.log("featureTableArray="+featureTableArray);
+//console.log("featureTable id=" +hi);
+$(hi).append("<tr> <td>"+q+"</td><td>"+fid+"</td><td><input type='radio' name='PorM"+rv+"' value='P' checked> Priority  <input type='radio' name='PorM"+rv+"' value='M'> Mandatory</td> </tr>");
+
+
+rv++;
+
+}
+
+function fetchFeatures( ff){
+//console.log("fetchFeatures called");
+//console.log("FF="+ff);
+//console.log(prodName);
+if (prodName=="Refrigerator") {
+  data='[    {"feature_id":1,"feature_name":"Type : Double door"},{"feature_id":2,"feature_name":"Type : Top mounted freezer"},{"feature_id":3,"feature_name":"Type : Single door"},{"feature_id":4,"feature_name":"Type : Bottom freezer"},{"feature_id":5,"feature_name":"12 hour cooling retention"},{"feature_id":6,"feature_name":"Fresh flow air system"},{"feature_id":7,"feature_name":"7 day garden fresh"},{"feature_id":10,"feature_name":"Volume : 170-200 L"},{"feature_id":8,"feature_name":"Volume : 80-170 L"},{"feature_id":9,"feature_name":"Volume <= 80 L"},{"feature_id":11,"feature_name":"Volume : 200-250 L"},{"feature_id":12,"feature_name":"Volume : 251-300 L"},{"feature_id":13,"feature_name":"Volume : 301-350 L"},{"feature_id":14,"feature_name":"Volume >350 L"}    ]';
+
+}
+else if(prodName=="Microwave")
+{
+  data='[    {"feature_id":1,"feature_name":"Power : 0-999 W"},{"feature_id":2,"feature_name":"Power : 1000-1299 W"},{"feature_id":4,"feature_name":"Power >1600"},{"feature_id":3,"feature_name":"Power : 1300-1599 W"},{"feature_id":5,"feature_name":"Capacity upto 20 L"},{"feature_id":6,"feature_name":"Capacity : 21-25 L"},{"feature_id":7,"feature_name":"Capacity : 26-30 L"},{"feature_id":8,"feature_name":"Capacity >30 L"},{"feature_id":9,"feature_name":"Type : Grill"},{"feature_id":10,"feature_name":"Type : Microwave"},{"feature_id":11,"feature_name":"Control type : Mechanical Knob"},{"feature_id":12,"feature_name":"Control type : Touch Panel"},{"feature_id":13,"feature_name":"Brand : Samsung"},{"feature_id":14,"feature_name":"Brand : BPL"},{"feature_id":15,"feature_name":"Brand : LG"}    ]';
+
+
+}
+else if (prodName=="Mobile") {
+  data='[    {"feature_id":1,"feature_name":"Primary camera resolution upto 2.9 MP"},{"feature_id":2,"feature_name":"Primary camera resolution between 3 and 4.9 MP"},{"feature_id":4,"feature_name":"Screen size betwee 4 and 4.4 inches"},{"feature_id":5,"feature_name":"Screen size between 5 and 5.4 inches"},{"feature_id":6,"feature_name":"Cellphone type : Touchscreen"},{"feature_id":7,"feature_name":"Cellplhone type : Flip"},{"feature_id":8,"feature_name":"Cellphone type : Slide"},{"feature_id":9,"feature_name":"Battery <= 999 mAh"},{"feature_id":3,"feature_name":"Screen size >= 3.9 inches"},{"feature_id":10,"feature_name":"Battery between 1000 and 1999 mAh"},{"feature_id":11,"feature_name":"Battery between 2000 and 2999 mAh"},{"feature_id":12,"feature_name":"Battery between 3000 and 3999 mAh"},{"feature_id":13,"feature_name":"4G, WiFi, 3G, GPRS, GSM "},{"feature_id":14,"feature_name":"Brand : Apple"},{"feature_id":15,"feature_name":"Brand : Samsung"},{"feature_id":16,"feature_name":"Brand : Micromax"},{"feature_id":17,"feature_name":"Brand : MI"}    ]';
+}
+else
+{
+  data='[    {"feature_id":1,"feature_name":"Primary camera resolution upto 2.9 MP"},{"feature_id":2,"feature_name":"Primary camera resolution between 3 and 4.9 MP"},{"feature_id":4,"feature_name":"Screen size betwee 4 and 4.4 inches"},{"feature_id":5,"feature_name":"Screen size between 5 and 5.4 inches"},{"feature_id":6,"feature_name":"Cellphone type : Touchscreen"},{"feature_id":7,"feature_name":"Cellplhone type : Flip"},{"feature_id":8,"feature_name":"Cellphone type : Slide"},{"feature_id":9,"feature_name":"Battery <= 999 mAh"},{"feature_id":3,"feature_name":"Screen size >= 3.9 inches"},{"feature_id":10,"feature_name":"Battery between 1000 and 1999 mAh"},{"feature_id":11,"feature_name":"Battery between 2000 and 2999 mAh"},{"feature_id":12,"feature_name":"Battery between 3000 and 3999 mAh"},{"feature_id":13,"feature_name":"4G, WiFi, 3G, GPRS, GSM "},{"feature_id":14,"feature_name":"Brand : Apple"},{"feature_id":15,"feature_name":"Brand : Samsung"},{"feature_id":16,"feature_name":"Brand : Micromax"},{"feature_id":17,"feature_name":"Brand : MI"}    ]'
+}
+
+var jsonArray = JSON.parse(data);
+//var j=1;
+//var x="ddFeatures"+j;
+//console.log("x=" + x);
+//console.log(gv);
+var sel = ff;
+//console.log(sel);
+var opt;
+for (var i = 0; i < jsonArray.length; i++) {
+opt = document.createElement('option');
+opt.value=jsonArray[i]["feature_id"];
+opt.text = jsonArray[i]["feature_name"];
+//console.log("opt="+opt.text);
+sel.add(opt);
+
+}
+//gvxgv;
+gv++;
+
+//j++;
+//console.log(opt);
+//console.log(sel);
+
+}
+
+
+</script>
+
+<script>
+
+  $.fn.serializeObject = function()
+{
+    var proposal = {description:"" ,
+     paymentTermsId:"" , 
+     deliveryTermsId:"" , 
+     products:[
+     
+
+
+     ] };
+
+     
+
+   var nprop=proposal;
+   // console.log(nrop);
+    nprop.description=document.getElementById('description').value;
+    nprop.paymentTermsId=document.getElementById('PayTerms').value;
+    nprop.deliveryTermsId=document.getElementById('Delterms').value;
+
+    var prodTableSize=document.getElementById("ProdTable").rows.length;
+     console.log("prodTableSize="+prodTableSize);
+    for(i=1;i<=prodTableSize-1;i++)
+      {
+
+var p={};
+
+      var j=i-1;
+      var temp=document.getElementById("ProdTable").rows[i].cells;
+        
+
+
+      p.id=temp[1].innerHTML;
+      p.quantity=temp[2].getElementsByTagName("input")[0].value;
+
+      var ftID=featureTableArray[j];
+      console.log(ftID);
+
+      var fTableSize=document.getElementById(ftID).rows.length;
+p.features=[];
+      for(k=0;k<fTableSize;k++){
+        var ftemp=document.getElementById(ftID).rows[k].cells;
+        var f={};
+        f.fid=ftemp[1].innerHTML;
+        f.priorityOrder=ftemp[2].querySelector('input:checked').value;
+      //  console.log("F="+f.specification+"   "+f.priorityOrder);
+        p.features.push(f);
+
+
+
+
+      }
+
+
+
+  nprop.products.push(p);
+
+
+
+  
+
+}
+
+
+       return proposal;
+
+
+    
+};
+/*
+var jFinalJSON;
+var finalJSON;
+  
+  $(function() {
+    $('form').submit(function() {
+       // $('#result').text(JSON.stringify($('form').serializeObject()));
+         finalJSON=JSON.stringify($('form').serializeObject());
+         console.log(typeof finalJSON);
+       //  alert(finalJSON);
+
+          jFinalJSON=JSON.parse(finalJSON);
+         console.log(typeof jFinalJSON);
+         console.log(jFinalJSON.description);
+         alert(finalJSON);
+       //alert(finalJSON);
+
+       // sentDataToServer();
+
+       //return false;
+
+    });
+});
+
+*/
+
+
+</script>
+
+
+
+
+
+
+
+
+ <!--          
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<! Bootstrap Core JavaScript >
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<! Metis Menu Plugin JavaScript >
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+<! Morris Charts JavaScript >
+<script src="../vendor/raphael/raphael.min.js"></script>
+<script src="../vendor/morrisjs/morris.min.js"></script>
+<script src="../data/morris-data.js"></script>
+
+<! Custom Theme JavaScript >
+<script src="../dist/js/sb-admin-2.js"></script>
+-->
+
+</body>
+
+</html>

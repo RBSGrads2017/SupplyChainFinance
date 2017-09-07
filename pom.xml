@@ -25,11 +25,11 @@
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
         </dependency>
-        <!-- uncomment this to get JSON support
+		<!-- uncomment this to get JSON support -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
-        </dependency> -->
+        </dependency>
 
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -70,7 +70,8 @@
             <type>pom</type>
             <scope>test</scope>
         </dependency>
-        <dependency>
+    
+      <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
@@ -87,6 +88,7 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+
  		<dependency>
     		<groupId>com.oracle</groupId>
     		<artifactId>ojdbc</artifactId>
@@ -94,6 +96,7 @@
     		<scope>system</scope>
     		<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc6.jar</systemPath>
 		</dependency>
+
 		<dependency>
   			<groupId>org.apache.poi</groupId>
   			<artifactId>poi</artifactId>
@@ -117,11 +120,29 @@
     		<version>2.5</version>
     	    <scope>provided</scope>
 		</dependency>
+
     	<dependency>
     		<groupId>com.fasterxml.jackson.jaxrs</groupId>
     		<artifactId>jackson-jaxrs-base</artifactId>
     		<version>2.6.1</version>
 		</dependency>	
+      
+  <dependency>
+        	<groupId>com.sun.jersey</groupId>
+        	<artifactId>jersey-client</artifactId>
+        	<version>1.9.1</version>
+   </dependency>
+    
+  <dependency>
+			<groupId>com.thetransactioncompany</groupId>
+			<artifactId>cors-filter</artifactId>
+			<version>2.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-moxy</artifactId>
+		</dependency>
     </dependencies>
 
     <build>
