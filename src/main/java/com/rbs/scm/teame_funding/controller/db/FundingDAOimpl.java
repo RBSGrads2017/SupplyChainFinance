@@ -32,33 +32,61 @@ public class FundingDAOimpl {
 	public FundingDAOimpl() {
 		c = new ConnectionClass();
 	}
-
 	public List<Invoice> view_invoices(String buyer, String seller) {
 
 		Statement statement = null;
-		Connection con = null;
+		Connection connection = null;
 
 		List<Invoice> pt_list = new ArrayList<Invoice>();
 
-		try { 	PreparedStatement stmt1 = con.prepareStatement(
-				"select user_name from \"customer_user\" where \"\"=? and \"seller_id\"=?",
-				ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		/*
+		 * try { Class.forName("org.postgresql.Driver"); connection =
+		 * DriverManager.getConnection(
+		 * "jdbc:postgresql://localhost:5432/teamb?currentSchema=public", "postgres",
+		 * "teamb");
+		 */
 
-		
+		try {
+
+			// Class.forName("org.postgresql.Driver");
+			// String url =
+			// "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+			// Properties props = new Properties();
+			// props.setProperty("user", "lqmwbjsssdqgqd");
+			// props.setProperty("password",
+			// "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+			// props.setProperty("ssl", "true");
+			// connection = DriverManager.getConnection(url, props);
+			Connection con = c.getConnection();
+			PreparedStatement stmt1 = con.prepareStatement("select * from \"Buyer\" where \"name\"=?",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			stmt1.setString(1, buyer);
+			ResultSet rs1 = stmt1.executeQuery();
+			System.out.println("1done");
+
+			PreparedStatement stmt2 = con.prepareStatement("select * from \"Buyer\" where \"name\"=?",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			stmt2.setString(1, seller);
+			ResultSet rs2 = stmt2.executeQuery();
+			System.out.println("2done");
 
 			PreparedStatement stmt3 = con.prepareStatement(
 					"select * from \"Invoice\" where \"buyer_id\"=? and \"seller_id\"=?",
 					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			stmt3.setInt(1,);
-			stmt3.setInt(2,);
+			stmt3.setInt(1, 11);
+			stmt3.setInt(2, 501);
 			ResultSet rs3 = stmt3.executeQuery();
 			System.out.println("3done");
 
 			while (rs3.next()) {
 				Invoice pt = new Invoice();
+				Buyer b = new Buyer();
+				Seller s = new Seller();
 				
-
-			
+				b.setBuyer_id(rs3.getInt(3));
+				b.setName(buyer);
+				s.setSeller_id(rs3.getInt(4));
+				s.setName(seller);
 
 				pt.setInvoiceID(rs3.getInt(1)); // invoice id
 				// System.out.println(rs3.getInt(1));
@@ -66,10 +94,10 @@ public class FundingDAOimpl {
 				pt.setInvoiceDueDate(rs3.getString(2)); // date
 				// System.out.println(rs3.getString(2));
 
-				
+				pt.setBuyer(b);
 				// System.out.println(rs3.getInt(3));
 
-			
+				pt.setSeller(s);
 				// System.out.println(rs3.getInt(4));
 
 				pt.setInvoiceAmount(rs3.getDouble(5));
@@ -92,7 +120,7 @@ public class FundingDAOimpl {
 
 			System.out.println("done successfully");
 			rs3.close();
-			con.close();
+
 			return pt_list;
 
 		} catch (Exception e) {
@@ -125,15 +153,15 @@ public class FundingDAOimpl {
 					a= rs1.getString(1);
 				}
 			}
-			
+
 			catch (Exception e) {
 				System.out.println(e);
 			}
-			
-			
+
+
 			sqlQuery = "select * from \"Purchase_Order\" where \"seller_id\" =501";
 			//sqlQuery += a;
-			}
+		}
 
 		try {
 			stmt1 = con.prepareStatement(sqlQuery,
@@ -168,8 +196,8 @@ public class FundingDAOimpl {
 
 				po.setSellerApproved(rs3.getBoolean("is_seller_review"));
 
-				po.setBuyer(b);
-				po.setSeller(s);
+//				po.setBuyer(b);
+//				po.setSeller(s);
 
 				po_list.add(po);
 
@@ -184,7 +212,7 @@ public class FundingDAOimpl {
 
 		}
 		catch (Exception e) {
-	  System.out.println(e);
+			System.out.println(e);
 		}
 
 		return po_list;
@@ -192,7 +220,7 @@ public class FundingDAOimpl {
 
 
 
-	
+
 
 
 	public void insertLIBOR(Libor lt) throws ParseException {
@@ -201,8 +229,8 @@ public class FundingDAOimpl {
 			Class.forName("org.postgresql.Driver");
 			String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 			Properties props = new Properties();
-			props.setProperty("user", "lqmwbjsssdqgqd");
-			props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+			props.setProperty("user", "yzqfbztsbnnnoi");
+			props.setProperty("password", "a02372528e43fe5384947fdc13d247f85cc9da2e6925e64f717355434d941c4d");
 			props.setProperty("ssl", "true");
 			connection = DriverManager.getConnection(url, props);
 			String sql_1 = "Insert into \"LIBOR\" (currency , \"duration\", \"rate\") values (?,?,?)";
@@ -211,7 +239,7 @@ public class FundingDAOimpl {
 			//DateFormat formatter = new SimpleDateFormat("HH:mm");
 			//java.sql.Time timeValue = new java.sql.Time(formatter.parse((new Date()).getTime()).toString());
 			preparedStmt.setInt(2, calcDuration(lt.getDuration()));
-			preparedStmt.setDouble(3, lt.getRate());
+			preparedStmt.setString(3, lt.getRate());
 			//preparedStmt.setTime(2, timeValue);
 			preparedStmt.executeUpdate();
 		} catch (SQLException | ClassNotFoundException e) {
@@ -224,7 +252,7 @@ public class FundingDAOimpl {
 			}
 		}
 	}
-	
+
 	public int calcDuration(String duration) {
 		int t=0;
 		if(duration.equals("1 week"))
@@ -239,7 +267,7 @@ public class FundingDAOimpl {
 			t=6;
 		else if(duration.equals("12 months"))
 			t=12;
-		
+
 		return t;
 	}
 
@@ -247,7 +275,7 @@ public class FundingDAOimpl {
 		Connection connection = null;
 		try {
 			Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+			String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 			Properties props = new Properties();
 			props.setProperty("user", "lqmwbjsssdqgqd");
 			props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
@@ -272,170 +300,170 @@ public class FundingDAOimpl {
 	}
 
 	public void insertPO(PurchaseOrder PO) {
-        Connection connection = null;
-        try {
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-            Properties props = new Properties();
-            props.setProperty("user", "lqmwbjsssdqgqd");
-            props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
-            props.setProperty("ssl", "true");
-            connection = DriverManager.getConnection(url, props);
-            String sql_1 = "Insert into Purchase_Order values ('?','?','?','?','?','?','?','?','?')";
-            PreparedStatement preparedStmt = connection.prepareStatement(sql_1);
-            preparedStmt.setString(1, PO.getPOID());
-            preparedStmt.setString(2,PO.getbuyer_id());
-            preparedStmt.setString(3,PO.getseller_id());
-            preparedStmt.setInt(4, PO.getFees());
-            preparedStmt.setDouble(5, PO.getNetPayable());
-            preparedStmt.setDouble(6, PO.getInvestmentAmount());
-            preparedStmt.setDouble(7, PO.getDiscountRate());
-            preparedStmt.setBoolean(8, PO.isBankApproved());
-            preparedStmt.setBoolean(9, false);
-            preparedStmt.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {  
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+		Connection connection = null;
+		try {
+			Class.forName("org.postgresql.Driver");
+			String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+			Properties props = new Properties();
+			props.setProperty("user", "lqmwbjsssdqgqd");
+			props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+			props.setProperty("ssl", "true");
+			connection = DriverManager.getConnection(url, props);
+			String sql_1 = "Insert into Purchase_Order values ('?','?','?','?','?','?','?','?','?')";
+			PreparedStatement preparedStmt = connection.prepareStatement(sql_1);
+			preparedStmt.setString(1, PO.getPOID());
+			preparedStmt.setString(2,PO.getbuyer_id());
+			preparedStmt.setString(3,PO.getseller_id());
+			preparedStmt.setInt(4, PO.getFees());
+			preparedStmt.setDouble(5, PO.getNetPayable());
+			preparedStmt.setDouble(6, PO.getInvestmentAmount());
+			preparedStmt.setDouble(7, PO.getDiscountRate());
+			preparedStmt.setBoolean(8, PO.isBankApproved());
+			preparedStmt.setBoolean(9, false);
+			preparedStmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {  
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
-    }
+	}
 
 	public Boolean readPOsreview(String PO_id) {
-        Statement statement = null;
-        Connection connection = null;
-        try {
+		Statement statement = null;
+		Connection connection = null;
+		try {
 
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-            Properties props = new Properties();
-            props.setProperty("user", "lqmwbjsssdqgqd");
-            props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
-            props.setProperty("ssl", "true");
-            connection = DriverManager.getConnection(url, props);
-            String sql_3 = "SELECT ";
-            sql_3 += "is_seller_review";
-            sql_3 += " from \"Purchase_Order\"";
-            sql_3 += " WHERE po_id= ";
-            sql_3 += PO_id;
+			Class.forName("org.postgresql.Driver");
+			String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+			Properties props = new Properties();
+			props.setProperty("user", "lqmwbjsssdqgqd");
+			props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+			props.setProperty("ssl", "true");
+			connection = DriverManager.getConnection(url, props);
+			String sql_3 = "SELECT ";
+			sql_3 += "is_seller_review";
+			sql_3 += " from \"Purchase_Order\"";
+			sql_3 += " WHERE po_id= ";
+			sql_3 += PO_id;
 
-            statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql_3);
-            Boolean flag = rs.getBoolean(1);
-            rs.close();
-            return flag;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-//	public JSONObject readPO(String PO_id) {
-//        Statement statement = null;
-//        Connection connection = null;
-//        JSONObject Json;
-//        try {
-//
-//            Class.forName("org.postgresql.Driver");
-//            String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-//            Properties props = new Properties();
-//            props.setProperty("user", "lqmwbjsssdqgqd");
-//            props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
-//            props.setProperty("ssl", "true");
-//            connection = DriverManager.getConnection(url, props);
-//            String sql_3 = "SELECT ";
-//            sql_3 += "*";
-//            sql_3 += " from \"Purchase_Order\"";
-//            sql_3 += " WHERE po_id= ";
-//            sql_3 += PO_id;
-//
-//            statement = connection.createStatement();
-//            ResultSet rs = statement.executeQuery(sql_3);
-//            //Json.put(, arg1) = rs.get
-//        } catch (SQLException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//            
-//        } finally {
-//            try {
-//            	connection.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-    public Boolean readPOapproved(String PO_id) {
-        Statement statement = null;
-        Connection connection = null;
-        try {
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql_3);
+			Boolean flag = rs.getBoolean(1);
+			rs.close();
+			return flag;
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	//	public JSONObject readPO(String PO_id) {
+	//        Statement statement = null;
+	//        Connection connection = null;
+	//        JSONObject Json;
+	//        try {
+	//
+	//            Class.forName("org.postgresql.Driver");
+	//            String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	//            Properties props = new Properties();
+	//            props.setProperty("user", "lqmwbjsssdqgqd");
+	//            props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+	//            props.setProperty("ssl", "true");
+	//            connection = DriverManager.getConnection(url, props);
+	//            String sql_3 = "SELECT ";
+	//            sql_3 += "*";
+	//            sql_3 += " from \"Purchase_Order\"";
+	//            sql_3 += " WHERE po_id= ";
+	//            sql_3 += PO_id;
+	//
+	//            statement = connection.createStatement();
+	//            ResultSet rs = statement.executeQuery(sql_3);
+	//            //Json.put(, arg1) = rs.get
+	//        } catch (SQLException | ClassNotFoundException e) {
+	//            e.printStackTrace();
+	//            
+	//        } finally {
+	//            try {
+	//            	connection.close();
+	//            } catch (SQLException e) {
+	//                e.printStackTrace();
+	//            }
+	//        }
+	//    }
+	public Boolean readPOapproved(String PO_id) {
+		Statement statement = null;
+		Connection connection = null;
+		try {
 
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-            Properties props = new Properties();
-            props.setProperty("user", "lqmwbjsssdqgqd");
-            props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
-            props.setProperty("ssl", "true");
-            connection = DriverManager.getConnection(url, props);
-            String sql_3 = "SELECT ";
-            sql_3 += "is_approved";
-            sql_3 += " from \"Purchase_Order\"";
-            sql_3 += " WHERE po_id= ";
-            sql_3 += PO_id;
+			Class.forName("org.postgresql.Driver");
+			String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+			Properties props = new Properties();
+			props.setProperty("user", "lqmwbjsssdqgqd");
+			props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+			props.setProperty("ssl", "true");
+			connection = DriverManager.getConnection(url, props);
+			String sql_3 = "SELECT ";
+			sql_3 += "is_approved";
+			sql_3 += " from \"Purchase_Order\"";
+			sql_3 += " WHERE po_id= ";
+			sql_3 += PO_id;
 
-            statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql_3);
-            Boolean flag = rs.getBoolean(1);
-            rs.close();
-            return flag;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-   
-    public void deletePO(boolean flag, String PO_id)
-    { Connection connection = null;
-    try {
-        Class.forName("org.postgresql.Driver");
-        String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-        Properties props = new Properties();
-        props.setProperty("user", "lqmwbjsssdqgqd");
-        props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
-        props.setProperty("ssl", "true");
-        connection = DriverManager.getConnection(url, props);
-        String sql_1 = "Delete from Purchase_Order where po_id=? and ?=true";
-        PreparedStatement preparedStmt = connection.prepareStatement(sql_1);
-        preparedStmt.setString(1,PO_id);
-        preparedStmt.setBoolean(2,flag);
-        preparedStmt.executeUpdate();
-       
-    } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
-       
-    } finally {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-       
-    }
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql_3);
+			Boolean flag = rs.getBoolean(1);
+			rs.close();
+			return flag;
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-	
+	public void deletePO(boolean flag, String PO_id)
+	{ Connection connection = null;
+	try {
+		Class.forName("org.postgresql.Driver");
+		String url = "jdbc:postgresql://ec2-107-20-226-93.compute-1.amazonaws.com:5432/d3gt88jfl1r6i7?user=lqmwbjsssdqgqd&password=b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+		Properties props = new Properties();
+		props.setProperty("user", "lqmwbjsssdqgqd");
+		props.setProperty("password", "b05b46f323cb29b4b459ae7d33febec7b16b6e303364a74623ca627c47213afd");
+		props.setProperty("ssl", "true");
+		connection = DriverManager.getConnection(url, props);
+		String sql_1 = "Delete from Purchase_Order where po_id=? and ?=true";
+		PreparedStatement preparedStmt = connection.prepareStatement(sql_1);
+		preparedStmt.setString(1,PO_id);
+		preparedStmt.setBoolean(2,flag);
+		preparedStmt.executeUpdate();
+
+	} catch (SQLException | ClassNotFoundException e) {
+		e.printStackTrace();
+
+	} finally {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	}
+
+
 }
 

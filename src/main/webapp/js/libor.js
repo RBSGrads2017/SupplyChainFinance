@@ -16,6 +16,6 @@ app.controller("bodyController",function($scope,$location,$window,$http){
 	{currency:"xyz libor", duration:"2 months", rate:"0.73%"}]*/
 	
 	$scope.redirect= function(){
-		 $window.location.href = 'http://localhost:8181/jersey-heroku-webapp/pages/index.html';
+		 $window.location.href = 'http://localhost:8090/scm/pages/teame_funding/porderlist_bankuser.html';
 	}
 });

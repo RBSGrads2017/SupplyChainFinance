@@ -16,6 +16,6 @@ app.controller("POList_Ctrl",function($scope,$location,$window,$http){
     }
 
     $scope.openPO= function(id){
-    	
+    	$window.location.href = 'http://localhost:8090/scm/pages/teame_funding/SorryPage.html';
     }
 });

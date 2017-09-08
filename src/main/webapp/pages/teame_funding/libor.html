@@ -78,7 +78,7 @@ opacity: 0.9;
             margin:auto; padding:5px;
             padding-left:20px;
             padding-right:20px;
-            background-color:#469c2a;
+            background-color:#898989;
             box-shadow: 0px 1px 8px 1px rgba(0, 0, 0, 0.2);
             color:rgba(255,255,255,0.9);
             border:0px;
@@ -91,7 +91,7 @@ opacity: 0.9;
 
         th{
             text-align: center;
-            color: white;
+            color: black;
         }
 
         td{
@@ -118,7 +118,7 @@ opacity: 0.9;
 
         .liborText{
             font-size: 200%;
-            color: white; 
+            color: black; 
         }
         
         #backup{
@@ -283,11 +283,11 @@ opacity: 0.9;
 
         <div style="margin-top: 10px">
             <div class="row">
-                <div class="col-sm-offset-1 col-sm-8 jumbotron" style="padding-top:0px; height:800px; border-radius: 20px; text-align: center; background-color:#555">
+                <div class="col-sm-offset-1 col-sm-8 jumbotron" style="padding-top:0px; height:auto; border-radius: 20px; text-align: center; background-color:#D3D3D3">
                     
                    <div class="row">
-                        <div class="col-sm-12" style="background-color:#337ab7; border-radius: 20px 20px 0px 0px;"><br><br>
-                            <p style="font-size: 250%; color: white"><b>FUNDING MANAGEMENT</b></p>
+                        <div class="col-sm-12" style="background-color:#A9A9A9; border-radius: 20px 20px 0px 0px;"><br><br>
+                            <p style="font-size: 250%; color: black"><b>FUNDING MANAGEMENT</b></p>
                         </div>
                     </div>
                     <br><br>
@@ -313,12 +313,12 @@ opacity: 0.9;
                                             <th>Rate</th>
                                         </tr>
                                     </thead>
-                                    <tbody ng-repeat="libor in libors">
+                                    <tbody ng-repeat="libor in libors" style="color: black">
                                         <tr>
                                             <td><input type="radio" name="libor" ng-model="Libor" ng-click="liborSelection()"/></td>
-                                            <td>{{libor.currency}}</td>
-                                            <td>{{libor.duration}}</td>
-                                            <td>{{libor.rate}}</td> 
+                                            <td style="color: black">{{libor.currency}}</td>
+                                            <td style="color: black">{{libor.duration}}</td>
+                                            <td style="color: black">{{libor.rate}}</td> 
                                         </tr>
                                     </tbody>
                                 </table>
