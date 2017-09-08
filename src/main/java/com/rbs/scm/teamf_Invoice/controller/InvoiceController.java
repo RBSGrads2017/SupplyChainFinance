@@ -74,9 +74,9 @@ public class InvoiceController {
 		return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
 	}
 	@RequestMapping(value = "/approvedInvoices", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<List<Invoice>> listApprovedInvoices(@PathParam("approvalStatus") int approvalStatus) throws ClassNotFoundException, SQLException {
-		System.out.println("id is"+approvalStatus);
-			List<Invoice> invoices = invoiceServiceObj.approvedInvocies(approvalStatus);
+		public ResponseEntity<List<Invoice>> listApprovedInvoices(@PathParam("sellerID") int sellerID) throws ClassNotFoundException, SQLException {
+		System.out.println("id is"+sellerID);
+			List<Invoice> invoices = invoiceServiceObj.approvedInvocies(sellerID);
 			if (invoices.isEmpty()) {
 				return new ResponseEntity<List<Invoice>>(HttpStatus.NO_CONTENT);
 			}
@@ -333,4 +333,62 @@ public class InvoiceController {
 	}
 	return new ResponseEntity<Invoice>(n, HttpStatus.OK);
 	}
+	@RequestMapping(path = "/availFinance", method = RequestMethod.GET)
+	public ResponseEntity<CustomMessage> availfinance(@PathParam("invoiceID") int invoiceID) throws ClassNotFoundException, SQLException {
+	CustomMessage msg= null;
+	msg=invoiceServiceObj.availfinace(invoiceID);
+	if (msg==null) {
+		return new ResponseEntity<CustomMessage>(msg,HttpStatus.NO_CONTENT);
+	}
+	return new ResponseEntity<CustomMessage>(msg, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/updatepaymentStatus",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CustomMessage> updatepaymentStatus(@PathParam("invoiceID") double invoiceID) throws ClassNotFoundException, SQLException {
+		System.out.println("Update Invoice with Invoice no"+ invoiceID);
+		//Invoice invoiceObj = invoiceServiceObj.search(invoiceNo);
+		
+		CustomMessage msg = invoiceServiceObj.updatepaymentStatus(invoiceID);
+		if(msg == null){
+			System.out.println("Invoice with Invoice No"+invoiceID+"is not found and not updated");
+			return new ResponseEntity<CustomMessage>(msg,HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<CustomMessage>(msg,HttpStatus.OK);
+    }
+	
+	@RequestMapping(value = "/GetInvoiceByid",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Invoice> GetInvoice(@PathParam("invoiceID") double invoiceID,@PathParam("sellerid") double sellerid) throws ClassNotFoundException, SQLException {
+		System.out.println("Getting Invoice with billBook no"+ invoiceID);
+		//Invoice invoiceObj = invoiceServiceObj.search(invoiceNo);
+		
+		Invoice invoiceObj = invoiceServiceObj.searchwithInvoiceID(invoiceID,sellerid);
+		if(invoiceObj == null){
+			System.out.println("Invoice with Invoice No"+invoiceID+"is not found");
+			return new ResponseEntity<Invoice>(invoiceObj,HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Invoice>(invoiceObj,HttpStatus.OK);
+    }
+	
+	@RequestMapping(value = "/GetcurrentInvoice",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> GetcurrentInvoice() throws ClassNotFoundException, SQLException {
+		System.out.println("Getting Current Invoice");
+		
+		int invoice_id = 0;
+		 invoice_id = invoiceServiceObj.getcurrentinvoice();
+		if(invoice_id == 0){
+			return new ResponseEntity<Integer>(invoice_id,HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Integer>(invoice_id,HttpStatus.OK);
+    }
+	@RequestMapping(value = "/SetcurrentInvoice",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CustomMessage> SetcurrentInvoice(@PathParam("invoiceID") double invoiceID) throws ClassNotFoundException, SQLException {
+		System.out.println("setting Current Invoice");
+		CustomMessage msg = new CustomMessage();
+		int invoice_id = 0;
+		 msg = invoiceServiceObj.setcurrentinvoice((int)invoiceID);
+		if(msg == null){
+			return new ResponseEntity<CustomMessage>(msg,HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<CustomMessage>(msg,HttpStatus.OK);
+    }
 }

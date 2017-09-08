@@ -128,15 +128,15 @@ public class InvoiceService {
 		}
 		return lst;			
 	}
-	public List<Invoice> approvedInvocies(int approvalStatus) throws ClassNotFoundException, SQLException{
+	public List<Invoice> approvedInvocies(int sellerID) throws ClassNotFoundException, SQLException{
 		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
 		List<Invoice> lst = new ArrayList<Invoice>();
 		Invoice invobj = null;
 		Connection con = dbobj.getConnection();
 		try{
 			
-				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where approvalstatus=? and deletestatus=0 and draftstatus=0");
-				stmt.setInt(1,approvalStatus);
+				PreparedStatement stmt = con.prepareStatement("select * from invoice1 where approvalstatus=1 and \"sellerID\"=? and deletestatus=0");
+				stmt.setInt(1,sellerID);
 				ResultSet rs = stmt.executeQuery();				
 				invobj = new Invoice();
 				while(rs.next()){
@@ -151,13 +151,14 @@ public class InvoiceService {
 					invobj.setFundingRequestStatus(rs.getInt(8));
 					invobj.setApprovalStatus(rs.getInt(9));
 					invobj.setDraftStatus(rs.getInt(10));
-					//invobj.setPaymentDate(rs.getDate(11));
+					invobj.setPaymentDate(rs.getDate(11));
 					invobj.setInvoiceAmount(rs.getFloat(12));
-					//invobj.setInvoiceDueDate(rs.getDate(13));
+					invobj.setInvoiceDueDate(rs.getDate(13));
 					invobj.setComplianceStatus(rs.getInt(14));
 					invobj.setDeleteStatus(rs.getInt(15));
-					//invobj.setDeleteTimestamp(rs.getDate(16));
-					//invobj.setInvoiceCreatedDate(rs.getDate(17));
+					invobj.setDeleteTimestamp(rs.getDate(16));
+					invobj.setInvoiceCreatedDate(rs.getDate(17));
+					invobj.setPaymentstatus(rs.getString(18));
 					System.out.println(invobj.toString());
 					lst.add(invobj);
 			}
@@ -1214,6 +1215,172 @@ public class InvoiceService {
 			con.close();
 		}
 		return invobj;			
+	}
+
+	public CustomMessage availfinace(int invoiceID) throws ClassNotFoundException, SQLException {
+		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
+		CustomMessage msg=null;
+		String s="";
+		Connection con = dbobj.getConnection();
+		try{
+			
+			msg = new CustomMessage();
+			PreparedStatement stmt=con.prepareStatement("update invoice1 set \"FundingRequestStatus\"=1 where invoice_id=? and deletestatus=0");
+			stmt.setDouble(1,invoiceID);
+			stmt.executeUpdate();
+
+			System.out.println("Record is updated to DBUSER table!");
+			String updateTableSQL2 = "COMMIT";
+			stmt = con.prepareStatement(updateTableSQL2);
+			stmt.executeUpdate();
+
+			msg.setMessage("Invoice no"+invoiceID+ "submitted to finance");
+			//ResultSet re=stmt.executeQuery();
+			//while(re.next()){
+				//System.out.println("invoice number"+re.getInt(1)+"ContractNo"+re.getInt(2)+"BuyerId"+re.getInt(3)+"SellerId"+re.getInt(4)+"ProductId"+re.getInt(5)+"UnitPrice"+re.getInt(6)+"Quantity number"+re.getInt(7)+"GrossAmount"+re.getInt(8)+"tax"+re.getInt(9)+"NetAmount "+re.getInt(10)+"ApprovalStatus "+re.getInt(11)+"Draft number"+re.getInt(12)+"FinancialStatus "+re.getInt(13));
+			//}
+		}
+		catch(Exception e){
+			msg.setMessage(e.getMessage());
+			System.out.println(e.getMessage());
+			}
+		finally{
+			con.close();
+		}
+		return msg;
+	}
+	public CustomMessage updatepaymentStatus(double invoiceID) throws ClassNotFoundException, SQLException {
+		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
+		CustomMessage msg = new CustomMessage();
+		msg=null;
+		Connection con = dbobj.getConnection();
+		try{
+			
+			PreparedStatement stmt=con.prepareStatement("update invoice1 set paymentstatus=1 where invoice_id=? and  deletestatus=0");
+			stmt.setDouble(1,invoiceID);
+			stmt.executeUpdate();
+
+			System.out.println("Payment is updated to DBUSER table!");
+			String updateTableSQL2 = "COMMIT";
+			stmt = con.prepareStatement(updateTableSQL2);
+			stmt.executeUpdate();
+			msg.setMessage("successfully Updated PAyment Status");
+				System.out.println("successfully Updated PAyment Status");		
+		}
+		catch(Exception e){
+			msg.setMessage(e.getMessage());
+			System.out.println(e.getMessage());
+			}
+		finally {
+			con.close();
+		}
+		return msg;
+	}
+
+	public Invoice searchwithInvoiceID(double invoiceID, double sellerid) throws ClassNotFoundException, SQLException {
+		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
+		Invoice invobj = null;
+		Connection con = dbobj.getConnection();
+		try{
+			
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("select * from invoice1 where invoice_id="+invoiceID+"and (\"sellerID\"="+sellerid+" or \"buyerID\"="+sellerid+") and deletestatus=0");
+				invobj = new Invoice();
+				//System.out.println(rs.toString());
+				if(rs.next()==false) {
+					
+				}
+				else{
+					invobj.setInvoiceID(rs.getDouble(1)); 
+					do{
+						invobj.setInvoiceID(rs.getDouble(1)); 
+						invobj.setContractID(rs.getDouble(2));
+						invobj.setSellerID(rs.getDouble(3));
+						invobj.setBuyerID(rs.getDouble(4));
+						invobj.setBillbookNo(rs.getDouble(5));
+						invobj.setSenderID(rs.getDouble(6));
+						invobj.setReceiverID(rs.getDouble(7));
+						invobj.setFundingRequestStatus(rs.getInt(8));
+						invobj.setApprovalStatus(rs.getInt(9));
+						invobj.setDraftStatus(rs.getInt(10));
+						invobj.setPaymentDate(rs.getDate(11));
+						invobj.setInvoiceAmount(rs.getFloat(12));
+						invobj.setInvoiceDueDate(rs.getDate(13));
+						invobj.setComplianceStatus(rs.getInt(14));
+						invobj.setDeleteStatus(rs.getInt(15));
+						invobj.setDeleteTimestamp(rs.getDate(16));
+						invobj.setInvoiceCreatedDate(rs.getDate(17));
+						invobj.setPaymentstatus(rs.getString(18));
+					System.out.println(invobj.toString());
+			}while(rs.next());
+		}
+			}
+			catch(Exception e)
+			{							
+				System.out.println(e);
+			}
+		finally{
+			con.close();
+		}
+		return invobj;		
+	}
+
+	public Integer getcurrentinvoice() throws ClassNotFoundException, SQLException {
+		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
+		Invoice invobj = null;
+		int invoice_id=0;
+		Connection con = dbobj.getConnection();
+		try{
+			
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("select * from currentinvoice ");
+				
+				if(rs.next()==false) {
+					
+				}
+				else{
+					invoice_id = rs.getInt(1);
+					
+					System.out.println(invoice_id);
+					}while(rs.next());
+		}
+		catch(Exception e)
+		{							
+			System.out.println(e.getMessage());
+		}
+		finally{
+			con.close();
+		}
+		return invoice_id;	
+	}
+
+	public CustomMessage setcurrentinvoice(int invoice_id) throws ClassNotFoundException, SQLException  {
+		DatabaseConnectionPostgreSQL dbobj = new DatabaseConnectionPostgreSQL();
+		Invoice invobj = null;
+		CustomMessage msg = null;
+		Connection con = dbobj.getConnection();
+		try{
+			
+			PreparedStatement stmt=con.prepareStatement("UPDATE currentinvoice SET invoice_id=?");
+			stmt.setDouble(1,invoice_id);
+			stmt.executeUpdate();
+
+			System.out.println("current invoice No is updated to DBUSER table!");
+			String updateTableSQL2 = "COMMIT";
+			stmt = con.prepareStatement(updateTableSQL2);
+			stmt.executeUpdate();
+			msg.setMessage("successfully Updated current invoice No");
+
+		}
+		catch(Exception e)
+		{	
+			msg.setMessage("failed");
+			System.out.println(e.getMessage());
+		}
+		finally{
+			con.close();
+		}
+		return msg;	
 	}
 
 }

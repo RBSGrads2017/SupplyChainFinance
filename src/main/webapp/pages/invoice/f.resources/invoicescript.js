@@ -14,6 +14,14 @@ function myFunction() {
    			        x.style.display = 'none';
    			    }
   	}
+   function myFunction2() {
+		    var x = document.getElementById('demo2');
+		    if (x.style.display === 'none') {
+		        x.style.display = 'block';
+		    } else {
+		        x.style.display = 'none';
+		    }
+}
  
   function toggleview(){
 	  var x = document.getElementById('invoicelist');
@@ -33,6 +41,20 @@ function myFunction() {
 	  var x = document.getElementById('invoicelist');
 	  var y = document.getElementById('view');
 	  var z = document.getElementById('view1');
+		    if (z.style.display === 'none') {
+		        x.style.display = 'none';
+		        y.style.display = 'none';
+		        z.style.display = 'block';
+		    } else {
+		    	x.style.display = 'block';
+		        y.style.display = 'none';
+		        z.style.display = 'none';
+		    }
+}
+  function toggleview3(){
+	  var x = document.getElementById('invoicelist');
+	  var y = document.getElementById('view');
+	  var z = document.getElementById('view3');
 		    if (z.style.display === 'none') {
 		        x.style.display = 'none';
 		        y.style.display = 'none';
@@ -383,6 +405,17 @@ function myFunction() {
       		$scope.message="Click to view received invoices";
       		window.location = "#/InvoiceLanding";
         }
+		$scope.viewapproved = function () {
+			console.log('inside view approved invoice');
+      		$http.post('http://localhost:8181/scm/invoice/approvedInvoices?sellerID=' + $scope.sessionid)
+			.success(function (data) {
+				console.log("after the req is hit");
+                $scope.invoicelist2 = data;
+                console.log( $scope.invoicelist2);
+                });
+      		$scope.message="Click to view Approved invoices";
+      		window.location = "#/InvoiceLanding";
+        }
 		
 		$scope.sentInvoicefunc = function () {
 			console.log('inside sent invoice');
@@ -424,6 +457,17 @@ function myFunction() {
 			.success(function (data) {
                 $scope.productslist = data;
                 console.log($scope.productslist);
+            });
+            window.location = "#/InvoiceLanding";
+	}
+		$scope.availfinance = function (invoiceNo) {
+			console.log('inside avail finance invoice');
+			$http.post('http://localhost:8181/scm/invoice/availFinance?invoiceID='+invoiceNo).success(function (data) {
+				console.log( "in avail finance page after service");
+				$scope.status = "You have sent invoice for approval for invoice no:"+invoiceNo;
+                console.log($scope.status);  
+                alert($scope.status);
+                
             });
             window.location = "#/InvoiceLanding";
 	}

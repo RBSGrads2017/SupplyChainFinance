@@ -20,6 +20,13 @@ public class Invoice {
 	private int complianceStatus; 
 	private int deleteStatus;
 	private Date deleteTimestamp;
+	private String paymentstatus;
+	public String getPaymentstatus() {
+		return paymentstatus;
+	}
+	public void setPaymentstatus(String paymentstatus) {
+		this.paymentstatus = paymentstatus;
+	}
 	public double getInvoiceID() {
 		return invoiceID;
 	}
