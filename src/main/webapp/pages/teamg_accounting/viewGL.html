@@ -6,6 +6,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="../../js/commonResources.js"></script>
+  <style>
+	.tableflow{
+		height:380px;
+		overflow-x:auto;
+		overflow-y:auto;
+	}
+
+
+</style>
 </head>
 
 <body ng-app="acmApp" ng-controller="coaListCtrl">
@@ -46,7 +55,7 @@
 	   </div>
 	  	
 	  	<div class="form-group col-sm-4">
-	  		<label for="invoiceNo">Invoice Number</label>
+	  		<label for="invoiceNo">Purchase Order ID</label>
        	    <input type='text'  class="form-control" id='invoiceNo' name='invoiceNo' ng-model='invoiceNo'></input> 
        	</div>
        	
@@ -90,7 +99,7 @@
         <th>Transaction Number</th>
         <th>Customer Account Number</th>
         <th>Swift ID</th>
-      	<th>Invoice Number</th>
+      	<th>Purchase Order ID</th>
       	<th>Type of Event</th>
       	<th>Amount</th>
       	<th>Due Date</th>

@@ -14,7 +14,34 @@ acmApp.config(function ($routeProvider){
 	.when('/checkCompliance',{templateUrl:'complianceCheck.html'})
 });
 	
-acmApp.controller('coaListCtrl', function ($scope, $http){    
+acmApp.controller('coaListCtrl', function ($scope, $http){
+	
+	$scope.SessionUsername  =  "";
+    $scope.SessionUsertype  =  ""; 
+    //$scope.seller_id = "" ; 
+    var promise = $http({
+        url: BASE_PATH + '/service/login/getUserInfo',
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' }
+    });
+    promise.then(function (response) {
+    	console.log(response.data);
+    	
+    	if (response.data == "no session") {
+    		$window.location.href = '../teama_login/HomePage.html'
+    	} else {
+    		
+    	    $scope.SessionUsertype  =  response.data.userType; 
+    	    $scope.SessionUsername  =  response.data.fullName;
+    	    $scope.seller_id =  response.data.usernameInt;
+    	    
+    	}
+    	
+    }, function(response) {
+    	console.log("couldnot load data");
+    });
+    
+    
 	$scope.callCoaList = function () {
 		console.log("coaListCtrl");
 		$http.post(BASE_PATH +'/ACM/updateCOAtable').success(function () {
@@ -201,12 +228,14 @@ $scope.checkCompliance1=function(){
 		if($scope.productSwiftID==undefined||$scope.productSwiftID=='null')
 			$scope.productSwiftID='';
 		/*if($scope.head==''||$scope.legalEntity==''||$scope.country==''||$scope.branch==''||$scope.product==''||$scope.currency==''||$scope.book==''||$scope.productSwiftID=='')
-		{	
+		{*/
+			if($scope.head==''||$scope.country==''||$scope.branch==''||$scope.currency==''||$scope.productSwiftID=='')
+			{
 			alert("Enter all the fields");
 			//$scope.callGl();
 		}
 		else
-		{*/
+		{
 			var url=BASE_PATH +'/ACM/addCOAContoller';
 			$http({url:url,method:"POST",params:{'productSwiftID':$scope.productSwiftID}}).success(function () {
 	           // $scope.glList = data;
@@ -215,7 +244,7 @@ $scope.checkCompliance1=function(){
 	            window.location = "#/addCoaResult";					
 			});
 			//$scope.callCoaList();
-		/*}*/
+		}
 	}
 	/*$scope.addCoa = function () {
 		$scope.head=this.head;

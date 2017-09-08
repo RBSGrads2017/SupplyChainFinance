@@ -38,6 +38,9 @@ public class AccountingManagementController {
 	 @RequestMapping(value = "/viewGL",method = RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	 public ResponseEntity<List<GeneralLedger>> ViewLedger() throws SQLException{
 			List<GeneralLedger> generalledgerlists=accountingManagementServiceObj.getEachGLEntry();
+			
+	//accountingManagementServiceObj.createGlEntry(1244, 1234,"1234","213");
+			
 			return new ResponseEntity<List<GeneralLedger>>(generalledgerlists, HttpStatus.OK);
 		}
 	 
@@ -242,6 +245,8 @@ public class AccountingManagementController {
 	public double calculateAccruedIncomePerDay(Date paymentDate,Date dueDate,double amount){
 		long noOfDays =((TimeUnit.MINUTES.convert(dueDate.getTime() - paymentDate.getTime(),TimeUnit.MILLISECONDS))/(60*24));
 		double AccruedIncomePerDay = amount/noOfDays;
+		System.out.println("noOfDays: "+noOfDays);
+		System.out.println("AccruedIncomePerDay: "+AccruedIncomePerDay);
 		return AccruedIncomePerDay;
 	}
 	
@@ -249,6 +254,7 @@ public class AccountingManagementController {
 		AccountingManagementController x = new AccountingManagementController();
 		double AccruedIncomePerDay = x.calculateAccruedIncomePerDay(paymentDate, dueDate, amount);
 		long noOfDays =((TimeUnit.MINUTES.convert(new java.util.Date().getTime() - paymentDate.getTime(),TimeUnit.MILLISECONDS))/(60*24));
+		System.out.println("noOfDays: "+noOfDays);
 		double AccuredIIncome = AccruedIncomePerDay*noOfDays;
 		return AccuredIIncome;
 	} 
