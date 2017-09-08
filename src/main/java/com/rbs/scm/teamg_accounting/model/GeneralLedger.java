@@ -25,7 +25,7 @@ private Date dueDate;
 		public Date getCurrentDate() {
 			return currentDate;
 		}
-		public void setCurrentDate(Date currentDate) {
+		public void setCurrentDate() {
 			LocalDate localDate = LocalDate.now();
 			Date date = java.sql.Date.valueOf(localDate);
 			System.out.println(date);

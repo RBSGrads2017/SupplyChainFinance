@@ -110,10 +110,10 @@ public class AccountingManagementService {
 			Statement statement = con.createStatement();
 			System.out.println("before select in viewGList");
 
-			/*ResultSet resultSet1 = statement.executeQuery("SELECT * FROM general_ledger");
+			ResultSet resultSet1 = statement.executeQuery("SELECT * FROM general_ledger");
 			while (resultSet1.next()) {
-				getdetails(resultSet1.getString("Account_Entry_No"));
-			}*/
+				getdetails(resultSet1.getString("account_entry_no"));
+			}
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM general_ledger");
 			System.out.println("after select in viewGList");
 			entries = new ArrayList<GeneralLedger>();
@@ -123,7 +123,7 @@ public class AccountingManagementService {
 				GeneralLedger gl = new GeneralLedger();
 				
 				gl.setAccountEntryNo(resultSet.getString("account_entry_no"));
-				//gl.setCurrentDate(resultSet.getDate("Current_Date"));
+				gl.setCurrentDate();
 				gl.setPaymentDate(resultSet.getDate("payment_date"));
 				gl.setTransactionNo(resultSet.getString("transaction_no"));
 				gl.setCustomerAccountNo(resultSet.getString("customer_account_no"));
@@ -221,7 +221,7 @@ public class AccountingManagementService {
 			while (resultSet.next()) {
 				GeneralLedger gl = new GeneralLedger();
 				gl.setAccountEntryNo(resultSet.getString("account_entry_no"));
-				//gl.setCurrentDate(resultSet.getDate("current_date"));
+				gl.setCurrentDate();
 				gl.setPaymentDate(resultSet.getDate("payment_date"));
 				gl.setTransactionNo(resultSet.getString("transaction_no"));
 				gl.setCustomerAccountNo(resultSet.getString("customer_account_no"));
@@ -538,10 +538,10 @@ public class AccountingManagementService {
 			Statement stmt = con.createStatement();
 
 			// Step 4 execute query
-			ResultSet rs = stmt.executeQuery("select code from \"sanc_countries\"");
+			ResultSet rs = stmt.executeQuery("select code from sanc_countries");
 			lstCountries = new ArrayList<String>();
 			while (rs.next()) {
-				String Country = rs.getString("countryName");
+				String Country = rs.getString("code");
 				lstCountries.add(Country);
 			}
 
@@ -578,7 +578,7 @@ public class AccountingManagementService {
 			ResultSet rs1 = stmt.executeQuery("select name from sanc_users");
 			lstNames = new ArrayList<String>();
 			while (rs1.next()) {
-				String name = rs1.getString("IndividualName");
+				String name = rs1.getString("name");
 				lstNames.add(name);
 			}
 
@@ -603,32 +603,42 @@ public class AccountingManagementService {
 	public void getdetails(String accountEntryNo) {
 
 		AccountingManagementController DateLogicObj = new AccountingManagementController();
-		DataBaseConnection dbobj = new DataBaseConnection();
+		dbobj1 = new DatabaseConnectionPostgreSQL();
+		//DataBaseConnection dbobj = new DataBaseConnection();
 		System.out.println("before try");
 		try {
 			System.out.println("before con");
-			Connection con = dbobj.getConnection();
+			Connection con = dbobj1.getConnection();
 			System.out.println("After con");
 			Statement statement = con.createStatement();
 			System.out.println("After statement");
 			ResultSet resultSet = statement
 					.executeQuery("SELECT payment_date, amount,due_date FROM general_ledger where account_entry_no= '"
-							+ accountEntryNo + "' and dr_cr ='Dr' ");
+							+ accountEntryNo + "'");
+			
+			
 			System.out.println("After select");
 			while (resultSet.next()) {
 				Date dueDate = resultSet.getDate("due_date");
 				System.out.println("before if");
+				System.out.println(new java.util.Date().getTime());
 				if (((TimeUnit.MINUTES.convert(dueDate.getTime() - new java.util.Date().getTime(),
 						TimeUnit.MILLISECONDS)) / (60 * 24)) >= 0) {
 					System.out.println("inside if");
+					System.out.println(resultSet.getDouble("amount"));
 					double accuredIncome = DateLogicObj.calculateAccruedIncome(resultSet.getDate("payment_date"),
 							resultSet.getDate("due_date"), resultSet.getDouble("amount"));
 					System.out.println("accrued income " + accuredIncome);
 					System.out.println("after calling function");
 					String newaccountEntryNo = accountEntryNo.substring(0, 7) + '3' + accountEntryNo.substring(8);
-					statement.executeQuery("update general_ledger set amount =" + accuredIncome
+					statement.executeUpdate("update general_ledger set amount =" + accuredIncome
 							+ " where account_entry_no= '" + newaccountEntryNo + "'");
 					System.out.println("after updating");
+					 String newaccountEntryNo1 = accountEntryNo.substring(0, 7) + '4' + accountEntryNo.substring(8);
+					 System.out.println("For IR:"+newaccountEntryNo1);
+					 statement.executeUpdate("update general_ledger set amount =" + accuredIncome
+								+ " where account_entry_no= '" + newaccountEntryNo1 + "'");
+						System.out.println("after updating");
 				}
 				break;
 			}
@@ -636,6 +646,14 @@ public class AccountingManagementService {
 
 		catch (Exception e) {
 			System.out.println("Exception !!  " + e.getMessage());
+		}
+		finally {
+
+			try {
+				dbobj1.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
