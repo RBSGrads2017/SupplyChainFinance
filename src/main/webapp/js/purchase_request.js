@@ -58,7 +58,7 @@ app.controller('purchase_request_Ctrl', function($scope,$location,$window,$http)
     $scope.search= function(){
         var buyer= $scope.Buyer;
         var seller= $scope.Seller;
-        $http.get("http://localhost:8090/scm/service/invoice").then(function(response){
+        $http.get("/service/invoice").then(function(response){
             console.log(response.data);
             $scope.table_data= response.data;
             //$scope.DiscountRate=3;
@@ -67,14 +67,14 @@ app.controller('purchase_request_Ctrl', function($scope,$location,$window,$http)
     }
     
     $scope.submitPR= function(){
-        $window.location.href = 'http://localhost:8090/scm/pages/teame_funding/porderlist_bankuser.html';
+        $window.location.href = '/pages/teame_funding/porderlist_bankuser.html';
         var Indata= {'Buyer': $scope.Buyer, 'Seller': $scope.Seller, 'DueDate': $scope.DueDate, 'PaymentDate': $scope.PaymentDate,'FinancingInstitution': $scope.FinancingInstitution,'ContractID': $scope.FinancingId, 'InvestedAmount': $scope.InvestedAmount, 'DiscountRate': $scope.DiscountRate, 'Fees': $scope.Fees=2000, 'NetPayable': $scope.NetPayable, 'InvoiceID': IDs};
-        $http.post("http://localhost:8090/scm/service/createPO",Indata).then(function(){
+        $http.post("/service/createPO",Indata).then(function(){
             
         });    
     }
     $scope.processPR=function(){
-//        $http.get("http://localhost:8090/scm/service/processPO").then(function(response){
+//        $http.get("/service/processPO").then(function(response){
 //            console.log(response.data);
 //            $scope.DiscountRate= response.data;
 //        });
@@ -83,15 +83,15 @@ app.controller('purchase_request_Ctrl', function($scope,$location,$window,$http)
     }
     
     $scope.accepted= function(){
-        $window.location.href = 'http://localhost:8090/scm/pages/teame_funding/ListofPO.html';
+        $window.location.href = '/pages/teame_funding/ListofPO.html';
     }
     
     $scope.rejected= function(){
-        $window.location.href = 'http://localhost:8090/scm/pages/teame_funding/ListofPO.html';
+        $window.location.href = '/pages/teame_funding/ListofPO.html';
     }
     
     $scope.loadPRSeller= function(){
-    	$http.get("http://localhost:8090/scm/service/invoice").then(function(response){
+    	$http.get("/service/invoice").then(function(response){
             console.log(response.data);
             $scope.table_data= response.data;
         });

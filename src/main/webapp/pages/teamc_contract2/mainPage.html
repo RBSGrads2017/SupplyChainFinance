@@ -420,7 +420,7 @@
     <script>
         var app = angular.module("MyApplication", []);
         var data = {};
-        var uri = "http://localhost:8080/scm/service/";
+        var uri = "/service/";
 
  		app.controller('ViewController', function($scope, $http){
             $http.get(uri + "contracts/draft/5").then(function(response){

@@ -16,7 +16,7 @@ public class ConsumeRestService {
 			Client client = Client.create();
 
 			WebResource webResource = client
-			   .resource("http://localhost:8080/scm/service/Stubs/GetInvoice?InvoiceId="+String.valueOf(invoiceId));
+			   .resource(Constants.BASE_PATH+"/service/Stubs/GetInvoice?InvoiceId="+String.valueOf(invoiceId));
 
 			ClientResponse response = webResource.accept("application/json")
 	                   .get(ClientResponse.class);
@@ -47,7 +47,7 @@ public class ConsumeRestService {
 			Client client = Client.create();
 
 			WebResource webResource = client
-			   .resource("http://localhost:8080/scm/service/Stubs/GetUser?userid="+userid);
+			   .resource(Constants.BASE_PATH+"/service/Stubs/GetUser?userid="+userid);
 
 			ClientResponse response = webResource.accept("application/json")
 	                   .get(ClientResponse.class);
@@ -80,7 +80,7 @@ public class ConsumeRestService {
 			Client client = Client.create();
 
 			WebResource webResource = client
-			   .resource("http://localhost:8080/scm/service/AML/checkAML/?userid="+userid+"&country="+country);
+			   .resource(Constants.BASE_PATH+"/service/AML/checkAML/?userid="+userid+"&country="+country);
 
 			ClientResponse response = webResource.accept("text/plain")
 	                   .get(ClientResponse.class);

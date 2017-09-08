@@ -13,7 +13,7 @@ public class RestApiCalls {
 	static Client client = ClientBuilder.newClient();
 	public static SelectedProposal getProposal(int proposalId) {
 		//final String getProposalURL = "http://localhost:8080/ContractManagement2/webapi/proposals/selected/" + String.valueOf(proposalId);
-		final String getProposalURL = "http://localhost:8080/scm/service/proposals";
+		final String getProposalURL = "/service/proposals";
 		WebTarget target = client.target(getProposalURL);
 		Builder builder = target.request(MediaType.APPLICATION_JSON);
 		Response response = builder.get();

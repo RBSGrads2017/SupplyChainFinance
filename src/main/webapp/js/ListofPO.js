@@ -3,7 +3,7 @@ var app = angular.module('list_of_PO', []);
 
 app.controller('listofPOSeller', function($scope, $http, $window, $location) {
     
-	$http.get("http://localhost:8090/scm/service/purchase_order_list_bank_user").then(function(response){
+	$http.get("/service/purchase_order_list_bank_user").then(function(response){
     	console.log(response.data);
     	
     });
@@ -27,13 +27,13 @@ app.controller('listofPOSeller', function($scope, $http, $window, $location) {
 //	    	console.log("couldnot load data");
 //	    });
 	    
-//	    $http.get("http://localhost:8090/scm/service/purchase_order_list_bank_user?username="+response.data.username).then(function(response){
+//	    $http.get("/service/purchase_order_list_bank_user?username="+response.data.username).then(function(response){
 //	    	console.log(response.data);
 //	    });
     }
     
     $scope.openOrder= function(){
-    	window.location.href="http://localhost:8090/scm/pages/teame_funding/purchase_request_review.html";
+    	window.location.href="/pages/teame_funding/purchase_request_review.html";
     }
     
 });

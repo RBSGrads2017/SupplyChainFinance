@@ -377,7 +377,7 @@ th, td {
 			
 			app.controller('myCtrl',[ "$scope", "$http", function($scope, $http){
 			     
-                $http.get("http://localhost:8089/scm/service/view/proposal/selected/"+qs).then(function(response){
+                $http.get("/service/view/proposal/selected/"+qs).then(function(response){
             		$scope.obj = response.data;
                     console.log($scope.obj);
                 });

@@ -364,7 +364,7 @@ th, td {
              
 			app.controller('myCtrl',[ "$scope", "$http", function($scope, $http){
 			
-                $http.get("http://localhost:8089/scm/service/view/proposals").then(function(response){
+                $http.get("/service/view/proposals").then(function(response){
             		$scope.obj = response.data;
                 });
 
@@ -377,7 +377,7 @@ th, td {
                             window.location = "ListResponses.html?id="+id;
                         }else if(stts=='c'){
                                 console.log("Entered into completed");
-                             $http.get("http://localhost:8089/scm/service/view/all/responses/"+id).then(function(response){
+                             $http.get("/service/view/all/responses/"+id).then(function(response){
                     $scope.obj = response.data;
 
                         $scope.listofresponses = response.data;

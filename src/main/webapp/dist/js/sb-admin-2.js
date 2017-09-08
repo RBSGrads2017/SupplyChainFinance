@@ -82,7 +82,7 @@ testSession.controller("TestController", ["$scope", "$http", "$window", function
     $scope.TestClick = function () {
 
         var promise = $http({
-            url: 'http://localhost:8089/scm/service/login/checkCredentials',
+            url: '/service/login/checkCredentials',
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' }
         });

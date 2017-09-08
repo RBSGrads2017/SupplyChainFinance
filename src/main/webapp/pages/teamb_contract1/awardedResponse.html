@@ -386,7 +386,7 @@ th, td {
                 console.log(sid);
                 //console.log(str);
             
-                $http.get("http://localhost:8089/scm/service/view/response/"+pid+"/"+sid).then(function(response){
+                $http.get("/service/view/response/"+pid+"/"+sid).then(function(response){
                     $scope.obj = response.data;
                    /* $scope.obj["response"].forEach(function(s){
 

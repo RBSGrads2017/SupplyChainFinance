@@ -4,7 +4,7 @@ app.controller("bodyController",function($scope,$location,$window,$http){
 	$scope.liborSelected= true;
 	$scope.uploadLIBOR= function(){
 		$scope.uploadlibor= true;
-		$http.get("http://localhost:8090/scm/service/fetchlibor").then(function(response){
+		$http.get("/service/fetchlibor").then(function(response){
 			$scope.libors=response.data;
 			console.log($scope.libors);
 		});
@@ -16,6 +16,6 @@ app.controller("bodyController",function($scope,$location,$window,$http){
 	{currency:"xyz libor", duration:"2 months", rate:"0.73%"}]*/
 	
 	$scope.redirect= function(){
-		 $window.location.href = 'http://localhost:8090/scm/pages/teame_funding/porderlist_bankuser.html';
+		 $window.location.href = '/pages/teame_funding/porderlist_bankuser.html';
 	}
 });

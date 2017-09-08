@@ -2,4 +2,4 @@
  * 
  */
 
-const  BASE_PATH = "http://localhost:8080/scm";
+const  BASE_PATH = "";

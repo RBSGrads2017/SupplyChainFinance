@@ -391,7 +391,7 @@ public class LoginServices {
 		//String basePath = request.getScheme()+request.getRemoteHost()+request.getpo;
 		System.out.println("the random string generated is"+randomString);
 		
-		String messageToSend = "Hi!! To reset the password kindly click the link. \n" + "\n<a href='http://localhost:8089/scm/pages/teama_login/ChangePassword.htm?"+randomString+"'>Reset password</a>";
+		String messageToSend = "Hi!! To reset the password kindly click the link. \n" + "\n<a href='/pages/teama_login/ChangePassword.htm?"+randomString+"'>Reset password</a>";
 		
 		System.out.print(customerEmail + " this is the email where i have to send the message");
 

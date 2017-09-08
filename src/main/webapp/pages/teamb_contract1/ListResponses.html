@@ -384,7 +384,7 @@ th, td {
 
                 //console.log(str);
             
-                $http.get("http://localhost:8089/scm/service/view/all/responses/"+pid).then(function(response){
+                $http.get("/service/view/all/responses/"+pid).then(function(response){
                     $scope.obj = response.data;
                 });
 
@@ -401,7 +401,7 @@ th, td {
 
 
                      window.alert("Proposal Inactivated!!!");
-                     $http.get("http://localhost:8089/scm/service/view/proposal/inactivate/"+pid).then(function(response){
+                     $http.get("/service/view/proposal/inactivate/"+pid).then(function(response){
                     $scope.obj = response.data;
                 });
                      window.location = "ListResponses.html?pid="+pid;
