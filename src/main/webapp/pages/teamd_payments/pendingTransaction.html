@@ -29,7 +29,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
   	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-
+	<script src="../../js/commonResources.js"></script>
+    
   <!-- Angular Material Library -->
   	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     
@@ -116,7 +117,6 @@
 
             table, th, td {
                 text-align: center;
-                border: 1px solid black;
                 background-color: white;
                 border-radius: 20px;
             }
@@ -301,14 +301,14 @@
             height:70%; 
             border-radius: 20px; 
             text-align: center; 
-            background-color:#555">
+            background-color:#cccccc">
 
              <div class="row">
-                <div class="col-sm-12" style="background-color:#337ab7; b
+                <div class="col-sm-12" style="background-color:#7E7979; b
                 order-radius: 20px 20px 0px 0px;">
                 <br><br>
                     <p style="font-size: 300%; 
-                    color: white">
+                    color: black">
                     <b>PENDING TRANSACTIONS</b></p>
                 </div>
             </div>
@@ -400,10 +400,10 @@
             <script src="../../dist/js/sb-admin-2.js"></script>
 
 			<script>
-			 var app = angular.module('PendingTransaction', ['ngMaterial']);
+			 var app = angular.module('PendingTransaction', []);
 			app.controller('PendingTransactionController', function($scope, $http){
 			
-                $http.get("http://localhost:8089/scm/service/Transactions/getAllPendingTransactions").then(function(response){
+                $http.get(BASE_PATH+"/service/Transactions/getAllPendingTransactions").then(function(response){
             		$scope.transactionArray = response.data;        
                 });
                 
@@ -412,7 +412,7 @@
 				
 					$http({
 			            method: 'POST',
-			            url: 'http://localhost:8089/scm/service/Transactions/setCurrentTransaction',
+			            url: BASE_PATH+'/service/Transactions/setCurrentTransaction',
 			            headers: {'Content-Type': 'text/plain'},
 			            data: {
 							trns_id : transaction_id

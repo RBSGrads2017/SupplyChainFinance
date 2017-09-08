@@ -14,7 +14,7 @@ public class SQLConnection {
 			Class.forName("org.postgresql.Driver");  
 			
 			Connection con=DriverManager.getConnection(  
-			"jdbc:postgresql://ec2-23-21-85-76.compute-1.amazonaws.com:5432/d11rrktmmgd00t?sslmode=require","liybotsvyembvp","e40dd8cba8730c3a7b167d3648acbb0d442bdef9c92cb9062110193cf126b37a");  
+					"jdbc:postgresql://ec2-46-137-97-169.eu-west-1.compute.amazonaws.com:5432/dcp74dndul9afj?sslmode=require","yzqfbztsbnnnoi","a02372528e43fe5384947fdc13d247f85cc9da2e6925e64f717355434d941c4d");  
 			 
 			return con;
 		} catch(Exception e) { 
