@@ -34,6 +34,7 @@
 
   <!-- Angular Material Library -->
   	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="../../js/commonResources.js"></script>
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -482,7 +483,7 @@
 			
 				
 				
-                $http.get("http://localhost:8089/scm/service/Transactions/getAMLFailures").then(function(response){
+                $http.get(BASE_PATH+"/service/Transactions/getAMLFailures").then(function(response){
             		$scope.trnArray = response.data;
                 });
                 
@@ -497,7 +498,7 @@
                 $scope.reject = function(){
 					console.log("Form being submitted");
 				
-                	$http.get("http://localhost:8089/scm/service/Transactions/rejectAML?TransactionId=" + $scope.dialoginp).then(function(response){
+                	$http.get(BASE_PATH+"/service/Transactions/rejectAML?TransactionId=" + $scope.dialoginp).then(function(response){
                 		console.log(response);
                 	});
                 }
@@ -505,7 +506,7 @@
                 $scope.override = function(){
 					console.log("Form being submitted");
 				
-                	$http.get("http://localhost:8089/scm/service/Transactions/approveAML?TransactionId=" + $scope.dialoginp).then(function(response){
+                	$http.get(BASE_PATH+"/service/Transactions/approveAML?TransactionId=" + $scope.dialoginp).then(function(response){
                 		console.log(response);
                 	});
                 }

@@ -83,8 +83,11 @@ public class MainController {
     @Path("/initTransaction")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String postInititateTransaction(String data) throws ParseException, JSONException{
+    public String postInititateTransaction(String data,@Context HttpServletRequest request,@Context HttpServletResponse response) throws ParseException, JSONException{
     	
+    	HttpSession ses = request.getSession(false);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
     	JSONObject newObj = new JSONObject(data);
     	String senderId = newObj.getString("sender");
     	double amount = newObj.getDouble("amount");
@@ -119,8 +122,11 @@ public class MainController {
     @GET 
     @Path("/getAllTransaction")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllTransactions()
+    public String getAllTransactions(@Context HttpServletRequest request,@Context HttpServletResponse response) throws JSONException
     {
+    	HttpSession ses = request.getSession(false);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
     	Payment pay = new Payment();
     	JSONArray resultArray =  pay.getAllTransactions();
     	return resultArray.toString();
@@ -129,7 +135,7 @@ public class MainController {
     @GET 
     @Path("/getAllPendingTransactions")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllPendingTransactions()
+    public String getAllPendingTransactions(@Context HttpServletRequest request,@Context HttpServletResponse response)
     {
     	Payment pay = new Payment();
     	JSONArray resultArray =  pay.getAllPendingTransactions();
@@ -141,10 +147,13 @@ public class MainController {
     @GET 
     @Path("/getAllMyDebits")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllMyDebits()
+    public String getAllMyDebits(@Context HttpServletRequest request,@Context HttpServletResponse response) throws JSONException
     {
+    	HttpSession ses = request.getSession(false);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
     	Payment pay = new Payment();
-    	String userid = "123";
+    	String userid = (String)sesObj.get("userId");
     	
     	JSONArray resultArray =  pay.getAllMyDebits(userid);
     	return resultArray.toString();
@@ -153,10 +162,13 @@ public class MainController {
     @GET 
     @Path("/getAllMyCredits")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllMyCredits()
+    public String getAllMyCredits(@Context HttpServletRequest request,@Context HttpServletResponse response) throws JSONException
     {
+    	HttpSession ses = request.getSession(false);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
     	Payment pay = new Payment();
-    	String userid = "123";
+    	String userid = (String)sesObj.get("userId");
     	
     	JSONArray resultArray =  pay.getAllMyCredits(userid);
     	return resultArray.toString();
@@ -166,8 +178,11 @@ public class MainController {
     @GET 
     @Path("/getTransaction")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getTransactions(@QueryParam("TransactionId")int txnId)
+    public String getTransactions(@QueryParam("TransactionId")int txnId,@Context HttpServletRequest request,@Context HttpServletResponse response) throws JSONException
     {
+    	HttpSession ses = request.getSession(false);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
     	Payment pay = new Payment();
     	JSONObject jsonObj =  pay.getTransaction(txnId);
     	return jsonObj.toString();
@@ -178,11 +193,14 @@ public class MainController {
     @Path("/setCurrentTransaction")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String setCurrentTransaction(String data,@Context HttpServletRequest request) throws JSONException
+    public String setCurrentTransaction(String data,@Context HttpServletRequest request,@Context HttpServletResponse response) throws JSONException
     {
-    	HttpSession ses = request.getSession();
+    	HttpSession ses = request.getSession(false);
     	
     	JSONObject newObj = new JSONObject(data);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
+    	
     	String transactionId = newObj.getString("trns_id");
     	Payment pay = new Payment();
     	System.out.println(transactionId);
@@ -195,7 +213,7 @@ public class MainController {
     @GET
     @Path("/getCurrentTransaction")
     @Produces(MediaType.TEXT_HTML)
-    public String getCurrentTransaction()
+    public String getCurrentTransaction(@Context HttpServletRequest request,@Context HttpServletResponse response)
     {
     	
     	HttpSession ses = request.getSession();
@@ -209,8 +227,11 @@ public class MainController {
     @Path("/submitSwiftMessage")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String submitSwiftMessage(String data) throws JSONException
+    public String submitSwiftMessage(String data,@Context HttpServletRequest request,@Context HttpServletResponse response) throws JSONException
     {
+    	HttpSession ses = request.getSession(false);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
     	System.out.println("Swift message submitted");
     	JSONObject newObj = new JSONObject(data);
     	String messageCode = newObj.getString("messageCode");
@@ -244,8 +265,11 @@ public class MainController {
     @GET
     @Path("/getAMLFailures")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getAMLFailures() throws JSONException
+    public String getAMLFailures(@Context HttpServletRequest request,@Context HttpServletResponse response) throws JSONException
     {
+    	HttpSession ses = request.getSession(false);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
     	Payment pay = new Payment();
     	
     	
@@ -257,9 +281,11 @@ public class MainController {
     @GET
     @Path("/approveAML")
     @Produces(MediaType.TEXT_PLAIN)
-    public String approveAML(@QueryParam("TransactionId")int txnId)
+    public String approveAML(@QueryParam("TransactionId")int txnId,@Context HttpServletRequest request,@Context HttpServletResponse response) throws JSONException
     {
-
+    	HttpSession ses = request.getSession(false);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
     	Payment pay = new Payment();
     	if(pay.approveAML(txnId))
     	{
@@ -276,9 +302,11 @@ public class MainController {
     @GET
     @Path("/rejectAML")
     @Produces(MediaType.TEXT_PLAIN)
-    public String rejectAML(@QueryParam("TransactionId")int txnId)
+    public String rejectAML(@QueryParam("TransactionId")int txnId,@Context HttpServletRequest request,@Context HttpServletResponse response) throws JSONException
     {
-
+    	HttpSession ses = request.getSession(false);
+		JSONObject sesObj = new JSONObject((String)ses.getAttribute("sessionObj"));
+		
     	Payment pay = new Payment();
     	if(pay.rejectAML(txnId))
     	{

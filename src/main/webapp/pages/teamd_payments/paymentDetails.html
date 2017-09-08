@@ -31,7 +31,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
   	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-
+	<script src="../../js/commonResources.js"></script>
+    
   <!-- Angular Material Library -->
   	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     
@@ -425,12 +426,12 @@
 			var app = angular.module('CustTransaction', []);
 			app.controller('Custctrl', function($scope, $http){
 			
-                $http.get("http://localhost:8089/scm/service/Transactions/getAllMyCredits").then(function(response){
+                $http.get(BASE_PATH+"/service/Transactions/getAllMyCredits").then(function(response){
             		$scope.creditArray = response.data;   
             		console.log(response);
                 });
                 
-                $http.get("http://localhost:8089/scm/service/Transactions/getAllMyDebits").then(function(response){
+                $http.get(BASE_PATH+"/service/Transactions/getAllMyDebits").then(function(response){
             		$scope.debitArray = response.data;
             		console.log(response);
                 });
