@@ -58,38 +58,46 @@ app.controller('purchase_request_Ctrl', function($scope,$location,$window,$http)
     $scope.search= function(){
         var buyer= $scope.Buyer;
         var seller= $scope.Seller;
-        $http.get("http://localhost:8181/jersey-heroku-webapp/webapi/invoice").then(function(response){
+        $http.get("http://localhost:8090/scm/service/invoice").then(function(response){
             console.log(response.data);
             $scope.table_data= response.data;
-            $scope.DiscountRate=3;
+            //$scope.DiscountRate=3;
+            $scope.BCR=650;
         });
     }
     
     $scope.submitPR= function(){
-        $window.location.href = 'http://localhost:8181/jersey-heroku-webapp/pages/ListofPO.html';
+        $window.location.href = 'http://localhost:8090/scm/pages/teame_funding/porderlist_bankuser.html';
         var Indata= {'Buyer': $scope.Buyer, 'Seller': $scope.Seller, 'DueDate': $scope.DueDate, 'PaymentDate': $scope.PaymentDate,'FinancingInstitution': $scope.FinancingInstitution,'ContractID': $scope.FinancingId, 'InvestedAmount': $scope.InvestedAmount, 'DiscountRate': $scope.DiscountRate, 'Fees': $scope.Fees=2000, 'NetPayable': $scope.NetPayable, 'InvoiceID': IDs};
-        $http.post("http://localhost:8181/jersey-heroku-webapp/webapi/createPO",Indata).then(function(){
+        $http.post("http://localhost:8090/scm/service/createPO",Indata).then(function(){
             
         });    
     }
     $scope.processPR=function(){
-        $http.get("http://localhost:8181/jersey-heroku-webapp/webapi/processPO").then(function(response){
-            console.log(response.data);
-            $scope.DiscountRate= response.data;
-        });
+//        $http.get("http://localhost:8090/scm/service/processPO").then(function(response){
+//            console.log(response.data);
+//            $scope.DiscountRate= response.data;
+//        });
+    	$scope.DiscountRate="3";
+    	$scope.NetPayable=parseInt($scope.Fees) + (((100-parseInt($scope.DiscountRate))/100)* parseInt($scope.InvestedAmount));
     }
     
     $scope.accepted= function(){
-        $window.location.href = 'http://localhost:8181/jersey-heroku-webapp/pages/SorryPage.html';
+        $window.location.href = 'http://localhost:8090/scm/pages/teame_funding/ListofPO.html';
     }
     
     $scope.rejected= function(){
-        $window.location.href = 'http://localhost:8181/jersey-heroku-webapp/pages/SorryPage.html';
+        $window.location.href = 'http://localhost:8090/scm/pages/teame_funding/ListofPO.html';
     }
     
     $scope.loadPRSeller= function(){
-        $http.get("").then(function(response){
+    	$http.get("http://localhost:8090/scm/service/invoice").then(function(response){
             console.log(response.data);
+            $scope.table_data= response.data;
         });
+    	$scope.BCR= 700;
+    	$scope.DueDate="2017-09-25";
+    	$scope.PaymentDate="2017-09-22";
+    	$scope.DiscountRate="6";
     }
 });

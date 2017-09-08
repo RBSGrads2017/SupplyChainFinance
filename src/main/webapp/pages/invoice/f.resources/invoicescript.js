@@ -14,6 +14,14 @@ function myFunction() {
    			        x.style.display = 'none';
    			    }
   	}
+   function myFunction2() {
+		    var x = document.getElementById('demo2');
+		    if (x.style.display === 'none') {
+		        x.style.display = 'block';
+		    } else {
+		        x.style.display = 'none';
+		    }
+}
  
   function toggleview(){
 	  var x = document.getElementById('invoicelist');
@@ -33,6 +41,20 @@ function myFunction() {
 	  var x = document.getElementById('invoicelist');
 	  var y = document.getElementById('view');
 	  var z = document.getElementById('view1');
+		    if (z.style.display === 'none') {
+		        x.style.display = 'none';
+		        y.style.display = 'none';
+		        z.style.display = 'block';
+		    } else {
+		    	x.style.display = 'block';
+		        y.style.display = 'none';
+		        z.style.display = 'none';
+		    }
+}
+  function toggleview3(){
+	  var x = document.getElementById('invoicelist');
+	  var y = document.getElementById('view');
+	  var z = document.getElementById('view3');
 		    if (z.style.display === 'none') {
 		        x.style.display = 'none';
 		        y.style.display = 'none';
@@ -91,9 +113,6 @@ function myFunction() {
 		.when('/InvoiceCreate', {
 		templateUrl : 'InvoiceCreate.html'
 		})
-		.when('/InvoiceView', {
-		templateUrl : 'InvoiceView.html'
-		})
 		.when('/InvoiceUpdate', {
 		templateUrl : 'InvoiceUpdate.html'
 		})
@@ -111,7 +130,9 @@ function myFunction() {
 	});
 
 	invoiceApp.controller('mainController', function($scope, $http){
-		$scope.SessionUsername  =  "";
+		/*
+		 * 
+		 * $scope.SessionUsername  =  "";
 	    $scope.SessionUsertype  =  ""; 
 	   
 	    var promise = $http({
@@ -134,8 +155,13 @@ function myFunction() {
 	    }, function(response) {
 	    	console.log("couldnot load data");
 	    });
+		*
+		*/
 		
-		
+		$scope.gotoland=function() {
+
+            window.location = "#/InvoiceLanding";
+    	}
 		
         $scope.deletefunc = function () {
         console.log("on delete function ");
@@ -244,8 +270,11 @@ function myFunction() {
     			$http.post('http://localhost:8181/scm/invoice/searchInvoice?invoiceID='+invoiceNo).success(function (data) {
     				console.log( "in search page after service");
     				$scope.invoice = data;
+    				if($scope.invoice["invoiceID"]===0)
+    					{alert("no Invoice found with this BillBook No");}
+    				else{
                     console.log($scope.invoice);
-                    window.location = "#/InvoiceSearch";
+                    window.location = "#/InvoiceSearch";}
                 });
     			/*  view product  */
                 $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + invoiceNo)
@@ -264,6 +293,11 @@ function myFunction() {
              $http.post('http://localhost:8181/scm/invoice/searchInvoice?billBookNo='+$scope.billBookNo+'&sellerid='+$scope.sessionid).success(function(data) {
                  console.log("in updat after Search http");
                  $scope.invoice = data;
+ 				if($scope.invoice["invoiceID"]===0)
+ 					{alert("no Invoice found with this BillBook No");
+ 					$scope.invoice = null;
+ 					
+ 					}
                  console.log($scope.invoice);
                  $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' +$scope.invoice.invoiceID)
                  .success(function(data) {
@@ -276,7 +310,7 @@ function myFunction() {
                          console.log($scope.productlist);
                      });
                  });
-                 window.location = "#/InvoiceUpdate";
+                
              });
              /*  view product  */
              
@@ -353,9 +387,10 @@ function myFunction() {
     	}
         $scope.deleteresultfunc = function () {
     		console.log('go to delete result page');
-    		 $http.post('http://localhost:8181/scm/invoice/deleteInvoice?invoiceID=' + $scope.invoice.invoiceID)
+    		 $http.post('http://localhost:8181/scm/invoice/deleteInvoice?invoiceID=' + $scope.invoice.invoiceID+'&sellerID='+$scope.sessionid)
     			.success(function (data) {
                     $scope.message = data;
+                    alert($scope.message.message);
                     console.log(data);
                     });
             }
@@ -371,30 +406,57 @@ function myFunction() {
 
 		$scope.receivedInvoicefunc = function () {
 			console.log('inside received invoice');
-      		$http.post('http://localhost:8181/scm/invoice/ReceivedInvoices?sellerID=' + $scope.sellerID)
+      		$http.post('http://localhost:8181/scm/invoice/ReceivedInvoices?buyerID=' + $scope.sessionid)
 			.success(function (data) {
 				console.log("inside http");
                 $scope.invoicelist = data;
-                console.log(data);
+                console.log( $scope.invoicelist);
                 });
       		$scope.message="Click to view received invoices";
+      		window.location = "#/InvoiceLanding";
+        }
+		$scope.viewapproved = function () {
+			console.log('inside view approved invoice');
+      		$http.post('http://localhost:8181/scm/invoice/approvedInvoices?sellerID=' + $scope.sessionid)
+			.success(function (data) {
+				console.log("after the req is hit");
+                $scope.invoicelist2 = data;
+                console.log( $scope.invoicelist2);
+                });
+      		$scope.approve="Click to view Approved invoices";
       		window.location = "#/InvoiceLanding";
         }
 		
 		$scope.sentInvoicefunc = function () {
 			console.log('inside sent invoice');
-      		$http.post('http://localhost:8181/scm/invoice/SentInvoices?sellerID=' + $scope.sellerID)
+      		$http.post('http://localhost:8181/scm/invoice/SentInvoices?sellerID=' + $scope.sessionid)
 			.success(function (data) {
 				console.log("inside http");
                 $scope.invoicelist1 = data;
-                console.log(data);
+                console.log($scope.invoicelist1);
                 });
       		$scope.message1="Click to view sent invoices";
       		window.location = "#/InvoiceLanding";
         }
-		$scope.viewfunc = function (invoiceNo) {
+		$scope.viewfunc = function (billbookNo,invoiceNo) {
 			console.log('inside view invoice');
-			$http.post('http://localhost:8181/scm/invoice/searchInvoice?invoiceID='+invoiceNo).success(function (data) {
+			$http.post('http://localhost:8181/scm/invoice/searchInvoicebill?billBookNo='+billbookNo).success(function(data) {
+				console.log( "in search page after service");
+				$scope.invoice = data;
+                console.log($scope.invoice);
+            });
+			/*  view product  */
+            $http.post('http://localhost:8181/scm/invoice/viewProduct/?id=' + invoiceNo)
+			.success(function (data) {
+                $scope.productslist = data;
+                console.log($scope.productslist);
+            });
+            window.location = "#/InvoiceLanding";
+	}
+		
+		$scope.viewfunc1 = function (billbookNo,invoiceNo) {
+			console.log('inside view invoice');
+			$http.post('http://localhost:8181/scm/invoice/searchInvoicebill?billBookNo='+billbookNo).success(function(data) {
 				console.log( "in search page after service");
 				$scope.invoice = data;
                 console.log($scope.invoice);
@@ -405,6 +467,17 @@ function myFunction() {
 			.success(function (data) {
                 $scope.productslist = data;
                 console.log($scope.productslist);
+            });
+            window.location = "#/InvoiceLanding";
+	}
+		$scope.availfinance = function (invoiceNo) {
+			console.log('inside avail finance invoice');
+			$http.post('http://localhost:8181/scm/invoice/availFinance?invoiceID='+invoiceNo).success(function (data) {
+				console.log( "in avail finance page after service");
+				$scope.status = "You have Requested for Availing Finance for invoice no:"+invoiceNo;
+                console.log($scope.status);  
+                alert($scope.status);
+                
             });
             window.location = "#/InvoiceLanding";
 	}

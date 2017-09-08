@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.rbs.scm.teame_funding.controller.db.FundingDAOimpl;
 import com.rbs.scm.teame_funding.controller.services.Fetch;
-import com.rbs.scm.teame_funding.dao.Business;
+//import com.rbs.scm.teame_funding.dao.Business;
 import com.rbs.scm.teame_funding.model.pojos.Invoice;
 import com.rbs.scm.teame_funding.model.pojos.Libor;
 import com.rbs.scm.teame_funding.model.pojos.PurchaseOrder;
@@ -54,7 +54,7 @@ public class FetchLibor {
 		Libor l=new Libor();
 		l.setCurrency(Currency);
 		l.setDuration(Duration);
-		l.setRate(Double.parseDouble(Rate));
+		l.setRate(Rate);
 		db.insertLIBOR(l);
 		return true;
 	}
@@ -128,7 +128,7 @@ public class FetchLibor {
 		return  f.getPOList(null);
 	}
 	
-	@Path("processPO")
+	/*@Path("processPO")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getProcessData(@QueryParam("Currency") String currency, @QueryParam("Dates") String Dates){
@@ -136,7 +136,7 @@ public class FetchLibor {
 		b.setDiscount_rate(currency, Dates);
 		return Double.toString(b.getDiscount_rate());
 		
-	}
+	}*/
 	
 	@Path("createPO")
 	@POST

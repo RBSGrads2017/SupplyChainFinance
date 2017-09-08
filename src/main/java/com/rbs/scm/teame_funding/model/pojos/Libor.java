@@ -3,7 +3,7 @@ package com.rbs.scm.teame_funding.model.pojos;
 public class Libor {
     private String currency;
     private String duration;
-    private Double rate;
+    private String rate;
    
     public String getCurrency() {
         return currency;
@@ -13,12 +13,12 @@ public class Libor {
         this.currency = currency;
     }
    
-    public Double getRate() {
+    public String getRate() {
         return rate;
     }
    
-    public void setRate(Double rate) {
-        this.rate = rate;
+    public void setRate(String string) {
+        this.rate = string;
     }
 
     public String getDuration() {
